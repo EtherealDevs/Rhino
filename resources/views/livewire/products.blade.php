@@ -166,43 +166,6 @@
                                     <span class="">Combos</span>
                                 </a>
                             </div>
-                            <div>
-                                <a href=""
-                                    class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-blue-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
-                                    <span class="">Users</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
-                            Colecciones<span class="text-teal-600">.</span>
-                        </h2>
-
-                        <div class="flex flex-col space-y-2 space-x-10">
-                            <div>
-                                <a href=""
-                                    class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-blue-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
-                                    <span class="">Street</span>
-                                </a>
-                            </div>
-                            <div>
-                                <a href=""
-                                    class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-blue-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
-                                    <span class="">Verano</span>
-                                </a>
-                            </div>
-                            <div>
-                                <a href=""
-                                    class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-blue-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
-                                    <span class="">Elegance</span>
-                                </a>
-                            </div>
-                            <div>
-                                <a href=""
-                                    class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-blue-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
-                                    <span class="">Invierno</span>
-                                </a>
-                            </div>
                         </div>
 
                         <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">

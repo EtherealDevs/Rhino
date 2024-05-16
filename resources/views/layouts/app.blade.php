@@ -27,6 +27,7 @@
                 @yield('content')
             </main>
 
+            @livewire('banner')
             @livewire('footer')
         </div>
 

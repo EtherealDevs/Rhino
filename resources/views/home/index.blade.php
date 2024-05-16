@@ -71,24 +71,70 @@
 
                     <div class="w-full flex justify-center">
                         <!-- component -->
-                        <div
-                            class="relative flex w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+
+                        <div class="grid grid-cols-3 gap-8">
                             <div
-                                class="relative mx-3 mt-3 h-32 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
-                                <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
-                                    class="h-full w-full object-cover" />
+                                class="relative flex w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                                <div
+                                    class="relative mx-3 mt-3 h-32 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
+                                        class="h-full w-full object-cover" />
+                                </div>
+                                <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-6">
+                                    <div class=" flex items-center justify-between">
+                                        <p
+                                            class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
+                                            Apple AirPods
+                                        </p>
+                                        <p
+                                            class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
+                                            $95.00
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-6">
-                                <div class=" flex items-center justify-between">
-                                    <p class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
-                                        Apple AirPods
-                                    </p>
-                                    <p class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
-                                        $95.00
-                                    </p>
+                            <div
+                                class="relative flex w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                                <div
+                                    class="relative mx-3 mt-3 h-32 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
+                                        class="h-full w-full object-cover" />
+                                </div>
+                                <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-6">
+                                    <div class=" flex items-center justify-between">
+                                        <p
+                                            class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
+                                            Apple AirPods
+                                        </p>
+                                        <p
+                                            class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
+                                            $95.00
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="relative flex w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                                <div
+                                    class="relative mx-3 mt-3 h-32 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
+                                    <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
+                                        class="h-full w-full object-cover" />
+                                </div>
+                                <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-6">
+                                    <div class=" flex items-center justify-between">
+                                        <p
+                                            class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
+                                            Apple AirPods
+                                        </p>
+                                        <p
+                                            class="block font-sans text-base font-medium leading-relaxed text-white antialiased">
+                                            $95.00
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -112,12 +158,12 @@
                             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                             <img :src="image" alt="Image"
                                 class="absolute inset-0  h-full rounded-3xl w-full object-cover opacity-70" />
-                            <figcaption class="absolute inset-x-0 bottom-1 z-20 w-96 mx-auto p-4 font-light text-center mb-24">
-                                <p class="text-2xl mb-12">
+                            <figcaption class="absolute inset-x-0 bottom-1 z-10 w-96 mx-auto p-4 font-light text-center mb-24">
+                                <p class="text-3xl text-white mb-12">
                                     <span class="font-extrabold">
                                         Elige tu coleccion
                                     </span> <br>
-                                    y ahorra en Promociones
+                                    y ahorra en <span class="text-blue-600 font-black">Promociones</span> 
                                 </p>
     
                                 <button class="bg-black rounded-full mb-12 p-2 px-4">

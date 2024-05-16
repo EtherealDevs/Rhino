@@ -26,6 +26,12 @@ Route::get('/cart', function () {
     return view('cart.index');
 });
 
+
+/* Rutas de ADMIN */
+Route::get('/admin', function () {
+    return view('admin.index');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
