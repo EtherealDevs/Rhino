@@ -16,14 +16,9 @@ return new class extends Migration
             
             $table->string('name');
             $table->string('slug');
-            $table->string('description');
-            $table->float('price');
 
-            $table->unsignedBigInteger('subcategory_id');
-            $table->foreign('subcategory_id')->references('id')->on('subcategories');
-
-            $table->unsignedBigInteger('brand_id');
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreignId('category_id')->constrained();
+            // $table->foreignId('brand_id')->constrained();
 
             $table->timestamps();
         });

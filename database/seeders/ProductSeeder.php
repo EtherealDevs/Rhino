@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +14,10 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Product::create([
+            'name' => 'Camisa a Rayas',
+            'slug' => 'camisa-a-rayas',
+            'category_id' => Category::where('name', '=', 'Camisas')->first()->id
+        ]);
     }
 }

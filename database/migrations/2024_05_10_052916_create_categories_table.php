@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('image');
 
+            $table->foreignId('parent_id')->nullable()->references('id')->on('categories');
+
             $table->timestamps();
         });
     }
