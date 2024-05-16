@@ -28,9 +28,9 @@ Route::get('/cart', function () {
 
 
 /* Rutas de ADMIN */
-Route::get('/admin', function () {
-    return view('admin.index');
-});
+// Route::get('/admin', function () {
+//     return view('admin.index');
+// });
 
 Route::middleware([
     'auth:sanctum',
