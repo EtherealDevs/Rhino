@@ -14,49 +14,11 @@
                     <span class="text-sm">Volver</span>
                 </a>
             </li>
-            <span class="text-gray-400 font-bold">Administrar</span>
             <li class="mb-1 group">
                 <a href="/client"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-home-2-line mr-3 text-lg"></i>
                     <span class="text-sm">Inicio</span>
-                </a>
-            </li>
-            <li class="mb-1 group">
-                <a href=""
-                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='bx bx-list-ul mr-3 text-lg'></i>
-                    <span class="text-sm">Activities</span>
-                </a>
-            </li>
-            <span class="text-gray-400 font-bold"> Compras y Pedidos</span>
-            <li class="mb-1 group">
-                <a href="/orders"
-                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
-                    <span class="text-sm">Pedidos</span>
-                </a>
-            </li>
-            <li class="mb-1 group">
-                <a href="/remitos"
-                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='bx bx-archive mr-3 text-lg'></i>
-                    <span class="text-sm">Remitos</span>
-                </a>
-            </li>
-            <li class="mb-1 group">
-                <a href="/shop"
-                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-barcode-box-fill mr-3 text-lg'></i>
-                    <span class="text-sm">Productos</span>
-                </a>
-            </li>
-            <span class="text-gray-400 font-bold">Gestion de Tienda</span>
-            <li class="mb-1 group">
-                <a href="/myshop"
-                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class="ri-store-2-line mr-3 text-lg"></i>
-                    <span class="text-sm">Mi Tienda</span>
                 </a>
             </li>
             <li class="mb-1 group">
@@ -68,6 +30,73 @@
                         class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">5</span>
                 </a>
             </li>
+            <span class="text-gray-400 font-bold">Tienda</span>
+            <li class="mb-1 group">
+                <a href="/orders"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <span class="text-sm">Pedidos</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="/remitos"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='bx bx-archive mr-3 text-lg'></i>
+                    <span class="text-sm">Ventas</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="/shop"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='ri-barcode-box-fill mr-3 text-lg'></i>
+                    <span class="text-sm">Promociones</span>
+                </a>
+            </li>
+            <span class="text-gray-400 font-bold">Administrar</span>
+            <li class="mb-1 group">
+                <a href="/orders"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <span class="text-sm">Productos</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="/orders"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <span class="text-sm">Combos</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="/remitos"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='bx bx-archive mr-3 text-lg'></i>
+                    <span class="text-sm">Categorias</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="/shop"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='ri-barcode-box-fill mr-3 text-lg'></i>
+                    <span class="text-sm">Subcategorias</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="/orders"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <span class="text-sm">Stock</span>
+                </a>
+            </li>
+            <span class="text-gray-400 font-bold">Gestion de Tienda</span>
+            <li class="mb-1 group">
+                <a href="/myshop"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-blue-800 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class="ri-store-2-line mr-3 text-lg"></i>
+                    <span class="text-sm">Mi Tienda</span>
+                </a>
+            </li>
+            
         </ul>
     </div>
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>

@@ -19,6 +19,10 @@
     </head>
     <body class="font-sans antialiased">
 
+        <div id="contain-loader" class="fixed  z-50 flex h-screen w-screen backdrop-blur-2xl justify-center items-center bg-black/25">
+            <div id="loader" class="h-18  mx-auto mt-12"></div>
+        </div>
+        
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation')
 
