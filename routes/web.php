@@ -26,6 +26,9 @@ Route::get('/cart', function () {
     return view('cart.index');
 });
 
+Route::get('/productshow', function () {
+    return view('products.show');
+});
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {
