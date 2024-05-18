@@ -101,7 +101,7 @@
                 <div class="grid grid-cols-2 justify-between ">
                     <div class="justify-start">
                        
-                            <h2 class="text-gray-900 font-bold text-2xl leading-8 my-1">Bienvenido </h2>
+                            <h2 class="text-gray-900 font-encode font-bold text-2xl leading-8 my-1">Bienvenido </h2>
                             <h3 class="text-gray-600 font-lg text-semibold leading-6"></h3>
                             <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion</p>
                        
@@ -232,7 +232,7 @@
             <div class="p-6 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-lg rounded-xl">
                 <div class="max-w-2xl mx-auto">
 
-                    <h2 class="font-encode font-bold text-xl mb-3">Remitos Pendientes</h2>
+                    <h2 class="font-encode font-bold text-xl mb-3">Pedidos</h2>
                     
 
                     <p class="mt-5">Deslizar para ver todos los Remitos Adeudados
@@ -245,7 +245,7 @@
 
             <div class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-xl lg:col-span-1">
                 <div class="flex justify-between mb-4 items-start">
-                    <h2 class="font-bold text-xl">Mi Tienda en el Mapa</h2>
+                    <h2 class="font-encode font-bold text-xl">Mi Tienda en el Mapa</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                     <div id="map">

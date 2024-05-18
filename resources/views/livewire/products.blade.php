@@ -102,7 +102,7 @@
 
 
     {{-- Products --}}
-    <div class="h-screen w-screen bg-blue-200 grid grid-cols-6 justify-between mx-auto">
+    <div class="h-screen w-screen bg-white grid grid-cols-6 justify-between mx-auto">
 
         {{-- Sidebar --}}
         <div class="font-poppins flex antialiased col-span-1">
