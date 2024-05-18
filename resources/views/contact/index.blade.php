@@ -4,7 +4,7 @@
         <div class="w-screen mx-auto">
             <div>
               <div>
-                <h2 class="absolute flex mx-auto w-full text-3xl font-extrabold uppercase mt-12 justify-center">
+                <h2 class="absolute text-[#332E6C] flex mx-auto w-full text-6xl font-blinker uppercase mt-16  /jc  justify-center">
                     Pagina de  <span class="text-white ml-3">Contacto</span> 
                 </h2>
               </div>

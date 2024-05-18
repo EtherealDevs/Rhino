@@ -17,6 +17,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
+                blinker: ['Blinker', ...defaultTheme.fontFamily.sans],
+                encode: ['"Encode Sans Semi Expanded"', ...defaultTheme.fontFamily.sans],
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
         },

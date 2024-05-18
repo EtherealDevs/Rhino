@@ -141,7 +141,7 @@
                 <div class="flex justify-between gap-3 pb-2">
                     <div class="justify-start">
 
-                        <h2 class="font-bold text-xl mb-2"> <i class='bx bx-bell mr-1 text-xl font-bold'></i>Notificaciones
+                        <h2 class="font-bold text-xl mb-2 font-encode"> <i class='bx bx-bell mr-1 text-xl font-bold'></i>Notificaciones
                         </h2>
 
                     </div>
@@ -232,7 +232,7 @@
             <div class="p-6 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-lg rounded-xl">
                 <div class="max-w-2xl mx-auto">
 
-                    <h2 class="font-bold text-xl mb-3">Remitos Pendientes</h2>
+                    <h2 class="font-encode font-bold text-xl mb-3">Remitos Pendientes</h2>
                     
 
                     <p class="mt-5">Deslizar para ver todos los Remitos Adeudados
