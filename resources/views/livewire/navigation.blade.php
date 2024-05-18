@@ -50,21 +50,10 @@
                                         class="flex justify-end px-4 py-2 text-sm text-white font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
 
-                                    @csrf
-                                    @auth
-                                        @can('admin')
-                                            <a href="{{ route('index') }}"
+                                            <a href="/admin"
                                                 class="flex justify-end px-4 py-2 text-sm text-white font-extralight"
                                                 role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de Administracion</a>
-                                        @endcan
-                                    @endauth
-                                    @csrf
-                                    @auth
-                                        @can('client')
-                                            <a href="/client" class="flex justify-end px-4 py-2 text-sm text-white font-extralight"
-                                                role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de Cliente</a>
-                                        @endcan
-                                    @endauth
+                                                
 
                                     <form method="POST" action="{{ route('logout') }}" x-data>
                                         @csrf
