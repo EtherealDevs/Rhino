@@ -43,22 +43,22 @@
                                 </div>
 
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="absolute mt-6  -right-6 2xl:-right-14 w-48 bg-blue-800 divide-y divide-blue-600 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                    class="absolute mt-6  -right-6 2xl:-right-14 w-48 bg-white/60 backdrop-blur-2xl divide-y divide-gray-300 rounded-md shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none"
                                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                     tabindex="-1">
                                     <a href="{{ route('profile.show') }}"
-                                        class="flex justify-end px-4 py-2 text-sm text-white font-extralight"
+                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
 
                                             <a href="/admin"
-                                                class="flex justify-end px-4 py-2 text-sm text-white font-extralight"
+                                                class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                                 role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de Administracion</a>
                                                 
 
                                     <form method="POST" action="{{ route('logout') }}" x-data>
                                         @csrf
                                         <a href="{{ route('logout') }}"
-                                            class="flex justify-end px-4 py-2 text-sm text-white font-extralight"
+                                            class="flex justify-end px-4 py-2 text-sm text-backfont-extralight"
                                             role="menuitem" tabindex="-1" id="user-menu-item-2"
                                             @click.prevent="$root.submit();">Cerrar Sesion</a>
                                     </form>
