@@ -17,3 +17,11 @@ Route::get('/orders',function(){
 Route::get('/sales',function(){
     return view('admin.sales.index');
 });
+
+Route::get('/promos',function(){
+    return view('admin.promo.index');
+});
+
+Route::get('/stock', function () {
+    return view('admin.stock.index');
+});
