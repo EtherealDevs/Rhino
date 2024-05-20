@@ -87,8 +87,8 @@
                                 </label>
                             </div>
                         </form>
-                        <button onclick="checkoutHandler1(true)"
-                            class="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white dark:hover:bg-gray-700">Checkout</button>
+                        <p class="font-bold font-josefin text-white text-3xl text-start mt-4">Envio
+                        </p>
                     </div>
                 </div>
             </div>
