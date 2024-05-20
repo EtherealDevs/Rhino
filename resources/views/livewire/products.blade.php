@@ -127,44 +127,44 @@
                         <div class="flex flex-col space-x-10">
                             <div>
                                 <a href=""
-                                    class="text-base  text-gray-700 py-1 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                    <span class="">Remeras</span>
+                                    class="text-base text-gray-700 py-1 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
+                                    <span class="">Remeras (15)</span>
                                 </a>
                             </div>
                             <div>
                                 <a href=""
                                     class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                    <span class="">Chombas</span>
+                                    <span class="">Chombas (9)</span>
                                 </a>
                             </div>
                             <div>
                                 <a href=""
                                     class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                    <span class="">Camisas</span>
+                                    <span class="">Camisas (8)</span>
                                 </a>
                             </div>
                             <div>
                                 <a href=""
                                     class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                    <span class="">Pantalones</span>
+                                    <span class="">Pantalones (7)</span>
                                 </a>
                             </div>
                             <div>
                                 <a href=""
                                     class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                    <span class="">Buzos</span>
+                                    <span class="">Buzos (3)</span>
                                 </a>
                             </div>
                             <div>
                                 <a href=""
                                     class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                    <span class="">Zapatillas</span>
+                                    <span class="">Zapatillas (2)</span>
                                 </a>
                             </div>
                             <div class="border-b-black ">
                                 <a href=""
                                     class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                    <span class="">Combos</span>
+                                    <span class="">Combos (0)</span>
                                 </a>
                             </div>
                         </div>
@@ -206,9 +206,9 @@
 
                         <div class="flex flex-col space-y-2 space-x-10">
                             <div>
-                                <p>Minimo</p>
+                                <p class="text-base text-dark">Minimo</p>
                                 <form class="max-w-[24rem] mx-auto">
-                                    <div class="flex mb-4">
+                                    <div class="flex mb-2">
                                         <label for="currency-input"
                                             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
                                             Email</label>
@@ -225,9 +225,10 @@
                                             class="w-full h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer">
                                     </div>
                                 </form>
-                                <p>Maximo</p>
+                                <p class="mt-5 text-base text-dark">Maximo
+                                </p>
                                 <form class="max-w-[24rem] mx-auto">
-                                    <div class="flex mb-4">
+                                    <div class="flex mb-2">
                                         <label for="currency-input"
                                             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
                                             Email</label>
@@ -245,7 +246,7 @@
                                     </div>
                                 </form>
                                 <a href=""
-                                    class="text-base text-center  border font-medium text-white py-2 px-2 bg-blue-800  border-blue-800  hover:text-base rounded-md transition duration-150 ease-in-out">
+                                    class="mt-5 text-base text-center  border font-medium text-white py-2 px-2 bg-blue-800  border-blue-800  hover:text-base rounded-md transition duration-150 ease-in-out">
                                     <span class="">Filtrar</span>
                                 </a>
                             </div>
