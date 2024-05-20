@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home.index');
-});
+})->name('dashboard');
 
 Route::get('/contact', function () {
     return view('contact.index');
@@ -31,12 +31,12 @@ Route::get('/productshow', function () {
 //     return view('admin.index');
 // });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/', function () {
-        return view('home.index');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/', function () {
+//         return view('home.index');
+//     })->name('dashboard');
+// });

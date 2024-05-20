@@ -1,6 +1,6 @@
 <div class="w-full mt-12">
     {{-- Nabvar --}}
-    <div class="w-screen grid grid-cols-6 justify-between mb-8">
+    <div class="w-full grid grid-cols-6 justify-between mb-8">
 
         {{-- Search --}}
         <div class="justify-start col-span-1">
@@ -103,10 +103,10 @@
 
 
     {{-- Products --}}
-    <div class="h-screen w-screen bg-white grid grid-cols-6 justify-between mx-auto">
+    <div class="h-screen w-full bg-white grid grid-cols-6 justify-between mx-auto">
         {{-- Sidebar --}}
         <div class="font-poppins flex antialiased col-span-1">
-            <div id="view" class="h-full w-screen flex flex-row">
+            <div id="view" class="h-full w-full flex flex-row">
                 <button
                     class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
                     <svg class="w-5 h-5 fill-current" fill="currentColor" viewBox="0 0 20 20"
