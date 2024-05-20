@@ -1,9 +1,11 @@
 <!-- component -->
 <footer class="bg-gray-900">
-    <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
-        <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-screen-xl px-4 py-4 mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-8 lg:grid-cols-4">
-                <img src="/img/rino-white.png" alt="">
+                <div class="h-full w-full grid place-content-center">
+                    <img src="/img/rino-white.png" class="h-16 w-22" alt="logo">
+                </div>
                 <div>
                     <p class="font-medium text-gray-100">
                         Productos
@@ -27,7 +29,7 @@
                     </nav>
                 </div>
                 <div>
-                    <p class="max-w-xs mt-4 text-sm text-gray-100 font-black">
+                    <p class="max-w-xs text-sm text-gray-100 font-black">
                         Nuestras Redes
                     </p>
                     <div class="flex mt-8 space-x-6 text-gray-100">
