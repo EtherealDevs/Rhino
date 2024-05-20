@@ -5,7 +5,6 @@
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-
         <style>
             #map {
                 height: 100%;
@@ -97,10 +96,8 @@
                 ?>
 
                 {{-- HEADER --}}
-
                 <div class="grid grid-cols-2 justify-between ">
                     <div class="justify-start">
-
                         <h2 class="text-gray-900 font-encode font-bold text-2xl leading-8 my-1">Bienvenido </h2>
                         <h3 class="text-gray-600 font-lg text-semibold leading-6"></h3>
                         <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion</p>
@@ -146,7 +143,6 @@
                     </div>
                 </div>
 
-
                 <!-- component -->
                 <style>
                     #journal-scroll::-webkit-scrollbar {
@@ -168,13 +164,8 @@
 
                 <div class="container mx-auto flex justify-center h-56">
                     <div class="w-full pl-4  h-full flex flex-col">
-
-
                         <div class="w-full h-full overflow-auto shadow bg-white" id="journal-scroll">
-
                             <table class="w-full">
-
-
                                 <tbody class="">
                                     {{-- @if (count($client->user->notifications) != 0)
                                         @foreach ($client->user->notifications as $notification)
