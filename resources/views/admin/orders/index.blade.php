@@ -5,13 +5,13 @@
     <div class="p-6 bg-white rounded-xl overflow-scroll">
 
         <div class="md:flex">
-            <div class="">
+            {{-- <div class="">
                 <button class="bg-blue-700 rounded-md p-2">
                     <a class="text-white" href="/shop">
                         Hacer Nuevo Pedido
                     </a>
                 </button>
-            </div>
+            </div> --}}
 
             <div class="mx-auto">
                 <h2 class="text-2xl mr-12 font-bold">
@@ -35,7 +35,14 @@
                         class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                         <p
                             class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                            Teamlead
+                            Usuario
+                        </p>
+                    </th>
+                    <th
+                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                        <p
+                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                            Productos
                         </p>
                     </th>
                     <th
@@ -43,13 +50,6 @@
                         <p
                             class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
                             Total
-                        </p>
-                    </th>
-                    <th
-                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                        <p
-                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                            Fecha de entrega
                         </p>
                     </th>
                     <th
@@ -105,13 +105,13 @@
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            23/04/18</p>
+                            total $$$</p>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="w-max">
                             <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
                                 style="opacity: 1;">
-                                <span class="">Completed</span>
+                                <span class="">Entregado</span>
                             </div>
                         </div>
                     </td>
@@ -155,7 +155,7 @@
                                         <span
                                             class="text-[8px] ml-2 rounded bg-green-600 px-2 py-1 align-middle font-bold uppercase text-white">Paid</span>
                                     </div>
-                                    <div class="text-sm text-slate-500">Total Paid</div>
+                                   
                                 </div>
                             </div>
                             <div class="ml-4 self-center overflow-x-hidden">
