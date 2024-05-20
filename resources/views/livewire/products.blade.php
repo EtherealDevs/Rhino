@@ -123,10 +123,10 @@
                             Categorias
                         </h2>
 
-                        <div class="flex flex-col space-x-10">
+                        <div class="flex flex-col pl-10 ">
                             <div>
                                 <a href=""
-                                    class="text-base text-gray-700 py-1 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
+                                    class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
                                     <span class="">Remeras (15)</span>
                                 </a>
                             </div>
@@ -172,7 +172,7 @@
                             Tallas
                         </h2>
 
-                        <div class="flex flex-col space-x-10">
+                        <div class="flex flex-col pl-10">
                             <div>
                                 <a href=""
                                     class="text-base text-gray-700 py-2 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
