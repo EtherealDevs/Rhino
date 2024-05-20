@@ -1,6 +1,6 @@
 <div class="w-full mt-12">
     {{-- Nabvar --}}
-    <div class="w-full grid grid-cols-6 justify-between mb-8">
+    <div class="w-full grid grid-cols-1 justify-between mb-8">
 
         {{-- Search --}}
         <div class="justify-start col-span-1">
@@ -26,7 +26,7 @@
 
 
         {{-- User Information --}}
-        <div class="col-span-1 justify-end w-full">
+        {{-- <div class="col-span-1 justify-end w-full">
             <div
                 class="grid grid-cols-4 bg-gradient-to-r from-gray-50 to-blue-100 via-gray-100 rounded-full p-2 px-4 mr-12">
                 <div class="hidden md:flex items-center space-x-6">
@@ -106,15 +106,15 @@
                     @endauth
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 
 
     {{-- Products --}}
-    <div class="h-screen w-full bg-white grid grid-cols-6 justify-between mx-auto">
+    <div class="h-screen w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
         {{-- Sidebar --}}
-        <div class="font-poppins flex antialiased col-span-1">
+        <div class="hidden lg:visible font-poppins lg:flex antialiased col-span-1">
             <div id="view" class="h-full w-full flex flex-row">
                 <button
                     class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
@@ -265,9 +265,9 @@
         </div>
 
         {{-- Content (Productos) --}}
-        <div class="col-span-5 mx-auto mt-3">
-            <div class="flex">
-                <div class="grid grid-cols-4 gap-10">
+        <div class="col-span-5 mx-auto ml-2 mt-3">
+            <div class="flex mx-auto w-full">
+                <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-1 lg:gap-10">
                     @livewire('product-card')
                     @livewire('product-card')
                     @livewire('product-card')

@@ -2,7 +2,7 @@
 @section('content')
 <div class=" p-6">
 
-    <div class="grid grid-cols-4 col-span-2 h-5/6 gap-6 mt-16">
+    <div class="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 col-span-2 h-5/6 gap-6 mt-16">
         <div class="p-2 bg-white rounded-xl ">
             <p class="font-blinker font-medium text-md text-center p-4">
                 <span class="font-bold text-4xl">

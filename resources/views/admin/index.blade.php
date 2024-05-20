@@ -90,7 +90,7 @@
                 ?>
 
                 {{-- HEADER --}}
-                <div class="grid grid-cols-4 justify-center">
+                <div class="grid grid-cols-2 lg:grid-cols-4 justify-center">
                     <div class="col-span-2 ml-3 mb-3">
                         <div class="my-1 text-md font-bold text-white uppercase">
                             caa {{ $formattedDate }}
@@ -106,7 +106,7 @@
                             </h3>
                         </div>
                     </div>
-                    <div class="bg-black/20 p-8 rounded-lg mr-3 mb-3">
+                    <div class="bg-black/20 p-8 rounded-lg mr-3 lg:mb-3">
                         <span class="leading-loose text-white">{{ $currentTime }}</span>
                     </div>
                     <div>
@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-            <div class="bg-white row-span-2 rounded-xl border border-gray-000 p-6 shadow-md shadow-black/5">
+            <div class="bg-white row-span-2 w-full lg:row-span-3 rounded-xl border border-gray-000 p-6 shadow-md shadow-black/5">
                 <div class="flex justify-between gap-3 pb-2">
                     <div class="justify-start">
                         <h2 class="font-bold text-xl mb-2 font-encode"> <i
@@ -197,7 +197,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-4 col-span-2 h-5/6 gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 col-span-2 h-5/6 gap-6">
                 <div class="p-2 bg-white rounded-xl ">
                     <p class="font-blinker font-medium text-md text-center p-4">
                         <span class="font-bold text-4xl">
