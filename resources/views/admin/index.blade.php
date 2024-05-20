@@ -40,44 +40,44 @@
             <div class="bg-white col-span-2 rounded-xl border-t-4 border-blue-700 p-8 shadow-md shadow-black/5">
                 <?php
                 use Carbon\Carbon;
-                
+
                 date_default_timezone_set('America/Argentina/Buenos_Aires');
-                
+
                 // Obtenemos la fecha actual en Buenos Aires
                 $now = Carbon::now('America/Argentina/Buenos_Aires');
-                
+
                 // Formateamos la fecha para mostrar "hoy es martes 16 de agosto"
                 setlocale(LC_TIME, 'es_ES'); // Establecer el idioma local a español
                 $formattedDate = $now->translatedFormat('l j \de F'); // "l" para el día de la semana, "j" para el día, "F" para el mes
-                
+
                 // Obtenemos la hora actual
                 $currentTime = $now->format('H:i'); // Formato hora:minuto:segundo
-                
+
                 // Obtener el pronóstico del clima actual usando OpenWeatherMap API
                 $apiKey = '4eb017fd3584fc1e33ce24ef2f3dad38'; // Reemplaza 'TU_API_KEY' con tu propia API key de OpenWeatherMap
                 $city = 'Corrientes';
-                
+
                 // Codificar el nombre de la ciudad para evitar problemas con caracteres especiales
                 $encodedCity = urlencode($city);
-                
+
                 // Construir la URL de la solicitud
                 $url = "https://api.openweathermap.org/data/2.5/weather?q={$encodedCity}&units=metric&appid={$apiKey}";
-                
+
                 // Realizar la solicitud HTTP para obtener los datos del clima
                 $response = file_get_contents($url);
-                
+
                 // Decodificar la respuesta JSON
                 $weatherData = json_decode($response);
-                
+
                 // Verificar si se recibió una respuesta válida
                 if ($weatherData && isset($weatherData->main, $weatherData->weather)) {
                     // Extraer los datos del clima
                     $temperature = $weatherData->main->temp;
                     $description = strtolower($weatherData->weather[0]->description); // Convertir descripción a minúsculas
-                
+
                     // Asignar emoji según la descripción del clima en inglés
                     $emoji = '';
-                
+
                     if (strpos($description, 'clear') !== false || strpos($description, 'sunny') !== false) {
                         $emoji = '☀️'; // Soleado o claro
                     } elseif (strpos($description, 'rain') !== false || strpos($description, 'shower') !== false) {
@@ -89,7 +89,7 @@
                     }
                 } else {
                     $errorMessage = 'No se pudo obtener la información del clima en este momento.';
-                
+
                     if ($response) {
                         $errorMessage .= " Respuesta de la API: {$response}";
                     }
@@ -100,12 +100,10 @@
 
                 <div class="grid grid-cols-2 justify-between ">
                     <div class="justify-start">
-                       
-                            <h2 class="text-gray-900 font-encode font-bold text-2xl leading-8 my-1">Bienvenido </h2>
-                            <h3 class="text-gray-600 font-lg text-semibold leading-6"></h3>
-                            <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion</p>
-                       
 
+                        <h2 class="text-gray-900 font-encode font-bold text-2xl leading-8 my-1">Bienvenido </h2>
+                        <h3 class="text-gray-600 font-lg text-semibold leading-6"></h3>
+                        <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion</p>
                         <div>
                             @isset($errorMessage)
                                 <div class="text-sm font-medium text-red-600">{{ $errorMessage }}</div>
@@ -115,8 +113,11 @@
                                         Clima actual en <span class="font-bold">{{ $city }}</span>
                                     </div>
                                     <div class="font-bold leading-loose text-xl mt-3">
-                                        <span class=" bg-slate-800 text-gray-400 p-2 rounded-lg">{{ $temperature }}°C</span> <br>
-                                        <span class="font-bold bg-blue-600 py-1 px-2 uppercase rounded text-white">{{ $description }} {{ $emoji }}</span>
+                                        <span class=" bg-slate-800 text-gray-400 p-2 rounded-lg">{{ $temperature }}°C</span>
+                                        <br>
+                                        <span
+                                            class="font-bold bg-blue-600 py-1 px-2 uppercase rounded text-white">{{ $description }}
+                                            {{ $emoji }}</span>
                                     </div>
                                 </div>
                             @endisset
@@ -130,22 +131,14 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
-
-
-
             <div class="bg-white rounded-xl border border-gray-000 p-6 shadow-md shadow-black/5">
                 <div class="flex justify-between gap-3 pb-2">
                     <div class="justify-start">
-
-                        <h2 class="font-bold text-xl mb-2 font-encode"> <i class='bx bx-bell mr-1 text-xl font-bold'></i>Notificaciones
+                        <h2 class="font-bold text-xl mb-2 font-encode"> <i
+                                class='bx bx-bell mr-1 text-xl font-bold'></i>Notificaciones
                         </h2>
-
                     </div>
-
                     <div class="justify-end">
                         <button class="bg-blue-700 px-2 p-1 rounded-xl">
                             <a class="text-white text-sm font-bold font-sans" href="/shop">Ver mas</a>
@@ -233,7 +226,7 @@
                 <div class="max-w-2xl mx-auto">
 
                     <h2 class="font-encode font-bold text-xl mb-3">Pedidos</h2>
-                    
+
 
                     <p class="mt-5">Deslizar para ver todos los Remitos Adeudados
                         <a class="text-blue-600 hover:underline" href="/remitos" target="_blank">Ir a seccion

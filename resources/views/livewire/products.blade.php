@@ -6,7 +6,6 @@
         <div class="justify-start col-span-1">
             <div class="mt-6">
                 <button class="ml-12 p-2 px-4 rounded-full uppercase bg-gray-200">
-
                     <p class="text-black text-xl font-bold">
                         Buscar
                     </p>

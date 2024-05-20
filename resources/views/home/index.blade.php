@@ -45,7 +45,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div
                     class="col-span-1 mx-6 mr-6 bg-blue-600 drop-shadow-lg w-full h-full rounded-3xl text-white font-extrabold">
                     <div class="flex justify-end">
@@ -74,8 +73,6 @@
                             <p class="text-2xl p-6 mr-6">
                                 Nuevos Ingresos
                             </p>
-
-
                         </div>
 
                         <div>
@@ -102,7 +99,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
     </div>
     </div>
@@ -180,9 +176,7 @@
     </section>
 
 
-    </div>
 
-    </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
