@@ -9,3 +9,7 @@ Route::get('/',function(){
 Route::get('/orders',function(){
     return view('admin.orders.index');
 });
+
+Route::get('/sales',function(){
+    return view('admin.sales.index');
+});
