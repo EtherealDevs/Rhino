@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories= Category::all();
-        return view('admin.category.index',compact('categories'));
+        return view('admin.categories.index',compact('categories'));
     }
 
     /**
@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -31,8 +31,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->file('file')->store('post');
-
         $category=Category::create(
             [
                 'name'=>$request->name,
@@ -41,12 +39,14 @@ class CategoryController extends Controller
                 'parent_id'=>$request->parent_id||null,
             ]
             );
-        if ($request->file('file')) {
-            $url = Storage::put('/', $request->file('file'));
+        // $request->file('image')->store('/public/img');
+        if ($request->file('image')) {
+            $url = Storage::put('categories', $request->file('image'));
             $category->image()->create([
                 'url' => $url
             ]);
         }
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -60,24 +60,42 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->file('file')->store('post');
+
+        $category->update(
+            [
+                'name'=>$request->name,
+                'slug'=>$request->slug,
+                'description'=>$request->description,
+                'parent_id'=>$request->parent_id||null,
+            ]
+            );
+        if ($request->file('file')) {
+            $url = Storage::put('/', $request->file('file'));
+            $category->image()->create([
+                'url' => $url
+            ]);
+        }
+        return redirect()->route('admin.categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->image()->delete();
+        $category->delete();
+        return back();
     }
 }
