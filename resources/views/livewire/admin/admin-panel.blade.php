@@ -30,21 +30,21 @@
             </li>
             <span class="text-gray-400 font-bold">Tienda</span>
             <li class="mb-1 group">
-                <a href="/orders"
+                <a href="{{route('admin.orders.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Pedidos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/remitos"
+                <a href="{{route('admin.sales.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='bx bx-archive mr-3 text-lg'></i>
                     <span class="text-sm">Ventas</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/shop"
+                <a href="{{route('admin.promos.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-barcode-box-fill mr-3 text-lg'></i>
                     <span class="text-sm">Promociones</span>
@@ -52,14 +52,14 @@
             </li>
             <span class="text-gray-400 font-bold">Administrar</span>
             <li class="mb-1 group">
-                <a href="/orders"
+                <a href="{{route('admin.products.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Productos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/orders"
+                <a href="{{route('admin.combos.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Combos</span>
@@ -73,14 +73,14 @@
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/shop"
+                <a href="{{route('admin.categories.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-barcode-box-fill mr-3 text-lg'></i>
                     <span class="text-sm">Subcategorias</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/orders"
+                <a href="{{route('admin.stock.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Stock</span>
