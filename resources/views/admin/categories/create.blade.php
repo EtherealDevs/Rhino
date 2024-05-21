@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="pt-20 px-10">
-    <form action={{route('admin.categories.store')}} method="POST">
+    <form action={{route('admin.categories.store')}} method="POST"  enctype="multipart/form-data">
         @csrf
         <label for="name">
             <p>nombre</p>

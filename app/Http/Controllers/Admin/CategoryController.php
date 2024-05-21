@@ -39,8 +39,7 @@ class CategoryController extends Controller
                 'parent_id'=>$request->parent_id||null,
             ]
             );
-        // $request->file('image')->store('/public/img');
-        if ($request->file('image')) {
+        if($request->file('image')){
             $url = Storage::put('categories', $request->file('image'));
             $category->image()->create([
                 'url' => $url

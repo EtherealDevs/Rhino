@@ -31,6 +31,6 @@ class Category extends Model
         return $this->belongsToMany(Brand::class);
     }
     public function image(){
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphOne(Image::class,'imageable');
     }
 }
