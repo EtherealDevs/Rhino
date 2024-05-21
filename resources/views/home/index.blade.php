@@ -2,9 +2,9 @@
 @section('content')
     <div class="static justify-center bg-white w-full">
         <section>
-            <div class="grid grid-cols-3 gap-6 grid-row-2">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 grid-row-2">
                 <div class="col-span-3 mx-6 bg-blue-600 h-full rounded-b-3xl">
-                    <div class="grid grid-cols-2 justify-between gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 justify-between gap-6">
                         <div class="justify-start p-20 mt-6 ml-2">
                             <div>
                                 <h1 class="text-3xl font-black font-sans text-white">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-2 mx-6 bg-blue-600 h-full rounded-3xl text-white font-extrabold">
+                <div class="w-full mx-auto lg:col-span-2 lg:mx-6 bg-blue-600 h-full rounded-3xl text-white font-extrabold">
                     <div class="grid grid-cols-2 mt-6">
                         <div class="flex ml-16 justify-start">
                             <p class="text-2xl p-6 mr-6">
@@ -92,7 +92,7 @@
 
                     <div class="w-full flex justify-center">
                         <!-- component -->
-                        <div class="grid grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             @livewire('product-card')
                             @livewire('product-card')
                             @livewire('product-card')
@@ -157,9 +157,9 @@
                     </svg>
                 </button>
             </article>
-            <div class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white -translate-y-1/2">
+            <div class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white lg:-translate-y-1/2 -translate-y-32">
                 <div class="flex justify-center w-full">
-                    <div class="grid grid-cols-4 gap-20">
+                    <div class="grid grid-cols-1  lg:grid-cols-4 gap-1 lg:gap-20">
                         <!-- component -->
                         @livewire('product-card')
                         @livewire('product-card')

@@ -65,7 +65,7 @@
     @livewireStyles
 
     {{-- Notify --}}
-    @notifyCss
+    {{-- @notifyCss --}}
 
 </head>
 
