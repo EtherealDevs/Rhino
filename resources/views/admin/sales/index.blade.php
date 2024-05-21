@@ -3,19 +3,16 @@
 <div class=" p-6">
     <div class="p-6 mt-24 bg-white rounded-xl overflow-scroll">
 
-        <div class="md:flex">
-            <div class="">
-                <button class="bg-blue-700 rounded-md p-2">
-                    <a class="text-white" href="/shop">
-                        Hacer Nuevo Pedido
-                    </a>
-                </button>
+        <div class="flex justify-between w-full mb-5">
+            <div class="justify-start">
+                <h2 class="font-josefin font-bold italic text-2xl">
+                    Ventas
             </div>
 
-            <div class="mx-auto">
-                <h2 class="text-2xl mr-12 font-josefin font-bold">
-                    Ventas
-                </h2>
+            <div class="justify-end">
+                <button class="bg-blue-500 rounded-xl p-2 px-4">
+                    <a class="text-white font-bold" href={{ route('admin.sales.create') }}>Cargar Venta</a>
+                </button>
             </div>
         </div>
 

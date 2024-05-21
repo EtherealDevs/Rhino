@@ -43,19 +43,16 @@
 
     <div class="p-6 mt-6 bg-white rounded-xl overflow-scroll">
 
-        <div class="md:flex">
-            <div class="">
-                <button class="bg-blue-700 rounded-md p-2">
-                    <a class="text-white" href="/shop">
-                        Hacer Campaña de Promocion
-                    </a>
-                </button>
+        <div class="flex justify-between w-full mb-5">
+            <div class="justify-start">
+                <h2 class="font-josefin font-bold italic text-2xl">
+                    Promociones
             </div>
 
-            <div class="mx-auto">
-                <h2 class="text-2xl mr-12 font-josefin font-bold">
-                    Promociones
-                </h2>
+            <div class="justify-end">
+                <button class="bg-blue-500 rounded-xl p-2 px-4">
+                    <a class="text-white font-bold" href={{ route('admin.promos.create') }}>Nueva Campaña</a>
+                </button>
             </div>
         </div>
 
