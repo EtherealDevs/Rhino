@@ -69,7 +69,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $request->file('file')->store('post');
+        $request->file('image')->store('post');
 
         $category->update(
             [
@@ -79,8 +79,8 @@ class CategoryController extends Controller
                 'parent_id'=>$request->parent_id||null,
             ]
             );
-        if ($request->file('file')) {
-            $url = Storage::put('/', $request->file('file'));
+        if ($request->file('image')) {
+            $url = Storage::put('categories', $request->file('image'));
             $category->image()->create([
                 'url' => $url
             ]);
