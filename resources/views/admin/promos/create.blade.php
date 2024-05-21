@@ -39,7 +39,7 @@
         <div class="pt-16  ">
             <div class="p-6 rounded-xl bg-white">
                 <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
-                    Almacenar Productos
+                    Crear Campaña de Promoción
                 </h2>
 
                 <div class="mt-6">
