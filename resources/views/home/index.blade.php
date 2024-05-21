@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="w-full mx-auto lg:col-span-2 lg:mx-6 bg-blue-600 h-full rounded-3xl text-white font-extrabold">
+                <div class="mx-auto lg:col-span-2 lg:mx-6 bg-blue-600 h-full rounded-3xl text-white font-extrabold">
                     <div class="grid grid-cols-2 mt-6">
                         <div class="flex ml-16 justify-start">
                             <p class="text-2xl p-6 mr-6">
