@@ -16,7 +16,6 @@
                 <div class="flex items-center justify-center mt-6">
                     <div class="mx-auto w-full bg-white">
                         <form class="py-6 px-9" action="https://formbold.com/s/FORM_ID" method="POST">
-
                             <div class="mb-6 pt-4">
                                 <div class="mb-5 rounded-md bg-white py-4 px-8">
                                     <div class="flex items-center justify-between">
