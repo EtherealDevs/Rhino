@@ -25,3 +25,7 @@ Route::get('/promos',function(){
 Route::get('/stock', function () {
     return view('admin.stock.index');
 });
+
+Route::get('/createproduct', function () {
+    return view('admin.products.create');
+});
