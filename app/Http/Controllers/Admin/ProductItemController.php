@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Color;
 use Illuminate\Http\Request;
 
-class ColorController extends Controller
+class ProductItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,17 +28,13 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        Color::create([
-            'name' => $request->name,
-            'color' => $request->color,
-        ]);
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Color $color)
+    public function show(string $id)
     {
         //
     }
@@ -47,29 +42,24 @@ class ColorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Color $color)
+    public function edit(string $id)
     {
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Color $color)
+    public function update(Request $request, string $id)
     {
-        $color->update([
-            'name' => $request->name,
-            'color' => $request->code,
-        ]);
-        return redirect()->back();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Color $color)
+    public function destroy(string $id)
     {
-        $color->delete();
-        return redirect()->back();
+        //
     }
 }

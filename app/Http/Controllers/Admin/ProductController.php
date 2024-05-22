@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -22,7 +26,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $colors= Color::all();
+        $products= Product::all();
+        $brands=Brand::all();
+        $sizes=Size::all();
+        $categories=Category::all();
+        return view('admin.products.create', compact('colors', 'products','brands','sizes','categories'));
     }
 
     /**
@@ -30,7 +39,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Product::create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'brand_id' => $request->brand_id,
+        ]);
+        return redirect()->back();
     }
 
     /**

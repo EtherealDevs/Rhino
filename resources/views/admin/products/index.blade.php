@@ -127,5 +127,4 @@
         </table>
     </div>
 </div>
-   
 @endsection

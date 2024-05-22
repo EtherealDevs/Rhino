@@ -78,7 +78,7 @@
                                 <select name="parent_id" id=""
                                     onclick="this.setAttribute('value', this.value);"
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                    <option value="null" >No tiene padre</option>
+                                    <option value={{null}} >No tiene padre</option>
                                     @foreach ($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach

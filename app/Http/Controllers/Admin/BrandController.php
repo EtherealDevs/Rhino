@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Color;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class ColorController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $brands = Brand::all();
+        return view('admin.brands.index', compact('brands'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.brands.create');
     }
 
     /**
@@ -29,47 +30,47 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        Color::create([
-            'name' => $request->name,
-            'color' => $request->color,
+        Brand::create([
+            'name'=>$request->name,
+            'description'=>$request->description,
         ]);
-        return redirect()->back();
+        return redirect()->route('admin.brands.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Color $color)
+    public function show(Brand $brand)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Color $color)
+    public function edit(Brand $brand)
     {
-
+        return view('admin.brands.edit', compact('brand'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Color $color)
+    public function update(Request $request, Brand $brand)
     {
-        $color->update([
-            'name' => $request->name,
-            'color' => $request->code,
+        $brand->update([
+            'name'=>$request->name,
+            'description'=>$request->description,
         ]);
-        return redirect()->back();
+        return redirect()->route('admin.brands.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Color $color)
+    public function destroy(Brand $brand)
     {
-        $color->delete();
+        $brand->delete();
         return redirect()->back();
     }
 }
