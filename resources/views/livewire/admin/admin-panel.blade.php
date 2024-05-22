@@ -105,7 +105,7 @@
         <div class="top-0 py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky left-0 z-30">
             <div class="p-2 md:block text-left">
                 <h2 class="text-xl font-thin text-gray-800">Hola, <span class="uppercase font-extrabold font-blinker">
-                        Usuario</span> 👋🏻</h2>
+                        {{$user->name}}</span> 👋🏻</h2>
             </div>
 
             <ul class="ml-auto flex items-center">

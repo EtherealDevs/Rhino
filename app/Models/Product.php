@@ -14,7 +14,7 @@ class Product extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['name', 'slug', 'description', 'category_id', 'brand_id'];
-    
+
     public function tags() : BelongsToMany
     {
         return $this->belongsToMany(Tag::class);

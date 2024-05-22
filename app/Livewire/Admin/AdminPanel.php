@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Admin;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class AdminPanel extends Component
 {
     public function render()
     {
-        return view('livewire.admin.admin-panel');
+        $user=Auth::user();
+        return view('livewire.admin.admin-panel',compact('user'));
     }
 }

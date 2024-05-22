@@ -33,44 +33,44 @@
                 class="bg-gradient-to-r from-[#2F3467] to-[#7D86DD] bg-r  col-span-2 h-5/6 rounded-xl border-t-4 border-purple-300 p-4 mb-2 shadow-md shadow-black/5">
                 <?php
                 use Carbon\Carbon;
-                
+
                 date_default_timezone_set('America/Argentina/Buenos_Aires');
-                
+
                 // Obtenemos la fecha actual en Buenos Aires
                 $now = Carbon::now('America/Argentina/Buenos_Aires');
-                
+
                 // Formateamos la fecha para mostrar "hoy es martes 16 de agosto"
                 setlocale(LC_TIME, 'es_ES'); // Establecer el idioma local a español
                 $formattedDate = $now->translatedFormat('l j \de F'); // "l" para el día de la semana, "j" para el día, "F" para el mes
-                
+
                 // Obtenemos la hora actual
                 $currentTime = $now->format('H:i'); // Formato hora:minuto:segundo
-                
+
                 // Obtener el pronóstico del clima actual usando OpenWeatherMap API
                 $apiKey = '4eb017fd3584fc1e33ce24ef2f3dad38'; // Reemplaza 'TU_API_KEY' con tu propia API key de OpenWeatherMap
                 $city = 'Corrientes';
-                
+
                 // Codificar el nombre de la ciudad para evitar problemas con caracteres especiales
                 $encodedCity = urlencode($city);
-                
+
                 // Construir la URL de la solicitud
                 $url = "https://api.openweathermap.org/data/2.5/weather?q={$encodedCity}&units=metric&appid={$apiKey}";
-                
+
                 // Realizar la solicitud HTTP para obtener los datos del clima
                 $response = file_get_contents($url);
-                
+
                 // Decodificar la respuesta JSON
                 $weatherData = json_decode($response);
-                
+
                 // Verificar si se recibió una respuesta válida
                 if ($weatherData && isset($weatherData->main, $weatherData->weather)) {
                     // Extraer los datos del clima
                     $temperature = $weatherData->main->temp;
                     $description = strtolower($weatherData->weather[0]->description); // Convertir descripción a minúsculas
-                
+
                     // Asignar emoji según la descripción del clima en inglés
                     $emoji = '';
-                
+
                     if (strpos($description, 'clear') !== false || strpos($description, 'sunny') !== false) {
                         $emoji = '☀️'; // Soleado o claro
                     } elseif (strpos($description, 'rain') !== false || strpos($description, 'shower') !== false) {
@@ -82,7 +82,7 @@
                     }
                 } else {
                     $errorMessage = 'No se pudo obtener la información del clima en este momento.';
-                
+
                     if ($response) {
                         $errorMessage .= " Respuesta de la API: {$response}";
                     }
@@ -101,7 +101,7 @@
                             </h2>
                             <h3 class="text-white uppercase mt-0 font-lg text-semibold leading-6">
                                 <span>
-                                    Usuario
+                                   {{ $user->name }}
                                 </span>
                             </h3>
                         </div>
