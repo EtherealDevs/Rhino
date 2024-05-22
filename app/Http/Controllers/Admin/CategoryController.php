@@ -37,7 +37,7 @@ class CategoryController extends Controller
                 'name'=>$request->name,
                 'slug'=>$request->slug,
                 'description'=>$request->description,
-                'parent_id'=>$request->parent_id||null,
+                'parent_id'=>$request->parent_id,
             ]
             );
         if($request->file('image')){

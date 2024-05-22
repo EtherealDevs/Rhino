@@ -59,7 +59,7 @@
                             </div>
 
                             <div class="relative z-0 w-full mb-5">
-                                <input type="text" name="name" placeholder=" " required
+                                <input type="text" name="slug" placeholder=" " required
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                 <label for="slug" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Slug
                                     Amigable</label>
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="relative z-0 w-full mb-5">
-                                <input type="text" name="name" placeholder=" " required
+                                <input type="textarea" name="description" placeholder=" " required
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                 <label for="description"
                                     class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
@@ -75,10 +75,10 @@
                             </div>
 
                             <div class="relative z-0 w-full mb-5">
-                                <select name="parent_id" id="" value=""
+                                <select name="parent_id" id=""
                                     onclick="this.setAttribute('value', this.value);"
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                    <option value="" selected disabled hidden>No tiene padre</option>
+                                    <option value="null" >No tiene padre</option>
                                     @foreach ($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
