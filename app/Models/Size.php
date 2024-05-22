@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Size extends Model
 {
     use HasFactory;
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $fillable = ['name'];
 
-    protected $fillable = ['name', 'product_id'];
-
-    public function product() {
-        return $this->belongsTo(Product::class);
+    public function items() : HasMany
+    {
+        return $this->hasMany(ProductItem::class);
     }
 
-    public function color() {
-        return $this->belongsToMany(Color::class);
-    }
 
 
 }

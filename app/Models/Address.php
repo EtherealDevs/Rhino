@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Address extends Model
 {
     use HasFactory;
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'street', 'number', 'zip_code', 'observation'];
 
     public function user(): BelongsTo
     {

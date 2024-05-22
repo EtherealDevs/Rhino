@@ -16,16 +16,6 @@ class ProductItemSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (Size::all() as $size) {
-            foreach (Color::all() as $color) {
-                Product::first()->items()->create([
-                    'description' => 'a description',
-                    'original_price' => 19.99,
-                    'sale_price' => 9.99,
-                    'color_id' => $color->id,
-                    'size_id' => $size->id
-                ]);
-            }
-        }
+        
     }
 }
