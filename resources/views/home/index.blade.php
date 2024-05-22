@@ -2,9 +2,9 @@
 @section('content')
     <div class="static justify-center bg-white w-full">
         <section>
-            <div class="grid grid-cols-3 gap-6 grid-row-2">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 grid-row-2">
                 <div class="col-span-3 mx-6 bg-blue-600 h-full rounded-b-3xl">
-                    <div class="grid grid-cols-2 justify-between gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 justify-between gap-6">
                         <div class="justify-start p-20 mt-6 ml-2">
                             <div>
                                 <h1 class="text-3xl font-black font-sans text-white">
@@ -45,7 +45,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div
                     class="col-span-1 mx-6 mr-6 bg-blue-600 drop-shadow-lg w-full h-full rounded-3xl text-white font-extrabold">
                     <div class="flex justify-end">
@@ -68,14 +67,12 @@
                     </div>
                 </div>
 
-                <div class="col-span-2 mx-6 bg-blue-600 h-full rounded-3xl text-white font-extrabold">
+                <div class="mx-auto lg:col-span-2 lg:mx-6 bg-blue-600 h-full rounded-3xl text-white font-extrabold">
                     <div class="grid grid-cols-2 mt-6">
                         <div class="flex ml-16 justify-start">
                             <p class="text-2xl p-6 mr-6">
                                 Nuevos Ingresos
                             </p>
-
-
                         </div>
 
                         <div>
@@ -95,14 +92,13 @@
 
                     <div class="w-full flex justify-center">
                         <!-- component -->
-                        <div class="grid grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             @livewire('product-card')
                             @livewire('product-card')
                             @livewire('product-card')
                         </div>
                     </div>
                 </div>
-
             </div>
     </div>
     </div>
@@ -145,7 +141,7 @@
 
                 <button @click="back()"
                     class="absolute left-14 mt-12 top-1/2 -translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-black hover:bg-gray-700">
-                    <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:-translate-x-0.5"
+                    <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-white hover:text-gray-600 hover:-translate-x-0.5"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7">
                         </path>
@@ -154,16 +150,16 @@
 
                 <button @click="next()"
                     class="absolute right-14 top-1/2 translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-black hover:bg-gray-700">
-                    <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:translate-x-0.5"
+                    <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-white hover:text-gray-600 hover:translate-x-0.5"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7">
                         </path>
                     </svg>
                 </button>
             </article>
-            <div class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white -translate-y-1/2">
+            <div class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white lg:-translate-y-1/2 -translate-y-32">
                 <div class="flex justify-center w-full">
-                    <div class="grid grid-cols-4 gap-20">
+                    <div class="grid grid-cols-1  lg:grid-cols-4 gap-1 lg:gap-20">
                         <!-- component -->
                         @livewire('product-card')
                         @livewire('product-card')
@@ -180,9 +176,7 @@
     </section>
 
 
-    </div>
 
-    </div>
 
     <script>
         document.addEventListener('alpine:init', () => {

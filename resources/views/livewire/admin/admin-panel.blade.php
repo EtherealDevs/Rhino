@@ -1,10 +1,8 @@
 <div>
     <!--sidenav -->
     <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu transition-transform">
-        <a href="#" class="flex  pb-4">
-            
+        <a href="/" class="flex  pb-4">
             <img class="flex mx-auto px-8 w-36 mt-4" src="/img/rino-black.png" alt="Your Company">
-            
         </a>
         <ul class="mt-4">
             <li class="mb-1 group">
@@ -15,14 +13,14 @@
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/client"
+                <a href="/admin"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-home-2-line mr-3 text-lg"></i>
                     <span class="text-sm">Inicio</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href=""
+                <a href="{{route('admin.notifications.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='bx bx-bell mr-3 text-lg'></i>
                     <span class="text-sm">Notificaciones</span>
@@ -32,21 +30,28 @@
             </li>
             <span class="text-gray-400 font-bold">Tienda</span>
             <li class="mb-1 group">
-                <a href="/orders"
+                <a href="{{route('admin.stock.index')}}"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <span class="text-sm">Stock</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="{{route('admin.orders.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Pedidos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/remitos"
+                <a href="{{route('admin.sales.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='bx bx-archive mr-3 text-lg'></i>
                     <span class="text-sm">Ventas</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/shop"
+                <a href="{{route('admin.promos.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-barcode-box-fill mr-3 text-lg'></i>
                     <span class="text-sm">Promociones</span>
@@ -54,38 +59,31 @@
             </li>
             <span class="text-gray-400 font-bold">Administrar</span>
             <li class="mb-1 group">
-                <a href="/orders"
+                <a href="{{route('admin.products.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Productos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/orders"
+                <a href="{{route('admin.combos.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Combos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/remitos"
+                <a href={{route('admin.categories.index')}}
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='bx bx-archive mr-3 text-lg'></i>
                     <span class="text-sm">Categorias</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="/shop"
+                <a href="{{route('admin.categories.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-barcode-box-fill mr-3 text-lg'></i>
                     <span class="text-sm">Subcategorias</span>
-                </a>
-            </li>
-            <li class="mb-1 group">
-                <a href="/orders"
-                    class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
-                    <span class="text-sm">Stock</span>
                 </a>
             </li>
             <span class="text-gray-400 font-bold">Gestion de Tienda</span>
@@ -96,7 +94,7 @@
                     <span class="text-sm">Mi Tienda</span>
                 </a>
             </li>
-            
+
         </ul>
     </div>
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
@@ -106,7 +104,8 @@
         <!-- navbar -->
         <div class="top-0 py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky left-0 z-30">
             <div class="p-2 md:block text-left">
-                <h2 class="text-xl font-thin text-gray-800">Hola, <span class="uppercase font-extrabold font-blinker">  Usuario</span> 👋🏻</h2>
+                <h2 class="text-xl font-thin text-gray-800">Hola, <span class="uppercase font-extrabold font-blinker">
+                        Usuario</span> 👋🏻</h2>
             </div>
 
             <ul class="ml-auto flex items-center">
@@ -153,7 +152,8 @@
                                 class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1">Messages</button>
                         </div>
                         <div class="my-2">
-                            <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
+                            <ul class="max-h-64 overflow-y-auto" data-tab-for="notification"
+                                data-page="notifications">
                                 <li>
                                     <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
                                         <img src="https://placehold.co/32x32" alt=""
@@ -319,7 +319,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </button>
                     <ul
                         class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">

@@ -17,6 +17,7 @@ class Category extends Model
         'slug',
         'description',
         'image',
+        'parent_id',
     ];
 
     public function parentCategory() : BelongsTo
@@ -30,5 +31,8 @@ class Category extends Model
     public function image() : MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+    public function image(){
+        return $this->morphOne(Image::class,'imageable');
     }
 }
