@@ -22,7 +22,7 @@ Route::resource('product',ProductController::class)->names('admin.products');
 
 Route::resource('promo',PromoController::class)->names('admin.promos');
 
-Route::resource('order',OrderController::class)->names('admin.orders');
+Route::resource('orders',OrderController::class)->names('admin.orders');
 
 Route::resource('sale',SaleController::class)->names('admin.sales');
 
