@@ -7,6 +7,7 @@
             <div class="justify-start">
                 <h2 class="font-josefin font-bold italic text-2xl">
                     Productos
+                </h2>
             </div>
 
             <div class="justify-end">
