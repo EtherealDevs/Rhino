@@ -14,10 +14,6 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::create([
-            'name' => 'Camisa a Rayas',
-            'slug' => 'camisa-a-rayas',
-            'category_id' => Category::where('name', '=', 'Camisas')->first()->id
-        ]);
+       
     }
 }

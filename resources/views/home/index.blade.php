@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="static justify-center bg-white w-screen">
+    <div class="static justify-center bg-white w-full">
         <section>
             <div class="grid grid-cols-3 gap-6 grid-row-2">
                 <div class="col-span-3 mx-6 bg-blue-600 h-full rounded-b-3xl">

@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('product_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained();
-            $table->string('description');
+            
             $table->decimal('original_price');
-            $table->decimal('sale_price');
+            $table->decimal('sale_price')->nullable();
             $table->foreignId('color_id')->constrained();
             $table->foreignId('size_id')->constrained();
+            $table->integer('stock');
             $table->timestamps();
         });
     }
