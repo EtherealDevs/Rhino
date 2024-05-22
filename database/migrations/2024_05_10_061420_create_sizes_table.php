@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('size');
+            $table->integer('sort_number');
 
 
             $table->timestamps();

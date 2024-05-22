@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('payment_method_id');
-            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
-            $table->boolean('delivery');
+            $table->foreignId('payment_method_id')->references('id')->on('payment_methods');
+            $table->decimal('total');
 
             $table->foreignId('delivery_service_id')->references('id')->on('delivery_services')->nullable();
             $table->float('delivery_price')->nullable();

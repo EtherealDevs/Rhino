@@ -10,11 +10,11 @@
                     Pedidos
             </div>
 
-           {{--  <div class="justify-end">
+            <div class="justify-end">
                 <button class="bg-blue-500 rounded-xl p-2 px-4">
                     <a class="text-white font-bold" href={{ route('admin.products.create') }}>Nuevo Producto</a>
                 </button>
-            </div> --}}
+            </div>
         </div>
 
         <table class="mt-1 w-full min-w-max table-auto text-left">

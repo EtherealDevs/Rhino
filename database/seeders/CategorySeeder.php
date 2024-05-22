@@ -13,11 +13,6 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create([
-            'name' => 'Camisas',
-            'slug' => 'camisas',
-            'description' => 'Son camisas.',
-            'image' => 'No disponible'
-        ]);
+        
     }
 }
