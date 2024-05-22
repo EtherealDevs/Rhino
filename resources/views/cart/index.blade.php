@@ -2,95 +2,57 @@
 @section('content')
     <!-- component -->
     <div
-        class="w-full h-screen grid grid-col-3 bg-[url(/Users/mateodans/programacion/Ethereal-Devs/Rhino/public/img/FondoCart.svg)] top-0 overflow-x-hidden">
-        <div>
-            <div class="max-w-2xl mx-auto">
-                <div class="p-4  bg-transparent rounded-lg border shadow-md sm:p-8 ">
-                    <div class="flex justify-between items-center mb-4">
+        class="grid grid-cols-12 w-full h-screen bg-[url(/Users/mateodans/programacion/Ethereal-Devs/Rhino/public/img/FondoCart.svg)] top-0 overflow-x-hidden">
+        <div class="col-span-7 bg-transparent py-20 px-12 items-center">
+            <div class="">
+                <div class="p-4 bg-transparent rounded-lg items-center mr-2 sm:p-8 ">
+                    <div class="flex justify-between items-center ml-5 mb-4">
                         <h3 class="font-bold font-josefin text-5xl">Lista de Pedidos</h3>
-                        <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
-                            View all
-                        </a>
                     </div>
                     <div class="flow-root">
-                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                            <li class="py-3 sm:py-4 bg-white rounded-xl">
+                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
+                            <li class="py-3 sm:py-4 bg-white rounded-xl shadow-xl">
                                 <div class="flex items-center space-x-4">
-                                    <div class="grid grid-cols-4 gap-2">
-                                        <div class="flex-shrink-0">
+                                    <div class="grid grid-cols-6 gap-12">
+                                        <div class="flex-shrink-0 ml-5">
                                             <img class="w-14 h-14 rounded-full ml-2"
                                                 src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
                                                 alt="Neil image">
                                         </div>
-                                        <div class="flex-1 min-w-0">
+                                        <div class="flex-1 grid-rows-2 col-span-2">
                                             <p class="text-base font-josefin font-bold text-gray-900 truncate ">
                                                 Negro
                                             </p>
-                                            <div class="rounded-xl w-16 font-semibold bg-[#5FA878]">
-                                                <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M15.2 14.4C14.1455 14.4 13.3 15.201 13.3 16.2C13.3 16.6774 13.5002 17.1352 13.8565 17.4728C14.2128 17.8104 14.6961 18 15.2 18C15.7039 18 16.1872 17.8104 16.5435 17.4728C16.8998 17.1352 17.1 16.6774 17.1 16.2C17.1 15.7226 16.8998 15.2648 16.5435 14.9272C16.1872 14.5896 15.7039 14.4 15.2 14.4ZM0 0V1.8H1.9L5.32 8.631L4.028 10.836C3.8855 11.088 3.8 11.385 3.8 11.7C3.8 12.1774 4.00018 12.6352 4.3565 12.9728C4.71282 13.3104 5.19609 13.5 5.7 13.5H17.1V11.7H6.099C6.03601 11.7 5.9756 11.6763 5.93106 11.6341C5.88652 11.5919 5.8615 11.5347 5.8615 11.475C5.8615 11.43 5.871 11.394 5.89 11.367L6.745 9.9H13.8225C14.535 9.9 15.162 9.522 15.485 8.973L18.886 3.15C18.9525 3.006 19 2.853 19 2.7C19 2.4613 18.8999 2.23239 18.7218 2.0636C18.5436 1.89482 18.302 1.8 18.05 1.8H3.9995L3.1065 0M5.7 14.4C4.6455 14.4 3.8 15.201 3.8 16.2C3.8 16.6774 4.00018 17.1352 4.3565 17.4728C4.71282 17.8104 5.19609 18 5.7 18C6.20391 18 6.68718 17.8104 7.0435 17.4728C7.39982 17.1352 7.6 16.6774 7.6 16.2C7.6 15.7226 7.39982 15.2648 7.0435 14.9272C6.68718 14.5896 6.20391 14.4 5.7 14.4Z"
-                                                        fill="white" />
-                                                </svg>
-                                                <p class="text-sm text-center text-white">
+                                            <div class="rounded-xl items-center w-3/4 font-semibold bg-[#5FA878]">
+                                                <div class="absolute pt-1 ">
+                                                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M10.7581 2.75798L11.9781 3.82548C13.7707 5.39465 14.6667 6.17865 14.6667 7.15281C14.6667 8.12756 13.7707 8.91156 11.9781 10.4801C10.1847 12.0493 9.28874 12.8333 8.17474 12.8333C7.06141 12.8333 6.16474 12.0493 4.37207 10.4807L3.15207 9.41323C2.12207 8.5114 1.60674 8.06106 1.41541 7.47598C1.22341 6.8909 1.38741 6.26965 1.71541 5.02773L1.90407 4.3114C2.17941 3.26606 2.31741 2.7434 2.72607 2.38523C3.13541 2.02765 3.73274 1.9069 4.92741 1.66598L5.74607 1.50031C7.16607 1.2139 7.87541 1.0704 8.54407 1.23781C9.21274 1.40581 9.72807 1.85673 10.7581 2.75798ZM7.43074 8.35798C6.98207 7.96598 6.98541 7.40248 7.25407 6.95623C7.18756 6.87217 7.1568 6.77038 7.16712 6.66854C7.17745 6.56669 7.22821 6.47123 7.3106 6.39873C7.39298 6.32622 7.50179 6.28126 7.61812 6.27164C7.73445 6.26202 7.85096 6.28835 7.94741 6.34606C8.17407 6.24106 8.42274 6.18506 8.67074 6.1874C8.80335 6.18848 8.93003 6.23561 9.02293 6.31842C9.11582 6.40124 9.16731 6.51295 9.16607 6.62898C9.16484 6.74501 9.11097 6.85586 9.01633 6.93714C8.92168 7.01842 8.79402 7.06348 8.66141 7.0624C8.50704 7.06739 8.36115 7.12545 8.25541 7.22398C7.99741 7.44973 8.06474 7.67606 8.13741 7.73965C8.21074 7.80323 8.46874 7.86215 8.72674 7.6364C9.24941 7.17906 10.1521 7.0274 10.7301 7.53315C11.1787 7.92573 11.1754 8.48923 10.9067 8.93548C10.9728 9.01956 11.0033 9.12121 10.9927 9.22284C10.9822 9.32448 10.9314 9.4197 10.8492 9.49203C10.7669 9.56436 10.6583 9.60925 10.5422 9.61894C10.4261 9.62862 10.3098 9.60249 10.2134 9.54506C9.91423 9.68864 9.56722 9.7365 9.23207 9.6804C9.10212 9.65703 8.98809 9.58946 8.91508 9.49253C8.84206 9.39561 8.81604 9.27728 8.84274 9.16356C8.86944 9.04985 8.94667 8.95008 9.05744 8.88619C9.16821 8.8223 9.30345 8.79954 9.43341 8.8229C9.55141 8.84448 9.74207 8.81065 9.90541 8.66773C10.1634 8.4414 10.0961 8.21565 10.0234 8.15206C9.95007 8.08848 9.69207 8.02956 9.43407 8.25531C8.91141 8.71265 8.00874 8.86431 7.43074 8.35798ZM6.68007 6.00423C6.80387 5.89587 6.90206 5.76724 6.96904 5.62568C7.03601 5.48412 7.07047 5.3324 7.07044 5.17919C7.07041 5.02598 7.03589 4.87427 6.96885 4.73273C6.90182 4.59119 6.80358 4.46259 6.67974 4.35427C6.5559 4.24595 6.4089 4.16004 6.24711 4.10143C6.08533 4.04282 5.91194 4.01267 5.73684 4.0127C5.56174 4.01273 5.38836 4.04293 5.2266 4.10159C5.06484 4.16025 4.91787 4.24621 4.79407 4.35456C4.54406 4.5734 4.40364 4.87018 4.40371 5.1796C4.40377 5.48903 4.54431 5.78576 4.79441 6.00452C5.04451 6.22328 5.38368 6.34615 5.73731 6.34609C6.09094 6.34604 6.43006 6.22307 6.68007 6.00423Z"
+                                                            fill="white" />
+                                                    </svg>
+                                                </div>
+                                                <p class="text-sm text-center ml-3 text-white">
                                                     $5.00
                                                 </p>
                                             </div>
                                         </div>
-                                        <div>
+                                        <div class="grid grid-rows-2">
                                             <p>Cantidad</p>
+                                            <p>asdklaskdjl</p>
                                         </div>
-                                        <div class=" items-center grid-rows-2">
+                                        <div class="items-center grid-rows-2">
                                             <div>
                                                 <p class="text-base font-semibold">Total</p>
                                             </div>
                                             <div>
-                                                <p class="text-base font-semibold text-green-500">$320</p>
+                                                <p class="text-base font-semibold text-green-500">$320.00</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="py-3 sm:py-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex-shrink-0">
-                                        <img class="w-8 h-8 rounded-full"
-                                            src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-                                            alt="Bonnie image">
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Bonnie Green
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            email@windster.com
-                                        </p>
-                                    </div>
-                                    <div
-                                        class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        $3467
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="py-3 sm:py-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex-shrink-0">
-                                        <img class="w-8 h-8 rounded-full"
-                                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                                            alt="Michael image">
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Michael Gough
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            email@windster.com
-                                        </p>
-                                    </div>
-                                    <div
-                                        class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        $67
+                                        <button class="cursor-pointer">
+                                            <a
+                                                class="text-3xl row-span-2 text-gray-400 font-encode font-extrabold hover:text-red-500">x</a>
+                                        </button>
                                     </div>
                                 </div>
                             </li>
@@ -99,13 +61,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="w-full absolute right-0 overflow-x-hidden transform translate-x-0 transition ease-in-out duration-700">
-            <div class="flex items-end lg:flex-row flex-col bg-transparent justify-end mr-10 mt-10" id="cart">
-                <div
-                    class="lg:w-4/12 md:w-8/12 w-full rounded-3xl bg-gradient-to-b via-[#2E3366] from-[#343678] to-[#273053]">
+        <div class="col-span-5 place-content-center bg-trasparent">
+            <div class="bg-transparent grid place-content-center w-full" id="cart">
+                <div class="w-11/12 rounded-3xl bg-gradient-to-b via-[#2E3366] from-[#343678] to-[#273053]">
                     <div
-                        class="flex flex-col h-3/4 rounded-lg lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between ">
+                        class="flex flex-col h-3/4 w-full rounded-lg lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between ">
                         <form class="flex flex-wrap gap-3 w-full">
                             <p class="text-center font-bold font-josefin text-white text-3xl">Informacion de
                                 pago
@@ -122,7 +82,8 @@
                                 <div>
                                     <form class="max-w-sm mx-auto">
                                         <label for="countries"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metodo de
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metodo
+                                            de
                                             Pago</label>
                                         <select id="pago"
                                             class="rounded-full peer px-2 py-2 bg-black/30 placeholder-gray-300 text-gray-100">
@@ -237,6 +198,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
