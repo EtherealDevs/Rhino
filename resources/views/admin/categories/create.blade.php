@@ -78,12 +78,10 @@
                                 <select name="parent_id" id="" value=""
                                     onclick="this.setAttribute('value', this.value);"
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                    <option value="" selected disabled hidden></option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
-                                    <option value="4">Option 4</option>
-                                    <option value="5">Option 5</option>
+                                    <option value="" selected disabled hidden>No tiene padre</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
                                 </select>
                                 <label for="select"
                                     class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el
@@ -92,7 +90,6 @@
                             </div>
 
                             <div class="mb-8">
-                                
                                 <label for="file"
                                     class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
                                     <div>
