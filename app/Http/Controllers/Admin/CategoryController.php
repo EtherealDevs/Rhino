@@ -23,7 +23,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $categories= Category::all();
+        return view('admin.categories.create',compact('categories'));
     }
 
     /**
@@ -36,7 +37,7 @@ class CategoryController extends Controller
                 'name'=>$request->name,
                 'slug'=>$request->slug,
                 'description'=>$request->description,
-                'parent_id'=>$request->parent_id||null,
+                'parent_id'=>$request->parent_id,
             ]
             );
         if($request->file('image')){
@@ -61,7 +62,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.edit',compact('category'));
+        $categories= Category::all();
+        return view('admin.categories.edit',compact('category'),compact('categories'));
     }
 
     /**

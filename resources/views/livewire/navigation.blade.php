@@ -59,12 +59,12 @@
                                         tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
                                     <a href="/admin" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de Administracion</a>
-                                    <form method="POST" action="{{ route('logout') }}" x-data>
+                                    <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
                                         @csrf
-                                        <a href="{{ route('logout') }}"
-                                            class="flex justify-end px-4 py-2 text-sm text-backfont-extralight"
+                                        <button type="submit" href="{{ route('logout') }}"
+                                            class="px-4 py-2 text-sm text-backfont-extralight"
                                             role="menuitem" tabindex="-1" id="user-menu-item-2"
-                                            @click.prevent="$root.submit();">Cerrar Sesion</a>
+                                            >Cerrar Sesion</button>
                                     </form>
                                 </div>
                             </div>

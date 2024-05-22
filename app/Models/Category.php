@@ -16,6 +16,7 @@ class Category extends Model
         'slug',
         'description',
         'image',
+        'parent_id',
     ];
 
     public function category() : BelongsTo
