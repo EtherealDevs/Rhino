@@ -125,7 +125,6 @@
                                                         fill="black" />
                                                 </g>
                                             </svg>
-
                                     </a>
                                     <a class="p-1 bg-gray-50 text-black rounded-full" href target="_blank"
                                         rel="noreferrer">
@@ -145,7 +144,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"
         integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -162,5 +161,5 @@
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 200,
         }).addTo(map);
-    </script>
+    </script> --}}
 @endsection
