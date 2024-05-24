@@ -92,9 +92,7 @@
                     <div class="w-full flex justify-center">
                         <!-- component -->
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            @livewire('product-card')
-                            @livewire('product-card')
-                            @livewire('product-card')
+                            @livewire('product-card', ['productItem' => $productItem])
                         </div>
                     </div>
                 </div>
@@ -160,10 +158,7 @@
                 <div class="flex justify-center w-full">
                     <div class="grid grid-cols-1  lg:grid-cols-4 gap-1 lg:gap-20">
                         <!-- component -->
-                        @livewire('product-card')
-                        @livewire('product-card')
-                        @livewire('product-card')
-                        @livewire('product-card')
+                        @livewire('product-card', ['productItem' => $productItem])
                     </div>
                 </div>
             </div>

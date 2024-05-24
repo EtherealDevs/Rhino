@@ -6,7 +6,8 @@ use Livewire\Component;
 
 class ProductCard extends Component
 {
-    public function render()
+    public $productItem;
+    public function mount()
     {
         return view('livewire.product-card');
     }

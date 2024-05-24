@@ -31,6 +31,11 @@
             <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
                 Ver detalle →
             </p>
+            <form method="POST" action="{{route('cart.addItem')}}">
+                @csrf
+                <input type="hidden" name="item" value="{{$productItem}}">
+                <button type="submit">Añadir al Carrito</button>
+            </form>
         </div>
     </div>
 </div>
