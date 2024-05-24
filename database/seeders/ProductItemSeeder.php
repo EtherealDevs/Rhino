@@ -16,6 +16,16 @@ class ProductItemSeeder extends Seeder
      */
     public function run(): void
     {
-        
+        foreach (Product::all() as $product) {
+            foreach (Color::all() as $color) {
+                foreach (Size::all() as $size) {
+                    ProductItem::factory()->create([
+                        'product_id' => $product->id,
+                        'color_id' => $color->id,
+                        'size_id' => $size->id
+                    ]);
+                }
+            }
+        }
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Models\ProductItem;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home.index');
+    $productItem = ProductItem::first();
+    return view('home.index', ['productItem' => $productItem]);
 });
 
 Route::get('/contact', function () {
@@ -20,6 +22,7 @@ Route::get('/products', function () {
 });
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.addItem');
 
 Route::get('/productshow', function () {
     return view('products.show');
