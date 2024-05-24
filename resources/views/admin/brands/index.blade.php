@@ -38,22 +38,22 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @php
+               {{--  @php
                 $total=0;
-            @endphp
-            @foreach ($orders as $order) --}}
+            @endphp  --}}
+            @foreach ($brands as $brand)
                 <tr>
                     
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="flex flex-col">
                             <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                Nombre
+                                {{ $brand->name}}
                             </p>
                         </div>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            Descripcion
+                            {{ $brand->description}}
                         </p>
                     </td>
                     <td class="p-4">
@@ -68,6 +68,7 @@
                         </button>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
