@@ -27,7 +27,7 @@ class ProductItem extends Model
     {
         return $this->belongsTo(Size::class);
     }
-    public function images() : MorphMany
+    public function image() : MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }

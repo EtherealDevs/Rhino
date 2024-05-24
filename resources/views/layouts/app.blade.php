@@ -31,8 +31,8 @@
         <div id="loader" class="h-18  mx-auto mt-12"></div>
     </div>
 
+    @livewire('navigation')
     <div class="min-h-screen bg-gray-100">
-        @livewire('navigation')
 
         <!-- Page Content -->
         <main>

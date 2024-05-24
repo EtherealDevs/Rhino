@@ -45,12 +45,12 @@
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action={{ route('admin.categories.store') }} method="POST" enctype="multipart/form-data">
+                            <form action={{ route('admin.productitems.store') }} method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-10 gap-2">
                                         <div class="col-span-9">
-                                            <select name="parent_id" id=""
+                                            <select name="product_id" id=""
                                                 onclick="this.setAttribute('value', this.value);"
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
                                                 <option value="null" >No tiene padre</option>
@@ -70,36 +70,30 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="text" name="name" placeholder=" " required
-                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="slug" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Slug
-                                        Amigable</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
-                                </div>
 
-                                <div class="relative z-0 w-full mb-5">
-                                    <input type="text" name="name" placeholder=" " required
-                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="description"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
-                                </div>
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div>
+                                            <input type="number" name="original_price" id="original_price" placeholder=" " required
+                                            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                            <label for="original_price" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
+                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                        </div>
+                                        <div>
+                                            <input type="number" name="sale_price" id="sale_price" placeholder=" "
+                                                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                            <label for="sale_price"
+                                            class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio de venta</label>
+                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                        </div>
 
-                                <div class="relative z-0 w-full mb-5">
-                                    <select name="parent_id" id="" value=""
-                                        onclick="this.setAttribute('value', this.value);"
-                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                        <option value="" selected disabled hidden></option>
-                                        <option value="1">Option 1</option>
-                                        <option value="2">Option 2</option>
-                                        <option value="3">Option 3</option>
-                                        <option value="4">Option 4</option>
-                                        <option value="5">Option 5</option>
-                                    </select>
-                                    <label for="select"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el
-                                        padre</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
+                                        <div>
+                                            <input type="number" name="stock" placeholder=" " required
+                                                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                            <label for="stock"
+                                            class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
+                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
@@ -113,6 +107,22 @@
                                         <div>
                                             <!-- Modal toggle -->
                                             <button data-modal-target="crud-modal-color" data-modal-toggle="crud-modal-color" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                                +
+                                            </button>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="relative z-0 w-full mb-5">
+                                    <legend>Talle:</legend>
+                                        <div>
+                                            @foreach ($sizes as $size)
+                                                <input type="radio" id="color-{{$size->id}}" name="size_id" value="{{$size->id}}" />
+                                                <label for="contactChoice1">{{$size->size}}</label>
+                                            @endforeach
+                                        </div>
+                                        <div>
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="crud-modal-size" data-modal-toggle="crud-modal-size" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                                 +
                                             </button>
                                         </div>
@@ -152,8 +162,16 @@
                         document.getElementById('button').addEventListener('click', toggleError)
                         const errMessages = document.querySelectorAll('#error')
 
+                        // function price_sale(){
+                        //     const original_price = document.getElementById('original_price').value
+                        //     const sale_price = document.getElementById('sale_price').value
+                        //     if(sale_price===null){
+                        //         sale_price = original_price
+                        //     }
+                        // }
+
                         function toggleError() {
-                            // Show error message
+                                    // Show error message
                             errMessages.forEach((el) => {
                                 el.classList.toggle('hidden')
                             })
@@ -214,6 +232,45 @@
           </div>
       </div>
   </div>
+
+    <!-- Main modal -->
+    <div id="crud-modal-size" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Crear nuevo Talle
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal-size">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <form action={{ route('admin.sizes.store') }} method="POST" class="p-4 md:p-5">
+                  @csrf
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div class="col-span-2">
+                            <label for="size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Talle</label>
+                            <input type="text" name="size" id="size" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="sort_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Orden</label>
+                            <input type="number" name="sort_number" id="sort_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                        </div>
+                    </div>
+                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        Guardar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Main modal -->
     <div id="crud-modal-brand" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">

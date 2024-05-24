@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductItemController extends Controller
 {
@@ -28,13 +30,27 @@ class ProductItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product_item=ProductItem::create([
+            'product_id' => $request->product_id,
+            'color_id' => $request->color_id,
+            'size_id' => $request->size_id,
+            'original_price'=>$request->original_price,
+            'sale_price' => $request->sale_price,
+            'stock' => $request->stock,
+        ]);
+        if($request->file('image')){
+            $url = Storage::put('products', $request->file('image'));
+            $product_item->image()->create([
+                'url' => $url
+            ]);
+        }
+        return redirect()->route('admin.products.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(ProductItem $product_item)
     {
         //
     }
@@ -42,24 +58,33 @@ class ProductItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ProductItem $product_item)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ProductItem $product_item)
     {
-        //
+        $product_item->update([
+            'product_id' => $request->product_id,
+            'color_id' => $request->color_id,
+            'size_id' => $request->size_id,
+            'original_price'=>$request->original_price,
+            'sale_price' => $request->sale_price,
+            'stock' => $request->stock,
+        ]);
+        return redirect()->route('admin.products.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ProductItem $product_item)
     {
-        //
+        $product_item->delete();
+        return redirect()->route('admin.products.index');
     }
 }
