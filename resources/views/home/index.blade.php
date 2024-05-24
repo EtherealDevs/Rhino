@@ -14,7 +14,6 @@
                                     </span>
                                 </h1>
                             </div>
-
                             <div class="mt-6">
                                 <p class="text-md text-white">
                                     Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit

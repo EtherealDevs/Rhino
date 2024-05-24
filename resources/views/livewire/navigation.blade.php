@@ -31,16 +31,61 @@
                                     </svg>
                                 </a>
                             </button>
-                            <button>
-                                <a href="/cart">
+                            <div class="flex content-center" x-data="{ open: false }">
+                                <button x-on:click="open = !open" type="button" class="flex items-center">
                                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M15.2 14.4C14.1455 14.4 13.3 15.201 13.3 16.2C13.3 16.6774 13.5002 17.1352 13.8565 17.4728C14.2128 17.8104 14.6961 18 15.2 18C15.7039 18 16.1872 17.8104 16.5435 17.4728C16.8998 17.1352 17.1 16.6774 17.1 16.2C17.1 15.7226 16.8998 15.2648 16.5435 14.9272C16.1872 14.5896 15.7039 14.4 15.2 14.4ZM0 0V1.8H1.9L5.32 8.631L4.028 10.836C3.8855 11.088 3.8 11.385 3.8 11.7C3.8 12.1774 4.00018 12.6352 4.3565 12.9728C4.71282 13.3104 5.19609 13.5 5.7 13.5H17.1V11.7H6.099C6.03601 11.7 5.9756 11.6763 5.93106 11.6341C5.88652 11.5919 5.8615 11.5347 5.8615 11.475C5.8615 11.43 5.871 11.394 5.89 11.367L6.745 9.9H13.8225C14.535 9.9 15.162 9.522 15.485 8.973L18.886 3.15C18.9525 3.006 19 2.853 19 2.7C19 2.4613 18.8999 2.23239 18.7218 2.0636C18.5436 1.89482 18.302 1.8 18.05 1.8H3.9995L3.1065 0M5.7 14.4C4.6455 14.4 3.8 15.201 3.8 16.2C3.8 16.6774 4.00018 17.1352 4.3565 17.4728C4.71282 17.8104 5.19609 18 5.7 18C6.20391 18 6.68718 17.8104 7.0435 17.4728C7.39982 17.1352 7.6 16.6774 7.6 16.2C7.6 15.7226 7.39982 15.2648 7.0435 14.9272C6.68718 14.5896 6.20391 14.4 5.7 14.4Z"
                                             fill="black" />
                                     </svg>
-                                </a>
-                            </button>
+                                </button>
+                                <div x-show="open" x-on:click.away="open = false"
+                                    class="absolute top-16  right-8 w-96 bg-white shadow-lg rounded-lg p-4">
+                                    <div class="flex justify-between items-center border-b pb-2 mb-2">
+                                        <h2 class="text-xl font-bold">Carrito</h2>
+                                        <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center space-x-4">
+                                                <img src="" alt="Producto" class="w-12 h-12 rounded-full">
+                                                <div>
+                                                    <p class="font-semibold">Camisa Cuadrada</p>
+                                                    <p class="text-gray-500">Color: <span> Amarillo</span></p>
+                                                    <p class="text-gray-500">Talle: <span> M</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <button class="text-blue-500">-</button>
+                                                <span class="text-lg">2</span>
+                                                <button class="text-blue-500">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 flex justify-between">
+                                        <button class="bg-black text-white px-4 py-2 font-bold rounded-lg flex items-center"
+                                            onclick="location.href='/cart'" type="button">
+                                            <span>Ir al carrito</span>
+                                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                            </svg>
+                                        </button>
+                                        <button class="bg-red-500 text-white px-4 py-2 font-bold rounded-lg">Eliminar
+                                            Lista</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="relative" x-data="{ open: false }">
                                 <div class=" border-4 rounded-full p-1">
                                     <button x-on:click="open = !open" type="button"
@@ -62,9 +107,8 @@
                                     <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
                                         @csrf
                                         <button type="submit" href="{{ route('logout') }}"
-                                            class="px-4 py-2 text-sm text-backfont-extralight"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-2"
-                                            >Cerrar Sesion</button>
+                                            class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
                                     </form>
                                 </div>
                             </div>
