@@ -55,6 +55,11 @@
                                 </path>
                             </svg>
                         </button>
+
+                        <i class="ri-star-fill text-yellow-300"></i>
+                        <i class="ri-star-fill text-yellow-300"></i>
+                        <i class="ri-star-fill text-yellow-300"></i>
+                        <i class="ri-star-fill text-yellow-300"></i>
                     </div>
                 </div>
             </div>

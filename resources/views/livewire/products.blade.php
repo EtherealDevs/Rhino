@@ -5,10 +5,11 @@
         {{-- Search --}}
         <div class="justify-start col-span-1">
             <div class="mt-6">
-                <button class="ml-12 p-2 px-4 rounded-full uppercase bg-gray-200">
+                <button class="ml-12 flex p-2 px-4 rounded-full uppercase bg-gray-200">
                     <p class="text-black text-xl font-bold">
                         Buscar
                     </p>
+                    <i class="ml-2 ri-search-eye-line text-2xl font-bold"></i>
                 </button>
             </div>
         </div>
@@ -114,7 +115,7 @@
     {{-- Products --}}
     <div class="h-screen w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
         {{-- Sidebar --}}
-        <div class="hidden lg:visible font-poppins lg:flex antialiased col-span-1">
+        <div class="sticky overflow-scroll lg:visible font-poppins lg:flex antialiased col-span-1">
             <div id="view" class="h-full w-full flex flex-row">
                 <button
                     class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden">
@@ -256,6 +257,7 @@
                                 <a href=""
                                     class="mt-5 text-base text-center  border font-medium text-white py-2 px-2 bg-blue-800  border-blue-800  hover:text-base rounded-md transition duration-150 ease-in-out">
                                     <span class="">Filtrar</span>
+                                    <i class="ri-filter-fill"></i>
                                 </a>
                             </div>
                         </div>

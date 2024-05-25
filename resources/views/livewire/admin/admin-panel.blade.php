@@ -1,6 +1,6 @@
 <div>
     <!--sidenav -->
-    <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu transition-transform">
+    <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu overflow-scroll transition-transform">
         <a href="/" class="flex  pb-4">
             <img class="flex mx-auto px-8 w-36 mt-4" src="/img/rino-black.png" alt="Your Company">
         </a>
@@ -15,14 +15,14 @@
             <li class="mb-1 group">
                 <a href="/admin"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class="ri-home-2-line mr-3 text-lg"></i>
+                    <i class="ri-home-3-line mr-3 text-lg"></i>
                     <span class="text-sm">Inicio</span>
                 </a>
             </li>
             <li class="mb-1 group">
                 <a href="{{route('admin.notifications.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='bx bx-bell mr-3 text-lg'></i>
+                    <i class="ri-notification-3-fill mr-3 text-lg"></i>
                     <span class="text-sm">Notificaciones</span>
                     <span
                         class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">5</span>
@@ -32,7 +32,7 @@
             <li class="mb-1 group">
                 <a href="{{route('admin.stock.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <i class="ri-funds-fill mr-3 text-lg"></i>
                     <span class="text-sm">Stock</span>
                 </a>
             </li>
@@ -46,14 +46,14 @@
             <li class="mb-1 group">
                 <a href="{{route('admin.sales.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='bx bx-archive mr-3 text-lg'></i>
+                    <i class="ri-funds-box-fill mr-3 text-lg"></i>
                     <span class="text-sm">Ventas</span>
                 </a>
             </li>
             <li class="mb-1 group">
                 <a href="{{route('admin.promos.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-barcode-box-fill mr-3 text-lg'></i>
+                    <i class="ri-percent-line mr-3 text-lg"></i>
                     <span class="text-sm">Promociones</span>
                 </a>
             </li>
@@ -61,14 +61,14 @@
             <li class="mb-1 group">
                 <a href="{{route('admin.products.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <i class="ri-t-shirt-fill mr-3 text-lg"></i>
                     <span class="text-sm">Productos</span>
                 </a>
             </li>
             <li class="mb-1 group">
                 <a href="{{route('admin.combos.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-shopping-bag-line mr-3 text-lg'></i>
+                    <i class='ri-handbag-fill mr-3 text-lg'></i>
                     <span class="text-sm">Combos</span>
                 </a>
             </li>
@@ -82,7 +82,7 @@
             <li class="mb-1 group">
                 <a href="{{route('admin.categories.index')}}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class='ri-barcode-box-fill mr-3 text-lg'></i>
+                    <i class="ri-folders-line mr-3 text-lg"></i>
                     <span class="text-sm">Subcategorias</span>
                 </a>
             </li>
@@ -99,6 +99,13 @@
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-store-2-line mr-3 text-lg"></i>
                     <span class="text-sm">Mi Tienda</span>
+                </a>
+            </li>
+            <li class="mb-1 group">
+                <a href="/myshop"
+                    class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                    <i class="ri-team-fill mr-3 text-lg"></i>
+                    <span class="text-sm">Roles y Permisos</span>
                 </a>
             </li>
 

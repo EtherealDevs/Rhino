@@ -57,15 +57,24 @@
                                             <div class="flex items-center space-x-4">
                                                 <img src="" alt="Producto" class="w-12 h-12 rounded-full">
                                                 <div>
-                                                    <p class="font-semibold">Camisa Cuadrada</p>
-                                                    <p class="text-gray-500">Color: <span> Amarillo</span></p>
-                                                    <p class="text-gray-500">Talle: <span> M</span></p>
+                                                    <p class="font-semibold text-xl">Camisa Cuadrada</p>
+                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Color: <span> Amarillo</span></p>
+                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Talle: <span> M</span></p>
                                                 </div>
                                             </div>
                                             <div class="flex items-center space-x-2">
                                                 <button class="text-blue-500">-</button>
                                                 <span class="text-lg">2</span>
                                                 <button class="text-blue-500">+</button>
+                                            </div>
+                                            <div>
+                                                <button class="">
+                                                    <a href="">
+                                                        
+                                                        <i class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
+                                                    </a>
+                                                </button>
+                                                
                                             </div>
                                         </div>
                                     </div>
