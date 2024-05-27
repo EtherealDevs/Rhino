@@ -2,10 +2,10 @@
 @section('content')
     <div
         class="grid grid-cols-12 w-full h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-pink-200 top-0 overflow-x-hidden">
-
+        {{-- Rompe la vista --}}
         <form method="POST">
             @csrf
-            <input type="hidden" name="item" value="{{$productItem}}">
+            <input type="hidden" name="item" value="{{ $productItem }}">
             <button type="submit">Añadir al Carrito</button>
         </form>
 
