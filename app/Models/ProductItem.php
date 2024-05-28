@@ -6,6 +6,7 @@ use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ProductItem extends Model
@@ -15,6 +16,15 @@ class ProductItem extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['product_id', 'original_price', 'sale_price', 'color_id', 'size_id', 'stock'];
 
+    public function price() : float
+    {
+        if ($this->sale_price != null) {
+            return $this->sale_price;
+        } else 
+        {
+            return $this->original_price;
+        }
+    }
     public function product() : BelongsTo
     {
         return $this->belongsTo(Product::class);
@@ -30,5 +40,9 @@ class ProductItem extends Model
     public function images() : MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+    public function users() : BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'product_item_id', 'user_id')->as('favorites')->withTimestamps();
     }
 }

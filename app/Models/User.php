@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -70,14 +71,16 @@ class User extends Authenticatable
     {
         return $this->morphOne(Image::class, 'imageable');
     }
-
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
     }
-
     public function cart() : HasOne
     {
         return $this->hasOne(Cart::class);
+    }
+    public function items() : BelongsToMany
+    {
+        return $this->belongsToMany(ProductItem::class, 'favorites', 'user_id', 'product_item_id')->as('favorites')->withTimestamps();
     }
 }

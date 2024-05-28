@@ -91,8 +91,8 @@
 
                     <div class="w-full flex justify-center">
                         <!-- component -->
+                        @livewire('product-card', ['productItem' => $productItem])
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            @livewire('product-card', ['productItem' => $productItem])
                         </div>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
     </section>
 
     <section>
-        @livewire('products')
+        {{-- @livewire('products') --}}
     </section>
 
 
