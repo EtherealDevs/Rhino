@@ -3,7 +3,7 @@
         <img src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
             class="h-full w-full object-cover" />
         <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
-            {{ $productItem->product->name }}
+            {{ $productItem->name }}
         </div>
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
             <button class="bg-black/20 text-gray-600 hover:bg-gray-600 p-2 rounded-full transition">

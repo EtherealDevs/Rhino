@@ -268,10 +268,9 @@
         <div class="col-span-5 mx-auto ml-2 mt-3">
             <div class="flex mx-auto w-full">
                 <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-1 lg:gap-10">
-                    @livewire('product-card')
-                    @livewire('product-card')
-                    @livewire('product-card')
-                    @livewire('product-card')
+                    @foreach ($productItem as $item)
+                    @livewire('product-card', ['productItem' => $item])
+                    @endforeach
                 </div>
             </div>
         </div>
