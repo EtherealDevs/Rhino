@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('slug');
-            $table->string('description');
+            $table->longText('description');
 
             $table->foreignId('parent_id')->nullable()->references('id')->on('categories');
 
