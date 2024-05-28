@@ -123,7 +123,6 @@
                 </div>
             </div>
         </div>
-
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h2 class="text-3xl font-bold mb-2">Zapatilla Nike Smash</h2>
             <div class="flex items-center mb-4">
