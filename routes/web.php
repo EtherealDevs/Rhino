@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TestController;
 use App\Models\ProductItem;
 use Illuminate\Support\Facades\Route;
 
@@ -17,12 +19,13 @@ Route::get('/about', function () {
     return view('about.index');
 });
 
-Route::get('/products', function () {
-    return view('products.index');
-});
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+Route::get('/test', [TestController::class, 'index'])->name('test');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.addItem');
+Route::delete('/cart/{item}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
 
 Route::get('/productshow', function () {
     return view('products.show');
