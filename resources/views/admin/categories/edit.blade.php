@@ -1,14 +1,6 @@
 @extends('layouts.admin')
 @section('content')
 <div class="pt-20 px-10">
-    `categories` (
-        `name`,
-        `slug`,
-        `description`,
-        `parent_id`,
-        `updated_at`,
-        `created_at`
-      )
     <form action={{route('admin.categories.update' ,$category)}} method="POST"  enctype="multipart/form-data">
         @method('PUT')
         @csrf
@@ -25,6 +17,7 @@
             <input type="textarea" name="description" value={{$category->description}}>
         </label>
         <label for="image">
+            <img src={{Storage::url($category->image->url)}} alt="">
             <p>imagen</p>
             <input type="file" name="image" accept="image/*" id="image">
         </label>
