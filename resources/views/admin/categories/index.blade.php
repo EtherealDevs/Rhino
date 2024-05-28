@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="">
+            <div class="overflow-scroll">
                 <table class="mt-1 w-full min-w-max table-auto text-left">
                     <thead>
                         <tr>
@@ -62,7 +62,7 @@
                                         <div class="flex flex-col">
                                             <p
                                                 class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                                {{$category->name }}
+                                                {{ $category->name }}
                                             </p>
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                         <div class="flex flex-col">
                                             <p
                                                 class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                                {{$category->slug }}
+                                                {{ $category->slug }}
                                             </p>
                                         </div>
                                         {{-- @php
@@ -85,8 +85,8 @@
                                 <td class="p-4 border-b border-blue-gray-50">
                                     <div class="flex flex-col">
                                         <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{$category->description }}
+                                            class="block antialiased text-ellipsis overflow-hidden font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                            {{ $category->description }} <span class="truncate">...</span>
                                         </p>
                                     </div>
                                 </td>
@@ -99,7 +99,8 @@
                                     </div>
                                 </td>
                                 <td class="p-4">
-                                    <button class="relative align-middle font-sans font-medium h-10 rounded-lg text-xs " type="button">
+                                    <button class="relative align-middle font-sans font-medium h-10 rounded-lg text-xs "
+                                        type="button">
                                         <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                             <a href={{ route('admin.categories.edit', $category) }} class="">
                                                 Ver Mas
@@ -111,8 +112,11 @@
                                     <form action={{ route('admin.categories.destroy', $category) }} method="post">
                                         @csrf
                                         @method('delete');
-                                        <button type="submit" onclick="return confirm('Se eliminara')" class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs" type="button">
-                                            <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                                        <button type="submit" onclick="return confirm('Se eliminara')"
+                                            class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs"
+                                            type="button">
+                                            <span
+                                                class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                                 <p class="bg-red-400 p-2 px-4 rounded-xl flex font-bold text-white">
                                                     Eliminar
                                                 </p>
