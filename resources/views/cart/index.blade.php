@@ -3,11 +3,11 @@
     <div
         class="grid grid-cols-12 w-full h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-pink-200 top-0 overflow-x-hidden">
 
-        {{-- @foreach ($productItems as $productItem) --}}
-        {{-- <form method="POST" accept="{{route('cart.addItem')}}">
+        {{-- Rompe la vista --}}
+        <form method="POST">
             @csrf
-            <input type="hidden" name="item" value="{{$productItem}}">
-            <button type="submit">Añadir al Carrito : ID {{$productItem->id}}</button>
+            <input type="hidden" name="item" value="{{ $productItem }}">
+            <button type="submit">Añadir al Carrito</button>
         </form>
         <form method="POST" action="{{route('cart.removeItem', ['item' => $productItem])}}">
             @method('delete')

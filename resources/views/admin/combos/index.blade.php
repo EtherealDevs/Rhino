@@ -26,14 +26,14 @@
                         class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                         <p
                             class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                            Pedido Nro/Fecha
+                            Combo Nro/Fecha
                         </p>
                     </th>
                     <th
                         class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                         <p
                             class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                            Usuario
+                            Nombre
                         </p>
                     </th>
                     <th
@@ -47,23 +47,20 @@
                         class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                         <p
                             class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                            Total
+                            Descuento
                         </p>
                     </th>
                     <th
                         class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                         <p
                             class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                            Estado
+                            Total
                         </p>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @php
-                    $total=0;
-                @endphp
-                @foreach ($orders as $order ) --}}
+                
                 <tr>
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="flex items-center gap-3">
@@ -83,9 +80,6 @@
                                 <p
                                     class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
                                     name</p>
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                    Cantidad</p>
                             </div>
                             {{-- @php
                                 $subtotal=$orderDetail->price * $orderDetail->amount;
@@ -98,18 +92,18 @@
                         <div class="flex flex-col">
                             <p
                                 class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                total</p>
+                                Product 1 y 2</p>
                         </div>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            total $$$</p>
+                            50%</p>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="w-max">
                             <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
                                 style="opacity: 1;">
-                                <span class="">Entregado</span>
+                                <span class="">$30.000</span>
                             </div>
                         </div>
                     </td>

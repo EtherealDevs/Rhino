@@ -31,7 +31,8 @@ class SizeController extends Controller
     public function store(Request $request)
     {
         Size::create([
-
+            'size'=> $request->size,
+            'sort_number'=>$request->sort_number
         ]);
         return redirect()->back();
     }
@@ -39,7 +40,7 @@ class SizeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Size $size)
     {
         //
     }
@@ -47,24 +48,29 @@ class SizeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Size $size)
     {
-        //
+        return view('admin.size.edit',compact('size'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Size $size)
     {
-        //
+        $size->update([
+            'size'=> $request->size,
+            'sort_number'=>$request->sort_number
+        ]);
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Size $size)
     {
-        //
+        $size->delete();
+        return redirect()->back();
     }
 }

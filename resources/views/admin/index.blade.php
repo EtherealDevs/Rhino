@@ -90,10 +90,10 @@
                 ?>
 
                 {{-- HEADER --}}
-                <div class="grid grid-cols-2 lg:grid-cols-4 justify-center">
-                    <div class="col-span-2 ml-3 mb-3">
-                        <div class="my-1 text-md font-bold text-white uppercase">
-                            caa {{ $formattedDate }}
+                <div class="grid grid-cols-2 lg:grid-cols-4 p-1 justify-center">
+                    <div class="col-span-2 ml-2 mb-3">
+                        <div class="text-sm font-bold bg-black/20 p-1 w-8/12 px-5 rounded-lg text-white uppercase">
+                            <i class="ri-calendar-2-line"></i> {{ $formattedDate }}
                         </div>
 
                         <div class="justify-center">
@@ -101,12 +101,13 @@
                             </h2>
                             <h3 class="text-white uppercase mt-0 font-lg text-semibold leading-6">
                                 <span>
-                                   {{ $user->name }}
+                                    {{ $user->name }}
                                 </span>
                             </h3>
                         </div>
                     </div>
-                    <div class="bg-black/20 p-8 rounded-lg mr-3 lg:mb-3">
+                    <div
+                        class="bg-black/20 text-3xl flex justify-center items-center shadow-xl font-bold italic rounded-lg mr-3 lg:mb-3">
                         <span class="leading-loose text-white">{{ $currentTime }}</span>
                     </div>
                     <div>
@@ -115,7 +116,7 @@
                                 <div class="text-sm font-medium text-red-600">{{ $errorMessage }}</div>
                             @else
                                 <div class="bg-black/20 rounded-lg ">
-                                    <div class="w-full justify-center font-bold leading-loose text-2xl">
+                                    <div class="w-full justify-center font-bold leading-loose text-xl">
                                         <p class="text-[#FFF1F1] italic font-blinker">
                                             <span class="text-3xl">
                                                 {{ $emoji }}
@@ -123,7 +124,7 @@
                                             {{ $temperature }}°C
                                         </p>
                                         <p class="text-white">
-                                            <span class="font-black text-lg px-2 capitalize italic rounded ">
+                                            <span class="font-black mt-1 text-lg px-2 capitalize italic rounded ">
                                                 {{ $description }}
                                             </span>
                                         </p>
@@ -135,7 +136,8 @@
                 </div>
             </div>
 
-            <div class="bg-white row-span-2 w-full lg:row-span-3 rounded-xl border border-gray-000 p-6 shadow-md shadow-black/5">
+            <div
+                class="bg-white row-span-2 w-full lg:row-span-3 rounded-xl border border-gray-000 p-6 shadow-md shadow-black/5">
                 <div class="flex justify-between gap-3 pb-2">
                     <div class="justify-start">
                         <h2 class="font-bold text-xl mb-2 font-encode"> <i
@@ -201,7 +203,7 @@
                 <div class="p-2 bg-white rounded-xl ">
                     <p class="font-blinker font-medium text-md text-center p-4">
                         <span class="font-bold text-4xl">
-                            36
+                            36 <span>🛒</span>
                         </span>
                         <br>
                         Pedidos Nuevos

@@ -1,10 +1,10 @@
 <div class="sticky top-0 min-h-full z-40">
-    <nav class=" bg-white z-10 h-18 drop-shadow-xl">
+    <nav class="bg-white z-10 h-18 drop-shadow-xl">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 items-center justify-between">
+            <div class="flex h-16 justify-start lg:justify-between">
                 <div class="flex items-center">
                     <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
+                        <div class="flex items-baseline space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <a href="/" class="text-gray-800 font-black px-3 py-2 text-sm"
                                 aria-current="page">Inicio</a>
@@ -13,8 +13,9 @@
                             <a href="/contact" class="text-gray-800 font-black px-3 py-2 text-sm">Contacto</a>
                         </div>
                     </div>
-                    <div class="flex-shrink-0 flex justify-center bg-white py-6 rounded-full ml-48">
-                        <img class="px-8 w-48 mt-8" src="/img/rino-blue.png" alt="Your Company">
+                    <div class="flex-shrink-0 flex bg-white lg:py-6 lg:rounded-full lg:ml-36">
+                        <img class="justify-center xl:ml-2 lg:ml-2 lg:px-8 xl:w-48 2xl:w-48 lg:w-48 w-24 mt-12"
+                            src="/img/rino-blue.png" alt="Your Company">
                     </div>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
@@ -31,6 +32,8 @@
                                     </svg>
                                 </a>
                             </button>
+
+                            {{-- Carrito --}}
                             <div class="flex content-center" x-data="{ open: false }">
                                 <button x-on:click="open = !open" type="button" class="flex items-center">
                                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
@@ -57,15 +60,29 @@
                                             <div class="flex items-center space-x-4">
                                                 <img src="" alt="Producto" class="w-12 h-12 rounded-full">
                                                 <div>
-                                                    <p class="font-semibold">Camisa Cuadrada</p>
-                                                    <p class="text-gray-500">Color: <span> Amarillo</span></p>
-                                                    <p class="text-gray-500">Talle: <span> M</span></p>
+                                                    <p class="font-semibold text-xl">Camisa Cuadrada</p>
+                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Color:
+                                                        <span> Amarillo</span>
+                                                    </p>
+                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Talle:
+                                                        <span> M</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="flex items-center space-x-2">
                                                 <button class="text-blue-500">-</button>
                                                 <span class="text-lg">2</span>
                                                 <button class="text-blue-500">+</button>
+                                            </div>
+                                            <div>
+                                                <button class="">
+                                                    <a href="">
+
+                                                        <i
+                                                            class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
+                                                    </a>
+                                                </button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +102,7 @@
                                 </div>
                             </div>
 
-
+                            {{-- Perfil --}}
                             <div class="relative" x-data="{ open: false }">
                                 <div class=" border-4 rounded-full p-1">
                                     <button x-on:click="open = !open" type="button"
@@ -100,8 +117,8 @@
                                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                     tabindex="-1">
                                     <a href="{{ route('profile.show') }}"
-                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
                                     <a href="/admin" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de Administracion</a>
                                     <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
@@ -123,56 +140,75 @@
                 </div>
             </div>
         </div>
-        <div class="md:hidden" x-show="open" x-on:click.away="open = false">
-            <div class="grid grid-cols-2 gap-4 p-4">
-                <!-- Enlaces principales en la primera columna a la derecha -->
-                <div class="text-left">
-                    <a href="/"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                        x-on:click="open = !open">Inicio</a>
-                    <a href="/about"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                        x-on:click="open = !open">Nosotros</a>
-                    <a href="/posts"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                        x-on:click="open = !open">Blog</a>
-                    <a href="/contact"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                        x-on:click="open = !open">Contactanos</a>
-                </div>
-                <!-- Botones de inicio de sesión y registro en la segunda columna a la izquierda -->
-                <div class="text-right">
-                    <div class="flex flex-col space-y-2">
-                        @auth
-                            <!-- Bloque de autenticación para usuarios autenticados -->
-                            <div class="ml-4 items-center">
-                                <div class="relative" x-data="{ open: false }">
-                                    <a href="{{ route('profile.show') }}"
-                                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
 
-                                    <form method="POST" action="{{ route('logout') }}" x-data>
-                                        @csrf
-                                        <a href="{{ route('logout') }}"
-                                            class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-2"
-                                            @click.prevent="$root.submit();">Cerrar Sesion</a>
-                                    </form>
+        {{-- Modal Menu --}}
+        <div class="relative" x-data="{ open: false }">
+
+            <div class="flex top-0 md:hidden justify-end">
+                <button x-on:click="open = !open" type="button"
+                    class="inline-flex items-center justify-center p-2 text-gray-400">
+                    <span class="sr-only">Open menu</span>
+                    <svg class="block h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+
+            {{-- Enlaces --}}
+            <div class="md:hidden" x-show="open" x-on:click.away="open = false">
+                <div class="grid grid-cols-2 transition-opacity transform gap-4 p-4">
+                    <!-- Enlaces principales en la primera columna a la derecha -->
+                    <div class="text-left">
+                        <a href="/"
+                            class="text-gray-800 font-bold hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base italic"
+                            x-on:click="open = !open">Inicio</a>
+                        <a href="/about"
+                            class="text-gray-800 font-bold hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base italic"
+                            x-on:click="open = !open">Nosotros</a>
+                        <a href="/products"
+                            class="text-gray-800 font-bold hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base italic"
+                            x-on:click="open = !open">Productos</a>
+                        <a href="/contact"
+                            class="text-gray-800 font-bold hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base italic"
+                            x-on:click="open = !open">Contactanos</a>
+                    </div>
+                    <!-- Botones de inicio de sesión y registro en la segunda columna a la izquierda -->
+                    <div class="text-right">
+                        <div class="flex flex-col space-y-2">
+                            @auth
+                                <!-- Bloque de autenticación para usuarios autenticados -->
+                                <div class="ml-4 items-center">
+                                    <div class="relative" x-data="{ open: false }">
+                                        <a href="{{ route('profile.show') }}"
+                                            class="text-gray-800 hover:bg-gray-700  block px-3 py-2 rounded-md text-base font-bold italic"
+                                            role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+
+                                        <form method="POST" action="{{ route('logout') }}" x-data>
+                                            @csrf
+                                            <a href="{{ route('logout') }}"
+                                                class="text-gray-800 hover:bg-gray-700  block px-3 py-2 rounded-md text-base font-bold italic"
+                                                role="menuitem" tabindex="-1" id="user-menu-item-2"
+                                                @click.prevent="$root.submit();">Cerrar Sesion</a>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        @else
-                            <!-- Bloque de inicio de sesión y registro para usuarios no autenticados -->
-                            <div class="ml-4 flex items-center">
-                                <a href="{{ route('login') }}"
-                                    class="text-gray-900 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Iniciar
-                                    Sesión</a>
-                                <a href="{{ route('register') }}"
-                                    class="text-gray-900 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Registrarme</a>
-                            </div>
-                        @endauth
+                            @else
+                                <!-- Bloque de inicio de sesión y registro para usuarios no autenticados -->
+                                <div class="ml-4 flex items-center">
+                                    <a href="{{ route('login') }}"
+                                        class="text-gray-300 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Iniciar
+                                        Sesión</a>
+                                    <a href="{{ route('register') }}"
+                                        class="text-gray-300 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Registrarme</a>
+                                </div>
+                            @endauth
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </nav>
 </div>

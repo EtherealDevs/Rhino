@@ -1,170 +1,122 @@
 @extends('layouts.app')
+
 @section('content')
-    <!-- component -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/glide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/css/glide.theme.min.css">
 
-    <div x-data="{ cartOpen: false, isOpen: false }" class="bg-white">
-
-        <div class="container mx-auto px-6">
-            <div class="md:flex md:items-center">
-                <div class="w-full h-64 md:w-1/2 lg:h-96">
-                    <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto"
-                        src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
-                        alt="Nike Air">
+    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-6 rounded-lg shadow-lg">
+            <!-- Carousel -->
+            <div class="glide" x-data="{ currentSlide: 0 }">
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        <li class="glide__slide">
+                            <img class="w-full h-64 lg:h-96 object-cover"
+                                src="https://cdn.discordapp.com/attachments/880510966473826329/1244742689178517544/PHOTO-2024-05-27-10-13-30.jpg?ex=66563877&is=6654e6f7&hm=8f01b61899121c52cb7dd13597902188e9b62c43c95550fefdbcfb08cb6469a8&"
+                                alt="Producto principal">
+                        </li>
+                        <li class="glide__slide">
+                            <img class="w-full h-64 lg:h-96 object-cover"
+                                src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
+                                alt="Producto secundario">
+                        </li>
+                        <li class="glide__slide">
+                            <img class="w-full h-64 lg:h-96 object-cover"
+                                src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
+                                alt="Producto secundario">
+                        </li>
+                    </ul>
                 </div>
-                <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                    <h3 class="text-gray-700 uppercase text-lg">Nike Air</h3>
-                    <span class="text-gray-500 mt-3">$125</span>
-                    <hr class="my-3">
-                    <div class="mt-2">
-                        <label class="text-gray-700 text-sm" for="count">Count:</label>
-                        <div class="flex items-center mt-1">
-                            <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </button>
-                            <span class="text-gray-700 text-lg mx-2">20</span>
-                            <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <label class="text-gray-700 text-sm" for="count">Color:</label>
-                        <div class="flex items-center mt-1">
-                            <button
-                                class="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-teal-600 mr-2 focus:outline-none"></button>
-                            <button class="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"></button>
-                        </div>
-                    </div>
-                    <div class="flex items-center mt-6">
-                        <button
-                            class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Order
-                            Now</button>
-                        <button class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
-                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </button>
-                    </div>
+                <div class="glide__bullets" data-glide-el="controls[nav]">
+                    <button class="glide__bullet" data-glide-dir="=0"></button>
+                    <button class="glide__bullet" data-glide-dir="=1"></button>
+                    <button class="glide__bullet" data-glide-dir="=2"></button>
+                </div>
+                <div class="glide__arrows" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <div class="">
-                <div class="flex flex-col justify-center">
-                    <div class="relative m-3 flex flex-wrap mx-auto justify-center">
-            
-                        <div class="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-                            <div class="overflow-x-hidden rounded-2xl relative">
-                                <img class="h-40 rounded-2xl w-full object-cover"
-                                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg">
-                                <p class="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-50 opacity-70"
-                                        fill="none" viewBox="0 0 24 24" stroke="black">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="mt-4 pl-2 mb-2 flex justify-between ">
-                                <div>
-                                    <p class="text-lg font-semibold text-gray-900 mb-0">Product Name</p>
-                                    <p class="text-md text-gray-800 mt-0">$340</p>
-                                </div>
-                                <div class="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-70" fill="none"
-                                        viewBox="0 0 24 24" stroke="gray">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-                            <div class="overflow-x-hidden rounded-2xl relative">
-                                <img class="h-40 rounded-2xl w-full object-cover"
-                                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg">
-                                <p class="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-50 opacity-70"
-                                        fill="none" viewBox="0 0 24 24" stroke="black">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="mt-4 pl-2 mb-2 flex justify-between ">
-                                <div>
-                                    <p class="text-lg font-semibold text-gray-900 mb-0">Product Name</p>
-                                    <p class="text-md text-gray-800 mt-0">$340</p>
+            <!-- Thumbnails -->
+            <div class="flex mt-4">
+                <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = 0"
+                    src="https://cdn.discordapp.com/attachments/880510966473826329/1244742689178517544/PHOTO-2024-05-27-10-13-30.jpg"
+                    alt="Miniatura 1">
+                <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = 1"
+                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg" alt="Miniatura 2">
+                <img class="w-24 h-24 object-cover cursor-pointer" @click="currentSlide = 2"
+                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg" alt="Miniatura 3">
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="mt-6 bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-4">Reseñas y Calificaciones</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-4">
+                        <img class="w-12 h-12 rounded-full" src="https://via.placeholder.com/150" alt="Usuario 1">
+                        <div>
+                            <h4 class="text-lg font-semibold">Nina Holloway</h4>
+                            <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <div class="flex items-center mt-2">
+                                <div class="flex space-x-1 text-yellow-500">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
                                 </div>
-                                <div class="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-70" fill="none"
-                                        viewBox="0 0 24 24" stroke="gray">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-                            <div class="overflow-x-hidden rounded-2xl relative">
-                                <img class="h-40 rounded-2xl w-full object-cover"
-                                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg">
-                                <p class="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-50 opacity-70"
-                                        fill="none" viewBox="0 0 24 24" stroke="black">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="mt-4 pl-2 mb-2 flex justify-between ">
-                                <div>
-                                    <p class="text-lg font-semibold text-gray-900 mb-0">Product Name</p>
-                                    <p class="text-md text-gray-800 mt-0">$340</p>
-                                </div>
-                                <div class="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-70" fill="none"
-                                        viewBox="0 0 24 24" stroke="gray">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </div>
+                                <span class="ml-2 text-gray-600">71</span>
                             </div>
                         </div>
-                        <div class="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-                            <div class="overflow-x-hidden rounded-2xl relative">
-                                <img class="h-40 rounded-2xl w-full object-cover"
-                                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg">
-                                <p class="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-50 opacity-70"
-                                        fill="none" viewBox="0 0 24 24" stroke="black">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </p>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <img class="w-12 h-12 rounded-full" src="https://via.placeholder.com/150" alt="Usuario 2">
+                        <div>
+                            <h4 class="text-lg font-semibold">Nina Holloway</h4>
+                            <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <div class="flex items-center mt-2">
+                                <div class="flex space-x-1 text-yellow-500">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
+                                </div>
+                                <span class="ml-2 text-gray-600">71</span>
                             </div>
-                            <div class="mt-4 pl-2 mb-2 flex justify-between ">
-                                <div>
-                                    <p class="text-lg font-semibold text-gray-900 mb-0">Product Name</p>
-                                    <p class="text-md text-gray-800 mt-0">$340</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <img class="w-12 h-12 rounded-full" src="https://via.placeholder.com/150" alt="Usuario 3">
+                        <div>
+                            <h4 class="text-lg font-semibold">Nina Holloway</h4>
+                            <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <div class="flex items-center mt-2">
+                                <div class="flex space-x-1 text-yellow-500">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-half-fill"></i>
                                 </div>
-                                <div class="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-70" fill="none"
-                                        viewBox="0 0 24 24" stroke="gray">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </div>
+                                <span class="ml-2 text-gray-600">71</span>
                             </div>
                         </div>
                     </div>
@@ -172,11 +124,42 @@
             </div>
         </div>
 
-        <footer class="bg-gray-200">
-            <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-                <a href="#" class="text-xl font-bold text-gray-500 hover:text-gray-400">Brand</a>
-                <p class="py-2 text-gray-500 sm:py-0">All rights reserved</p>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-3xl font-bold mb-2">Zapatilla Nike Smash</h2>
+            <div class="flex items-center mb-4">
+                <span class="text-2xl font-semibold text-gray-700">$250.000,00</span>
             </div>
-        </footer>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Color:</label>
+                <div class="flex space-x-2">
+                    <button class="w-8 h-8 rounded-full bg-red-600 focus:outline-none"></button>
+                    <button class="w-8 h-8 rounded-full bg-blue-600 focus:outline-none"></button>
+                    <button class="w-8 h-8 rounded-full bg-green-600 focus:outline-none"></button>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Talle:</label>
+                <div class="flex space-x-2">
+                    <button class="w-10 h-10 border rounded-lg focus:outline-none">41</button>
+                    <button class="w-10 h-10 border rounded-lg focus:outline-none">42</button>
+                    <button class="w-10 h-10 border rounded-lg focus:outline-none">43</button>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Cantidad:</label>
+                <div class="flex items-center space-x-2">
+                    <button class="w-10 h-10 border rounded-lg focus:outline-none">-</button>
+                    <span class="text-lg">1</span>
+                    <button class="w-10 h-10 border rounded-lg focus:outline-none">+</button>
+                </div>
+            </div>
+            <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">Agregar al carrito</button>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new Glide('.glide').mount();
+        });
+    </script>
 @endsection

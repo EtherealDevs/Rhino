@@ -62,8 +62,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $parent=Category::where('id',$category->parent_id)->first();
         $categories= Category::all();
-        return view('admin.categories.edit',compact('category'),compact('categories'));
+        return view('admin.categories.edit',compact('category','categories','parent'));
     }
 
     /**
@@ -71,14 +72,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $request->file('image')->store('post');
 
         $category->update(
             [
                 'name'=>$request->name,
                 'slug'=>$request->slug,
                 'description'=>$request->description,
-                'parent_id'=>$request->parent_id||null,
+                'parent_id'=>$request->parent_id,
             ]
             );
         if ($request->file('image')) {
