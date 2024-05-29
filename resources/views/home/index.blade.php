@@ -175,7 +175,8 @@
                     </svg>
                 </button>
             </article>
-            <div class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white lg:-translate-y-1/2 -translate-y-32">
+            <div
+                class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white lg:-translate-y-1/2 -translate-y-32">
                 <div class="flex justify-center w-full">
                     <div class="grid grid-cols-1  lg:grid-cols-4 gap-1 lg:gap-20">
                         <!-- component -->
@@ -187,7 +188,7 @@
     </section>
 
     <section>
-        {{-- @livewire('products') --}}
+        @livewire('products')
     </section>
 
 
