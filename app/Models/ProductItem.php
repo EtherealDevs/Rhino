@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ProductItem extends Model
@@ -20,7 +22,7 @@ class ProductItem extends Model
     {
         if ($this->sale_price != null) {
             return $this->sale_price;
-        } else 
+        } else
         {
             return $this->original_price;
         }
@@ -44,5 +46,9 @@ class ProductItem extends Model
     public function users() : BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favorites', 'product_item_id', 'user_id')->as('favorites')->withTimestamps();
+    }
+    public function sale() : HasOne
+    {
+        return $this->hasOne(SaleProduct::class);
     }
 }
