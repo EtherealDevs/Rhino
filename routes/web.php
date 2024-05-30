@@ -29,7 +29,7 @@ Route::delete('/cart/{item}', [CartController::class, 'removeFromCart'])->name('
 
 Route::get('/productshow', function () {
     return view('products.show');
-});
+})->name('products.show');
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {
