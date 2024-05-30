@@ -114,7 +114,7 @@
 
 
         {{-- Products --}}
-        <div class="h-screen w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
+        <div class="h-full w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
             {{-- Sidebar --}}
             <div class="lg:visible font-poppins lg:flex antialiased col-span-1">
                 <div id="view" class="h-full w-full flex flex-row">
