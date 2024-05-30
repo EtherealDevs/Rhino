@@ -47,8 +47,4 @@ class ProductItem extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'product_item_id', 'user_id')->as('favorites')->withTimestamps();
     }
-    public function sale() : HasOne
-    {
-        return $this->hasOne(SaleProduct::class);
-    }
 }

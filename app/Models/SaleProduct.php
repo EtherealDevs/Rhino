@@ -18,6 +18,6 @@ class SaleProduct extends Model
 
     public function products() : BelongsTo
     {
-        return $this->belongsTo(ProductItem::class);
+        return $this->belongsTo(Product::class);
     }
 }
