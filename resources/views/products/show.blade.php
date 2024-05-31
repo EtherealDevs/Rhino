@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/glide.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/css/glide.core.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/css/glide.theme.min.css">
@@ -15,7 +14,7 @@
                         <ul class="glide__slides">
                             <li class="glide__slide">
                                 <img class="w-full h-64 lg:h-96 object-cover"
-                                    src="https://cdn.discordapp.com/attachments/880510966473826329/1244742689178517544/PHOTO-2024-05-27-10-13-30.jpg"
+                                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
                                     alt="Producto principal">
                             </li>
                             <li class="glide__slide">
@@ -56,7 +55,7 @@
                 <!-- Thumbnails -->
                 <div class="flex mt-4">
                     <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = 0"
-                        src="https://cdn.discordapp.com/attachments/880510966473826329/1244742689178517544/PHOTO-2024-05-27-10-13-30.jpg"
+                        src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
                         alt="Miniatura 1">
                     <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = 1"
                         src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
@@ -68,7 +67,7 @@
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-3xl font-bold">Zapatilla Nike Smash</h2>
+                    <h2 class="text-3xl font-bold">{{$item->product->name}}</h2>
                     <span class="text-xl text-yellow-500">
                         <i class="ri-star-fill"></i>
                         <i class="ri-star-fill"></i>
@@ -78,7 +77,7 @@
                     </span>
                 </div>
                 <div class="mb-4">
-                    <span class="text-2xl font-semibold text-gray-700">$250.000,00</span>
+                    <span class="text-2xl font-semibold text-gray-700">{{$item->price()}}</span>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Color:</label>
@@ -91,9 +90,9 @@
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Talle:</label>
                     <div class="flex space-x-2">
-                        <button class="w-10 h-10 border rounded-lg focus:outline-none">41</button>
-                        <button class="w-10 h-10 border rounded-lg focus:outline-none">42</button>
-                        <button class="w-10 h-10 border rounded-lg focus:outline-none">43</button>
+                        @foreach ($item->sizes as $size)
+                            <button class="w-10 h-10 border rounded-lg focus:outline-none">{{$size->name}}</button>
+                        @endforeach
                     </div>
                 </div>
                 <div class="mb-4">
@@ -202,30 +201,19 @@
         <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
             <h3 class="text-2xl font-bold mb-4">Productos Recomendados</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @foreach ($item->product->category->products()->take(4)->get() as $relatedProduct)
+                @php
+                    $relatedItem = $relatedProduct->items()->inRandomOrder()->first()
+                @endphp
                 <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                    <img class="w-full h-48 object-cover rounded-t-lg" src="https://via.placeholder.com/200"
-                        alt="Producto 1">
-                    <h4 class="text-lg font-semibold mt-2">Producto 1</h4>
-                    <p class="text-gray-700">$100.000,00</p>
+                    <a href="{{route('products.show', ['id' => $relatedItem->id])}}">
+                        <img class="w-full h-48 object-cover rounded-t-lg" src="https://via.placeholder.com/200"
+                            alt="Producto 1">
+                        <h4 class="text-lg font-semibold mt-2">{{$relatedItem->product->name}}</h4>
+                        <p class="text-gray-700">${{$relatedItem->price()}}</p>
+                    </a>
                 </div>
-                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                    <img class="w-full h-48 object-cover rounded-t-lg" src="https://via.placeholder.com/200"
-                        alt="Producto 2">
-                    <h4 class="text-lg font-semibold mt-2">Producto 2</h4>
-                    <p class="text-gray-700">$200.000,00</p>
-                </div>
-                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                    <img class="w-full h-48 object-cover rounded-t-lg" src="https://via.placeholder.com/200"
-                        alt="Producto 3">
-                    <h4 class="text-lg font-semibold mt-2">Producto 3</h4>
-                    <p class="text-gray-700">$150.000,00</p>
-                </div>
-                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                    <img class="w-full h-48 object-cover rounded-t-lg" src="https://via.placeholder.com/200"
-                        alt="Producto 4">
-                    <h4 class="text-lg font-semibold mt-2">Producto 4</h4>
-                    <p class="text-gray-700">$180.000,00</p>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

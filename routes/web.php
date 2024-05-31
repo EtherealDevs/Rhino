@@ -20,16 +20,18 @@ Route::get('/about', function () {
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/test', [TestController::class, 'index'])->name('test');
+
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.addItem');
 Route::delete('/cart/{item}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
 
-Route::get('/productshow', function () {
+Route::get('/products/show', function () {
     return view('products.show');
-})->name('products.show');
+});
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {

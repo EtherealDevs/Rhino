@@ -36,10 +36,14 @@
                     <p class="text-base font-semibold text-green-500">${{$item['item']->price() * $item['amount']}}</p>
                 </div>
             </div>
-            <button class="cursor-pointer">
-                <a
-                    class="text-3xl row-span-2 text-gray-400 font-encode font-extrabold hover:text-red-500">x</a>
-            </button>
+            <form method="POST" action="{{route('cart.removeItem', ['item' => $item['id']])}}">
+            <button type="submit" class="cursor-pointer">
+                    @method('delete')
+                    @csrf
+                    <a
+                        class="text-3xl row-span-2 text-gray-400 font-encode font-extrabold hover:text-red-500">x</a>
+                    </button>
+                </form>
         </div>
     </div>
 </li>

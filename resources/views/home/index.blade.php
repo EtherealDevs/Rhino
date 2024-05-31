@@ -88,15 +88,15 @@
                     </div>
                 </div>
 
-                <div class="w-full flex justify-center">
-                    <!-- component -->
-                    @livewire('product-card', ['productItem' => $productItem])
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="w-full flex justify-center">
+                        <!-- component -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            @livewire('product-card', ['productItem' => $productItem])
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <section class="mt-6">
@@ -163,7 +163,7 @@
         </div>
     </section>
 
-    <section class="">
+    <section>
         @livewire('products')
     </section>
 

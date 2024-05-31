@@ -33,9 +33,4 @@ class Product extends Model
     {
         return $this->hasMany(ProductItem::class);
     }
-
-    public function sale() : HasOne
-    {
-        return $this->hasOne(SaleProduct::class);
-    }
 }

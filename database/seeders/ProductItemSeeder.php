@@ -18,13 +18,11 @@ class ProductItemSeeder extends Seeder
     {
         foreach (Product::all() as $product) {
             foreach (Color::all() as $color) {
-                foreach (Size::all() as $size) {
-                    ProductItem::factory()->create([
-                        'product_id' => $product->id,
-                        'color_id' => $color->id,
-                        'size_id' => $size->id
-                    ]);
-                }
+                $test = Size::all()->random(1)->first();
+                ProductItem::factory()->hasAttached($test, ['stock' => rand(1, 3)])->create([
+                    'product_id' => $product->id,
+                    'color_id' => $color->id
+                ]);
             }
         }
     }

@@ -11,4 +11,9 @@ class ProductController extends Controller
     {
         return view('products.index');
     }
+    public function show($id)
+    {
+        $item = ProductItem::with(['product'])->where('id', $id)->first();
+        return view('products.show', compact('item'));
+    }
 }

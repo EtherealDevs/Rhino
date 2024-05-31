@@ -18,8 +18,6 @@ return new class extends Migration
             $table->decimal('original_price');
             $table->decimal('sale_price')->nullable();
             $table->foreignId('color_id')->constrained();
-            $table->foreignId('size_id')->constrained();
-            $table->integer('stock');
             $table->timestamps();
         });
     }

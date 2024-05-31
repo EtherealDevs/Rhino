@@ -18,7 +18,6 @@ class ProductItemFactory extends Factory
     {
         return [
             'original_price' => $this->faker->randomNumber(3),
-            'stock' => rand(1, 3)
         ];
     }
 }

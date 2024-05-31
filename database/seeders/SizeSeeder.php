@@ -14,11 +14,11 @@ class SizeSeeder extends Seeder
     public function run(): void
     {
         Size::create([
-            'size' => 'S',
+            'name' => 'S',
             'sort_number' => 1
         ]);
         Size::create([
-            'size' => 'M',
+            'name' => 'M',
             'sort_number' => 2
         ]);
     }

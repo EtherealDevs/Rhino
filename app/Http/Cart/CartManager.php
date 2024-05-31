@@ -5,7 +5,7 @@ use App\Models\Cart as ModelsCart;
 use App\Models\ProductItem;
 use Exception;
 
-class Cart
+class CartManager
 {
     public $user;
     public $contents;
@@ -41,11 +41,20 @@ class Cart
         }
     }
 
-    public static function getCartContents()
+    public static function getCartContents($cartModel = null)
     {
         if (session()->has('cart')){
             return session('cart');
-        } else return null;
+        } else if ($cartModel != null) {
+            $json = json_decode($cartModel->contents, true);
+            $collection = collect([]);
+            foreach ($json as $jsonItem) {
+                $item = ProductItem::where('id', $jsonItem['id'])->first();
+                $collection->push(['id' => $item->id, 'item' => $item, 'amount' => 1]);
+            }
+            session()->put('cart', $collection);
+            return session('cart');
+        };
     }
 
     public static function removeItem(ProductItem $item)

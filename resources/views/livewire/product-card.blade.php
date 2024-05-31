@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
-        <a href="{{ route('products.show') }}">
+        <a href="{{ route('products.show', ['id' => $productItem->id]) }}">
             <div class="flex flex-col items-center justify-center">
                 <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
                     Camisa a rayas adidas roja
