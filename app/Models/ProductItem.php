@@ -35,11 +35,19 @@ class ProductItem extends Model
     {
         return $this->belongsTo(Color::class);
     }
+    public function colors()
+    {
+        $colors = collect([]);
+        foreach ($this->product->items as $key => $item) {
+            $colors->add($item->color);
+        }
+        return $colors;
+    }
     public function sizes() : BelongsToMany
     {
         return $this->belongsToMany(Size::class, 'products_sizes');
     }
-    public function image() : MorphMany
+    public function images() : MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }

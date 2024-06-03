@@ -102,7 +102,6 @@
     <section class="mt-6">
         <div class="col-span-3 mx-6">
             <!-- component -->
-            <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
 
             <article x-data="slider" class="relative w-full flex flex-shrink-0 overflow-hidden shadow-2xl">
                 <div class="rounded-full bg-gray-600 text-white absolute top-5 right-5 text-sm px-2 text-center z-10">

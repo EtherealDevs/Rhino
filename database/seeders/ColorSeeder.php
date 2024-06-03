@@ -14,12 +14,12 @@ class ColorSeeder extends Seeder
     public function run(): void
     {
         Color::create([
-            'color'=>'#000',
-            'name' => 'Negro'
+            'color'=>'#F6F6F6',
+            'name' => 'Traffic white'
         ]);
         Color::create([
-            'color'=>'#fff',
-            'name' => 'Blanco'
+            'color'=>'#3D642D',
+            'name' => 'Fern green'
         ]);
     }
 }
