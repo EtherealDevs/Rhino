@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="p-6 rounded-lg shadow-lg bg-white">
                 @if ($item->images->count() > 1)
-                <x-item-carousel :item="$item"></x-item-carousel>
+                <x-item-carousel :item="$item" :colors="$colors"></x-item-carousel>
                 @elseif ($item->images->count() == 1)   
                     <div class="glide">
                         <div class="glide__track" data-glide-el="track">
@@ -56,10 +56,10 @@
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Color:</label>
                     <div class="flex space-x-2">
-                        @foreach ($item->colors() as $color)
+                        @foreach ($colors as $color)
                         <div class="grid grid-cols-1 grid-rows-2 justify-items-center">
                             <p>{{$color->name}}</p>
-                        <button class="w-8 h-8 rounded-full bg-[{{$color->color}}] outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
+                        <button style="background-color: {{$color->color}}" class="w-8 h-8 rounded-full outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
                         </div>
                         @endforeach
                     </div>
@@ -178,10 +178,7 @@
         <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
             <h3 class="text-2xl font-bold mb-4">Productos Recomendados</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach ($item->product->category->products()->take(4)->get() as $relatedProduct)
-                @php
-                    $relatedItem = $relatedProduct->items()->inRandomOrder()->first()
-                @endphp
+                @foreach ($item->category()->items()->with('product')->take(4)->get() as $relatedItem)
                 <div class="bg-gray-100 p-4 rounded-lg shadow-md">
                     <a href="{{route('products.show', ['id' => $relatedItem->id])}}">
                         <img class="w-full h-48 object-cover rounded-t-lg" 
@@ -194,8 +191,12 @@
             </div>
         </div>
     </div>
+    
+    <button onclick="test()">TEST</button>
+    {{-- SCRIPTS --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            test();
             new Glide('.glide', {
                 type: 'carousel',
                 perView: 1,

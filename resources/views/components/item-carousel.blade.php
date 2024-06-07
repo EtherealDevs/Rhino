@@ -1,4 +1,4 @@
-@props(['item'])
+@props(['item', 'colors'])
 
 <!-- Carousel -->
 <div class="glide" x-data="{ currentSlide: 0 }">
@@ -8,7 +8,7 @@
                 <li class="glide__slide">
                     <img class="w-full h-64 lg:h-96 object-cover"
                     src="/storage/{{$image->url}}"
-                        alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$item->color->name}}-{{$loop->index}}">
+                        alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$colors[$loop->index]->name}}-{{$loop->index}}">
                 </li>
             @endforeach
         </ul>

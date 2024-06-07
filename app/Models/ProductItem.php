@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 
 class ProductItem extends Model
 {
@@ -31,11 +32,15 @@ class ProductItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function category()
+    {
+        return $this->product->category;
+    }
     public function color() : BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
-    public function colors()
+    public function colors() : Collection
     {
         $colors = collect([]);
         foreach ($this->product->items as $key => $item) {
