@@ -3,7 +3,9 @@
         <img src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
             class="h-full w-full object-cover" />
         <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
-            {{ $productItem->name }}
+            <p>
+                $ {{ $productItem->original_price }}
+            </p>
         </div>
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
             <button class="bg-black/20 text-gray-600 hover:bg-gray-600 p-2 rounded-full transition">
@@ -31,7 +33,7 @@
         <a href="{{ route('products.show', ['id' => $productItem->id]) }}">
             <div class="flex flex-col items-center justify-center">
                 <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
-                    Camisa a rayas adidas roja
+                    {{ $productItem->product->name }}
                 </p>
                 <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
                     Ver detalle →

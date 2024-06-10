@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained();
-            
+
             $table->decimal('original_price');
             $table->decimal('sale_price')->nullable();
             $table->foreignId('color_id')->constrained();
