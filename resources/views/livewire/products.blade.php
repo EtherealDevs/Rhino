@@ -141,10 +141,13 @@
             <div class="col-span-5 ml-2 mt-3">
                 <div class="flex w-full">
                     <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-1 lg:gap-10">
-                        @foreach ($productItem as $item)
-                            @foreach ($item->items as $eso)
-                                @livewire('product-card', ['productItem' => $eso])
-                            @endforeach
+
+                        @foreach ($products as $product)
+                        @php
+                            $item = $product->items()->first();
+                        @endphp
+                            @livewire('product-card', ['product' => $product, 'item' => $item])
+
                         @endforeach
                     </div>
                 </div>

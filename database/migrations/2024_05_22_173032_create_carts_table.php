@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->longText('contents')->nullable();
-            $table->decimal('total');
+            $table->integer('total');
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Cart;
 
-use App\Models\Cart as ModelsCart;
+use App\Models\Cart as CartModel;
 use App\Models\ProductItem;
 use Exception;
 
@@ -15,18 +15,18 @@ class CartManager
         $this->user = $user;
     }
 
-    public static function addItem(ProductItem $item)
+    public static function addItem(ProductItem $item, $amount = 1)
     {
         
         if (session()->missing('cart')) {
-            $contents = collect([['id' => $item->id, 'item' => $item, 'amount' => 1]]);
+            $contents = collect([['id' => $item->id, 'item' => $item, 'amount' => $amount]]);
             session()->put('cart', $contents);
         } else{
 
             $cart = session()->get('cart');
 
             if ($cart->doesntContain('id', $item->id)){
-                $cart->push(['id' => $item->id, 'item' => $item, 'amount' => 1]);
+                $cart->push(['id' => $item->id, 'item' => $item, 'amount' => $amount]);
                 session()->put('cart', $cart);
             }
             if ($cart->contains('id', $item->id)) {
@@ -50,7 +50,7 @@ class CartManager
             $collection = collect([]);
             foreach ($json as $jsonItem) {
                 $item = ProductItem::where('id', $jsonItem['id'])->first();
-                $collection->push(['id' => $item->id, 'item' => $item, 'amount' => 1]);
+                $collection->push(['id' => $item->id, 'item' => $item, 'amount' => $jsonItem['amount']]);
             }
             session()->put('cart', $collection);
             return session('cart');
@@ -86,7 +86,7 @@ class CartManager
             throw new Exception('Failed to serialize contents');
         }
 
-        $cartModel = ModelsCart::updateOrCreate(
+        $cartModel = CartModel::updateOrCreate(
             ['user_id' => $user->id],
             ['contents' => $serializedContents, 'total' => $total]
         );

@@ -3,9 +3,9 @@
         <img src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
             class="h-full w-full object-cover" />
         <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
-            <p>
-                $ {{ $productItem->original_price }}
-            </p>
+
+            {{ $product->name }}
+
         </div>
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
             <button class="bg-black/20 text-gray-600 hover:bg-gray-600 p-2 rounded-full transition">
@@ -17,7 +17,7 @@
             </button>
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
-                <input type="hidden" name="item" value="{{ $productItem }}">
+                <input type="hidden" name="item" value="{{ $item }}">
                 <button class="bg-black/20 text-gray-600 hover:bg-gray-600 p-2 rounded-full transition">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -30,10 +30,12 @@
         </div>
     </div>
     <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
-        <a href="{{ route('products.show', ['id' => $productItem->id]) }}">
+        <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
             <div class="flex flex-col items-center justify-center">
                 <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
-                    {{ $productItem->product->name }}
+
+                    {{$product->name}}
+
                 </p>
                 <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
                     Ver detalle →

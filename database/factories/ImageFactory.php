@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductItem>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Image>
  */
-class ProductItemFactory extends Factory
+class ImageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class ProductItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'original_price' => $this->faker->randomNumber(5),
+            'url' => fake()->image('storage/app/public/images/product', 400, 400, null, false),
         ];
     }
 }

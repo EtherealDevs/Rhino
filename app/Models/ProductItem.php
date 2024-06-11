@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 
 class ProductItem extends Model
 {
@@ -21,25 +22,37 @@ class ProductItem extends Model
     public function price() : float
     {
         if ($this->sale_price != null) {
-            return $this->sale_price;
+            return $this->sale_price / 100;
         } else
         {
-            return $this->original_price;
+            return $this->original_price / 100;
         }
     }
     public function product() : BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
+    public function category()
+    {
+        return $this->product->category;
+    }
     public function color() : BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
+    public function colors() : Collection
+    {
+        $colors = collect([]);
+        foreach ($this->product->items as $key => $item) {
+            $colors->add($item->color);
+        }
+        return $colors;
+    }
     public function sizes() : BelongsToMany
     {
-        return $this->belongsToMany(Size::class, 'products_sizes');
+        return $this->belongsToMany(Size::class, 'products_sizes')->withPivot('stock');
     }
-    public function image() : MorphMany
+    public function images() : MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }

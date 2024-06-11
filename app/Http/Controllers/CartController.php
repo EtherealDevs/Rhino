@@ -24,8 +24,8 @@ class CartController extends Controller
     }
     public function addToCart(Request $request)
     {
-        $item1 = json_decode($request->item);
-        $item = ProductItem::where('id', $item1->id)->first();
+        $decodedItem = json_decode($request->item);
+        $item = ProductItem::where('id', $decodedItem->id)->first();
 
         //Add Item to Cart in session.
         CartManager::addItem($item);

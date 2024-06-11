@@ -20,7 +20,8 @@ Route::get('/about', function () {
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}/{productItem}', [ProductController::class, 'show'])->name('products.show');
+Route::post('products/{product}/{productItem}', [ProductController::class, 'addToCart'])->name('products.addToCart');
 
 Route::get('/test', [TestController::class, 'index'])->name('test');
 

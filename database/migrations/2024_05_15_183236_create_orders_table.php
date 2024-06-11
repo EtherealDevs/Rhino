@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('payment_method_id')->references('id')->on('payment_methods');
-            $table->decimal('total');
+            $table->integer('total');
 
             $table->foreignId('delivery_service_id')->references('id')->on('delivery_services')->nullable();
-            $table->float('delivery_price')->nullable();
+            $table->string('delivery_price')->nullable();
             $table->foreignId('address_id')->references('id')->on('addresses')->nullable();
             
             $table->timestamps();

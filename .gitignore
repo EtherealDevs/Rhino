@@ -17,3 +17,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+!/vendor/fakerphp/faker/src/Faker/Provider/Image.php
