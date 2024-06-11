@@ -22,10 +22,10 @@ class ProductItem extends Model
     public function price() : float
     {
         if ($this->sale_price != null) {
-            return $this->sale_price;
+            return $this->sale_price / 100;
         } else
         {
-            return $this->original_price;
+            return $this->original_price / 100;
         }
     }
     public function product() : BelongsTo
@@ -50,7 +50,7 @@ class ProductItem extends Model
     }
     public function sizes() : BelongsToMany
     {
-        return $this->belongsToMany(Size::class, 'products_sizes');
+        return $this->belongsToMany(Size::class, 'products_sizes')->withPivot('stock');
     }
     public function images() : MorphMany
     {

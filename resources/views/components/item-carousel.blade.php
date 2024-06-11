@@ -7,7 +7,7 @@
             @foreach ($item->images as $image)    
                 <li class="glide__slide">
                     <img class="w-full h-64 lg:h-96 object-cover"
-                    src="/storage/{{$image->url}}"
+                    src="/storage/images/product/{{$image->url}}"
                         alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$colors[$loop->index]->name}}-{{$loop->index}}">
                 </li>
             @endforeach
@@ -40,7 +40,7 @@
 <div class="flex mt-4">
     @foreach ($item->images as $image)
     <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = {{$loop->index}}"
-        src="/storage/{{$image->url}}"
-        alt="Miniatura 1">
+        src="/storage/images/product/{{$image->url}}"
+        alt="Miniatura {{$loop->index + 1}}">
     @endforeach
 </div>

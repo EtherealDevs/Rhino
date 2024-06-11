@@ -17,7 +17,7 @@
                                 @foreach ($item->images as $image)    
                                     <li class="glide__slide">
                                         <img class="w-full h-64 lg:h-96 object-cover"
-                                        src="/storage/{{$image->url}}"
+                                        src="/images/product/{{$image->url}}"
                                             alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$item->color->name}}">
                                     </li>
                                 @endforeach
@@ -50,37 +50,55 @@
                         <i class="ri-star-half-fill"></i>
                     </span>
                 </div>
+                
+
                 <div class="mb-4">
-                    <span class="text-2xl font-semibold text-gray-700">{{$item->price()}}</span>
+                    <span class="text-2xl font-semibold text-gray-700">${{$item->price()}}</span>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Color:</label>
                     <div class="flex space-x-2">
-                        @foreach ($colors as $color)
+
                         <div class="grid grid-cols-1 grid-rows-2 justify-items-center">
-                            <p>{{$color->name}}</p>
-                        <button style="background-color: {{$color->color}}" class="w-8 h-8 rounded-full outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
+                            <p>{{$item->color->name}}</p>
+                        <button style="background-color: {{$item->color->color}}" class="w-8 h-8 rounded-full outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
                         </div>
+
+
+                        @foreach ($item->product->items->where('id', '!=', $item->id) as $variation)
+
+                        <a href="{{route('products.show', ['product' => $variation->product, 'productItem' => $variation])}}">
+                            <div class="grid grid-cols-1 grid-rows-2 justify-items-center">
+                                <p>{{$variation->color->name}}</p>
+                            <button style="background-color: {{$variation->color->color}}" class="w-8 h-8 rounded-full outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
+                            </div>
+                        </a>
+
                         @endforeach
                     </div>
                 </div>
+                </script>
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Talle:</label>
-                    <div class="flex space-x-2">
-                        @foreach ($item->sizes as $size)
-                            <button class="w-10 h-10 border rounded-lg focus:outline-none">{{$size->name}}</button>
+                    <select x-data id="size-selector" onchange="sizeOptionChanged()">
+                        <option selected x-on:changed-size-option-0.window="$dispatch('change-livewire-component', { stock: null })">Seleccionar...</option>
+                        @foreach ($item->sizes()->orderBy('sort_number')->get() as $size)
+                            <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$size->pivot->stock}} })" data-stock="{{$size->pivot->stock}}" value="{{$size->name}}" class="w-10 h-10 border rounded-lg focus:outline-none">{{$size->name}} - disponibles : {{$size->pivot->stock}}</option>
                         @endforeach
-                    </div>
+                    </select>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Cantidad:</label>
                     <div class="flex items-center space-x-2">
-                        <button class="w-10 h-10 border rounded-lg focus:outline-none">-</button>
-                        <span class="text-lg">1</span>
-                        <button class="w-10 h-10 border rounded-lg focus:outline-none">+</button>
+                        
+                        @livewire('counter')
                     </div>
                 </div>
-                <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">Agregar al carrito</button>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">Agregar al carrito</button>
+
+                <form method="POST" action="{{route('products.addToCart', ['product' => $item->product, 'productItem' => $item])}}">
+                        @csrf
+                </form>
 
                 <!-- Tabs Section -->
                 <div x-data="{ activeTab: 'description' }" class="mt-6">
@@ -178,12 +196,15 @@
         <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
             <h3 class="text-2xl font-bold mb-4">Productos Recomendados</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach ($item->category()->items()->with('product')->take(4)->get() as $relatedItem)
+                @foreach ($item->category()->products()->where('id', '!=', $item->product_id)->with('items')->take(4)->get() as $relatedProduct)
+                    @php
+                        $relatedItem = $relatedProduct->items()->first();
+                    @endphp
                 <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                    <a href="{{route('products.show', ['id' => $relatedItem->id])}}">
-                        <img class="w-full h-48 object-cover rounded-t-lg" 
+                    <a href="{{route('products.show', ['product' => $relatedProduct,'productItem' => $relatedItem])}}">
+                        <img class="w-full h-48 object-cover rounded-t-lg" src="/storage/images/product/{{$relatedItem->images->first()->url}}"
                             alt="Producto 1">
-                        <h4 class="text-lg font-semibold mt-2">{{$relatedItem->product->name}}</h4>
+                        <h4 class="text-lg font-semibold mt-2">{{$relatedProduct->name}}</h4>
                         <p class="text-gray-700">${{$relatedItem->price()}}</p>
                     </a>
                 </div>
@@ -191,12 +212,10 @@
             </div>
         </div>
     </div>
-    
-    <button onclick="test()">TEST</button>
-    {{-- SCRIPTS --}}
+    {{-- SCRIPTS--}}
+    <script src="{{asset('js/products/show.js')}}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            test();
             new Glide('.glide', {
                 type: 'carousel',
                 perView: 1,

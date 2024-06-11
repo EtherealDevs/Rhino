@@ -20,20 +20,20 @@ class ProductItemSeeder extends Seeder
     public function run(): void
     {
         $public = Storage::disk('public');
-        foreach ($public->files() as $file)
+        foreach ($public->files('images/product') as $file)
         {
             $public->delete($file);
         }
         foreach (Product::all() as $product) {
             foreach (Color::all() as $key => $color) {
-                $test = Size::all()->random(1)->first();
+                $size = Size::all()->random(2);
                 if ($key == 0) {
                     $count = 2;
                 }
                 else {
                     $count = rand(1, 2);
                 }
-                ProductItem::factory()->hasAttached($test, ['stock' => rand(1, 3)])->hasImages($count)->create([
+                ProductItem::factory()->hasAttached($size, ['stock' => rand(1, 3)])->hasImages($count)->create([
                     'product_id' => $product->id,
                     'color_id' => $color->id
                 ]);

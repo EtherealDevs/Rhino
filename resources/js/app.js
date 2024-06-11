@@ -1,6 +1,4 @@
 import './bootstrap';
-import {test} from './product/show';
-test();
 /* 
 function showLoader() {
     const loaderElement = document.querySelector('#loader');

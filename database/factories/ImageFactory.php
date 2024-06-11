@@ -17,7 +17,7 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'url' => fake()->image('storage/app/public', 400, 400, null, false),
+            'url' => fake()->image('storage/app/public/images/product', 400, 400, null, false),
         ];
     }
 }
