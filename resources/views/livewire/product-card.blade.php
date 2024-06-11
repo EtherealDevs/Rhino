@@ -4,7 +4,7 @@
             class="h-full w-full object-cover" />
         <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
 
-            {{ $product->name }}
+            ${{ $item->price() }}
 
         </div>
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
