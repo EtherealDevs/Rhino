@@ -34,7 +34,6 @@
             </div>
         </div>
 
-
         {{-- Products --}}
         <div class="h-full w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto sticky">
             {{-- Sidebar --}}
@@ -50,55 +49,20 @@
                         </svg>
                     </button>
                     <div id="sidebar"
-                        class="bg-white h-full md:block shadow-xl px-3 w-30 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out">
-                        <div class="space-y-1 md:space-y-4 mt-10">
+                        class="bg-white h-full md:block shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out">
+                        <div class="space-y-10  md:space-y-4 mt-10 sticky left-0 top-10">
                             <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
                                 Categorias
                             </h2>
-
                             <div class="flex flex-col pl-10 ">
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">Remeras (15)</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">Chombas (9)</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">Camisas (8)</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">Pantalones (7)</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">Buzos (3)</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">Zapatillas (2)</span>
-                                    </a>
-                                </div>
-                                <div class="border-b-black ">
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">Combos (0)</span>
-                                    </a>
-                                </div>
+                                @foreach ($categories as $category)
+                                    <div>
+                                        <a href=""
+                                            class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
+                                            <span class="">{{ $category->name }} ()</span>
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
 
                             <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
@@ -106,30 +70,14 @@
                             </h2>
 
                             <div class="flex flex-col pl-10">
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">S</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">M</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="ttext-base text-gray-700 py-2 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">L</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href=""
-                                        class="text-base text-gray-700 py-2 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                        <span class="">XL</span>
-                                    </a>
-                                </div>
+                                @foreach ($sizes as $size)
+                                    <div>
+                                        <a href=""
+                                            class="text-base text-gray-700 py-2 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
+                                            <span class="">{{ $size->name }}</span>
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
 
                             <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
@@ -172,8 +120,8 @@
                                         </div>
                                         <div class="relative">
                                             <label for="price-range-input" class="sr-only">Default range</label>
-                                            <input id="price-range-input" type="range" value="1000"
-                                                min="100" max="1500"
+                                            <input id="price-range-input" type="range" value="1000" min="100"
+                                                max="1500"
                                                 class="w-full h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer">
                                         </div>
                                     </form>
@@ -190,8 +138,8 @@
             </div>
 
             {{-- Content (Productos) --}}
-            <div class="col-span-5 mx-auto ml-2 mt-3">
-                <div class="flex mx-auto w-full">
+            <div class="col-span-5 ml-2 mt-3">
+                <div class="flex w-full">
                     <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-1 lg:gap-10">
                         @foreach ($productItem as $item)
                             @foreach ($item->items as $eso)

@@ -1,5 +1,5 @@
 <div class="relative flex w-11/12 lg:w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-    <div class="relative mx-3 mt-3 h-40 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
+    <div class="relative mx-3 mt-3 h-40 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
         <img src="https://images.unsplash.com/photo-1578262825743-a4e402caab76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
             class="h-full w-full object-cover" />
         <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
