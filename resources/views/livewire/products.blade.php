@@ -35,7 +35,7 @@
         </div>
 
         {{-- Products --}}
-        <div class="h-full w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto sticky">
+        <div class="h-full w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
             {{-- Sidebar --}}
             <div class="lg:visible font-poppins lg:flex antialiased col-span-1">
                 <div id="view" class="h-full w-full flex flex-row">
@@ -48,9 +48,11 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </button>
+
                     <div id="sidebar"
-                        class="bg-white h-full md:block shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out">
-                        <div class="space-y-10  md:space-y-4 mt-10 sticky left-0 top-10">
+                        class="bg-white md:block shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out h-full">
+                        <div class="space-y-10 py-10 md:space-y-4 sticky left-0 top-10">
+
                             <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
                                 Categorias
                             </h2>
@@ -143,11 +145,10 @@
                     <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-1 lg:gap-10">
 
                         @foreach ($products as $product)
-                        @php
-                            $item = $product->items()->first();
-                        @endphp
+                            @php
+                                $item = $product->items()->first();
+                            @endphp
                             @livewire('product-card', ['product' => $product, 'item' => $item])
-
                         @endforeach
                     </div>
                 </div>

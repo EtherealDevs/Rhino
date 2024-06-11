@@ -22,16 +22,53 @@
                     @auth
                         <div
                             class="grid grid-cols-3 bg-gradient-to-r from-gray-50 to-blue-100 via-gray-100 rounded-full px-4 mr-12">
-                            <button>
-                                <a href="">
+                            <div class="flex content-center" x-data="{ open: false }">
+                                <button x-on:click="open = !open" type="button" class="flex items-center">
                                     <svg width="18" height="16" viewBox="0 0 17 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M8.5 16L7.2675 14.849C2.89 10.7771 0 8.08283 0 4.79564C0 2.10136 2.057 0 4.675 0C6.154 0 7.5735 0.706267 8.5 1.81362C9.4265 0.706267 10.846 0 12.325 0C14.943 0 17 2.10136 17 4.79564C17 8.08283 14.11 10.7771 9.7325 14.849L8.5 16Z"
                                             fill="red" />
                                     </svg>
-                                </a>
-                            </button>
+                                </button>
+                                <div x-show="open" x-on:click.away="open = false"
+                                    class="absolute top-16 right-8 w-80 bg-white shadow-lg rounded-lg p-4">
+                                    <div class="flex justify-between items-center border-b pb-2 mb-2">
+                                        <h2 class="text-xl font-bold">Mis Intereses</h2>
+                                        <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center space-x-4">
+                                                <img src="" alt="Producto" class="w-12 h-12 rounded-full">
+                                                <div>
+                                                    <p class="font-semibold text-xl">Camisa Cuadrada</p>
+                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Color:
+                                                        <span> bla</span>
+                                                    </p>
+                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Talle:
+                                                        <span> M</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button class="">
+                                                    <a href="">
+                                                        <i
+                                                            class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
+                                                    </a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             {{-- Carrito --}}
                             <div class="flex content-center" x-data="{ open: false }">
@@ -77,17 +114,16 @@
                                             <div>
                                                 <button class="">
                                                     <a href="">
-
                                                         <i
                                                             class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
                                                     </a>
                                                 </button>
-
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-4 flex justify-between">
-                                        <button class="bg-black text-white px-4 py-2 font-bold rounded-lg flex items-center"
+                                        <button
+                                            class="bg-black text-white px-4 py-2 font-bold rounded-lg flex items-center"
                                             onclick="location.href='/cart'" type="button">
                                             <span>Ir al carrito</span>
                                             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor"
@@ -143,7 +179,6 @@
 
         {{-- Modal Menu --}}
         <div class="relative" x-data="{ open: false }">
-
             <div class="flex top-0 md:hidden justify-end">
                 <button x-on:click="open = !open" type="button"
                     class="inline-flex items-center justify-center p-2 text-gray-400">
