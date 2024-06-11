@@ -6,6 +6,7 @@ use App\Http\Cart\CartManager;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller

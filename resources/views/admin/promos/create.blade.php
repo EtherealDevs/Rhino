@@ -1,40 +1,40 @@
 @extends('layouts.admin')
 @section('content')
-<style>
-    .-z-1 {
-        z-index: -1;
-    }
+    <style>
+        .-z-1 {
+            z-index: -1;
+        }
 
-    .origin-0 {
-        transform-origin: 0%;
-    }
+        .origin-0 {
+            transform-origin: 0%;
+        }
 
-    input:focus~label,
-    input:not(:placeholder-shown)~label,
-    textarea:focus~label,
-    textarea:not(:placeholder-shown)~label,
-    select:focus~label,
-    select:not([value='']):valid~label {
-        /* @apply transform; scale-75; -translate-y-6; */
-        --tw-translate-x: 0;
-        --tw-translate-y: 0;
-        --tw-rotate: 0;
-        --tw-skew-x: 0;
-        --tw-skew-y: 0;
-        transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-        --tw-scale-x: 0.75;
-        --tw-scale-y: 0.75;
-        --tw-translate-y: -1.5rem;
-    }
+        input:focus~label,
+        input:not(:placeholder-shown)~label,
+        textarea:focus~label,
+        textarea:not(:placeholder-shown)~label,
+        select:focus~label,
+        select:not([value='']):valid~label {
+            /* @apply transform; scale-75; -translate-y-6; */
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+            --tw-scale-x: 0.75;
+            --tw-scale-y: 0.75;
+            --tw-translate-y: -1.5rem;
+        }
 
-    input:focus~label,
-    select:focus~label {
-        /* @apply text-black; left-0; */
-        --tw-text-opacity: 1;
-        color: rgba(0, 0, 0, var(--tw-text-opacity));
-        left: 0px;
-    }
-</style>
+        input:focus~label,
+        select:focus~label {
+            /* @apply text-black; left-0; */
+            --tw-text-opacity: 1;
+            color: rgba(0, 0, 0, var(--tw-text-opacity));
+            left: 0px;
+        }
+    </style>
     <div class="p-6">
         <div class="pt-16  ">
             <div class="p-6 rounded-xl bg-white">
@@ -50,19 +50,21 @@
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="text" name="name" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Nombre
-                                        del Producto</label>
+                                    <label for="name"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Nombre
+                                        de Campaña</label>
                                     <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
                                 </div>
-    
+
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="text" name="name" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="slug" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Slug
+                                    <label for="slug"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Slug
                                         Amigable</label>
                                     <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
                                 </div>
-    
+
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="text" name="name" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
@@ -70,7 +72,7 @@
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
                                     <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
                                 </div>
-    
+
                                 <div class="relative z-0 w-full mb-5">
                                     <select name="parent_id" id="" value=""
                                         onclick="this.setAttribute('value', this.value);"
@@ -85,11 +87,12 @@
                                     <label for="select"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el
                                         padre</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
+                                    <span class="text-sm text-red-600 hidden" id="error">Option has to be
+                                        selected</span>
                                 </div>
-    
+
                                 <div class="mb-8">
-                                    
+
                                     <label for="file"
                                         class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
                                         <div>
@@ -106,7 +109,7 @@
                                         </div>
                                     </label>
                                 </div>
-    
+
                                 <button id="button" type="submit"
                                     class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
                                     Guardar
@@ -114,19 +117,19 @@
                             </form>
                         </div>
                     </div>
-    
+
                     <script>
                         'use strict'
-    
+
                         document.getElementById('button').addEventListener('click', toggleError)
                         const errMessages = document.querySelectorAll('#error')
-    
+
                         function toggleError() {
                             // Show error message
                             errMessages.forEach((el) => {
                                 el.classList.toggle('hidden')
                             })
-    
+
                             // Highlight input and label with red
                             const allBorders = document.querySelectorAll('.border-gray-200')
                             const allTexts = document.querySelectorAll('.text-gray-500')
@@ -141,7 +144,7 @@
                 </div>
             </div>
 
-            
+
         </div>
     </div>
 @endsection

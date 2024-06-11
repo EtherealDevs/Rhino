@@ -17,6 +17,7 @@ return new class extends Migration
             
             $table->integer('original_price');
             $table->integer('sale_price')->nullable();
+
             $table->foreignId('color_id')->constrained();
             $table->timestamps();
         });

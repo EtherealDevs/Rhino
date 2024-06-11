@@ -28,7 +28,6 @@
 
 #map {
     height: 340px;
-    width: 600px;
-    position: absolute;
+    width: 800px;
     border-radius: 25px
 }
