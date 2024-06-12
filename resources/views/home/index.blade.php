@@ -3,7 +3,7 @@
     <div class="static justify-center bg-white w-full">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 grid-row-2">
             <div class="col-span-3 mx-6 bg-blue-600 h-full rounded-b-3xl">
-                <div class="grid grid-cols-1 lg:grid-cols-2 justify-between gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 justify-between gap-6">
                     <div class="justify-start p-20 mt-6 ml-2">
                         <div>
                             <h1 class="text-3xl font-black font-sans text-white">
@@ -21,25 +21,41 @@
                             </p>
                         </div>
                     </div>
-                    <div class="place-self-end p-12 flex gap-4">
-                        <button class="p-2 px-2 bg-white rounded-2xl flex items-center space-x-2">
-                            <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
-                                    fill="#3E68FF" />
-                            </svg>
-                            <p class="font-bold">Ver Promociones</p>
-                        </button>
-                        <button class="p-2 px-2 bg-black rounded-2xl flex items-center space-x-2">
-                            <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
-                                    fill="#3E68FF" />
-                            </svg>
-                            <p class="text-white font-bold">Iniciar Sesion</p>
-                        </button>
+                    <div class="justify-center z-20 lg:block hidden">
+                        <svg width="954" height="387" viewBox="0 0 954 387" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M477 387L-8.27764e-06 -1.49012e-05H954L477 387Z" fill="url(#paint0_linear_241_3678)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_241_3678" x1="-0.00012207" y1="193.5" x2="954"
+                                    y2="193.5" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0.577943" />
+                                    <stop offset="1" stop-color="#434343" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                    </div>
+                    <div class="lg:bg-[url('/public/img/modelo1.jpg')] flex bg-cover rounded-br-3xl justify-center">
+                        <div class="place-self-end p-12 lg:flex gap-4 z-20 grid grid-cols-1">
+                            <button class="p-2 px-2 bg-white text-black rounded-2xl flex items-center space-x-2">
+                                <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
+                                        fill="#3E68FF" />
+                                </svg>
+                                <p class="font-bold">Ver Promociones</p>
+                            </button>
+                            <button class="p-2 px-2 bg-black rounded-2xl flex items-center space-x-2">
+                                <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
+                                        fill="#3E68FF" />
+                                </svg>
+                                <p class="text-white font-bold">Iniciar Sesion</p>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,7 +83,7 @@
 
             <div class="mx-auto lg:col-span-2 lg:mx-6 bg-blue-600 h-full rounded-3xl text-white font-extrabold">
                 <div class="grid grid-cols-2 mt-6">
-                    <div class="flex ml-16 justify-start">
+                    <div class="flex ml-6 lg:ml-16 justify-start">
                         <p class="text-2xl p-6 mr-6">
                             Nuevos Ingresos
                         </p>
@@ -82,21 +98,21 @@
                                     fill="#3E68FF" />
                             </svg>
                             <p class="">
-                                Ver Nuevos Ingresos
+                                Ver Ingresos
                             </p>
                         </button>
                     </div>
                 </div>
 
-                    <div class="w-full flex justify-center">
-                        <!-- component -->
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
-                        </div>
+                <div class="w-full flex justify-center">
+                    <!-- component -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <section class="mt-6">
@@ -192,7 +208,8 @@
                     </svg>
                 </button>
             </article>
-            <div class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white lg:-translate-y-1/2 -translate-y-32">
+            <div
+                class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white lg:-translate-y-1/2 -translate-y-32">
                 <div class="flex justify-center w-full">
                     <div class="grid grid-cols-1  lg:grid-cols-4 gap-1 lg:gap-20">
                         <!-- component -->
