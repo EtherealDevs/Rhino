@@ -16,8 +16,8 @@ class SaleProduct extends Model
         return $this->belongsTo(Sale::class);
     }
 
-    public function items() : BelongsTo
+    public function product() : BelongsTo
     {
-        return $this->belongsTo(ProductItem::class);
+        return $this->belongsTo(Product::class);
     }
 }

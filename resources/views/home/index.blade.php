@@ -127,13 +127,19 @@
                         <!-- Item 1 -->
                         @foreach ($sales as $sale)
                         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <div class="bg-[url('https://flowbite.com/docs/images/carousel/carousel-1.svg')] h-full bg-cover bg-center block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2">
-                                <div class="bg-gradient-to-b z-40 h-full from-transparent to-white via-white">
-                                    <div class="flex justify-center w-full">
-                                        <div class="grid grid-cols-1  lg:grid-cols-4 gap-1 lg:gap-20">
+                            <div class="h-full bg-cover bg-center block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"  style="background-image: url('{{url(Storage::url($sale->images->first()->url))}}')">
+                                <p class="flex justify-center text-2xl font-semibold">{{$sale->title}}</p>
+                                <p class="flex justify-center text-lg">{{$sale->description}}</p>
+                                <div class="bg-gradient-to-b z-40 h-full from-transparent to-white">
+                                    <div class="grid justify-center w-full space-x-4 grid-cols-1 md:flex md:grid-cols-none">
+                                        @foreach ($sale->products as $item)
+                                        @php
+                                            $product = $item->product;
+                                            $productItem = $product->items->first();
+                                        @endphp
                                             <!-- component -->
-                                            @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
-                                        </div>
+                                            @livewire('product-card', ['product' => $product, 'item' => $productItem])
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -156,67 +162,6 @@
                 </div>
                 <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
             </div>
-
-            {{-- <article x-data="slider" class="relative w-full flex flex-shrink-0 overflow-hidden shadow-2xl">
-                <div class="rounded-full bg-gray-600 text-white absolute top-5 right-5 text-sm px-2 text-center z-10">
-                    <span x-text="currentIndex"></span>/
-                    <span x-text="images.length"></span>
-                </div>
-
-                <template x-for="(image, index) in images">
-                    <figure class="h-96" x-show="currentIndex == index + 1"
-                        x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300"
-                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-                        <img :src="image" alt="Image"
-                            class="absolute inset-0  h-full rounded-3xl w-full object-cover opacity-70" />
-                        <figcaption class="absolute inset-x-0 bottom-1 z-10 w-96 mx-auto p-4 font-light text-center mb-24">
-                            <p class="text-3xl text-white mb-12">
-                                <span class="font-extrabold">
-                                    Elige tu coleccion
-                                </span> <br>
-                                y ahorra en <span class="text-blue-600 font-black">Promociones</span>
-                            </p>
-
-                            <button class="bg-black rounded-full mb-12 p-2 px-4">
-                                <p class="text-white">
-                                    Ver Promociones
-                                </p>
-                            </button>
-                            <div>
-                                @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
-                            </div>
-                        </figcaption>
-                    </figure>
-                </template>
-
-                <button @click="back()"
-                    class="absolute left-14 mt-12 top-1/2 -translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-black hover:bg-gray-700">
-                    <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-white hover:text-gray-600 hover:-translate-x-0.5"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7">
-                        </path>
-                    </svg>
-                </button>
-
-                <button @click="next()"
-                    class="absolute right-14 top-1/2 translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-black hover:bg-gray-700">
-                    <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-white hover:text-gray-600 hover:translate-x-0.5"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7">
-                        </path>
-                    </svg>
-                </button>
-            </article>
-            <div
-                class="bg-gradient-to-b z-40 h-50 from-transparent to-white via-white lg:-translate-y-1/2 -translate-y-32">
-                <div class="flex justify-center w-full">
-                    <div class="grid grid-cols-1  lg:grid-cols-4 gap-1 lg:gap-20">
-                        <!-- component -->
-                        @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </section>
 

@@ -39,7 +39,7 @@ class SaleController extends Controller
         ]);
         if($request->file('image')){
             $url = Storage::put('sales', $request->file('image'));
-            $sale->image()->create([
+            $sale->images()->create([
                 'url' => $url
             ]);
         }
