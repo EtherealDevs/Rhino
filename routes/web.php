@@ -3,12 +3,16 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
+use App\Models\Combo;
 use App\Models\ProductItem;
+use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $productItem = ProductItem::first();
-    return view('home.index', ['productItem' => $productItem]);
+    $combos = Combo::all();
+    $sales= Sale::all();
+    return view('home.index', compact('productItem','sales','combos'));
 });
 
 Route::get('/contact', function () {
