@@ -58,73 +58,69 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @php
-                $total=0;
-            @endphp
-            @foreach ($orders as $order) --}}
-                <tr>
-                    <td class="p-4 border-b border-blue-gray-50">
+            @foreach ($sales as $sale )
+            <tr>
+                <td class="p-4 border-b border-blue-gray-50">
+                    <div class="flex items-center gap-3">
+                        <div class="flex flex-col">
+                            <p
+                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                            #{{$sale->id}}</p>
+                            <p
+                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
+                            fecha</p>
+                            </div>
+                            </div>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
                         <div class="flex items-center gap-3">
                             <div class="flex flex-col">
                                 <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                    #222</p>
+                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                {{$sale->title}} </p>
                                 <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                    fecha</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                        <div class="flex items-center gap-3">
-                            <div class="flex flex-col">
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                    name</p>
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                    Cantidad</p>
-                            </div>
-                            {{-- @php
-                            $subtotal=$orderDetail->price * $orderDetail->amount;
-                            $total=$total+$subtotal;
-                        @endphp
-                        @endforeach --}}
-                        </div>
+                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
+                                Cantidad</p>
+                                </div>
+                                </div>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="flex flex-col">
                             <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                total</p>
-                        </div>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                        <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            23/04/18</p>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                        <div class="w-max">
-                            <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                                style="opacity: 1;">
-                                <span class="">Completed</span>
-                            </div>
-                        </div>
-                    </td>
+                                {{$sale->start_date}}</p>
+                                </div>
+                                </td>
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                        {{$sale->end_date}}</p>
+                                        </td>
+                                        <td class="p-4 border-b border-blue-gray-50">
+                                            <div class="w-max">
+                                                <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
+                                                style="opacity: 1;">
+                                                <span class="">Completed</span>
+                                                </div>
+                                                </div>
+                                                </td>
                     <td class="p-4">
+                        <form action={{ route('admin.sales.destroy', $sale) }} method="post">
+                        @csrf
+                        @method('DELETE')
                         <button class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs "
-                            type="button">
+                            type="submit">
                             <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                 <p class="flex">
-                                    Ver Mas
+                                    Delete
                                 </p>
-
                             </span>
                         </button>
+                        </form>
                     </td>
                 </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
 </div>
-   
-@endsection
+
+                                    @endsection
