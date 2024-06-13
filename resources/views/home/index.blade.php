@@ -54,7 +54,7 @@
                                         fill="#3E68FF" />
                                 </svg>
                                 <a href="{{ route('login') }}"><p class="text-white font-bold">Iniciar Sesion</p></a>
-                                
+
                             </button>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
             <!-- component -->
 
             <div class="w-full mx-auto">
-
+                @if($sales->first() != null)
                 <div id="default-carousel" class="relative" data-carousel="static">
                     <!-- Carousel wrapper -->
                     <div class="overflow-hidden relative rounded-lg h-96">
@@ -162,6 +162,9 @@
                     </button>
                 </div>
                 <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+                @else
+                <p class="flex text-center text-4xl font-bold uppercase">mateo crea promo y no rompas los huevos</p>
+                @endif
             </div>
         </div>
     </section>
