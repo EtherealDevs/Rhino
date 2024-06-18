@@ -126,7 +126,7 @@
                 @if ($sales->first() != null)
                     <div id="default-carousel" class="relative" data-carousel="static">
                         <!-- Carousel wrapper -->
-                        <div class="overflow-hidden relative rounded-[25px] h-[80vh]">
+                        <div class="overflow-hidden relative rounded-t-[25px] h-[80vh]">
                             <!-- Item 1 -->
                             @foreach ($sales as $sale)
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -134,7 +134,7 @@
                                         style="background-image: url('{{ url(Storage::url($sale->images->first()->url)) }}')">
                                         <p class="flex justify-center text-2xl font-semibold">{{ $sale->title }}</p>
                                         <p class="flex justify-center text-lg">{{ $sale->description }}</p>
-                                        <div class="bg-gradient-to-b z-40 h-full from-transparent from-20% to-80% to-white">
+                                        <div class="bg-gradient-to-b z-40 h-full from-transparent from-10% to-70% to-white">
                                             <div
                                                 class="grid justify-center w-full space-x-4 grid-cols-1 md:flex md:grid-cols-none  translate-y-full">
                                                 @foreach ($sale->products as $item)
