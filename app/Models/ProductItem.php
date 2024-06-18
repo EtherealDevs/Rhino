@@ -56,12 +56,15 @@ class ProductItem extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
-    public function sale() : HasOne
-    {
-        return $this->hasOne(SaleProduct::class);
-    }
+
     public function users() : BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favorites', 'product_item_id', 'user_id')->as('favorites')->withTimestamps();
+    }
+
+    public function sale_price():float{
+        $discount = $this->product->sale->sale->discount;
+        $price= $this->price() - ($this->price() / $discount);
+        return $price;
     }
 }

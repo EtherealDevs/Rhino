@@ -29,6 +29,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function sale() : HasOne
+    {
+        return $this->hasOne(SaleProduct::class);
+    }
+
     public function items() : HasMany
     {
         return $this->hasMany(ProductItem::class);

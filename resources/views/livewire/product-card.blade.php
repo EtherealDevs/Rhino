@@ -4,11 +4,22 @@
             $image = $item->images->first()->url;
         @endphp
         <img src="/storage/images/product/{{ $image }}" class="h-full w-full object-cover" />
-        <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
+        @if ($product->sale)
+            @php
+                $discount = $product->sale->sale->discount;
+            @endphp
+            <div class="absolute top-2 left-2 bg-[#d14d4d] text-white text-sm font-bold rounded-full px-2 py-1">
+                {{ $discount }}% OFF
+            </div>
+            <div class="absolute top-10 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
+                ${{$item->sale_price()}}
+            </div>
+        @else
+            <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
+                ${{ $item->price() }}
 
-            ${{ $item->price() }}
-
-        </div>
+            </div>
+        @endif
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
             <button class="bg-black/20 text-gray-600 hover:bg-gray-600 p-2 rounded-full transition">
                 <svg width="18" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
