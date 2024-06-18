@@ -52,12 +52,12 @@
                 <div class="mb-4">
                     @if ($item->product->sale)
                         @php
-                            $price= $item->sale_price();
+                            $price= number_format($item->sale_price(),2,',',' ') ;
                         @endphp
                         <span class="text-2xl font-semibold text-gray-700">${{$price}}</span>
-                        <span class="text-lg line-through  font-bold text-gray-500">${{$item->price()}}</span>
+                        <span class="text-lg line-through  font-bold text-gray-500">${{number_format($item->price(),2,',',' ')}}</span>
                     @else
-                        <span class="text-2xl font-semibold text-gray-700">${{$item->price()}}</span>
+                        <span class="text-2xl font-semibold text-gray-700">${{number_format($item->price(),2,',',' ')}}</span>
                     @endif
                 </div>
                 <div class="mb-4">

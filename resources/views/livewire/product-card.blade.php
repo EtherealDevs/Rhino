@@ -12,11 +12,11 @@
                 {{ $discount }}% OFF
             </div>
             <div class="absolute top-10 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
-                ${{$item->sale_price()}}
+                ${{number_format($item->sale_price(),2,',',' ')}}
             </div>
         @else
             <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
-                ${{ $item->price() }}
+                ${{number_format($item->price(),2,',',' ')}}
 
             </div>
         @endif

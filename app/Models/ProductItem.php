@@ -62,9 +62,9 @@ class ProductItem extends Model
         return $this->belongsToMany(User::class, 'favorites', 'product_item_id', 'user_id')->as('favorites')->withTimestamps();
     }
 
-    public function sale_price():float{
+    public function sale_price():float {
         $discount = $this->product->sale->sale->discount;
-        $price= $this->price() - ($this->price() / $discount);
-        return $price;
+        $price= $this->price() - ($this->price() * ($discount/100));
+        return $price ;
     }
 }
