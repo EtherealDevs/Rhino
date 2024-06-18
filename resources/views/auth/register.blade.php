@@ -6,11 +6,14 @@
                 alt="Your Company">
         </div>
     </div>
-    <div class="mt-32 lg:mt-12 relative min-h-screen sm:flex sm:flex-row justify-center bg-transparent rounded-3xl shadow-xl">
+    <div
+        class="mt-32 lg:mt-12 relative min-h-screen sm:flex sm:flex-row justify-center bg-transparent rounded-3xl shadow-xl">
         <div class="flex-col flex self-center lg:px-8 sm:max-w-4xl xl:max-w-md z-10">
             <div class="self-start hidden lg:flex flex-col text-gray-300">
-                <h1 class="my-3 font-semibold text-4xl">¡Bienvenido a Rino Indumentaria]!</h1>
-                <p class="pr-3 text-lg opacity-75">Nos alegra que hayas decidido unirte a nuestra Tienda. Completa el formulario a continuación para crear tu cuenta y comenzar a disfrutar de todas los productos que ofrecemos.</p>
+                <h1 class="my-3 font-semibold text-4xl">¡Bienvenido a Rino Indumentaria!</h1>
+                <p class="pr-3 text-lg opacity-75">Nos alegra que hayas decidido unirte a nuestra Tienda. Completa el
+                    formulario a continuación para crear tu cuenta y comenzar a disfrutar de todas los productos que
+                    ofrecemos.</p>
             </div>
         </div>
         <div class="flex justify-center self-center z-10">
@@ -30,49 +33,64 @@
 
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                
+
                             <div>
                                 <x-label for="name" value="{{ __('Nombre') }}" />
-                                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                                <x-input id="name" class="block mt-1 w-full" type="text" name="name"
+                                    :value="old('name')" required autofocus autocomplete="name" />
                             </div>
-                
+
                             <div class="mt-4">
                                 <x-label for="email" value="{{ __('Email') }}" />
-                                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                                <x-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                    :value="old('email')" required autocomplete="username" />
                             </div>
-                
+
                             <div class="mt-4">
                                 <x-label for="password" value="{{ __('Contraseña') }}" />
-                                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                                <x-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                    required autocomplete="new-password" />
                             </div>
-                
+
                             <div class="mt-4">
                                 <x-label for="password_confirmation" value="{{ __('Confirmar Contraseña') }}" />
-                                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                                <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                                    name="password_confirmation" required autocomplete="new-password" />
                             </div>
-                
+
                             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                                 <div class="mt-4">
                                     <x-label for="terms">
                                         <div class="flex items-center">
                                             <x-checkbox name="terms" id="terms" required />
-                
+
                                             <div class="ms-2">
                                                 {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
+                                                    'terms_of_service' =>
+                                                        '<a target="_blank" href="' .
+                                                        route('terms.show') .
+                                                        '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' .
+                                                        __('Terms of Service') .
+                                                        '</a>',
+                                                    'privacy_policy' =>
+                                                        '<a target="_blank" href="' .
+                                                        route('policy.show') .
+                                                        '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' .
+                                                        __('Privacy Policy') .
+                                                        '</a>',
                                                 ]) !!}
                                             </div>
                                         </div>
                                     </x-label>
                                 </div>
                             @endif
-                
+
                             <div class="flex items-center justify-end mt-4">
-                                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    href="{{ route('login') }}">
                                     {{ __('Ya estoy registrado') }}
                                 </a>
-                
+
                                 <x-button class="ms-4">
                                     {{ __('Registrar') }}
                                 </x-button>
@@ -85,7 +103,7 @@
                         </div>
                         <div class="flex justify-center gap-5 w-full ">
 
-                            <button type="submit"
+                            <a href="{{ route('auth.redirect') }}"
                                 class="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3 rounded-lg tracking-wide font-medium cursor-pointer transition ease-in duration-500">
                                 <svg class="w-4 mr-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="#EA4335"
@@ -98,13 +116,13 @@
                                         d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
                                 </svg>
                                 <span>Google</span>
-                            </button>
+                            </a>
 
-                            <button type="submit"
+                            <a href="{{ route('auth.redirect') }}"
                                 class="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500 px-">
                                 <svg class="w-4 mr-2" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100"
                                     xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-                                    <style>
+                                    {{-- <style>
                                         .st0 {
                                             fill: #fff
                                         }
@@ -735,7 +753,7 @@
                                         .st150 {
                                             fill: #7b83eb
                                         }
-                                    </style>
+                                    </style> --}}
                                     <g id="Layer_1" />
                                     <g id="Layer_2">
                                         <path
@@ -747,7 +765,7 @@
                                     </g>
                                 </svg>
                                 <span>Facebook</span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -756,5 +774,3 @@
     </div>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"></script>
 </x-guest-layout>
-
-

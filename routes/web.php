@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\SaleController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FirebaseController;
+use Laravel\Socialite\Facades\Socialite;
 use App\Models\Combo;
 use App\Models\ProductItem;
 use App\Models\Sale;
@@ -50,6 +52,13 @@ Route::delete('/cart/{item}', [CartController::class, 'removeFromCart'])->name('
 Route::get('/products/show', function () {
     return view('products.show');
 });
+
+
+
+Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
+
+
+Route::get('/auth/callback',[AuthController::class, 'callback'])->name('auth.callback');
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {
