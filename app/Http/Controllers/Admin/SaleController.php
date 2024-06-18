@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleProduct;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -74,8 +75,18 @@ class SaleController extends Controller
         }
     }
 
-    public function destroy(Sale $sale)
+    // public function destroy(Sale $sale)
+    // {
+    //     Storage::delete($sale->images->first()->url);
+    //     $sale->images()->delete();
+    //     $sale->delete();
+    //     return redirect()->back();
+    // }
+
+    static function destroy(Sale $sale)
     {
+        Storage::delete($sale->images->first()->url);
+        $sale->images()->delete();
         $sale->delete();
         return redirect()->back();
     }

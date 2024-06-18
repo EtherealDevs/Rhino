@@ -10,11 +10,11 @@
             <div class="p-6 rounded-lg shadow-lg bg-white">
                 @if ($item->images->count() > 1)
                 <x-item-carousel :item="$item" :colors="$colors"></x-item-carousel>
-                @elseif ($item->images->count() == 1)   
+                @elseif ($item->images->count() == 1)
                     <div class="glide">
                         <div class="glide__track" data-glide-el="track">
                             <ul class="glide__slides">
-                                @foreach ($item->images as $image)    
+                                @foreach ($item->images as $image)
                                     <li class="glide__slide">
                                         <img class="w-full h-64 lg:h-96 object-cover"
                                         src="/storage/images/product/{{$image->url}}"
@@ -28,7 +28,7 @@
                 <div class="glide">
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides">
-                            @foreach ($item->images as $image)    
+                            @foreach ($item->images as $image)
                                 <li class="glide__slide">
                                     <p>No hay Imagen</p>
                                 </li>
@@ -36,8 +36,6 @@
                         </ul>
                 </div>
                 @endif
-
-                
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
@@ -50,10 +48,17 @@
                         <i class="ri-star-half-fill"></i>
                     </span>
                 </div>
-                
 
                 <div class="mb-4">
-                    <span class="text-2xl font-semibold text-gray-700">${{$item->price()}}</span>
+                    @if ($item->product->sale)
+                        @php
+                            $price= $item->sale_price();
+                        @endphp
+                        <span class="text-2xl font-semibold text-gray-700">${{$price}}</span>
+                        <span class="text-lg line-through  font-bold text-gray-500">${{$item->price()}}</span>
+                    @else
+                        <span class="text-2xl font-semibold text-gray-700">${{$item->price()}}</span>
+                    @endif
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Color:</label>
@@ -90,7 +95,7 @@
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Cantidad:</label>
                     <div class="flex items-center space-x-2">
-                        
+
                         @livewire('counter')
                     </div>
                 </div>
@@ -225,5 +230,5 @@
             }).mount();
         });
     </script>
-    
+
 @endsection
