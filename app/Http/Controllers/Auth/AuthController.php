@@ -14,6 +14,7 @@ class AuthController extends Controller
     }
 
     public function callbackFacebook(){
+        if(!isset($_GET['error'])){
         $user = Socialite::driver('facebook')->user();
 
         $user = User::firstOrCreate([
@@ -23,7 +24,7 @@ class AuthController extends Controller
         ]);
 
         auth()->login($user);
-
+        }
         return redirect()->to('/');
     }
 
@@ -32,15 +33,15 @@ class AuthController extends Controller
     }
 
     public function callbackGoogle(){
-        $user = Socialite::driver('google')->user();
-
-        $user = User::firstOrCreate([
-            'name' => $user->getName(),
-        ], [
-            'email' => $user->getEmail(),
-        ]);
-
-        auth()->login($user);
+        if(!isset($_GET['error'])){
+            $user = Socialite::driver('google')->user();
+            $user = User::firstOrCreate([
+                'name' => $user->getName(),
+            ], [
+                'email' => $user->getEmail(),
+            ]);
+            auth()->login($user);
+        }
 
         return redirect()->to('/');
     }
