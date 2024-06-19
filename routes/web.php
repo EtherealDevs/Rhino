@@ -53,12 +53,11 @@ Route::get('/products/show', function () {
     return view('products.show');
 });
 
+Route::get('/auth/redirect/facebook', [AuthController::class, 'redirectFacebok'])->name('auth.redirect.facebook');
+Route::get('/auth/callback/facebook',[AuthController::class, 'callbackFacebook'])->name('auth.callback.facebook');
 
-
-Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
-
-
-Route::get('/auth/callback',[AuthController::class, 'callback'])->name('auth.callback');
+Route::get('/auth/redirect/google', [AuthController::class, 'redirectGoogle'])->name('auth.redirect.google');
+Route::get('/auth/callback/google',[AuthController::class, 'callbackGoogle'])->name('auth.callback.google');
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {

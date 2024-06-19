@@ -72,7 +72,7 @@
                         </div>
                         <div class="flex justify-center gap-5 w-full ">
 
-                            <button type="submit"
+                            <a href="{{ route('auth.redirect.google') }}"
                                 class="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3 rounded-lg tracking-wide font-medium cursor-pointer transition ease-in duration-500">
                                 <svg class="w-4 mr-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="#EA4335"
@@ -85,9 +85,9 @@
                                         d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
                                 </svg>
                                 <span>Google</span>
-                            </button>
+                            </a>
 
-                            <a href="{{ route('auth.redirect') }}"
+                            <a href="{{ route('auth.redirect.facebook') }}"
                                 class="w-full flex items-center justify-center mb-6 md:mb-0 border border-gray-300 hover:border-gray-900 hover:bg-gray-900 text-sm text-gray-500 p-3  rounded-lg tracking-wide font-medium  cursor-pointer transition ease-in duration-500 px-">
                                 <svg class="w-4 mr-2" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100"
                                     xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
