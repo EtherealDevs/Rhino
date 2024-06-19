@@ -18,9 +18,9 @@ class AuthController extends Controller
         $user = Socialite::driver('facebook')->user();
 
         $user = User::firstOrCreate([
-            'name' => $user->getName(),
-        ], [
             'email' => $user->getEmail(),
+        ], [
+            'name' => $user->getName(),
         ]);
 
         auth()->login($user);
@@ -36,9 +36,9 @@ class AuthController extends Controller
         if(!isset($_GET['error'])){
             $user = Socialite::driver('google')->user();
             $user = User::firstOrCreate([
-                'name' => $user->getName(),
-            ], [
                 'email' => $user->getEmail(),
+            ], [
+                'name' => $user->getName(),
             ]);
             auth()->login($user);
         }
