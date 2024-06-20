@@ -15,7 +15,7 @@ class AuthController extends Controller
 
     public function callbackFacebook(){
         if(!isset($_GET['error'])){
-        $user = Socialite::driver('facebook')->user();
+        $user = Socialite::driver('facebook')->stateless()->user();
 
         $user = User::firstOrCreate([
             'email' => $user->getEmail(),
@@ -34,7 +34,7 @@ class AuthController extends Controller
 
     public function callbackGoogle(){
         if(!isset($_GET['error'])){
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
             $user = User::firstOrCreate([
                 'email' => $user->getEmail(),
             ], [
