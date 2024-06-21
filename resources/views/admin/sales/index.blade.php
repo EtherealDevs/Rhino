@@ -6,12 +6,12 @@
         <div class="flex justify-between w-full mb-5">
             <div class="justify-start">
                 <h2 class="font-josefin font-bold italic text-2xl">
-                    Ventas
+                    Promociones
             </div>
 
             <div class="justify-end">
                 <button class="bg-blue-500 rounded-xl p-2 px-4">
-                    <a class="text-white font-bold" href={{ route('admin.sales.create') }}>Cargar Venta</a>
+                    <a class="text-white font-bold" href={{ route('admin.sales.create') }}>Cargar Promocion</a>
                 </button>
             </div>
         </div>

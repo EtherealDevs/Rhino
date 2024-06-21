@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProductItemController;
 use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Models\Brand;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Route;
@@ -41,5 +42,7 @@ Route::resource('color', ColorController::class)->names('admin.colors');
 Route::resource('brand', BrandController::class)->names('admin.brands');
 
 Route::resource('size', SizeController::class)->names('admin.sizes');
+
+Route::resource('user', UserController::class)->names('admin.users');
 
 Route::resource('productitem', ProductItemController::class)->names('admin.productitems');
