@@ -8,8 +8,17 @@
                 Ver Promociones <a href="https://larainfo.com/blogs/create-cookie-consent-design-ui-using-tailwind-css"
                     class="text-blue-500">here</a>.</p>
             <div class="flex space-x-2 ">
-                <button
-                    class="px-4 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 ease-in-out">Aceptar</button>
+                @auth
+                <a href="/products">
+                    <button
+                    class="px-4 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 ease-in-out">Ver Productos</button>
+                </a>
+                @else
+                <a href="{{ route('login') }}">
+                    <button
+                    class="px-4 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 ease-in-out">Iniciar Sesion</button>
+                </a>
+                @endauth
                 <button x-on:click="open = !open"
                     class="px-4 py-1.5 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition duration-300 ease-in-out">Cerrar</button>
             </div>

@@ -43,6 +43,6 @@ Route::resource('brand', BrandController::class)->names('admin.brands');
 
 Route::resource('size', SizeController::class)->names('admin.sizes');
 
-Route::resource('user', UserController::class)->names('admin.users');
+Route::resource('users', UserController::class)->names('admin.users');
 
 Route::resource('productitem', ProductItemController::class)->names('admin.productitems');

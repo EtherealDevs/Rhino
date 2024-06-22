@@ -15,7 +15,7 @@
                     </div>
                     <div class="flex-shrink-0 flex bg-white lg:py-6 lg:rounded-full lg:ml-36">
                         <img class="justify-center xl:ml-2 lg:ml-2 lg:px-8 xl:w-48 2xl:w-48 lg:w-48 w-24 mt-12"
-                            src="/img/rino-blue.png" alt="Your Company">
+                            src="/img/rino-black.png" alt="Your Company">
                     </div>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">

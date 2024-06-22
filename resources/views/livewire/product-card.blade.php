@@ -1,4 +1,4 @@
-<div class="relative flex w-11/12 lg:w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+<div class="relative z-10 flex w-44 lg:w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
     <div class="relative mx-3 mt-3 h-40 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
         @php
             $image = $item->images->first()->url;

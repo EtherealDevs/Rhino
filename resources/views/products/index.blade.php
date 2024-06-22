@@ -1,4 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @livewire('products')
+    <div id="products">
+        @livewire('products')
+    </div>
 @endsection
