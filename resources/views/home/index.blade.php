@@ -35,7 +35,7 @@
                         </svg>
 
                     </div>
-                    <div class="lg:bg-[url('/public/img/modelo1.jpg')] w-24 flex bg-cover rounded-br-3xl justify-center">
+                    <div class="lg:bg-[url('/public/img/modelo1.jpg')] flex bg-cover rounded-br-3xl justify-center">
                         <div class="place-self-end p-12 lg:flex gap-4 z-20 grid grid-cols-1">
                             <button class="p-2 px-2 bg-white text-black rounded-2xl flex items-center space-x-2">
                                 <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
