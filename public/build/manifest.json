@@ -1,0 +1,17 @@
+{
+  "public/img/modelo1.jpg": {
+    "file": "assets/modelo1-DjPYmDIV.jpg",
+    "src": "public/img/modelo1.jpg"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-B1svan6Q.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-WoPsEI56.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}

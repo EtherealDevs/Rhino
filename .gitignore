@@ -1,5 +1,4 @@
 /.phpunit.cache
-/public/build
 /public/hot
 /public/storage
 /storage/*.key
@@ -17,4 +16,3 @@ yarn-error.log
 /.vscode
 
 !/vendor/fakerphp/faker/src/Faker/Provider/Image.php
-
