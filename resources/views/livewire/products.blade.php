@@ -26,16 +26,12 @@
         {{-- Products --}}
         <div class="h-full w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
             {{-- Sidebar --}}
-            <div class="flex sticky left-0 top-10 content-center space-y-10 py-10 md:space-y-4" x-data="{ open: true }">
+            <div class="flex sticky left-0 top-10 content-center space-y-10 py-10 md:space-y-4 z-30" x-data="{ open: true }">
                 <button x-on:click="open = !open" type="button" class="flex items-center">
-                    <svg class="block h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
+                    <svg class="block h-8 w-8 ml-12" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M472 168H40a24 24 0 0 1 0-48h432a24 24 0 0 1 0 48m-80 112H120a24 24 0 0 1 0-48h272a24 24 0 0 1 0 48m-96 112h-80a24 24 0 0 1 0-48h80a24 24 0 0 1 0 48"/></svg>
                 </button>
                 <div x-show="open" x-on:click.away="open = false" class="absolute">
-                    <div class="absolute z-50 font-poppins antialiased">
+                    <div class="absolute font-poppins antialiased">
                         <div id="view" class="flex flex-row">
                             <div id="sidebar"
                                 class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out h-full">
@@ -148,9 +144,9 @@
                 </div>
             </div>
             {{-- Content (Productos) --}}
-            <div class="col-span-5 ml-2 mt-3">
+            <div class="col-span-5 ml-2 mt-3 z-10">
                 <div class="flex w-full">
-                    <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-1 lg:gap-10">
+                    <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-3 lg:gap-10">
 
                         @foreach ($products as $product)
                             @php

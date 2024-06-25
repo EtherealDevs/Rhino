@@ -19,13 +19,13 @@ class ProductItem extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['product_id', 'original_price', 'sale_price', 'color_id'];
 
-    public function price() : float
+    public function price() : int
     {
         if ($this->sale_price != null) {
-            return $this->sale_price / 100;
+            return $this->sale_price;
         } else
         {
-            return $this->original_price / 100;
+            return $this->original_price;
         }
     }
     public function product() : BelongsTo
