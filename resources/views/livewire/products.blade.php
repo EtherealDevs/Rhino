@@ -19,24 +19,31 @@
                         <p>Elegance</p>
                     </div>
                 </div>
+                 
             </div>
         </div>
 
+        
 
         {{-- Products --}}
         <div class="h-full w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
             {{-- Sidebar --}}
             <div class="flex sticky left-0 top-16 content-center space-y-10 py-10 md:space-y-4 z-30"
-                x-data="{ open: false }">
-                <button x-on:click="open = !open" class="p-2 mb-6 ml-6 rounded-full bg-white shadow-xl" type="button" class="flex items-center">
-                    <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                        viewBox="0 0 512 512">
+                x-data="{ open: window.innerWidth >= 768 }" x-init="() => {
+                    window.addEventListener('resize', () => {
+                        open = window.innerWidth >= 768;
+                    });
+                }">
+                <button x-on:click="open = !open" class="p-2 mb-6 ml-6 rounded-full bg-white shadow-xl" type="button"
+                    class="flex items-center">
+                    <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em"
+                        height="1em" viewBox="0 0 512 512">
                         <path fill="currentColor"
                             d="M472 168H40a24 24 0 0 1 0-48h432a24 24 0 0 1 0 48m-80 112H120a24 24 0 0 1 0-48h272a24 24 0 0 1 0 48m-96 112h-80a24 24 0 0 1 0-48h80a24 24 0 0 1 0 48" />
                     </svg>
 
-                    <svg x-show="open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        class="w-6 h-6">
+                    <svg x-show="open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -47,18 +54,6 @@
                             <div id="sidebar"
                                 class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out h-full">
                                 <div class="space-y-10 py-10 md:space-y-4 sticky left-0 top-10 overflow-scroll">
-
-                                    {{-- Search --}}
-                                    <div class="justify-start mb-6">
-                                        <div class="mt-6">
-                                            <button class="ml-12 flex p-2 px-4 rounded-full uppercase bg-gray-200">
-                                                <p class="text-black text-xl font-bold">
-                                                    Buscar
-                                                </p>
-                                                <i class="ml-2 ri-search-eye-line text-2xl font-bold"></i>
-                                            </button>
-                                        </div>
-                                    </div>
                                     <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
                                         Categorias
                                     </h2>
@@ -107,7 +102,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="relative">
-                                                    <label for="price-range-input" class="sr-only">Default range</label>
+                                                    <label for="price-range-input" class="sr-only">Default
+                                                        range</label>
                                                     <input id="price-range-input" type="range" value="500"
                                                         min="100" max="1500"
                                                         class="w-full h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer">
