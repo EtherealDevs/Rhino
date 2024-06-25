@@ -1,7 +1,7 @@
 <div class="sticky top-0 min-h-full z-40">
     <nav class="bg-white z-10 h-18 drop-shadow-xl">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 justify-start lg:justify-between">
+            <div class="flex h-12 lg:h-16 justify-start lg:justify-between">
                 <div class="flex items-center">
                     <div class="hidden md:block">
                         <div class="flex items-baseline space-x-4">
