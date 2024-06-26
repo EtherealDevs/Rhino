@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showContainLoader();
 });
 
-function showLoader() {
+/* function showLoader() {
     const loaderElement = document.querySelector("#loader");
 
     if (loaderElement) {
@@ -68,4 +68,4 @@ function hideContainLoader() {
     if (containLoaderElement) {
         containLoaderElement.style.display = "none"; // Ocultar el contenedor del loader
     }
-}
+} */

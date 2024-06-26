@@ -13,7 +13,7 @@ use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     $productItem = ProductItem::first();
     $combos = Combo::all();
     $sales= Sale::all();
@@ -25,6 +25,11 @@ Route::get('/', function () {
         }
     }
     return view('home.index', compact('productItem','sales','combos'));
+}); */
+
+Route::get('/', function () {
+    
+    return view('building.index');
 });
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
