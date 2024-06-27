@@ -2,7 +2,6 @@
 /public/hot
 /public/storage
 /storage/*.key
-/node_modules
 .env
 .env.backup
 .env.production
@@ -16,6 +15,5 @@ yarn-error.log
 /.idea
 /.vscode
 
-/vendor
 
 !/vendor/fakerphp/faker/src/Faker/Provider/Image.php
