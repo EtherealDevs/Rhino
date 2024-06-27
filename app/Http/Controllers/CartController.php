@@ -9,6 +9,8 @@ use App\Models\ProductItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use SimpleXMLElement;
 
 class CartController extends Controller
 {
@@ -41,5 +43,18 @@ class CartController extends Controller
         // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
         CartManager::removeItem($item);
         return redirect()->route('cart')->with('success');
+    }
+
+    public function envio(){
+        $xml = Http::withHeaders([
+            "accept-encoding"=> "gzip, deflate, br",
+            'Accept'=> '*/*',
+        ])
+        ->get('http://webservice.oca.com.ar/ePak_tracking/Oep_TrackEPak.asmx/Tarifar_Envio_Corporativo?Cuit=30-53625919-4&Operativa=94584&PesoTotal=1&VolumenTotal=1&CodigoPostalOrigen=3400&CodigoPostalDestino=5000&CantidadPaquetes=1&ValorDeclarado=150');
+        $response =@simplexml_load_string($xml->body());
+        return view('cart.envio', compact('response'));
+    }
+
+    public function calculator(Request $request){
     }
 }

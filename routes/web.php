@@ -46,6 +46,7 @@ Route::get('/test', [TestController::class, 'index'])->name('test');
 
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/cart/envio', [CartController::class, 'envio'])->name('cart.envio');
 Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.addItem');
 Route::delete('/cart/{item}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
 
