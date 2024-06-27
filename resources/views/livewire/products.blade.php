@@ -6,18 +6,11 @@
             <div class="mx-auto col-span-8">
                 <h2 class="w-12 border-b-2 text-2xl font-extrabold italic border-gray-500"> Coleccion</h2>
                 <div class="grid grid-cols-4 gap-6 mt-3">
-                    <div class="border-r-2 border-gray-300 italic font-semibold">
-                        <p>Verano</p>
-                    </div>
-                    <div class="border-r-2 italic font-semibold border-gray-300">
-                        <p>Invierno</p>
-                    </div>
-                    <div class="border-r-2 italic font-semibold border-gray-300">
-                        <p>Street</p>
-                    </div>
-                    <div class="italic font-semibold border-gray-300">
-                        <p>Elegance</p>
-                    </div>
+                    @foreach ($categories as $category)
+                        <div class="border-r-2 border-gray-300 italic font-semibold">
+                            <a href="/">{{ $category->name }}</a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
