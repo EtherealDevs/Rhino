@@ -1,5 +1,5 @@
 import './bootstrap';
-/* 
+
 function showLoader() {
     const loaderElement = document.querySelector('#loader');
     
@@ -26,14 +26,14 @@ function showContainLoader() {
 }
 
 // Llama a la función para mostrar el contenedor del loader
-showContainLoader(); */
+showContainLoader();
 
 document.addEventListener("DOMContentLoaded", () => {
     showLoader();
     showContainLoader();
 });
 
-/* function showLoader() {
+function showLoader() {
     const loaderElement = document.querySelector("#loader");
 
     if (loaderElement) {
@@ -68,4 +68,4 @@ function hideContainLoader() {
     if (containLoaderElement) {
         containLoaderElement.style.display = "none"; // Ocultar el contenedor del loader
     }
-} */
+}

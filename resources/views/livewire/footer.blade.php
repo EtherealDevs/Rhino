@@ -17,6 +17,8 @@
                         <a class="hover:opacity-75" href>Pantalones</a>
                         <a class="hover:opacity-75" href>Camisas</a>
                         <a class="hover:opacity-75" href>Zapatillas</a>
+                        <a href="/terms" class="hover:opacity-75" href>Terminos Y Condiciones</a>
+                        <a href="/privacy" class="hover:opacity-75" href>Politica de Privacidad</a>
                     </nav>
                 </div>
                 <div>

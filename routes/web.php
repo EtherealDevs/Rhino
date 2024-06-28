@@ -13,7 +13,7 @@ use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 
-/* Route::get('/', function () {
+Route::get('/', function () {
     $productItem = ProductItem::first();
     $combos = Combo::all();
     $sales= Sale::all();
@@ -25,12 +25,12 @@ use Carbon\Carbon;
         }
     }
     return view('home.index', compact('productItem','sales','combos'));
-}); */
+});
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     
     return view('building.index');
-});
+}); */
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
 
@@ -41,6 +41,14 @@ Route::get('/contact', function () {
 
 Route::get('/about', function () {
     return view('about.index');
+});
+
+Route::get('/terms', function () {
+    return view('terms.index');
+});
+
+Route::get('/privacy', function () {
+    return view('privacy.index');
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');

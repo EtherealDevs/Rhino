@@ -1,7 +1,7 @@
 <!-- component -->
 <div class="bg-gray-100 z-40 absolute" x-data="{ open: true }">
     <div x-show="open" x-on:click.away="open = true"
-        class="fixed top-24 left-0 w-full bg-white border-t border-gray-200 shadow">
+        class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow">
         <div class="container mx-auto px-4 py-2 flex justify-between items-center">
             <p class="text-sm text-gray-700">Inicia Sesion hoy y obten 50% de descuento en todos nuestros productos y
                 acceso a todas nuestras promociones
