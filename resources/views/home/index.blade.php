@@ -21,8 +21,8 @@
                             </p>
                         </div>
                     </div>
-                    <div class="justify-center z-20 lg:block hidden">
-                        <svg id="polygon" viewBox="0 0 954 387" fill="none"
+                    <div class="justify-items-end z-20 lg:block hidden">
+                        <svg class="h-[390px] w-[65.3vw]" viewBox="0 0 954 387" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M477 387L-8.27764e-06 -1.49012e-05H954L477 387Z" fill="url(#paint0_linear_241_3678)" />
                             <defs>
