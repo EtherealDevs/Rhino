@@ -141,7 +141,7 @@
                 <div class="flex justify-between gap-3 pb-2">
                     <div class="justify-start">
                         <h2 class="font-bold text-xl mb-2 font-encode"> <i
-                                class='bx bx-bell mr-1 text-xl font-bold'></i>Notificacione
+                                class='bx bx-bell mr-1 text-xl font-bold'></i>Notificaciones
                         </h2>
                     </div>
                     <div class="justify-end">
