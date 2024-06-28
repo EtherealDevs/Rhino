@@ -18,8 +18,4 @@ yarn-error.log
 /.idea
 /.vscode
 
-<<<<<<< HEAD
 !/vendor/fakerphp/faker/src/Faker/Provider/Image.php
-=======
-!/vendor/fakerphp/faker/src/Faker/Provider/Image.php
->>>>>>> c04099dbdb8daa72b505f1d778a794d2d6b8d7b1
