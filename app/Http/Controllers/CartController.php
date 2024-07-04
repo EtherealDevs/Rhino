@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\User;
+use App\Notifications\OrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -26,6 +27,7 @@ class CartController extends Controller
     }
     public function addToCart(Request $request)
     {
+        $admins = User::role('admin1')->get();
         $decodedItem = json_decode($request->item);
         $item = ProductItem::where('id', $decodedItem->id)->first();
 
@@ -35,6 +37,10 @@ class CartController extends Controller
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
             CartManager::storeOrUpdateInDatabase($user);
+            $cart = Cart::where('user_id',$user->id)->first();
+            foreach($admins as $admin){
+                $admin->notify(new OrderNotification($cart,$user,['database']));
+            }
         }
         return redirect()->route('cart')->with('success');
     }

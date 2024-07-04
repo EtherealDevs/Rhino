@@ -25,7 +25,7 @@
                     <i class="ri-notification-3-fill mr-3 text-lg"></i>
                     <span class="text-sm">Notificaciones</span>
                     <span
-                        class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">5</span>
+                        class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">{{count($user->notifications)}}</span>
                 </a>
             </li>
             <span class="text-gray-400 font-bold">Tienda</span>
