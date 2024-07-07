@@ -12,7 +12,7 @@
         {{-- Primer Row --}}
         <div class="col-span-3 mb-12">
             <h2
-                class="font-extrabold text-[#332E6C] flex mx-auto w-full text-6xl font-blinker uppercase mt-16 justify-center">
+                class="font-extrabold text-[#332E6C] flex mx-auto w-full text-4xl lg:text-6xl font-blinker uppercase mt-16 justify-center">
                 Pagina de <span class="text-white ml-3">Contacto</span>
             </h2>
         </div>
@@ -28,7 +28,7 @@
             <div class="col-span-2 w-full px-10 z-20">
                 <!-- component -->
                 <!-- This is an example component -->
-                <div class="max-w-2xl mx-auto">
+                <div class="max-w-4xl w-24 lg:w-full mx-auto">
 
                     <form>
                         <div class="relative z-0 mb-6 w-full group">
@@ -97,7 +97,7 @@
                         </svg>
                     </div>
                     <div class="w-full mb-4 flex justify-end">
-                        <p class="font-bold text-gray-600 text-md font-josefin">julia.-castillo@hotmail.com</p>
+                        <p class="font-bold text-gray-600 text-xs lg:text-md font-josefin">julia.-castillo@hotmail.com</p>
                         <svg width="23" height="18" viewBox="0 0 27 23" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

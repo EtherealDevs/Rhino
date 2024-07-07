@@ -38,15 +38,17 @@
     }
 } */
 
-@media only screen and (max-width: 1680px) {
-    #polygon {
-        height: 390px;
-    width: 1100px;
-    }
-}
-
 #map {
     height: 340px;
     width: 800px;
-    border-radius: 25px
+    border-radius: 25px;
+}
+
+/* Media Query para pantallas con un ancho máximo de 600px (dispositivos móviles) */
+@media only screen and (max-width: 600px) {
+    #map {
+        height: 340px;
+        width: 200px;
+        border-radius: 25px;
+    }
 }

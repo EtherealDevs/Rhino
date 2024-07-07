@@ -183,7 +183,7 @@
                     </div>
                     <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
                 @else
-                    <p class="flex text-center text-4xl font-bold uppercase">mateo crea promo y no rompas los huevos</p>
+                    <p class="flex text-center text-4xl font-bold">No hay promoción creada</p>
                 @endif
             </div>
         </div>

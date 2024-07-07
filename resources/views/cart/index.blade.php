@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <div
-        class="grid grid-cols-12 w-full h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-pink-200 top-0 overflow-x-hidden">
+        class="grid grid-cols-1 lg:grid-cols-12 w-full h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-pink-200 top-0 overflow-x-hidden">
 
         <div class="col-span-7 bg-transparent py-20 px-12 items-center">
             <div class="p-4 bg-transparent rounded-lg items-center mr-2 sm:p-8 ">
                 <div class="flex justify-between items-center ml-5 mb-4">
-                    <h3 class="font-bold font-josefin text-5xl">Lista de Pedidos</h3>
+                    <h3 class="font-bold font-josefin text-3xl lg:text-5xl">Lista de Pedidos</h3>
                 </div>
                 <div class="flow-root">
                     @isset($cartItems)
@@ -21,11 +21,11 @@
                 </div>
             </div>
             <div class="translate-x-2 translate-y-2 rounded-3xl bg-slate-900/30">
-                <div class="rounded-3xl -translate-x-2 -translate-y-2 bg-gradient-to-r  from-[#253E99] to-[#2B4DC6]">
-                    <div class="grid grid-cols-4 p-6">
+                <div class="rounded-3xl -translate-x-2 -translate-y-2 bg-gradient-to-b via-[#2E3366] from-[#343678] to-[#273053]">
+                    <div class="grid lg:grid-cols-4 grid-cols-1 p-6">
                         <div class="col-span-1">
                             <ul class="items-center">
-                                <li class="font-josefin font-bold text-lg  text-[#A3B7FF]">Descuentos: <span
+                                <li class="font-josefin font-bold text-lg  text-[#d1d9fb]">Descuentos: <span
                                         class="text-white text-lg ">30%</span></li>
                                 <li class="font-josefin font-bold text-lg  text-[#A3B7FF]">Productos: <span
                                         class="text-white text-lg ">7</span></li>
@@ -41,7 +41,7 @@
                             <p class="font-josefin font-bold text-3xl text-[#6BE64C]">NO DATA</p>
                             @endisset
                         </div>
-                        <div class="col-span-2 gap-2 grid grid-rows-2 grid-cols-3">
+                        <div class="col-span-2 gap-2 grid grid-rows-2 grid-cols-3 lg:mt-0 mt-6">
                             <button class="col-span-3 bg-[#11C818] rounded-lg">
                                 <p class="text-white text-2xl  font-bold font-josefin py-2 px-5">Comprar</p>
                             </button>
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-5 place-content-center bg-trasparent">
+        <div class="col-span-5 flex lg:block justify-center place-content-center bg-trasparent">
             <div class="grid place-content-center w-11/12 translate-x-2 translate-y-2 rounded-3xl bg-slate-900/30"
                 id="cart">
                 <div

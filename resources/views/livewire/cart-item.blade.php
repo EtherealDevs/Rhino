@@ -1,4 +1,4 @@
-<li class="py-3 sm:py-4 bg-white rounded-xl shadow-xl">
+<li class="py-3 mb-6 mt-12 sm:py-4 bg-white rounded-xl shadow-xl">
     <div class="flex items-center space-x-4">
         <div class="grid grid-cols-6 gap-12">
             <div class="flex-shrink-0 ml-5">
