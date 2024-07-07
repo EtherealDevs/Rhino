@@ -17,6 +17,8 @@
                         <a class="hover:opacity-75" href>Pantalones</a>
                         <a class="hover:opacity-75" href>Camisas</a>
                         <a class="hover:opacity-75" href>Zapatillas</a>
+
+                        <a href="/eliminacion-datos" class="hover:opacity-75" href>Eliminacion Datos</a>
                     </nav>
                 </div>
                 <div>

@@ -34,6 +34,10 @@ Route::get('/contact', function () {
     return view('contact.index');
 });
 
+Route::get('/eliminacion-datos', function () {
+    return view('eliminacion-datos.index');
+});
+
 Route::get('/about', function () {
     return view('about.index');
 });
