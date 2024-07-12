@@ -1,5 +1,5 @@
 <div class="relative z-10 flex w-44 lg:w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-    <div class="relative mx-3 mt-3 h-40 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
+    <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
         @php
             $image = $item->images->first()->url;
         @endphp
@@ -8,20 +8,20 @@
             @php
                 $discount = $product->sale->sale->discount;
             @endphp
-            <div class="absolute top-2 left-2 bg-[#d14d4d] text-white text-sm font-bold rounded-full px-2 py-1">
+            <div class="absolute top-2 left-2 bg-[#d14d4d] text-white text-sm font-bold rounded-xl px-2 py-1">
                 {{ $discount }}% OFF
             </div>
-            <div class="absolute top-10 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
+            <div class="absolute top-10 left-2 bg-[#82d8a0] text-white text-sm font-bold rounded-xl px-2 py-1">
                 ${{number_format($item->sale_price(),2,',',' ')}}
             </div>
         @else
-            <div class="absolute top-2 left-2 bg-[#5FA878] text-white text-sm font-bold rounded-full px-2 py-1">
+            <div class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold rounded-xl px-2 py-1">
                 ${{number_format($item->price(),2,',',' ')}}
 
             </div>
         @endif
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
-            <button class="bg-black/20 text-gray-600 hover:bg-gray-600 p-2 rounded-full transition">
+            <button class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                 <svg width="18" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M8.5 16L7.2675 14.849C2.89 10.7771 0 8.08283 0 4.79564C0 2.10136 2.057 0 4.675 0C6.154 0 7.5735 0.706267 8.5 1.81362C9.4265 0.706267 10.846 0 12.325 0C14.943 0 17 2.10136 17 4.79564C17 8.08283 14.11 10.7771 9.7325 14.849L8.5 16Z"
@@ -31,7 +31,7 @@
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
                 <input type="hidden" name="item" value="{{ $item }}">
-                <button class="bg-black/20 text-gray-600 hover:bg-gray-600 p-2 rounded-full transition">
+                <button class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path

@@ -50,9 +50,9 @@
                     <div class="absolute font-poppins antialiased">
                         <div id="view" class="flex flex-row">
                             <div id="sidebar"
-                                class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-60 transition-transform duration-300 ease-in-out h-full">
-                                <div class="space-y-10 py-10 md:space-y-4 sticky left-0 top-10 overflow-scroll">
-                                    <h2 class="font-bold text-sm md:text-2cleaxl text-center">
+                                class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-72 transition-transform duration-300 ease-in-out h-screen">
+                                <div class="space-y-10 py-10 p-6 md:space-y-4 sticky left-0 top-10 overflow-scroll">
+                                    <h2 class="font-bold text-sm md:text-xl text-center">
                                         Categorias
                                     </h2>
                                     <div class="flex flex-col pl-10 ">

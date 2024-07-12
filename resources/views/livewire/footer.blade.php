@@ -44,7 +44,7 @@
                                     clipRule="evenodd" />
                             </svg>
                         </a>
-                        <a class="hover:opacity-75" href target="_blank" rel="noreferrer">
+                        <a class="hover:opacity-75" href="https://www.instagram.com/rino.indumentaria" rel="noreferrer">
                             <span class="sr-only "> Instagram </span>
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path fillRule="evenodd"
