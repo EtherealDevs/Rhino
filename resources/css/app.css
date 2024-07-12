@@ -27,16 +27,16 @@
 }
 
 #polygon {
-    height: 390px;
+    height: 450px;
     width: 954px;
 }
 
-/* @media only screen and (max-width: 1344px) {
+@media only screen and (max-width: 1344px) {
     #polygon {
         height: 590px;
     width: 100px;
     }
-} */
+}
 
 #map {
     height: 340px;

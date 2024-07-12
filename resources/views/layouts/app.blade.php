@@ -41,8 +41,6 @@
         </a>
     </div>
 
-
-
     @livewire('navigation')
     <div class="min-h-screen bg-gray-100">
 
@@ -51,7 +49,10 @@
             @yield('content')
         </main>
 
-        @livewire('banner')
+        <div class="z-40">
+            @livewire('banner')
+        </div>
+        
         @livewire('footer')
     </div>
 

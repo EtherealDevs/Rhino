@@ -1,4 +1,4 @@
-<div class="sticky top-0 min-h-full z-40">
+<div class="sticky top-0 min-h-full z-50">
     <nav class="bg-white z-10 h-18 drop-shadow-xl">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-12 lg:h-16 justify-start lg:justify-between">
@@ -149,7 +149,7 @@
                                 </div>
 
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white/60 backdrop-blur-2xl divide-y divide-gray-300 rounded-md shadow-sm "
+                                    class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300 rounded-md shadow-sm "
                                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                                     tabindex="-1">
                                     <a href="{{ route('profile.show') }}"

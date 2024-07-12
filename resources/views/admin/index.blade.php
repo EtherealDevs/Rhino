@@ -227,15 +227,18 @@
                         Ventas
                     </p>
                 </div>
-                <div class="p-2 bg-white rounded-xl ">
-                    <p class="font-blinker font-medium text-md text-center p-4">
-                        <span class="font-bold text-4xl">
-                            36
-                        </span>
-                        <br>
-                        Productos Estrella
-                    </p>
-                </div>
+                <a href="/admin/sale">
+                    <div class="p-2 bg-white rounded-xl ">
+                        <p class="font-blinker font-medium text-md text-center p-4">
+                            <span class="font-bold text-2xl text-green-700">
+                                $360.000
+                            </span>
+                            <br>
+                            Ganancias Generadas
+                        </p>
+                    </div>
+                </a>
+                
             </div>
             <div
                 class="p-6 col-span-2 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-lg rounded-xl">

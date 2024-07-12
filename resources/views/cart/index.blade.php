@@ -16,7 +16,7 @@
                         @endforeach
                     </ul>
                     @else
-                    <p>NO DATA</p>
+                    <p class="text-4xl text-gray-300 mt-24 mb-24">No tenes Productos en tu carrito</p>
                     @endisset
                 </div>
             </div>
