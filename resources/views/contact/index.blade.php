@@ -12,16 +12,16 @@
         {{-- Primer Row --}}
         <div class="col-span-3 mb-12">
             <h2
-                class="font-extrabold text-[#332E6C] flex mx-auto w-full text-4xl lg:text-6xl font-blinker uppercase mt-16 justify-center">
+                class="font-extrabold text-[#000000] flex mx-auto w-full text-4xl lg:text-6xl font-blinker uppercase mt-16 justify-center">
                 Pagina de <span class="text-white ml-3">Contacto</span>
             </h2>
         </div>
 
         {{-- Segundo Row --}}
         <div class="col-span-3 grid grid-cols-6 -translate-y-32">
-            <div class="col-span-4 top-8 mx-auto z-10 bg-blue-800/70 rounded-3xl h-full translate-x-3 translate-y-3">
+            <div class="col-span-4 top-8 mx-auto z-10 bg-gray-800/70 rounded-3xl h-full translate-x-2 translate-y-2">
                 <div id="map"
-                    class="flex flex-col justify-center rounded-xl bg-white shadow-xl -translate-x-3 -translate-y-3 h-full group transition ease-in-out 300">
+                    class="flex flex-col justify-center rounded-xl bg-white shadow-xl -translate-x-2 -translate-y-2 h-full group transition ease-in-out 300">
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <button type="submit"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                            class="hover:text-white transition bg-white text-black hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <div class="col-span-1 ml-8">
-                    <h2 class="text-2xl text-white font-bold mb-4">¡¡Siguenos en nuestras redes!!</h2>
+                    <h2 class="text-2xl text-white font-josefin font-bold mb-4">¡¡Siguenos en nuestras redes!!</h2>
                     <ul class="flex">
 
                         {{-- Whatsapp --}}
@@ -261,10 +261,10 @@
             <div>
                 <div class="grid grid-cols-2 h-screen">
                     <div class="bg-cover bg-[url(/public/img/contact.png)]">
-                        <div class="backdrop-blur-xl h-full">
+                        <div class="backdrop-blur-3xl h-full">
                         </div>
                     </div>
-                    <div class="bg-[#3E68FF] flex flex-col justify-center items-center">
+                    <div class="bg-[#000000] flex flex-col justify-center items-center">
                     </div>
                 </div>
             </div>
