@@ -3,12 +3,15 @@
         <div class="grid grid-cols-6 gap-12">
             <div class="flex-shrink-0 ml-5">
                 <img class="w-14 h-14 rounded-full ml-2"
-                    src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+                    src="/storage/images/product/{{$item['item']->images[0]->url}}"
                     alt="Neil image">
             </div>
             <div class="flex-1 grid-rows-2 col-span-2">
                 <p class="text-base font-josefin font-bold text-gray-900 truncate ">
                     {{$item['item']->product->name}}
+                </p>
+                <p class="text-base font-josefin font-bold text-gray-900 truncate ">
+                    {{$item['size']}}
                 </p>
                 <div class="rounded-xl items-center w-3/4 font-semibold bg-[#5FA878]">
                     <div class="absolute pt-1">
@@ -33,10 +36,11 @@
                     <p class="text-base font-semibold">Total</p>
                 </div>
                 <div>
-                    <p class="text-base font-semibold text-green-500">${{$item['item']->price() * $item['amount']}}</p>
+                    <p class="text-base font-semibold text-green-500">${{number_format($item['item']->price() * $item['amount'], 2, ',', '.')}}</p>
                 </div>
             </div>
-            <form method="POST" action="{{route('cart.removeItem', ['item' => $item['id']])}}">
+            <form method="POST" action="{{route('cart.removeItem', ['item' => $item['id'] ])}}">
+                <input value="{{$item['size']}}" type="hidden" name="size">
             <button type="submit" class="cursor-pointer">
                     @method('delete')
                     @csrf

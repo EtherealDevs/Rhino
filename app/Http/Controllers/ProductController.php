@@ -7,6 +7,7 @@ use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,7 +24,15 @@ class ProductController extends Controller
     }
     public function addToCart(Request $request, Product $product, ProductItem $productItem)
     {
-        CartManager::addItem($productItem, $request->amount);
-        return redirect()->route('cart');
+        $request->validate([
+            'amount' => 'required',
+            'size' => 'required'
+        ]);
+        try{
+            CartManager::addItem($productItem, $request->amount, $request->size);
+        } catch (Exception $e) {
+            return redirect()->route('cart')->with('failure', $e->getMessage());
+        }
+        return redirect()->route('cart')->with('success', 'true');
     }
 }

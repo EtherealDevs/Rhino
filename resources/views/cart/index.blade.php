@@ -9,6 +9,9 @@
                     <h3 class="font-bold font-josefin text-3xl lg:text-5xl">Lista de Pedidos</h3>
                 </div>
                 <div class="flow-root">
+                    @session('failure')
+                        <p>{{ session('failure') }}</p>
+                    @endsession
                     @isset($cartItems)
                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
                         @foreach ($cartItems as $item)

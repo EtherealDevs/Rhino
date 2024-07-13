@@ -15,56 +15,85 @@ class CartManager
         $this->user = $user;
     }
 
-    public static function addItem(ProductItem $item, $amount = 1)
+    public static function addItem(ProductItem $item, $amount = 1, $size = null)
     {
-        
+        if ($size == null) {
+            $size = $item->sizes()->first()->name;
+        }
+        $stock = $item->sizes()->where('name', $size)->first()->pivot->stock;
+
+        // Si todavia no hay un carrito registrado en la sesion
         if (session()->missing('cart')) {
-            $contents = collect([['id' => $item->id, 'item' => $item, 'amount' => $amount]]);
+            // Crear los contenidos del carrito y ponerlos en la sesion bajo la variable 'cart'
+            $contents = collect([['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]]);
             session()->put('cart', $contents);
         } else{
-
+            // Get carrito desde la sesion
             $cart = session()->get('cart');
 
-            if ($cart->doesntContain('id', $item->id)){
-                $cart->push(['id' => $item->id, 'item' => $item, 'amount' => $amount]);
+            // Si el carrito todavia no contiene el item que se quiere añadir
+            if ($cart->doesntContain('id', $item->id) || $cart->doesntContain('size', $size))
+            {
+                
+                // Añadir al carrito como item nuevo, y guardar en sesion
+                $cart->push(['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]);
                 session()->put('cart', $cart);
             }
-            if ($cart->contains('id', $item->id)) {
-                $cart->transform(function ($collectionItem) use ($item){
-                    if ($collectionItem['id'] == $item->id) {
-                        $collectionItem['amount'] += 1;
+            // Si el carrito ya contiene el item que se quiere añadir
+            else if ($cart->contains('id', $item->id) && $cart->contains('size', $size)) {
+                // Iterar a traves de todo el carrito. Una vez encontrado el item, incrementar 'amount'.
+                $cart->transform(function ($collectionItem) use ($item, $amount, $size, $stock){
+                    if ($collectionItem['id'] == $item->id && $collectionItem['size'] == $size) {
+                        for ($i=0; $i < $amount; $i++) {
+                            if ($collectionItem['amount'] >= $stock) {
+                                throw new Exception('La cantidad solicitada no esta disponible.');
+                                return $collectionItem;
+                                break;
+                            }
+                            $collectionItem['amount'] += 1;
+                        }
                     }
                     return $collectionItem;
                 });
-                session()->put('cart', $cart);
+                    // Guardar en sesion
+                    session()->put('cart', $cart);
             }
         }
     }
 
+    // cartModel se refiere al modelo de eloquent CartModel
     public static function getCartContents($cartModel = null)
     {
+        // Si la sesion ya tiene un carrito guardado, retornar ese carrito
         if (session()->has('cart')){
             return session('cart');
+        // Si cartModel no es nulo, es decir, que Sí hay un carrito guardado en la base de datos.
         } else if ($cartModel != null) {
-            $json = json_decode($cartModel->contents, true);
+            // Decodificar los contenidos del modelo (JSON) en un valor PHP
+            $decodedContents = json_decode($cartModel->contents, true);
             $collection = collect([]);
-            foreach ($json as $jsonItem) {
-                $item = ProductItem::where('id', $jsonItem['id'])->first();
-                $collection->push(['id' => $item->id, 'item' => $item, 'amount' => $jsonItem['amount']]);
+            // Iterar a traves de los contenidos del modelo. Buscar en la base de datos cada item decodificado, para asi traer cada item desde la base de datos con todas las relaciones y propiedades. Por cada item, añadir a una coleccion.
+            foreach ($decodedContents as $decodedItem) {
+                $item = ProductItem::where('id', $decodedItem['id'])->first();
+                $collection->push(['id' => $item->id, 'item' => $item, 'size' => $decodedItem['size'], 'amount' => $decodedItem['amount']]);
             }
+            // Guardar en 'cart' la coleccion creada mas arriba
             session()->put('cart', $collection);
             return session('cart');
         };
     }
 
-    public static function removeItem(ProductItem $item)
+    public static function removeItem(ProductItem $item, $size)
     {
         $cart = session('cart');
-        $newCart = $cart->reject(function ($cartItem) use ($item){
-            return $cartItem['id'] == $item->id;
+        // Aca se usa la la funcion reject para iterar a traves de los contenidos del carrito, a medida que se va iterando se transforma la coleccion, rechazando el item proporcionado, eliminándolo.
+        $newCart = $cart->reject(function ($cartItem) use ($item, $size){
+            return $cartItem['id'] == $item->id && $cartItem['size'] == $size;
         });
+        // Cuando el carrito, ya transformado, no quedó vacío, se lo guarda en la sesión como está
         $newCart->whenNotEmpty(function () use ($newCart) {
             session()->put('cart', $newCart);
+            // Sin embargo, si al transformarlo queda vacío, se elimina el carrito de la sesión
         }, function () {
             session()->forget('cart');
         });
@@ -79,7 +108,7 @@ class CartManager
             $itemAmount = $item['amount'];
             $total += $itemPrice * $itemAmount;
         }
-        //Serialize contents (convert to json) so that the database can interpret the data and store correctly.
+        // Serializar contenidos (convertir a JSON) para que la base de datos pueda interpretar los datos y guardarlos correctamente.
         $serializedContents = json_encode($contents);
 
         if ($serializedContents === false) {

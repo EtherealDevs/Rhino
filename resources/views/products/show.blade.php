@@ -82,12 +82,22 @@
                         @endforeach
                     </div>
                 </div>
+                <script>
+                    function getCounterValue(id){
+                        var value = document.getElementById(id).value;
+                        console.log(value);
+                        return value;
+                    }
                 </script>
+                
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Talle:</label>
                     <select x-data id="size-selector" onchange="sizeOptionChanged()">
-                        <option selected x-on:changed-size-option-0.window="$dispatch('change-livewire-component', { stock: null })">Seleccionar...</option>
-                        @foreach ($item->sizes()->orderBy('sort_number')->get() as $size)
+                        <option value="" selected x-on:changed-size-option-0.window="$dispatch('change-livewire-component', { stock: null })">Seleccionar...</option>
+                        @php
+                            $sizes = $item->sizes()->orderBy('sort_number')->get();
+                        @endphp
+                        @foreach ($sizes as $size)
                             <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$size->pivot->stock}} })" data-stock="{{$size->pivot->stock}}" value="{{$size->name}}" class="w-10 h-10 border rounded-lg focus:outline-none">{{$size->name}} - disponibles : {{$size->pivot->stock}}</option>
                         @endforeach
                     </select>
@@ -99,10 +109,13 @@
                         @livewire('counter')
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">Agregar al carrito</button>
+                
 
-                <form method="POST" action="{{route('products.addToCart', ['product' => $item->product, 'productItem' => $item])}}">
-                        @csrf
+                <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('products.addToCart', ['product' => $item->product, 'productItem' => $item])}}">
+                    @csrf
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">Agregar al carrito</button>
+                    <input name="amount" id="counterInput" type="hidden">
+                    <input name="size" id="sizeInput" type="hidden">
                 </form>
 
                 <!-- Tabs Section -->

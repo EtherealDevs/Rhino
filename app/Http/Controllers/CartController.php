@@ -28,11 +28,13 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $admins = User::role('admin1')->get();
+        
         $decodedItem = json_decode($request->item);
         $item = ProductItem::where('id', $decodedItem->id)->first();
 
         //Add Item to Cart in session.
         CartManager::addItem($item);
+
         //Check if user logged in. If true persist the Cart to Database
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
@@ -46,8 +48,9 @@ class CartController extends Controller
     }
     public function removeFromCart(Request $request, ProductItem $item)
     {
+        $size = $request->size;
         // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
-        CartManager::removeItem($item);
+        CartManager::removeItem($item, $size);
         return redirect()->route('cart')->with('success');
     }
 
