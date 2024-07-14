@@ -1,19 +1,15 @@
 <li class="py-3 mb-6 mt-12 sm:py-4 bg-white rounded-xl shadow-xl">
     <div class="flex items-center space-x-4">
-        <div class="grid grid-cols-6 gap-12">
+        <div class="grid grid-cols-7 gap-12">
             <div class="flex-shrink-0 ml-5">
-                <img class="w-14 h-14 rounded-full ml-2"
-                    src="/storage/images/product/{{$item['item']->images[0]->url}}"
+                <img class="w-14 h-14 rounded-full ml-2" src="/storage/images/product/{{ $item['item']->images[0]->url }}"
                     alt="Neil image">
             </div>
             <div class="flex-1 grid-rows-2 col-span-2">
-                <p class="text-base font-josefin font-bold text-gray-900 truncate ">
-                    {{$item['item']->product->name}}
+                <p class="text-2xl font-josefin font-bold text-gray-900 truncate ">
+                    {{ $item['item']->product->name }}
                 </p>
-                <p class="text-base font-josefin font-bold text-gray-900 truncate ">
-                    {{$item['size']}}
-                </p>
-                <div class="rounded-xl items-center w-3/4 font-semibold bg-[#5FA878]">
+                <div class="rounded-xl w-24 p-2 items-center font-semibold bg-[#5FA878]">
                     <div class="absolute pt-1">
                         <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -22,32 +18,32 @@
                                 fill="white" />
                         </svg>
                     </div>
-                    <p class="text-sm text-center ml-3 text-white">
-                        ${{$item['item']->price()}}
+                    <p class="text-md font-josefin text-center ml-3 text-white">
+                        ${{ $item['item']->price() }}
                     </p>
                 </div>
             </div>
-            <div class="grid grid-rows-2">
-                <p>Cantidad</p>
-                <p>{{$item['amount']}}</p>
+            <div class="">
+                <p class="font-josefin font-bold text-gray-900">Talle</p>
+                <p class="font-josefin font-bold">{{ $item['size'] }}</p>
             </div>
-            <div class="items-center grid-rows-2">
-                <div>
-                    <p class="text-base font-semibold">Total</p>
-                </div>
-                <div>
-                    <p class="text-base font-semibold text-green-500">${{number_format($item['item']->price() * $item['amount'], 2, ',', '.')}}</p>
-                </div>
+            <div class="">
+                <p class="font-josefin font-bold text-gray-900">Cantidad</p>
+                <p class="font-josefin font-bold">{{ $item['amount'] }}</p>
             </div>
-            <form method="POST" action="{{route('cart.removeItem', ['item' => $item['id'] ])}}">
-                <input value="{{$item['size']}}" type="hidden" name="size">
-            <button type="submit" class="cursor-pointer">
+            <div class="">
+                <p class="font-josefin font-bold text-gray-900">Total</p>
+                <p class="text-base font-semibold text-green-500">
+                    ${{ number_format($item['item']->price() * $item['amount'], 2, ',', '.') }}</p>
+            </div>
+            <form method="POST" action="{{ route('cart.removeItem', ['item' => $item['id']]) }}">
+                <input value="{{ $item['size'] }}" type="hidden" name="size">
+                <button type="submit" class="cursor-pointer">
                     @method('delete')
                     @csrf
-                    <a
-                        class="text-3xl row-span-2 text-gray-400 font-encode font-extrabold hover:text-red-500">x</a>
-                    </button>
-                </form>
+                    <a class="text-3xl row-span-2 text-gray-400 font-encode font-extrabold hover:text-red-500">x</a>
+                </button>
+            </form>
         </div>
     </div>
 </li>

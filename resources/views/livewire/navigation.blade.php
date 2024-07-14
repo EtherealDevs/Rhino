@@ -1,16 +1,19 @@
 <div class="sticky top-0 min-h-full z-50">
     <nav class="bg-white z-10 h-18 drop-shadow-xl">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-12 lg:h-16 justify-start lg:justify-between">
+            <div class="flex h-12 lg:h-16 justify-start lg:justify-between relative">
+                <!-- Barra de subrayado -->
+                <div class="underline-navbar absolute bottom-0 left-0 h-2 bg-black transition-all duration-300"></div>
+
                 <div class="flex items-center">
                     <div class="hidden md:block">
                         <div class="flex items-baseline space-x-4">
-                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="/" class="text-gray-800 font-black px-3 py-2 text-sm"
+                            <a href="/" class="nav-item text-gray-800 font-black px-3 py-2 text-sm"
                                 aria-current="page">Inicio</a>
-                            <a href="/products" class="text-gray-800 font-black px-3 py-2 text-sm">Productos</a>
-                            <a href="/about" class="text-gray-800 font-black px-3 py-2 text-sm">Nosotros</a>
-                            <a href="/contact" class="text-gray-800 font-black px-3 py-2 text-sm">Contacto</a>
+                            <a href="/products"
+                                class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Productos</a>
+                            <a href="/about" class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Nosotros</a>
+                            <a href="/contact" class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Contacto</a>
                         </div>
                     </div>
                     <div class="flex-shrink-0 flex bg-white lg:py-6 lg:rounded-full lg:ml-36">
@@ -218,11 +221,24 @@
                                     <div class="relative" x-data="{ open: false }">
                                         <a href="{{ route('profile.show') }}"
                                             class="text-gray-800 hover:bg-black hover:text-white px-3 py-2 rounded-md text-base font-bold flex justify-end"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-0"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="3"><path stroke-linejoin="round" d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><circle cx="12" cy="7" r="3"/></g></svg></a>
+                                            role="menuitem" tabindex="-1" id="user-menu-item-0"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                                                viewBox="0 0 24 24">
+                                                <g fill="none" stroke="currentColor" stroke-width="3">
+                                                    <path stroke-linejoin="round"
+                                                        d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+                                                    <circle cx="12" cy="7" r="3" />
+                                                </g>
+                                            </svg></a>
 
-                                            <a href="{{ route('cart') }}"
+                                        <a href="{{ route('cart') }}"
                                             class="text-gray-800 hover:bg-black hover:text-white px-3 py-2 rounded-md text-base font-bold flex justify-end"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25q0-.075.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2"/></svg></a>
+                                            role="menuitem" tabindex="-1" id="user-menu-item-0"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25q0-.075.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2" />
+                                            </svg></a>
 
                                         <form method="POST" action="{{ route('logout') }}" x-data>
                                             @csrf
@@ -250,4 +266,41 @@
         </div>
 
     </nav>
+    <style>
+        .underline-navbar {
+            width: 0;
+            transition: width 0.3s, transform 0.3s;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item:hover {
+            color: blue;
+            /* Cambiar el color del texto al hacer hover si se desea */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll('.nav-item');
+            const underlineBar = document.querySelector('.underline-navbar');
+
+            navItems.forEach((item) => {
+                item.addEventListener('mouseover', (e) => {
+                    const {
+                        offsetLeft,
+                        offsetWidth
+                    } = e.target;
+                    underlineBar.style.width = `${offsetWidth}px`;
+                    underlineBar.style.transform = `translateX(${offsetLeft}px)`;
+                });
+            });
+
+            document.querySelector('.flex.justify-start').addEventListener('mouseleave', () => {
+                underlineBar.style.width = `0`;
+            });
+        });
+    </script>
+
 </div>

@@ -1,25 +1,24 @@
 <section class="bg-white">
     <div class="w-full">
-        {{-- Nabvar --}}
+        {{-- Navbar --}}
         <div class="w-full grid grid-cols-8 justify-between p-14">
-            {{-- Collection --}}
-            <div class="mx-auto col-span-8">
+            <div class="mx-auto col-span-8 relative">
                 <h2 class="w-12 border-b-2 text-2xl font-extrabold italic border-gray-500"> Coleccion</h2>
-                <div class="grid grid-cols-4 gap-6 mt-3">
-                    <div class="border-r-2 border-gray-300 italic font-semibold">
+                <div class="grid grid-cols-4 mt-3 relative">
+                    <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
                         <p>Verano</p>
                     </div>
-                    <div class="border-r-2 italic font-semibold border-gray-300">
+                    <div class="collection-item px-6 border-r-2 italic font-semibold border-gray-300">
                         <p>Invierno</p>
                     </div>
-                    <div class="border-r-2 italic font-semibold border-gray-300">
+                    <div class="collection-item px-6 border-r-2 italic font-semibold border-gray-300">
                         <p>Street</p>
                     </div>
-                    <div class="italic font-semibold border-gray-300">
+                    <div class="collection-item px-6 italic font-semibold border-gray-300">
                         <p>Elegance</p>
                     </div>
                 </div>
-                 
+                <div class="underline-bar absolute"></div>
             </div>
         </div>
 
@@ -146,7 +145,6 @@
             <div class="col-span-5 ml-2 mt-3 z-10">
                 <div class="flex w-full">
                     <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-3 lg:gap-10">
-
                         @foreach ($products as $product)
                             @php
                                 $item = $product->items()->first();
@@ -158,4 +156,41 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .collection-item {
+            position: relative;
+            cursor: pointer;
+            padding-bottom: 4px; /* To create some space for the underline */
+        }
+
+        .underline-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background-color: #000;
+            transition: all 0.3s ease;
+            will-change: transform, width;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const items = document.querySelectorAll('.collection-item');
+            const underlineBar = document.querySelector('.underline-bar');
+
+            items.forEach(item => {
+                item.addEventListener('mouseover', (e) => {
+                    const { offsetLeft, offsetWidth } = e.target.closest('.collection-item');
+                    underlineBar.style.width = `${offsetWidth}px`;
+                    underlineBar.style.transform = `translateX(${offsetLeft}px)`;
+                });
+            });
+
+            document.querySelector('.grid').addEventListener('mouseleave', () => {
+                underlineBar.style.width = `0`;
+            });
+        });
+    </script>
 </section>
