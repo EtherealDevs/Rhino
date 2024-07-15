@@ -31,33 +31,75 @@ class CartManager
             // Get carrito desde la sesion
             $cart = session()->get('cart');
 
-            // Si el carrito todavia no contiene el item que se quiere añadir
-            if ($cart->doesntContain('id', $item->id) || $cart->doesntContain('size', $size))
-            {
-                
-                // Añadir al carrito como item nuevo, y guardar en sesion
-                $cart->push(['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]);
-                session()->put('cart', $cart);
-            }
-            // Si el carrito ya contiene el item que se quiere añadir
-            else if ($cart->contains('id', $item->id) && $cart->contains('size', $size)) {
-                // Iterar a traves de todo el carrito. Una vez encontrado el item, incrementar 'amount'.
-                $cart->transform(function ($collectionItem) use ($item, $amount, $size, $stock){
-                    if ($collectionItem['id'] == $item->id && $collectionItem['size'] == $size) {
-                        for ($i=0; $i < $amount; $i++) {
-                            if ($collectionItem['amount'] >= $stock) {
-                                throw new Exception('La cantidad solicitada no esta disponible.');
-                                return $collectionItem;
-                                break;
+            foreach ($cart as $cartItem) {
+                $notFound = true;
+                // Si el carrito ya contiene el item que se quiere añadir
+                if ($cartItem['id'] == $item->id && $cartItem['size'] == $size) 
+                {
+                    $notFound = false;
+                    // Iterar a traves de todo el carrito. Una vez encontrado el item, incrementar 'amount'.
+                        $cart->transform(function ($collectionItem) use ($item, $amount, $size, $stock)
+                        {
+                            if ($collectionItem['id'] == $item->id && $collectionItem['size'] == $size) 
+                            {
+                                for ($i=0; $i < $amount; $i++)
+                                {
+                                    if ($collectionItem['amount'] >= $stock) 
+                                    {
+                                        throw new Exception('La cantidad solicitada no esta disponible.');
+                                        return $collectionItem;
+                                        break;
+                                    }
+                                    $collectionItem['amount'] += 1;
+                                }
                             }
-                            $collectionItem['amount'] += 1;
-                        }
-                    }
-                    return $collectionItem;
-                });
+                            return $collectionItem;
+                        });
                     // Guardar en sesion
                     session()->put('cart', $cart);
+                }
+                // Si el carrito todavia no contiene el item que se quiere añadir
             }
+            if ($notFound)
+            {
+                // Añadir al carrito como item nuevo, y guardar en sesion
+                $cart->push(['id' => $item->id, 'item' => $item->withoutRelations(), 'size' => $size, 'amount' => $amount]);
+                session()->put('cart', $cart);
+            }
+                // dd($cart);
+                // // Añadir al carrito como item nuevo, y guardar en sesion
+                // $cart->push(['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]);
+                // session()->put('cart', $cart);
+            
+            // if ($cart->doesntContain('id', $item->id) || $cart->doesntContain('size', $size))
+            // {
+            //     dd($cart);
+            //     // Añadir al carrito como item nuevo, y guardar en sesion
+            //     $cart->push(['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]);
+            //     session()->put('cart', $cart);
+            // }
+            // Si el carrito ya contiene el item que se quiere añadir
+            // else if ($cart->contains('id', $item->id) && $cart->contains('size', $size)) {
+            //     dd($cart);
+            //     // Iterar a traves de todo el carrito. Una vez encontrado el item, incrementar 'amount'.
+            //     $cart->transform(function ($collectionItem) use ($item, $amount, $size, $stock){
+            //         if ($collectionItem['id'] == $item->id && $collectionItem['size'] == $size) {
+            //             for ($i=0; $i < $amount; $i++) {
+                            
+            //                 if ($collectionItem['amount'] >= $stock) {
+                                
+            //                     throw new Exception('La cantidad solicitada no esta disponible.');
+            //                     return $collectionItem;
+            //                     break;
+            //                 }
+            //                 $collectionItem['amount'] += 1;
+            //             }
+            //         }
+            //         return $collectionItem;
+            //     });
+            //         // Guardar en sesion
+            //         session()->put('cart', $cart);
+            // }
         }
     }
 
@@ -82,6 +124,19 @@ class CartManager
             return session('cart');
         };
     }
+    // public static function getCartTotal($user = null) {
+    //     if ($user != null) {
+    //         $cartModel = CartModel::where('user_id', $user->id);
+    //     } else { $cartModel = null; }
+    //     $contents = self::getCartContents($cartModel);
+    //     $total = 0;
+    //     foreach ($contents as $item) {
+    //         $itemPrice = $item['item']->price();
+    //         $itemAmount = $item['amount'];
+    //         $total += $itemPrice * $itemAmount;
+    //     }
+    //     return $total;
+    // }
 
     public static function removeItem(ProductItem $item, $size)
     {

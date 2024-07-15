@@ -6,7 +6,7 @@
         <div class="col-span-7 bg-transparent py-20 px-12 items-center">
             <div class="p-4 bg-transparent rounded-lg items-center mr-2 sm:p-8 ">
                 <div class="flex justify-between items-center ml-5 mb-4">
-                    <h3 class="font-bold font-josefin text-3xl lg:text-5xl">Lista del Pedido</h3>
+                    <h3 class="font-bold font-josefin text-3xl lg:text-5xl">Mi Carrito</h3>
                 </div>
                 <div class="flow-root">
                     @session('failure')
@@ -31,15 +31,25 @@
                                 <li class="font-josefin font-bold text-lg  text-[#d1d9fb]">Descuentos: <span
                                         class="text-white text-lg ">30%</span></li>
                                 <li class="font-josefin font-bold text-lg  text-[#A3B7FF]">Productos: <span
-                                        class="text-white text-lg ">7</span></li>
+                                        class="text-white text-lg ">@isset($cartItems){{ count(session('cart')) }}@endisset</span></li>
                                 <li class="font-josefin font-bold text-lg  text-[#A3B7FF]">Envio: <span
                                         class="text-white text-lg ">15.000</span></li>
                             </ul>
                         </div>
                         <div class="col-span-1 grid grid-rows-2 ml-2">
+                            @isset($cartItems)
+                            @php
+                            $total = 0;
+                                foreach ($cartItems as $item) {
+                                    $itemPrice = $item['item']->price();
+                                    $itemAmount = $item['amount'];
+                                    $total += $itemPrice * $itemAmount;
+                                }
+                            @endphp
+                            @endisset
                             <p class="font-josefin font-bold text-3xl text-white ">Total</p>
-                            @isset(auth()->user()->cart->total)    
-                            <p class="font-josefin font-bold text-3xl text-[#6BE64C]"> {{auth()->user()->cart->total}}</p>
+                            @isset($cartItems)    
+                            <p class="font-josefin font-bold text-3xl text-[#6BE64C]"> ${{number_format($total, 2, ',', '.')}}</p>
                             @else
                             <p class="font-josefin font-bold text-3xl text-[#6BE64C]">NO DATA</p>
                             @endisset
@@ -65,9 +75,14 @@
                                 </svg>
                                 <p class="font-josefin text-lg text-white font-bold py-2 mr-2">Volver</p>
                             </button>
-                            <button class="bg-[#FF6565] rounded-lg col-span-2">
-                                <p class="font-josefin text-xl text-white font-bold py-1 px-2">Eliminar Lista</p>
-                            </button>
+                            
+                            <form method="POST" action="{{route('cart.dropCart')}}">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="bg-[#FF6565] rounded-lg col-span-2">
+                                    <p class="font-josefin text-xl text-white font-bold py-1 px-2">Eliminar Lista</p>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

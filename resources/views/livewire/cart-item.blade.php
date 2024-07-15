@@ -9,7 +9,10 @@
                 <p class="text-2xl font-josefin font-bold text-gray-900 truncate ">
                     {{ $item['item']->product->name }}
                 </p>
-                <div class="rounded-xl w-24 p-2 items-center font-semibold bg-[#5FA878]">
+                <p class="text-base font-josefin font-bold text-gray-900 truncate ">
+                    Talle: {{$item['size']}}
+                </p>
+                <div class="rounded-xl items-center w-3/4 font-semibold bg-[#5FA878]">
                     <div class="absolute pt-1">
                         <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -18,8 +21,8 @@
                                 fill="white" />
                         </svg>
                     </div>
-                    <p class="text-md font-josefin text-center ml-3 text-white">
-                        ${{ $item['item']->price() }}
+                    <p class="text-sm text-center ml-3 text-white">
+                        ${{number_format($item['item']->price(), 2, ',', '.')}}
                     </p>
                 </div>
             </div>
