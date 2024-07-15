@@ -1,4 +1,4 @@
-<div class="relative z-10 flex w-44 lg:w-56 mb-8 mt-6 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
+<div class="relative z-10 flex w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
      onmouseover="changeImage(this, '{{ asset('storage/images/product/' . ($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
      onmouseout="resetImage(this, '{{ asset('storage/images/product/' . $item->images->first()->url) }}')">
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">

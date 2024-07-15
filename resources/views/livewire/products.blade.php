@@ -23,9 +23,9 @@
         </div>
 
         {{-- Products --}}
-        <div class="h-full w-full bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
+        <div class="bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
             {{-- Sidebar --}}
-            <div class="flex sticky left-0 top-16 content-center space-y-10 py-10 md:space-y-4 z-30"
+            <div class="flex sticky left-0 top-16 content-center space-y-10 md:space-y-4 z-30"
                 x-data="{ open: window.innerWidth >= 768 }" x-init="() => {
                     window.addEventListener('resize', () => {
                         open = window.innerWidth >= 768;
@@ -45,7 +45,7 @@
                             d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <div x-show="open" x-on:click.away="open = false" class="absolute mt-2">
+                <div x-show="open" x-on:click.away="open = false" class="absolute">
                     <div class="absolute font-poppins antialiased">
                         <div id="view" class="flex flex-row">
                             <div id="sidebar"
@@ -142,13 +142,15 @@
             </div>
 
             {{-- Content (Productos) --}}
-            <div class="col-span-5 ml-2 mt-3 z-10">
+            <div class="col-span-5 ml-2 z-10 mb-8">
                 <div class="flex w-full">
                     <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-3 lg:gap-10">
                         @foreach ($products as $product)
                             @php
                                 $item = $product->items()->first();
                             @endphp
+                            @livewire('product-card', ['product' => $product, 'item' => $item])
+                            @livewire('product-card', ['product' => $product, 'item' => $item])
                             @livewire('product-card', ['product' => $product, 'item' => $item])
                         @endforeach
                     </div>
@@ -161,12 +163,14 @@
         .collection-item {
             position: relative;
             cursor: pointer;
-            padding-bottom: 4px; /* To create some space for the underline */
+            width: 50%;
+            border-right: 2px;
+            padding-bottom: 4px; /* Espacio */
         }
 
         .underline-bar {
             position: absolute;
-            bottom: 0;
+            bottom: 10;
             left: 0;
             height: 4px;
             background-color: #000;
