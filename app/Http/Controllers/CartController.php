@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\User;
 use App\Notifications\OrderNotification;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -28,11 +29,17 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $admins = User::role('admin1')->get();
+        
         $decodedItem = json_decode($request->item);
         $item = ProductItem::where('id', $decodedItem->id)->first();
 
         //Add Item to Cart in session.
-        CartManager::addItem($item);
+        try {
+            CartManager::addItem($item);
+        } catch (Exception $e) {
+            return redirect()->route('cart')->with('failure', $e->getMessage());
+        }
+
         //Check if user logged in. If true persist the Cart to Database
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
@@ -46,9 +53,19 @@ class CartController extends Controller
     }
     public function removeFromCart(Request $request, ProductItem $item)
     {
+        $size = $request->size;
         // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
-        CartManager::removeItem($item);
+        CartManager::removeItem($item, $size);
         return redirect()->route('cart')->with('success');
+    }
+
+    public function dropCart(Request $request) {
+        session()->forget('cart');
+        if (auth()->user()){
+            $cart = Cart::where('user_id', auth()->user()->id);
+            $cart->delete();
+        }
+        return redirect('/');
     }
 
     public function envio(){

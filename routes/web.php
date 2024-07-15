@@ -43,6 +43,10 @@ Route::get('/about', function () {
     return view('about.index');
 });
 
+Route::get('/checkout', function () {
+    return view('checkout.index');
+});
+
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}/{productItem}', [ProductController::class, 'show'])->name('products.show');
 Route::post('products/{product}/{productItem}', [ProductController::class, 'addToCart'])->name('products.addToCart');
@@ -54,6 +58,7 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/envio', [CartController::class, 'envio'])->name('cart.envio');
 Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.addItem');
 Route::delete('/cart/{item}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
+Route::delete('/cart', [CartController::class, 'dropCart'])->name('cart.dropCart');
 
 Route::get('/products/show', function () {
     return view('products.show');

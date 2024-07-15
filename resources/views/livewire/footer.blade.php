@@ -1,6 +1,6 @@
 <!-- component -->
 
-<footer class="bg-gray-900">
+<footer class="bg-[#000000]">
     <div class="max-w-screen-xl px-4 py-4 mx-auto sm:px-6 lg:px-8">
         <div class="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-8 lg:grid-cols-4">

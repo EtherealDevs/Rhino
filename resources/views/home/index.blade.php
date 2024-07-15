@@ -2,7 +2,7 @@
 @section('content')
     <div class="static justify-center bg-white w-full">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 grid-row-2">
-            <div class="col-span-3 mx-6 bg-[#3E68FF] h-full rounded-b-3xl">
+            <div class="col-span-3 mx-6 bg-blue-600 h-full rounded-b-3xl">
                 <div class="grid grid-cols-1 lg:grid-cols-3 justify-between gap-6">
                     <div class="justify-start p-20 mt-6 ml-2">
                         <div>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="mx-auto lg:col-span-2 lg:mx-6 bg-center bg-cover bg-[url(/public/img/new.png)] h-full rounded-3xl text-white font-extrabold">
-                <div class="backdrop-blur-lg rounded-3xl">
+                <div class="backdrop-blur-2xl rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
                             <p class="text-3xl p-6 mr-6 text-white">
