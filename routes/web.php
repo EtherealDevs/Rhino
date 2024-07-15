@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FirebaseController;
+use App\Http\Controllers\WhapController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\Combo;
 use App\Models\ProductItem;
@@ -63,6 +64,8 @@ Route::get('/auth/callback/facebook',[AuthController::class, 'callbackFacebook']
 
 Route::get('/auth/redirect/google', [AuthController::class, 'redirectGoogle'])->name('auth.redirect.google');
 Route::get('/auth/callback/google',[AuthController::class, 'callbackGoogle'])->name('auth.callback.google');
+
+Route::get('/enviowa',[WhapController::class,'envio']);
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {
