@@ -25,14 +25,14 @@
         {{-- Products --}}
         <div class="bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
             {{-- Sidebar --}}
-            <div class="flex sticky left-0 top-16 content-center space-y-10 md:space-y-4 z-30"
-                x-data="{ open: window.innerWidth >= 768 }" x-init="() => {
+            <div class="flex sticky left-0 top-16 content-center space-y-10 md:space-y-4 z-30" x-data="{ open: window.innerWidth >= 768 }"
+                x-init="() => {
                     window.addEventListener('resize', () => {
                         open = window.innerWidth >= 768;
                     });
                 }">
-                <button x-on:click="open = !open" class="block md:hidden p-2 mb-6 ml-6 rounded-full bg-white shadow-xl" type="button"
-                    class="flex items-center">
+                <button x-on:click="open = !open" class="block md:hidden p-2 mb-6 ml-6 rounded-full bg-white shadow-xl"
+                    type="button" class="flex items-center">
                     <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em"
                         height="1em" viewBox="0 0 512 512">
                         <path fill="currentColor"
@@ -143,6 +143,57 @@
 
             {{-- Content (Productos) --}}
             <div class="col-span-5 ml-2 z-10 mb-8">
+                <!-- component -->
+                <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
+
+                <div x-data="slider"
+                    class="relative w-full mb-12 flex flex-shrink-0 overflow-hidden shadow-2xl">
+                    <div
+                        class="rounded-full bg-gray-600 text-white absolute top-5 right-5 text-sm px-2 text-center z-10">
+                        <span x-text="currentIndex"></span>/
+                        <span x-text="images.length"></span>
+                    </div>
+
+                    <template x-for="(image, index) in images">
+                        <figure class="h-96" x-show="currentIndex == index + 1"
+                            x-transition:enter="transition transform duration-300"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition transform duration-300"
+                            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+                            <img :src="image" alt="Image"
+                                class="absolute inset-0 z-10 h-full w-full object-cover opacity-70" />
+                            <figcaption
+                                class="absolute inset-x-0 bottom-1 z-20 w-96 mx-auto p-4 font-light text-sm text-center tracking-widest leading-snug bg-gray-300 bg-opacity-25">
+                                Any kind of content here!
+                                Primum in nostrane potestate est, quid meminerimus? Nulla erit controversia.
+                                Vestri haec verecundius, illi fortasse constantius.
+                            </figcaption>
+                        </figure>
+                    </template>
+
+                    <button @click="back()"
+                        class="absolute left-14 top-1/2 -translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-gray-100 hover:bg-gray-200">
+                        <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:-translate-x-0.5"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M15 19l-7-7 7-7">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <button @click="next()"
+                        class="absolute right-14 top-1/2 translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-gray-100 hover:bg-gray-200">
+                        <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:translate-x-0.5"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+
                 <div class="flex w-full">
                     <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-3 lg:gap-10">
                         @foreach ($products as $product)
@@ -165,7 +216,8 @@
             cursor: pointer;
             width: 50%;
             border-right: 2px;
-            padding-bottom: 4px; /* Espacio */
+            padding-bottom: 4px;
+            /* Espacio */
         }
 
         .underline-bar {
@@ -180,13 +232,42 @@
     </style>
 
     <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('slider', () => ({
+                currentIndex: 1,
+                images: [
+                    'https://source.unsplash.com/1600x900/?beach',
+                    'https://source.unsplash.com/1600x900/?cat',
+                    'https://source.unsplash.com/1600x900/?dog',
+                    'https://source.unsplash.com/1600x900/?lego',
+                    'https://source.unsplash.com/1600x900/?textures&patterns'
+                ],
+                back() {
+                    if (this.currentIndex > 1) {
+                        this.currentIndex = this.currentIndex - 1;
+                    }
+                },
+                next() {
+                    if (this.currentIndex < this.images.length) {
+                        this.currentIndex = this.currentIndex + 1;
+                    } else if (this.currentIndex <= this.images.length) {
+                        this.currentIndex = this.images.length - this.currentIndex + 1
+                    }
+                },
+            }))
+        })
+    </script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             const items = document.querySelectorAll('.collection-item');
             const underlineBar = document.querySelector('.underline-bar');
 
             items.forEach(item => {
                 item.addEventListener('mouseover', (e) => {
-                    const { offsetLeft, offsetWidth } = e.target.closest('.collection-item');
+                    const {
+                        offsetLeft,
+                        offsetWidth
+                    } = e.target.closest('.collection-item');
                     underlineBar.style.width = `${offsetWidth}px`;
                     underlineBar.style.transform = `translateX(${offsetLeft}px)`;
                 });
