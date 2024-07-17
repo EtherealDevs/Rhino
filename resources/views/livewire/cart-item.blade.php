@@ -9,9 +9,6 @@
                 <p class="text-2xl font-josefin font-bold text-gray-900 truncate ">
                     {{ $item['item']->product->name }}
                 </p>
-                <p class="text-base font-josefin font-bold text-gray-900 truncate ">
-                    Talle: {{$item['size']}}
-                </p>
                 <div class="rounded-xl items-center w-3/4 font-semibold bg-[#5FA878]">
                     <div class="absolute pt-1">
                         <svg width="16" height="14" viewBox="0 0 16 14" fill="none"

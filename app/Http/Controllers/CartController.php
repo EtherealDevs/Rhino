@@ -55,7 +55,21 @@ class CartController extends Controller
     {
         $size = $request->size;
         // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
-        CartManager::removeItem($item, $size);
+       
+        if (auth()->check()) {
+            $user = User::where('id', auth()->user()->id)->first();
+            CartManager::removeItem($item, $size, $user);
+        } else{
+            CartManager::removeItem($item, $size);
+        }
+        if (!session()->has('cart')) {
+            session()->forget('cart');
+            if (auth()->user()){
+                $cart = Cart::where('user_id', auth()->user()->id);
+                $cart->delete();
+            }
+            return redirect('/');
+        }
         return redirect()->route('cart')->with('success');
     }
 
