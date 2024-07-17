@@ -3,7 +3,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-12 lg:h-16 justify-start lg:justify-between relative">
                 <!-- Barra de subrayado -->
-                <div class="underline-navbar absolute bottom-0 left-0 h-2 bg-black transition-all duration-300"></div>
+                <div class="underline-navbar absolute bottom-0 left-0 h-1 w-1/2 bg-black transition-all duration-300"></div>
 
                 <div class="flex items-center">
                     <div class="hidden md:block">

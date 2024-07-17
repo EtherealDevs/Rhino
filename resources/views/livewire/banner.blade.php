@@ -1,11 +1,11 @@
 <!-- component -->
-<div class="bg-gray-100 z-40 absolute" x-data="{ open: true }">
+<div class="bg-black z-40 absolute" x-data="{ open: true }">
     <div x-show="open" x-on:click.away="open = true"
-        class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow">
+        class="fixed flex justify-center bottom-0 left-0 w-full h-24 bg-black border-t border-gray-600 shadow">
         <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-            <p class="text-sm text-gray-700">Inicia Sesion hoy y obten 50% de descuento en todos nuestros productos y
+            <p class="text-lg text-white">Inicia Sesion hoy y obten 50% de descuento en todos nuestros productos y
                 acceso a todas nuestras promociones
-                Ver Promociones <a href="https://larainfo.com/blogs/create-cookie-consent-design-ui-using-tailwind-css"
+                Ver Promociones <a href=""
                     class="text-blue-500">here</a>.</p>
             <div class="flex space-x-2 ">
                 @auth

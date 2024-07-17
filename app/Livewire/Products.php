@@ -12,7 +12,7 @@ class Products extends Component
 {
     public function render()
     {
-   $sizes = Size::all();
+        $sizes = Size::all();
         $categories = Category::all();
         $products = Product::all();
         return view('livewire.products', compact('products', 'categories', 'sizes'));
