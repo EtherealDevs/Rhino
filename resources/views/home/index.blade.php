@@ -37,7 +37,8 @@
                     </div>
                     <div class="lg:bg-[url('/public/img/modelo1.jpg')] flex bg-cover rounded-br-3xl justify-center">
                         <div class="place-self-end p-12 lg:flex gap-4 z-20 grid grid-cols-1">
-                            <button class="p-2 px-4 bg-black hover:bg-white transition-colors hover:text-blue-700 text-white rounded-full flex items-center space-x-2">
+                            <button
+                                class="p-2 px-4 bg-black hover:bg-white transition-colors hover:text-blue-700 text-white rounded-full flex items-center space-x-2">
                                 <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -46,7 +47,8 @@
                                 </svg>
                                 <p class="font-bold">Promociones</p>
                             </button>
-                            <button class="p-3 px-4 bg-white rounded-full flex items-center text-black space-x-2 hover:bg-black transition hover:text-white">
+                            <button
+                                class="p-3 px-4 bg-white rounded-full flex items-center text-black space-x-2 hover:bg-black transition hover:text-white">
                                 <a href="{{ route('login') }}">
                                     <p class="font-bold">Iniciar Sesion</p>
                                 </a>
@@ -71,7 +73,8 @@
                         </p>
                     </div>
                     <div class="flex items-end justify-center">
-                        <button class="mr-6 rounded-full bg-black hover:bg-white transition-colors hover:text-blue-900 p-3 px-4 flex items-center space-x-2">
+                        <button
+                            class="mr-6 rounded-full bg-black hover:bg-white transition-colors hover:text-blue-900 p-3 px-4 flex items-center space-x-2">
                             <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -86,17 +89,19 @@
                 </div>
             </div>
 
-            <div class="mx-auto lg:col-span-2 lg:mx-6 bg-center bg-cover bg-[url(/public/img/new.png)] h-full rounded-3xl text-white font-extrabold">
-                <div class="backdrop-blur-2xl rounded-3xl">
+            <div
+                class="mx-auto lg:col-span-2 lg:mx-6 bg-center bg-cover bg-[url(/public/img/new.png)] h-full rounded-3xl text-white font-extrabold">
+                <div class=" rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
                             <p class="text-3xl p-6 mr-6 text-white">
                                 Nuevos Ingresos
                             </p>
                         </div>
-    
-                        <div class="mt-4">  
-                            <button class="rounded-full p-3 px-4 mt-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900">
+
+                        <div class="mt-4">
+                            <button
+                                class="rounded-full p-3 px-4 mt-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900">
                                 <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -109,7 +114,7 @@
                             </button>
                         </div>
                     </div>
-    
+
                     <div class="w-full flex justify-center">
                         <!-- component -->
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

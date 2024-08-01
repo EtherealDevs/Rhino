@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('combos', function (Blueprint $table) {
+        Schema::create('combo_items', function (Blueprint $table) {
             $table->id();
-            $table->integer('discount');
             $table->timestamps();
+            $table->unsignedBigInteger('combo_id');
+            $table->unsignedBigInteger('product_id');
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('combos');
+        Schema::dropIfExists('combo_items');
     }
 };

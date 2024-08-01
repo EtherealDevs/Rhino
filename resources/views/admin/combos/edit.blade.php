@@ -39,15 +39,17 @@
         <div class="pt-16  ">
             <div class="p-6 rounded-xl bg-white">
                 <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
-                    Crear Combo
+                    Editar Combo {{ $combo->id }}
                 </h2>
 
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action={{ route('admin.combos.store') }} method="POST" enctype="multipart/form-data">
+                            <form action={{ route('admin.combos.update', $combo) }} method="POST"
+                                enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
                                 <div class="relative z-1 w-full mb-5">
                                     <select data-placeholder="Begin typing a name to filter..." multiple
                                         class="chosen-select ww-full" name="items[]">
@@ -55,7 +57,14 @@
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
                                                 @foreach ($category->products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                    @foreach ($combo->items as $item)
+                                                        @if ($item->product_id == $product->id)
+                                                            <option value="{{ $product->id }}" selected="selected">
+                                                                {{ $product->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                    <option value="{{ $product->id }}">{{ $product->name }}
+                                                    </option>
                                                 @endforeach
                                             </optgroup>
                                         @endforeach
@@ -63,7 +72,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="number" name="discount" placeholder=" " required
+                                    <input type="number" name="discount" placeholder="" required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="discout"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
