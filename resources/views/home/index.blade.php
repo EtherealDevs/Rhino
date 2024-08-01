@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div
-                class="col-span-1 mx-6 mr-6 bg-center bg-cover bg-[url(https://images.unsplash.com/photo-1543322748-33df6d3db806?q=80&w=3542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] drop-shadow-lg w-full h-full rounded-3xl text-white font-extrabold">
+                class="col-span-1 mx-6 mr-6 bg-center bg-cover bg-[url(/public/img/video.mp4)] drop-shadow-lg w-full h-full rounded-3xl text-white font-extrabold">
                 <div class="bg-black/30 w-full h-full rounded-3xl">
                     <div class="flex justify-center">
                         <p class="text-4xl p-6 mr-6 mt-6 italic font-bold text-white">
@@ -98,7 +98,7 @@
                             </p>
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-4 flex justify-end pr-6"> <!-- Añadir "flex justify-end pr-6" aquí -->
                             <button
                                 class="rounded-full p-3 px-4 mt-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900">
                                 <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
@@ -124,8 +124,8 @@
                     </div>
                 </div>
             </div>
+
         </div>
-    </div>
     </div>
 
     <section class="mt-6">
