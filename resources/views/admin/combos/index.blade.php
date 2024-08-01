@@ -19,7 +19,7 @@
         </div>
 
         <table class="mt-1 w-full min-w-max table-auto text-left">
-            
+
             <thead>
                 <tr>
                     <th
@@ -60,14 +60,15 @@
                 </tr>
             </thead>
             <tbody>
-                
+
+                @foreach ($combos as $combo)
                 <tr>
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="flex items-center gap-3">
                             <div class="flex flex-col">
                                 <p
                                     class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                    #222</p>
+                                    #{{$combo->id}}</p>
                                 <p
                                     class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
                                     fecha</p>
@@ -75,29 +76,21 @@
                         </div>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
-                        <div class="flex items-center gap-3">
-                            <div class="flex flex-col">
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                    name</p>
-                            </div>
-                            {{-- @php
-                                $subtotal=$orderDetail->price * $orderDetail->amount;
-                                $total=$total+$subtotal;
-                            @endphp
-                            @endforeach --}}
-                        </div>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
+                        @php
+                            $products = json_decode($combo->items);
+                        @endphp
                         <div class="flex flex-col">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                Product 1 y 2</p>
+                             @foreach ($products as $produt)
+                             <p
+                                 class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                    {{$produt->id}}
+                                 </p>
+                             @endforeach
                         </div>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            50%</p>
+                            {{$combo->discount}}%</p>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50">
                         <div class="w-max">
@@ -119,10 +112,11 @@
                         </button>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 
-    
+
 </div>
 @endsection

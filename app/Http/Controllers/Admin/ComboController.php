@@ -12,8 +12,8 @@ class ComboController extends Controller
 {
     public function index()
     {
-       /*  $categories= Category::all(); */
-        return view('admin.combos.index');
+        $combos = Combo::all();
+        return view('admin.combos.index', compact('combos'));
     }
 
     /**
