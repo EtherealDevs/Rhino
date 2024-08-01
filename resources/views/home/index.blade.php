@@ -2,19 +2,19 @@
 @section('content')
     <div class="static justify-center bg-white w-full">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 grid-row-2">
-            <div class="col-span-3 mx-6 bg-blue-600 h-full rounded-b-3xl">
+            <div class="col-span-3 mx-6 bg-black h-full rounded-b-3xl">
                 <div class="grid grid-cols-1 lg:grid-cols-3 justify-between gap-6">
                     <div class="justify-start p-20 mt-6 ml-2">
                         <div>
-                            <h1 class="text-5xl font-extrabold font-sans text-white">
+                            <h1 class="text-5xl font-extrabold font-sans shadow-blue-500/50 text-white"> 
                                 Bienvenidos a <br>
-                                <span class="bold">
-                                    Rino
-                                </span>
+                                
                             </h1>
+                            <img class="rounded-xl justify-center lg:px-8 w-98 mt-6"
+                                src="/img/rino.png" alt="Your Company">
                         </div>
                         <div class="mt-6">
-                            <p class="text-lg text-white">
+                            <p class="text-lg italic font-encode text-white">
                                 Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
                                 laboriosam,
                                 nisi ut al Ut enim ad minima veniam.
@@ -59,8 +59,8 @@
                 class="col-span-1 mx-6 mr-6 bg-center bg-cover bg-[url(https://images.unsplash.com/photo-1543322748-33df6d3db806?q=80&w=3542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] drop-shadow-lg w-full h-full rounded-3xl text-white font-extrabold">
                 <div class="bg-black/30 w-full h-full rounded-3xl">
                     <div class="flex justify-center">
-                        <p class="text-4xl p-6 mr-6 mt-6">
-                            Tendencias
+                        <p class="text-4xl p-6 mr-6 mt-6 italic font-bold text-white">
+                            Mas Vendidos
                         </p>
                     </div>
                     <div class="flex justify-start p-4 mb-12">
@@ -87,10 +87,10 @@
             </div>
 
             <div class="mx-auto lg:col-span-2 lg:mx-6 bg-center bg-cover bg-[url(/public/img/new.png)] h-full rounded-3xl text-white font-extrabold">
-                <div class="backdrop-blur-2xl rounded-3xl">
+                <div class="backdrop-blur-2xl rounded-3xl py-6">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
-                            <p class="text-3xl p-6 mr-6 text-white">
+                            <p class="text-4xl pb-8 italic font-bold mr-6 text-white">
                                 Nuevos Ingresos
                             </p>
                         </div>
