@@ -50,7 +50,7 @@
                                 @csrf
                                 <div class="relative z-1 w-full mb-5">
                                     <select data-placeholder="Begin typing a name to filter..." multiple
-                                        class="chosen-select ww-full" name="items[]">
+                                        class="chosen-select ww-full" name="items[]" style="width: 100%">
                                         <option value="">Seleccionar Products</option>
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">

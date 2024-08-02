@@ -52,7 +52,7 @@
                                 @method('PUT')
                                 <div class="relative z-1 w-full mb-5">
                                     <select data-placeholder="Begin typing a name to filter..." multiple
-                                        class="chosen-select ww-full" name="items[]">
+                                        class="chosen-select ww-full" name="items[]" style="width: 100%">
                                         <option value="">Seleccionar Products</option>
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="number" name="discount" placeholder="" required
+                                    <input type="number" name="discount" placeholder={{$combo->discount}} required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="discout"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>

@@ -84,6 +84,8 @@ class ProductItemController extends Controller
      */
     public function destroy(ProductItem $product_item)
     {
+        Storage::delete($product_item->image->first()->url);
+        $product_item->image()->delete();
         $product_item->delete();
         return redirect()->route('admin.products.index');
     }
