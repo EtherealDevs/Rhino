@@ -81,13 +81,17 @@
                             </td>
                             <td class="border-b border-blue-gray-50">
                                 <div class="flex justify-center">
-                                    <button
-                                        class=" font-sans font-medium  rounded-lg text-xs
-                                        type="button">
-                                        <p class="flex text-red-600 hover:border-b hover:border-red-800 hover:text-red-800">
-                                            Eliminar
-                                        </p>
-                                    </button>
+                                    <form action={{ route('admin.combos.destroy', $combo) }} method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class=" font-sans font-medium  rounded-lg text-xs" type="submit"
+                                            onclick="confirm('eliminar combo?')">
+                                            <p
+                                                class="flex text-red-600 hover:border-b hover:border-red-800 hover:text-red-800">
+                                                Eliminar
+                                            </p>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

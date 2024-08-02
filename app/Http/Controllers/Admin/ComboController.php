@@ -60,4 +60,11 @@ class ComboController extends Controller
         }
         return redirect()->route('admin.combos.index');
     }
+
+    public function destroy(Combo $combo)
+    {
+        $combo->items()->delete();
+        $combo->delete();
+        return redirect()->route('admin.combos.index');
+    }
 }
