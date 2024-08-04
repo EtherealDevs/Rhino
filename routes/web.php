@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\SaleController;
+use App\Http\Controllers\ComboController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
@@ -50,6 +51,9 @@ Route::get('/checkout', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}/{productItem}', [ProductController::class, 'show'])->name('products.show');
 Route::post('products/{product}/{productItem}', [ProductController::class, 'addToCart'])->name('products.addToCart');
+
+Route::get('/combos', [ComboController::class, 'index'])->name('combos.index');
+Route::get('/combos/show', [ComboController::class, 'show'])->name('combos.show');
 
 Route::get('/test', [TestController::class, 'index'])->name('test');
 
