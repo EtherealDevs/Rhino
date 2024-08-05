@@ -113,9 +113,9 @@
                                 @endisset
                             </div>
                             <div class="col-span-2 gap-2 lg:mt-0 mt-6">
-                                <button class="col-span-3 bg-[#11C818] rounded-lg">
+                                <a href="{{route('checkout.delivery')}}" class="col-span-3 bg-[#11C818] rounded-lg">
                                     <p class="text-white text-lg font-bold font-josefin py-2 px-5">Comprar</p>
-                                </button>
+                                </a>
                                 
                                 <form method="POST" action="{{route('cart.dropCart')}}">
                                     @csrf

@@ -31,6 +31,10 @@ class DatabaseSeeder extends Seeder
             ProductItemSeeder::class,
             ComboSeeder::class,
             FavoriteSeeder::class,
+            ProvinceSeeder::class,
+            CitySeeder::class,
+            ZipCodeSeeder::class,
+            AddressSeeder::class,
         ]);
     }
 }

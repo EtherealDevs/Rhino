@@ -25,7 +25,7 @@ class CartManager
         // Si todavia no hay un carrito registrado en la sesion
         if (session()->missing('cart')) {
             // Crear los contenidos del carrito y ponerlos en la sesion bajo la variable 'cart'
-            $contents = collect([['id' => $item->id, 'item' => $item->withoutRelations(), 'size' => $size, 'amount' => $amount]]);
+            $contents = collect([['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]]);
             session()->put('cart', $contents);
         } else{
             // Get carrito desde la sesion
@@ -80,7 +80,7 @@ class CartManager
             // Iterar a traves de los contenidos del modelo. Buscar en la base de datos cada item decodificado, para asi traer cada item desde la base de datos con todas las relaciones y propiedades. Por cada item, añadir a una coleccion.
             foreach ($decodedContents as $decodedItem) {
                 $item = ProductItem::where('id', $decodedItem['id'])->first();
-                $collection->push(['id' => $item->id, 'item' => $item->withoutRelations(), 'size' => $decodedItem['size'], 'amount' => $decodedItem['amount']]);
+                $collection->push(['id' => $item->id, 'item' => $item, 'size' => $decodedItem['size'], 'amount' => $decodedItem['amount']]);
             }
             // Guardar en 'cart' la coleccion creada mas arriba
             session()->put('cart', $collection);

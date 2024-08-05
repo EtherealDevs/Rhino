@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FirebaseController;
@@ -43,8 +44,9 @@ Route::get('/about', function () {
     return view('about.index');
 });
 
-Route::get('/checkout', function () {
-    return view('checkout.index');
+Route::group(['middleware' => 'auth'], function (){
+    Route::get('/checkout/delivery', [CheckoutController::class, 'showCheckoutDeliveryPage'])->name('checkout.delivery');
+    Route::get('checkout/payment', [CheckoutController::class, 'showCheckoutPaymentPage'])->name('checkout.payment');
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');

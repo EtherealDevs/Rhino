@@ -3,7 +3,7 @@
         <div class="grid grid-cols-7 gap-12">
             <div class="flex-shrink-0 ml-5">
                 <img class="w-14 h-14 rounded-full ml-2" src="/storage/images/product/{{ $item['item']->images[0]->url }}"
-                    alt="Neil image">
+                    alt="Product Image">
             </div>
             <div class="flex-1 grid-rows-2 col-span-2">
                 <p class="text-2xl font-josefin font-bold text-gray-900 truncate ">
