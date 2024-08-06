@@ -8,6 +8,7 @@
                 <div class="justify-start">
                     <h2 class="font-josefin font-bold italic text-2xl">
                         Combos
+
                     </h2>
                 </div>
 
@@ -81,17 +82,11 @@
                             </td>
                             <td class="border-b border-blue-gray-50">
                                 <div class="flex justify-center">
-                                    <form action={{ route('admin.combos.destroy', $combo) }} method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class=" font-sans font-medium  rounded-lg text-xs" type="submit"
-                                            onclick="confirm('eliminar combo?')">
-                                            <p
-                                                class="flex text-red-600 hover:border-b hover:border-red-800 hover:text-red-800">
-                                                Eliminar
-                                            </p>
-                                        </button>
-                                    </form>
+                                    <!-- Modal toggle -->
+                                    <button data-modal-target="default-modal-{{$combo->id}}" data-modal-toggle="default-modal-{{$combo->id}}" class="flex text-sm text-red-600 hover:border-b hover:border-red-800 hover:text-red-800" type="button">
+                                        Eliminar
+                                    </button>
+                                    @include('admin.combos.delete-modal')
                                 </div>
                             </td>
                         </tr>
@@ -102,4 +97,7 @@
 
 
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://flowbite.com/docs/flowbite.min.js?v=2.5.1a"></script>
+<script src="https://flowbite.com/docs/docs.js?v=2.5.1a"></script>
 @endsection
