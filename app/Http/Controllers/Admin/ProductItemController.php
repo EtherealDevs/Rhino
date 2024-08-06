@@ -39,8 +39,8 @@ class ProductItemController extends Controller
             'stock' => $request->stock,
         ]);
         if($request->file('image')){
-            $url = Storage::put('products', $request->file('image'));
-            $product_item->image()->create([
+            $url = Storage::put('images/product', $request->file('image'));
+            $product_item->images()->create([
                 'url' => $url
             ]);
         }
@@ -84,8 +84,8 @@ class ProductItemController extends Controller
      */
     public function destroy(ProductItem $product_item)
     {
-        Storage::delete($product_item->image->first()->url);
-        $product_item->image()->delete();
+        Storage::delete($product_item->images->first()->url);
+        $product_item->images()->delete();
         $product_item->delete();
         return redirect()->route('admin.products.index');
     }
