@@ -90,7 +90,7 @@
 
             <div
                 class="mx-auto lg:col-span-2 lg:mx-6 bg-center bg-cover bg-[url(/public/img/new.png)] h-full rounded-3xl text-white font-extrabold">
-                <div class=" rounded-3xl">
+                <div class="backdrop-blur-2xl w-full py-6 rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
                             <p class="text-4xl pb-8 italic font-bold mr-6 text-white">
@@ -137,13 +137,13 @@
                     <div id="default-carousel" class="relative" data-carousel="static">
                         <!-- Carousel wrapper -->
                         <div class="overflow-hidden relative rounded-t-[25px] h-[80vh]">
-                            <!-- Item 1 -->
+                            <!-- Items -->
                             @foreach ($sales as $sale)
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <div class="h-full bg-cover bg-center block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                         style="background-image: url('{{ url(Storage::url($sale->images->first()->url)) }}')">
-                                        <p class="flex justify-center text-2xl font-semibold">{{ $sale->title }}</p>
-                                        <p class="flex justify-center text-lg">{{ $sale->description }}</p>
+                                        <p class="mt-24 flex items-center font-bold font-josefin text-white justify-center text-3xl">{{ $sale->title }}</p>
+                                        <p class="flex justify-center text-white text-lg">{{ $sale->description }}</p>
                                         <div class="bg-gradient-to-b z-40 h-full from-transparent from-10% to-70% to-white">
                                             <div
                                                 class="grid justify-center w-full space-x-4 grid-cols-1 md:flex md:grid-cols-none  translate-y-full">
@@ -196,6 +196,7 @@
                     <p class="flex text-center text-4xl font-bold">No hay promoción creada</p>
                 @endif
             </div>
+
         </div>
     </section>
 
