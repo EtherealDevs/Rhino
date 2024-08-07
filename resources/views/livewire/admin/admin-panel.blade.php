@@ -1,7 +1,46 @@
 <div>
+    <style>
+        /* Sidebar hidden by default on mobile and visible by default on desktop */
+        .sidebar-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 16rem; /* Adjust width as needed */
+            z-index: 50;
+            background-color: #f8f4f3;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-overlay {
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Always show sidebar on large screens */
+        @media (min-width: 768px) {
+            .sidebar-menu {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: none;
+            }
+        }
+    </style>
+
     <!--sidenav -->
-    <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu overflow-scroll transition-transform">
-        <a href="/" class="flex  pb-4">
+    <div id="sidebar" class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu overflow-scroll">
+        <a href="/" class="flex pb-4">
             <img class="flex mx-auto px-8 w-36 mt-4" src="/img/rino-black.png" alt="Your Company">
         </a>
         <ul class="mt-4">
@@ -111,12 +150,16 @@
 
         </ul>
     </div>
-    <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+    <div id="sidebar-overlay" class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
     <!-- end sidenav -->
 
     <div class="w-full fixed md:w-[calc(100%-256px)] md:ml-64 bg-gray-200 transition-all main">
         <!-- navbar -->
+        
         <div class="top-0 py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky left-0 z-30">
+            <button id="toggle-sidebar" type="button" class="text-gray-500 focus:outline-none md:hidden">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="p-2 md:block text-left">
                 <h2 class="text-xl font-thin text-gray-800">Hola, <span class="uppercase font-extrabold font-blinker">
                         {{$user->name}}</span> 👋🏻</h2>
@@ -180,105 +223,9 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                New order</div>
-                                            <div class="text-[11px] text-gray-400">from a user</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                New order</div>
-                                            <div class="text-[11px] text-gray-400">from a user</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                New order</div>
-                                            <div class="text-[11px] text-gray-400">from a user</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                New order</div>
-                                            <div class="text-[11px] text-gray-400">from a user</div>
-                                        </div>
-                                    </a>
-                                </li>
                             </ul>
                             <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification"
                                 data-page="messages">
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                John Doe</div>
-                                            <div class="text-[11px] text-gray-400">Hello there!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                John Doe</div>
-                                            <div class="text-[11px] text-gray-400">Hello there!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                John Doe</div>
-                                            <div class="text-[11px] text-gray-400">Hello there!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                John Doe</div>
-                                            <div class="text-[11px] text-gray-400">Hello there!</div>
-                                        </div>
-                                    </a>
-                                </li>
                                 <li>
                                     <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
                                         <img src="https://placehold.co/32x32" alt=""
@@ -302,21 +249,7 @@
                         <path d="M5 5h5V3H3v7h2zm5 14H5v-5H3v7h7zm11-5h-2v5h-5v2h7zm-2-4h2V3h-7v2h5z"></path>
                     </svg>
                 </button>
-                <script>
-                    const fullscreenButton = document.getElementById('fullscreen-button');
-
-                    fullscreenButton.addEventListener('click', toggleFullscreen);
-
-                    function toggleFullscreen() {
-                        if (document.fullscreenElement) {
-                            // If already in fullscreen, exit fullscreen
-                            document.exitFullscreen();
-                        } else {
-                            // If not in fullscreen, request fullscreen
-                            document.documentElement.requestFullscreen();
-                        }
-                    }
-                </script>
+                
 
                 <li class="dropdown ml-3">
                     <button type="button" class="dropdown-toggle flex items-center">
@@ -362,6 +295,52 @@
         <!-- end navbar -->
     </div>
 
+    <script>
+        // Toggle sidebar and overlay
+        document.getElementById('toggle-sidebar').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        });
+
+        // Close sidebar when overlay is clicked
+        document.getElementById('sidebar-overlay').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+        });
+
+        // Open sidebar and overlay on page load only if not in desktop mode
+        window.addEventListener('load', function () {
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('active');
+                document.getElementById('sidebar-overlay').classList.add('active');
+            }
+        });
+
+        // Adjust sidebar visibility on window resize
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+            }
+        });
+    </script>
+
+    <script>
+        const fullscreenButton = document.getElementById('fullscreen-button');
+
+        fullscreenButton.addEventListener('click', toggleFullscreen);
+
+        function toggleFullscreen() {
+            if (document.fullscreenElement) {
+                // If already in fullscreen, exit fullscreen
+                document.exitFullscreen();
+            } else {
+                // If not in fullscreen, request fullscreen
+                document.documentElement.requestFullscreen();
+            }
+        }
+    </script>
+    
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
