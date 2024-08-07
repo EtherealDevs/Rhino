@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProductItem;
+use App\Models\ProductsSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,9 +34,12 @@ class ProductItemController extends Controller
         $product_item=ProductItem::create([
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
-            'size_id' => $request->size_id,
             'original_price'=>$request->original_price,
             'sale_price' => $request->sale_price,
+        ]);
+        ProductsSize::create([
+            'product_item_id' => $product_item->id,
+            'size_id' => $request->size_id,
             'stock' => $request->stock,
         ]);
         if($request->file('image')){
