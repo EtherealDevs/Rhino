@@ -86,7 +86,7 @@
                                     <button data-modal-target="default-modal-{{$combo->id}}" data-modal-toggle="default-modal-{{$combo->id}}" class="flex text-sm text-red-600 hover:border-b hover:border-red-800 hover:text-red-800" type="button">
                                         Eliminar
                                     </button>
-                                    @include('admin.components.delete-modal',['item'=>$combo, 'route'=>'admin.combos.destroy'])
+                                    @include('admin.components.delete-modal',['item'=>$combo, 'route'=>'admin.combos.destroy','name'=>'combo'])
                                 </div>
                             </td>
                         </tr>
