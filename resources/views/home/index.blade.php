@@ -136,25 +136,30 @@
                 @if ($sales->first() != null)
                     <div id="default-carousel" class="relative" data-carousel="static">
                         <!-- Carousel wrapper -->
-                        <div class="overflow-hidden relative rounded-t-[25px] h-[80vh]">
+                        <div class="overflow-hidden relative rounded-t-[25px] h-[65vh]">
                             <!-- Items -->
                             @foreach ($sales as $sale)
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <div class="h-full bg-cover bg-center block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                         style="background-image: url('{{ url(Storage::url($sale->images->first()->url)) }}')">
-                                        <p class="mt-24 flex items-center font-bold font-josefin text-white justify-center text-3xl">{{ $sale->title }}</p>
-                                        <p class="flex justify-center text-white text-lg">{{ $sale->description }}</p>
-                                        <div class="bg-gradient-to-b z-40 h-full from-transparent from-10% to-70% to-white">
-                                            <div
-                                                class="grid justify-center w-full space-x-4 grid-cols-1 md:flex md:grid-cols-none  translate-y-full">
-                                                @foreach ($sale->products as $item)
-                                                    @php
-                                                        $product = $item->product;
-                                                        $productItem = $product->items->first();
-                                                    @endphp
-                                                    <!-- component -->
-                                                    @livewire('product-card', ['product' => $product, 'item' => $productItem])
-                                                @endforeach
+                                        <div class="flex flex-col py-20 space-y-4 bg-gradient-to-b z-40 h-full from-transparent from-10% to-70% to-white">
+
+                                            <div class="flex justify-center">
+                                                <p class="font-bold font-josefin py-2 px-8 rounded-tl-3xl rounded-br-3xl bg-black text-white justify-center text-3xl">{{ $sale->title }}</p>
+                                            </div>
+                                            <p class="flex justify-center text-white text-lg">{{ $sale->description }}</p>
+                                            <div class="">
+                                                <div
+                                                    class="grid justify-center w-full space-x-4 grid-cols-1 md:flex md:grid-cols-none">
+                                                    @foreach ($sale->products as $item)
+                                                        @php
+                                                            $product = $item->product;
+                                                            $productItem = $product->items->first();
+                                                        @endphp
+                                                        <!-- component -->
+                                                        @livewire('product-card', ['product' => $product, 'item' => $productItem])
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -155,7 +155,7 @@
 
     <div class="w-full fixed md:w-[calc(100%-256px)] md:ml-64 bg-gray-200 transition-all main">
         <!-- navbar -->
-        
+
         <div class="top-0 py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky left-0 z-30">
             <button id="toggle-sidebar" type="button" class="text-gray-500 focus:outline-none md:hidden">
                 <i class="fas fa-bars"></i>
@@ -249,7 +249,7 @@
                         <path d="M5 5h5V3H3v7h2zm5 14H5v-5H3v7h7zm11-5h-2v5h-5v2h7zm-2-4h2V3h-7v2h5z"></path>
                     </svg>
                 </button>
-                
+
 
                 <li class="dropdown ml-3">
                     <button type="button" class="dropdown-toggle flex items-center">
@@ -340,9 +340,12 @@
             }
         }
     </script>
-    
+
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://flowbite.com/docs/flowbite.min.js?v=2.5.1a"></script>
+    <script src="https://flowbite.com/docs/docs.js?v=2.5.1a"></script>
 
     <script>
         // start: Sidebar

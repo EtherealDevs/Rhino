@@ -134,9 +134,15 @@
                                 </p>
                             </td>
                             <td>
-                                <div class="rounded-full bg-green-300 w-1/2 flex justify-center">
-                                    <p class="text-green-800 justify-center my-2 font-josefin font-bold">Activo</p>
-                                </div>
+                                @if ($stock == 0)
+                                    <div class="rounded-full bg-gray-300 w-1/2 flex justify-center">
+                                        <p class="text-gray-500 justify-center my-2 font-josefin font-bold">Inactivo</p>
+                                    </div>
+                                @else
+                                    <div class="rounded-full bg-green-300 w-1/2 flex justify-center">
+                                        <p class="text-green-800 justify-center my-2 font-josefin font-bold">Activo</p>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                         <tr>

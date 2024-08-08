@@ -99,18 +99,10 @@
                                 </div>
                             </td>
                             <td class="p-4">
-                                <form action={{ route('admin.sales.destroy', $sale) }} method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs "
-                                        type="submit">
-                                        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                                            <p class="flex">
-                                                Delete
-                                            </p>
-                                        </span>
-                                    </button>
-                                </form>
+                                <button data-modal-target="default-modal-{{$sale->id}}" data-modal-toggle="default-modal-{{$sale->id}}" class="flex text-sm text-red-600 hover:border-b hover:border-red-800 hover:text-red-800" type="button">
+                                    Eliminar
+                                </button>
+                                @include('admin.components.delete-modal',['item'=>$sale, 'route'=>'admin.sales.destroy','name'=>'promocion'])
                             </td>
                         </tr>
                     @endforeach
