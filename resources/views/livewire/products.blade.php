@@ -280,7 +280,7 @@
 
 
                 <div class="flex w-full">
-                    <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-3 lg:gap-10">
+                    <div class="grid grid-cols-2 mx-auto lg:grid-cols-5 gap-3 lg:gap-10">
                         @foreach ($products as $product)
                             @php
                                 $item = $product->items()->first();
