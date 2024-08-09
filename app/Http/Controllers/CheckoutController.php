@@ -42,7 +42,7 @@ class CheckoutController extends Controller
             'name' => $validatedFields['name'],
             'last_name' => $validatedFields['last_name'],
             'zip_code_id' => ModelsZipCode::where('code', '=', $validatedFields['zip_code'])->first()->id,
-            'province_id' => Province::where('id', $validatedFields['province'])->first()->id,
+            'province_id' => Province::where('name', $validatedFields['province'])->first()->id,
             'city_id' => City::where('id', $validatedFields['city'])->first()->id,
             'address' => $validatedFields['address'],
             'street' => $validatedFields['street'],

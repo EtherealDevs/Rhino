@@ -11,14 +11,7 @@
         
         <div>
             <label for="province">Provincia</label>
-            <select disabled name="province" wire:model.live="selectedProvince">
-                <option value="" selected>Seleccioná una provincia...</option>
-                @foreach (\App\Models\Province::all() as $province)
-                <option value="{{$province->id}}">
-                    {{$province->name}}
-                </option>
-                @endforeach
-            </select>
+            <input name="province" type="text" readonly wire:model.live="province">
             @error('province')
             <div>
                 <span class="error">{{ $message }}</span>
