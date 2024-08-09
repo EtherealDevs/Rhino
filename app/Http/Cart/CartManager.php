@@ -17,6 +17,7 @@ class CartManager
 
     public static function addItem(ProductItem $item, $amount = 1, $size = null)
     {
+        
         if ($size == null) {
             $size = $item->sizes()->first()->name;
         }
@@ -27,6 +28,7 @@ class CartManager
             // Crear los contenidos del carrito y ponerlos en la sesion bajo la variable 'cart'
             $contents = collect([['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]]);
             session()->put('cart', $contents);
+            
         } else{
             // Get carrito desde la sesion
             $cart = session()->get('cart');
@@ -72,6 +74,7 @@ class CartManager
     // cartModel se refiere al modelo de eloquent CartModel
     public static function getCartContents($cartModel = null)
     {
+        
         // Si cartModel no es nulo, es decir, que Sí hay un carrito guardado en la base de datos.
         if ($cartModel != null) {
             // Decodificar los contenidos del modelo (JSON) en un valor PHP
@@ -137,9 +140,9 @@ class CartManager
             ['user_id' => $user->id],
             ['contents' => $serializedContents, 'total' => $total]
         );
-
     }
-    // Comparar carritos, guardar los items que no tiene el carrito original, y modificar la cantidad de los items que ya tiene.
+
+    // // Comparar carritos, guardar los items que no tiene el carrito original, y modificar la cantidad de los items que ya tiene.
     public static function compareAndSaveCarts($databaseCart, $sessionCart, $user)
     {
         $databaseCartContents = json_decode($databaseCart->contents, true);

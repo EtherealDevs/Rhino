@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\City;
 use App\Models\User;
+use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\ZipCode;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
@@ -20,7 +21,7 @@ class DeliveryForm extends Component
     #[Validate]
     public $zip_code;
 
-    #[Validate('required')]
+    #[Validate]
     public $province;
 
     public $selectedProvince = null;
@@ -29,12 +30,26 @@ class DeliveryForm extends Component
 
 
     public $city;
+
+    #[Validate]
     public $address;
+
+    #[Validate]
     public $street;
+
+    #[Validate]
     public $number;
+
+    #[Validate]
     public $department;
+
+    #[Validate]
     public $street1;
+
+    #[Validate]
     public $street2;
+
+    #[Validate]
     public $observation;
     public function mount(User $user)
     {
@@ -51,7 +66,7 @@ class DeliveryForm extends Component
             $this->province = $user->address->province_id;
             $this->city = $user->address->city_id;
             $this->fill(
-                $user->address->only('address', 'street', 'number', 'department', 'street1', 'street2', 'observation'),
+                $user->address->only('name', 'last_name', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'),
             );
         }
     }
@@ -73,11 +88,20 @@ class DeliveryForm extends Component
         ];
     }
 
+    public function updatedZipCode($zipCode)
+    {
+        $zipCodeModel = ModelsZipCode::where('code', '=', $zipCode)->first();
+        $this->province = $zipCodeModel->province->id;
+        $this->selectedProvince = $zipCodeModel->province->id;
+        $this->selectedCity = null; // Reset city selection when province changes
+        $this->city = null; // Reset city when province changes
+    }
     public function updatedSelectedProvince($provinceId)
     {
         $this->province = $provinceId;
         $this->cities = City::where('province_id', $provinceId)->get()->sortBy('name');
-        $this->selectedCity = null; // Reset city selection when state changes
+        $this->selectedCity = null; // Reset city selection when province changes
+        $this->city = null; // Reset city when province changes
 
     }
     public function updatedCity($cityId)

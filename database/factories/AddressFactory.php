@@ -19,6 +19,8 @@ class AddressFactory extends Factory
     {
         $provincias = File::json('public/storage/json/argentina_states.json');
         return [
+            'name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
             'address' => $this->faker->streetAddress(),
             'street' => $this->faker->streetName(),
             'number' => $this->faker->buildingNumber(),

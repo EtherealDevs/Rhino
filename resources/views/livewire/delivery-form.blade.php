@@ -1,7 +1,8 @@
 <div>
-    <form method="POST" action="" class="flex flex-col">
-        <input type="hidden" name="cart" value="{{session('cart')}}">
-
+    <form method="POST" action="{{route('checkout.delivery.address')}}" class="flex flex-col">
+        @method('POST')
+        @csrf
+        <input type="hidden" name="user_id" value="{{$user->id}}">
         <x-checkout.text-input name="name" label="Nombre" wire:model.blur="name"></x-checkout.text-input>
         
         <x-checkout.text-input name="last_name" label="Apellido" wire:model.blur="last_name"></x-checkout.text-input>
@@ -10,7 +11,7 @@
         
         <div>
             <label for="province">Provincia</label>
-            <select name="province" wire:model.live="selectedProvince">
+            <select disabled name="province" wire:model.live="selectedProvince">
                 <option value="" selected>Seleccioná una provincia...</option>
                 @foreach (\App\Models\Province::all() as $province)
                 <option value="{{$province->id}}">
@@ -27,8 +28,13 @@
         <div>
             <label for="city">Localidad</label>
             <select name="city" wire:model.live="city">
-                <option value="" selected>Seleccioná una localidad...</option>
-                    @foreach ($cities as $city)->get() as $city)
+                <option value="" selected>@if ($selectedProvince == 1)
+                    Seleccioná un barrio...
+                @else
+                Seleccioná una localidad...
+                @endif
+            </option>
+                    @foreach ($cities as $city)
                     <option value="{{$city->id}}">
                         {{$city->name}}
                     </option>

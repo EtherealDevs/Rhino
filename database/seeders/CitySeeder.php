@@ -49,11 +49,25 @@ class CitySeeder extends Seeder
         $cities = File::json('public/storage/json/argentina_departamentos.json');
         
         $provincias = Province::all();
+        // Crear las localidades. No se crean los barrios de Capital Federal.
         foreach ($cities['departamentos'] as $data) {
-            $city = City::create([
-                'name' => $data['nombre'],
-                'province_id' => $provincias->where('name', '=', $data['provincia']['nombre'])->first()->id
+            if ($data['provincia']['nombre'] != "Capital Federal") {
+                $city = City::create([
+                    'name' => $data['nombre'],
+                    'province_id' => $provincias->where('name', '=', $data['provincia']['nombre'])->first()->id
+                ]);
+            }
+        }
+        // Crear los barrios de Capital Federal.
+        $barrios = File::json('public/storage/json/argentina_barrios_CABA.json');
+        $capitalFederal = Province::where('name', '=', $barrios['provincia'])->first();
+
+        foreach ($barrios['barrios'] as $barrio) {
+            City::create([
+                'name' => $barrio['name'],
+                'province_id' => $capitalFederal->id
             ]);
         }
+
     }
 }

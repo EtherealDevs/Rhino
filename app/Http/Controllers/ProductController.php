@@ -28,7 +28,6 @@ class ProductController extends Controller
     }
     public function addToCart(Request $request, Product $product, ProductItem $productItem)
     {
-        $admins = User::role('admin1')->get();
         $request->validate([
             'amount' => 'required',
             'size' => 'required'
@@ -43,9 +42,6 @@ class ProductController extends Controller
             $user = User::where('id', Auth::user()->id)->first();
             CartManager::storeOrUpdateInDatabase($user);
             $cart = Cart::where('user_id',$user->id)->first();
-            foreach($admins as $admin){
-                $admin->notify(new OrderNotification($cart,$user,['database']));
-            }
         }
         return redirect()->route('cart')->with('success', 'true');
     }
