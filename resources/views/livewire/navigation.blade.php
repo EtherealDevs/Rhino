@@ -48,31 +48,39 @@
                                         </button>
                                     </div>
                                     <div class="space-y-4">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-4">
-                                                <img src="" alt="Producto" class="w-12 h-12 rounded-full">
+                                        @foreach ($favorites as $favorite)
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-4">
+                                                    <div>
+                                                        @if ($favorite->product)
+                                                            <p class="font-semibold text-xl">{{ $favorite->product->name }}
+                                                            </p>
+                                                            <p class="text-sm font-semibold text-gray-500">Color:
+                                                                {{ $favorite->color }}</p>
+                                                            <p class="text-sm font-semibold text-gray-500">Talle:
+                                                                {{ $favorite->size }}</p>
+                                                        @else
+                                                            <p class="text-red-500">No tienes Productos</p>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                                 <div>
-                                                    <p class="font-semibold text-xl">Camisa Cuadrada</p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Color:
-                                                        <span> bla</span>
-                                                    </p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Talle:
-                                                        <span> M</span>
-                                                    </p>
+                                                    <form method="POST"
+                                                        action="{{ route('favorites.remove', $favorite->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit">
+                                                            <i
+                                                                class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <button class="">
-                                                    <a href="">
-                                                        <i
-                                                            class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
-                                                    </a>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
+
 
                             {{-- Carrito --}}
                             <div class="flex content-center" x-data="{ open: false }">

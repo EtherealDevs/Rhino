@@ -1,12 +1,11 @@
 <div class="relative z-10 flex w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
-    onmouseover="changeImage(this, '{{ asset('storage/images/product/' . ($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
-    onmouseout="resetImage(this, '{{ asset('storage/images/product/' . $item->images->first()->url) }}')">
+    onmouseover="changeImage(this, '{{ asset('storage/app/public/images/product/' . ($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
+    onmouseout="resetImage(this, '{{ asset('storage/app/public/images/product/' . $item->images->first()->url) }}')">
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
         @php
             $image = $item->images->first()->url;
         @endphp
-        <img src="{{ url(Storage::url($image))}}"
-            class="product-image h-full w-full object-cover" />
+        <img src="{{ url(Storage::url($image)) }}" class="product-image h-full w-full object-cover" />
         @if ($product->sale)
             @php
                 $discount = $product->sale->sale->discount;
@@ -23,14 +22,20 @@
             </div>
         @endif
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
-            <button class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
-                <svg width="18" height="16" viewBox="0 0 17 16" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M8.5 16L7.2675 14.849C2.89 10.7771 0 8.08283 0 4.79564C0 2.10136 2.057 0 4.675 0C6.154 0 7.5735 0.706267 8.5 1.81362C9.4265 0.706267 10.846 0 12.325 0C14.943 0 17 2.10136 17 4.79564C17 8.08283 14.11 10.7771 9.7325 14.849L8.5 16Z"
-                        fill="red" />
-                </svg>
-            </button>
+            <!-- Botón para agregar a favoritos -->
+            <form method="POST" action="{{ route('favorites.add', $product->id) }}">
+                @csrf
+                <button class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
+                    <svg width="18" height="16" viewBox="0 0 17 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.5 16L7.2675 14.849C2.89 10.7771 0 8.08283 0 4.79564C0 2.10136 2.057 0 4.675 0C6.154 0 7.5735 0.706267 8.5 1.81362C9.4265 0.706267 10.846 0 12.325 0C14.943 0 17 2.10136 17 4.79564C17 8.08283 14.11 10.7771 9.7325 14.849L8.5 16Z"
+                            fill="red" />
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Botón para agregar al carrito -->
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
                 <input type="hidden" name="item" value="{{ $item }}">

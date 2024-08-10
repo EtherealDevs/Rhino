@@ -13,7 +13,13 @@ use App\Models\Combo;
 use App\Models\ProductItem;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
-use Carbon\Carbon;
+use Carbon\Carbon;  
+
+use App\Http\Controllers\FavoriteController;
+
+Route::delete('/favorites/{id}', [FavoriteController::class, 'removeFromFavorites'])->name('favorites.remove');
+Route::post('/favorites/add', [FavoriteController::class, 'add'])->name('favorites.add');
+
 
 Route::get('/', function () {
     $productItem = ProductItem::first();
