@@ -1,5 +1,5 @@
-<div class="gap bg-white rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
-    <div class="grid grid-cols-3 grid-rows-2">
+<div class="gap-6 bg-white grid-rows-3 rounded-xl shadow-md transition-transform pb-4 duration-300 hover:scale-105">
+    <div class="grid grid-cols-3 row-span-2">
         <div class="relative z-10 flex w-44 lg:w-56 mt-1 flex-col bg-clip-border text-gray-700">
             <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
                 <img src="https://images.unsplash.com/photo-1721332154191-ba5f1534266e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -7,11 +7,13 @@
             </div>
         </div>
         <div class="justify-center px-6">
-            <div class="flex relative top-4 bg-[#82d8a0] text-white text-xl font-bold rounded-2xl px-2 py-2">
-                $1222
-            </div>
-            <div class="flex relative top-6 bg-slate-200 text-white text-xl font-bold rounded-2xl px-2 py-2">
-                $1222
+            <div class="flex mt-6">
+                <div class="flex relative text-black text-xl font-bold rounded-2xl px-2 py-2">
+                    $12.000
+                </div>
+                <div class="flex line-through relative text-slate-400 text-xl font-bold rounded-2xl px-2 py-2">
+                    $6.000
+                </div>
             </div>
             <div class="flex relative top-24">
                 <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="1em" viewBox="0 0 32 32">
@@ -57,18 +59,19 @@
                     class="product-image h-full w-full object-cover" />
             </div>
         </div>
-        <div class="bg-black h-20 col-span-3 rounded-xl mx-3 mt-3 mb-3 p-3">
-            <a href="">
-                <div class="flex flex-col items-center justify-center">
-                    <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
-                        teta
-                    </p>
-                    <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
-                        Ver detalle →
-                    </p>
-                </div>
-            </a>
-        </div>
+        
+    </div>
+    <div class="bg-black h-20 col-span-3 row-span-1 rounded-xl mx-3 mt-3 p-3">
+        <a href="">
+            <div class="flex flex-col items-center justify-center">
+                <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
+                    teta
+                </p>
+                <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
+                    Ver detalle →
+                </p>
+            </div>
+        </a>
     </div>
 
     <script>
