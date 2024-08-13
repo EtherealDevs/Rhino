@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
             SizeSeeder::class,
             ProductSeeder::class,
             ProductItemSeeder::class,
-            ComboSeeder::class,
-            FavoriteSeeder::class,
+            ComboSeeder::class,/* 
+            FavoriteSeeder::class, */
         ]);
     }
 }

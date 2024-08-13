@@ -3,32 +3,45 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Favorite;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class Navigation extends Component
 {
-    public $favorites;
+    public $favorites = [];
 
     public function mount()
     {
-        $this->favorites = Favorite::where('user_id', auth()->id())->get();
+        $this->loadFavorites();
+    }
+
+    public function loadFavorites()
+    {
+        $this->favorites = Favorite::with('product')
+            ->where('user_id', Auth::id())
+            ->get();
     }
 
     public function addToFavorites($productId)
     {
-        Favorite::create([
-            'user_id' => auth()->id(),
-            'product_id' => $productId,
-            // Puedes agregar campos adicionales como color, talla, etc.
-        ]);
+        $existingFavorite = Favorite::where('user_id', Auth::id())
+            ->where('product_id', $productId)
+            ->first();
 
-        $this->mount(); // Para actualizar la lista de favoritos en el componente
+        if (!$existingFavorite) {
+            Favorite::create([
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+            ]);
+        }
+
+        $this->loadFavorites();
     }
 
     public function removeFromFavorites($favoriteId)
     {
         Favorite::destroy($favoriteId);
-
-        $this->mount(); // Para actualizar la lista de favoritos en el componente
+        $this->loadFavorites();
     }
 
     public function render()

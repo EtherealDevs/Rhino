@@ -48,37 +48,40 @@
                                         </button>
                                     </div>
                                     <div class="space-y-4">
-                                        @foreach ($favorites as $favorite)
+                                        @forelse ($favorites as $favorite)
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center space-x-4">
                                                     <div>
                                                         @if ($favorite->product)
-                                                            <p class="font-semibold text-xl">{{ $favorite->product->name }}
-                                                            </p>
-                                                            <p class="text-sm font-semibold text-gray-500">Color:
-                                                                {{ $favorite->color }}</p>
-                                                            <p class="text-sm font-semibold text-gray-500">Talle:
-                                                                {{ $favorite->size }}</p>
+                                                            <p class="font-semibold">{{ $favorite->product->name }}</p>
+                                                            @if ($favorite->color)
+                                                                <p class="text-sm text-gray-500">Color:
+                                                                    {{ $favorite->color }}
+                                                                </p>
+                                                            @endif
+                                                            @if ($favorite->size)
+                                                                <p class="text-sm text-gray-500">Talle:
+                                                                    {{ $favorite->size }}
+                                                                </p>
+                                                            @endif
                                                         @else
-                                                            <p class="text-red-500">No tienes Productos</p>
+                                                            <p class="text-gray-500">Producto no encontrado</p>
                                                         @endif
+
                                                     </div>
                                                 </div>
-                                                <div>
-                                                    <form method="POST"
-                                                        action="{{ route('favorites.remove', $favorite->id) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit">
-                                                            <i
-                                                                class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                                <button wire:click="removeFromFavorites({{ $favorite->id }})"
+                                                    class="text-red-500 hover:text-red-700">
+                                                    <i class="ri-delete-bin-fill text-xl"></i>
+                                                </button>
                                             </div>
-                                        @endforeach
+                                        @empty
+                                            <p class="text-gray-500 text-center">No tienes productos en tu lista de
+                                                favoritos.</p>
+                                        @endforelse
                                     </div>
                                 </div>
+
                             </div>
 
 

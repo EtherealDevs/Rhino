@@ -14,11 +14,14 @@ use App\Models\ProductItem;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;  
-
 use App\Http\Controllers\FavoriteController;
+use App\Livewire\Navigation;
 
-Route::delete('/favorites/{id}', [FavoriteController::class, 'removeFromFavorites'])->name('favorites.remove');
-Route::post('/favorites/add', [FavoriteController::class, 'add'])->name('favorites.add');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/favorites/add/{product}', [Navigation::class, 'add'])->name('favorites.add');
+    Route::post('/favorites/remove/{favorite}', [Navigation::class, 'remove'])->name('favorites.remove');
+    Route::get('/favorites', Navigation::class)->name('favorites.view');
+});
 
 
 Route::get('/', function () {
