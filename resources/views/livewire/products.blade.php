@@ -57,7 +57,7 @@
                                     <div class="flex flex-col pl-10 ">
                                         @foreach ($categories as $category)
                                             <div>
-                                                <a href=""
+                                                <a href="{{ route('products.category', $category) }}"
                                                     class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
                                                     <span class="">{{ $category->name }} ()</span>
                                                 </a>
@@ -155,7 +155,7 @@
                                 </span>
                             </h2>
                         </div>
-                        
+
 
                         <div class="mt-4 mb-12 justify-end w-1/2">
                             <a href="/combos">
@@ -186,23 +186,26 @@
                                     </p>
                                 </button>
                             </div>
-                    
+
                             <!-- Modificación en las clases de altura -->
                             <div class="overflow-hidden relative h-62 sm:h-70 xl:h-88 2xl:h-[590px] rounded-lg">
                                 <!-- Item 1 -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <span
-                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800"> @livewire('combo')</span>
+                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
+                                        @livewire('combo')</span>
                                 </div>
                                 <!-- Item 2 -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <span
-                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800"> @livewire('combo')</span>
+                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
+                                        @livewire('combo')</span>
                                 </div>
                                 <!-- Item 3 -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <span
-                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800"> @livewire('combo')</span>
+                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
+                                        @livewire('combo')</span>
                                 </div>
                             </div>
                             <!-- Slider indicators -->
@@ -210,7 +213,8 @@
                                 <a href="{{ route('combos.show') }}">
                                     <button
                                         class="items-end rounded-full p-3 px-4 mt-6 bg-white flex space-x-2 hover:bg-black transition-colors text-blue-800 hover:text-blue-200">
-                                        <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
                                                 fill="#3E68FF" />
@@ -227,9 +231,10 @@
                                 data-carousel-prev>
                                 <span
                                     class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7"></path>
                                     </svg>
                                     <span class="hidden">Previous</span>
                                 </span>
@@ -239,9 +244,10 @@
                                 data-carousel-next>
                                 <span
                                     class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7"></path>
                                     </svg>
                                     <span class="hidden">Next</span>
                                 </span>
@@ -249,7 +255,6 @@
                         </div>
                         <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
                     </div>
-                    
                 </div>
 
 
