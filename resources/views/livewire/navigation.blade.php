@@ -53,19 +53,16 @@
                                                 <div class="flex items-center space-x-4">
                                                     <div>
                                                         @if ($favorite->product)
-                                                            <p class="font-semibold">{{ $favorite->product->name }}</p>
-                                                            @if ($favorite->color)
-                                                                <p class="text-sm text-gray-500">Color:
-                                                                    {{ $favorite->color }}
-                                                                </p>
-                                                            @endif
-                                                            @if ($favorite->size)
-                                                                <p class="text-sm text-gray-500">Talle:
-                                                                    {{ $favorite->size }}
-                                                                </p>
-                                                            @endif
+                                                            
+                                                                <p class="font-semibold text-xl">
+                                                                    {{ $favorite->product->name }}</p>
+                                                          
+                                                            <div class="text-sm font-semibold text-gray-500">
+                                                                <p>Color: {{ $favorite->color }}</p>
+                                                                <p>Talle: {{ $favorite->size }}</p>
+                                                            </div>
                                                         @else
-                                                            <p class="text-gray-500">Producto no encontrado</p>
+                                                            <p class="text-gray-500">Agregar Productos a la lista</p>
                                                         @endif
 
                                                     </div>
