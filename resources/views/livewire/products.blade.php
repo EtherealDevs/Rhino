@@ -52,20 +52,35 @@
                                 class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-72 transition-transform duration-300 ease-in-out h-screen">
                                 <div class="space-y-10 py-10 p-6 md:space-y-4 sticky left-0 top-10 overflow-scroll">
                                     <h2 class="font-bold text-sm md:text-xl text-center">
-                                        Categorias
+                                        Categorías
                                     </h2>
-                                    <div class="flex flex-col pl-10 ">
-                                        @foreach ($categories as $category)
+                                    <div class="flex flex-col pl-10">
+                                        <!-- Formulario de filtrado -->
+                                        <form action="{{ route('products.index') }}" method="GET">
+                                            @foreach ($categories as $category)
                                             <div>
-                                                <a href="{{ route('products.category', $category) }}"
-                                                    class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                                    <span class="">{{ $category->name }} ()</span>
-                                                </a>
+                                                <label class="flex items-center space-x-2">
+                                                    <input type="checkbox" name="categories[]" value="{{ $category->id }}" 
+                                                        class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
+                                                        @if(in_array($category->id, request('categories', []))) checked @endif>
+                                                    <span class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
+                                                        {{ $category->name }} ({{ $category->products_count }})
+                                                    </span>
+                                                </label>
                                             </div>
-                                        @endforeach
+                                            @endforeach
+                                            
+                                            <!-- Botón para aplicar el filtro -->
+                                            <div class="mt-4">
+                                                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-150 ease-in-out">
+                                                    Aplicar filtros
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
+                                    
 
-                                    <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
+                                    {{-- <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
                                         Tallas
                                     </h2>
 
@@ -133,7 +148,7 @@
                                                 <i class="ri-filter-fill"></i>
                                             </a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -249,8 +264,6 @@
                             @php
                                 $item = $product->items()->first();
                             @endphp
-                            @livewire('product-card', ['product' => $product, 'item' => $item])
-                            @livewire('product-card', ['product' => $product, 'item' => $item])
                             @livewire('product-card', ['product' => $product, 'item' => $item])
                         @endforeach
                     </div>

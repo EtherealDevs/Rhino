@@ -103,9 +103,8 @@
                                             </svg>
                                         </button>
                                     </div>
-
                                     <div class="space-y-4">
-                                        @forelse ($cartContents as $cartItem)
+                                        @forelse ($cartContents ?? [] as $cartItem)
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center space-x-4">
                                                     <img src="{{ $cartItem['item']->product->image_url }}" alt="Producto"
