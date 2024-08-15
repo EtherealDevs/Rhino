@@ -53,19 +53,15 @@
                                                 <div class="flex items-center space-x-4">
                                                     <div>
                                                         @if ($favorite->product)
-                                                            <p class="font-semibold">{{ $favorite->product->name }}</p>
-                                                            @if ($favorite->color)
-                                                                <p class="text-sm text-gray-500">Color:
-                                                                    {{ $favorite->color }}
-                                                                </p>
-                                                            @endif
-                                                            @if ($favorite->size)
-                                                                <p class="text-sm text-gray-500">Talle:
-                                                                    {{ $favorite->size }}
-                                                                </p>
-                                                            @endif
+                                                            <p class="font-semibold text-xl">
+                                                                {{ $favorite->product->name }}</p>
+
+                                                            <div class="text-sm font-semibold text-gray-500">
+                                                                <p>Color: {{ $favorite->color }}</p>
+                                                                <p>Talle: {{ $favorite->size }}</p>
+                                                            </div>
                                                         @else
-                                                            <p class="text-gray-500">Producto no encontrado</p>
+                                                            <p class="text-gray-500">Agregar Productos a la lista</p>
                                                         @endif
 
                                                     </div>
@@ -96,7 +92,7 @@
                                     </svg>
                                 </button>
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="absolute top-16  right-8 w-96 bg-white shadow-lg rounded-lg p-4">
+                                    class="absolute top-16 right-8 w-96 bg-white shadow-lg rounded-lg p-4">
                                     <div class="flex justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Carrito</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
@@ -107,35 +103,46 @@
                                             </svg>
                                         </button>
                                     </div>
+
                                     <div class="space-y-4">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-4">
-                                                <img src="" alt="Producto" class="w-12 h-12 rounded-full">
+                                        @forelse ($cartContents as $cartItem)
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-4">
+                                                    <img src="{{ $cartItem['item']->product->image_url }}" alt="Producto"
+                                                        class="w-12 h-12 rounded-full">
+                                                    <div>
+                                                        <p class="font-semibold text-xl">
+                                                            {{ $cartItem['item']->product->name }}</p>
+                                                        <p class="text-sm font-semibold text-gray-500">Color:
+                                                            <span>{{ $cartItem['item']->product->color }}</span>
+                                                        </p>
+                                                        <p class="text-sm font-semibold text-gray-500">Talle:
+                                                            <span>{{ $cartItem['size'] }}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <button class="text-blue-500"
+                                                        wire:click="decrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">-</button>
+                                                    <span class="text-lg">{{ $cartItem['amount'] }}</span>
+                                                    <button class="text-blue-500"
+                                                        wire:click="incrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">+</button>
+                                                </div>
                                                 <div>
-                                                    <p class="font-semibold text-xl">Camisa Cuadrada</p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Color:
-                                                        <span> Amarillo</span>
-                                                    </p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Talle:
-                                                        <span> M</span>
-                                                    </p>
+                                                    <button class="">
+                                                        <a href=""
+                                                            wire:click.prevent="removeItem({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">
+                                                            <i
+                                                                class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
+                                                        </a>
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div class="flex items-center space-x-2">
-                                                <button class="text-blue-500">-</button>
-                                                <span class="text-lg">2</span>
-                                                <button class="text-blue-500">+</button>
-                                            </div>
-                                            <div>
-                                                <button class="">
-                                                    <a href="">
-                                                        <i
-                                                            class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
-                                                    </a>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        @empty
+                                            <p class="text-center text-gray-500">El carrito está vacío.</p>
+                                        @endforelse
                                     </div>
+
                                     <div class="mt-4 flex justify-between">
                                         <button
                                             class="bg-black text-white px-4 py-2 font-bold rounded-lg flex items-center"
@@ -147,10 +154,11 @@
                                                     d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                             </svg>
                                         </button>
-                                        <button class="bg-red-500 text-white px-4 py-2 font-bold rounded-lg">Eliminar
-                                            Lista</button>
+                                        <button class="bg-red-500 text-white px-4 py-2 font-bold rounded-lg"
+                                            wire:click="clearCart">Eliminar Lista</button>
                                     </div>
                                 </div>
+
                             </div>
 
                             {{-- Perfil --}}
