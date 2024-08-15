@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -17,46 +18,45 @@ class Navigation extends Component
     {
         // Cargar el contenido del carrito al montar el componente
         $this->cartContents = CartManager::getCartContents() ?? []; // Asegurar que es un array
-    
+
         // Cargar los favoritos
         $this->loadFavorites();
     }
-    
+
 
     public function incrementQuantity($itemId, $size)
-{
-    $cart = session('cart', collect([])); // Inicializar como colección vacía
-    $cart = $cart->transform(function ($item) use ($itemId, $size) {
-        if ($item['id'] == $itemId && $item['size'] == $size) {
-            $item['amount'] += 1;
-        }
-        return $item;
-    });
-    session()->put('cart', $cart);
-    $this->cartContents = $cart->toArray(); // Asegurar que es un array
-}
+    {
+        $cart = session('cart', collect([])); // Inicializar como colección vacía
+        $cart = $cart->transform(function ($item) use ($itemId, $size) {
+            if ($item['id'] == $itemId && $item['size'] == $size) {
+                $item['amount'] += 1;
+            }
+            return $item;
+        });
+        session()->put('cart', $cart);
+        $this->cartContents = $cart->toArray(); // Asegurar que es un array
+    }
 
-public function decrementQuantity($itemId, $size)
-{
-    $cart = session('cart', collect([])); // Inicializar como colección vacía
-    $cart = $cart->transform(function ($item) use ($itemId, $size) {
-        if ($item['id'] == $itemId && $item['size'] == $size && $item['amount'] > 1) {
-            $item['amount'] -= 1;
-        }
-        return $item;
-    });
-    session()->put('cart', $cart);
-    $this->cartContents = $cart->toArray(); // Asegurar que es un array
-}
-
-
-public function removeItem($itemId, $size)
-{
-    CartManager::removeItem(ProductItem::find($itemId), $size);
-    $this->cartContents = CartManager::getCartContents() ?? []; // Asegurar que es un array
-}
+    public function decrementQuantity($itemId, $size)
+    {
+        $cart = session('cart', collect([])); // Inicializar como colección vacía
+        $cart = $cart->transform(function ($item) use ($itemId, $size) {
+            if ($item['id'] == $itemId && $item['size'] == $size && $item['amount'] > 1) {
+                $item['amount'] -= 1;
+            }
+            return $item;
+        });
+        session()->put('cart', $cart);
+        $this->cartContents = $cart->toArray(); // Asegurar que es un array
+    }
 
 
+    public function removeItem($itemId, $size)
+    {
+        CartManager::removeItem(ProductItem::find($itemId), $size);
+        $this->cartContents = CartManager::getCartContents() ?? []; // Asegurar que es un array
+    }
+    
     public function clearCart()
     {
         session()->forget('cart');

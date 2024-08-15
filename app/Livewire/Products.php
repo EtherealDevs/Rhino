@@ -19,7 +19,8 @@ class Products extends Component
         $sizes = Size::all();
         $categories = Category::all();
         $products = Product::all();
-        return view('livewire.products', compact('products', 'categories', 'sizes'));
+        $combos = Combo::all();
+        return view('livewire.products', compact('products', 'categories', 'sizes', 'combos'));
     }
 
 }
