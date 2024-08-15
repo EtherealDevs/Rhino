@@ -59,7 +59,7 @@ class CartController extends Controller
         return redirect()->route('cart')->with('success');
     }
 
-    public function dropCart(Request $request) {
+    public function dropCart() {
         session()->forget('cart');
         if (auth()->user()){
             $cart = Cart::where('user_id', auth()->user()->id);

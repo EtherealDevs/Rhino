@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Cart;
 
+use App\Http\Controllers\CartController;
 use App\Models\Cart as CartModel;
 use App\Models\ProductItem;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class CartManager
 {
@@ -152,6 +154,13 @@ class CartManager
         }, function () {
             session()->forget('cart');
         });
+        if(session('cart')==null){
+            $cartDelete = new CartController();
+            $cartDelete->dropCart();
+        }else{
+            $user = Auth::user();
+            self::storeOrUpdateInDatabase($user);
+        }
     }
 
     public static function storeOrUpdateInDatabase($user)
