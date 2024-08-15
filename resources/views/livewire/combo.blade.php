@@ -8,12 +8,17 @@
         </div>
         <div class="justify-center px-6">
             <div class="flex mt-6">
-                <div class="flex relative text-black text-xl font-bold rounded-2xl px-2 py-2">
-                    $12.000
-                </div>
-                <div class="flex line-through relative text-slate-400 text-xl font-bold rounded-2xl px-2 py-2">
-                    $6.000
-                </div>
+                @php
+                    $price = $item->product->items->first()->price();
+                    $discount = $item->combo->discount;
+                    $priceDiscount = $price - ($price * $discount / 100);
+                @endphp
+                    <div class="flex relative text-black text-xl font-bold rounded-2xl px-2 py-2">
+                        ${{$priceDiscount}}
+                    </div>
+                    <div class="flex line-through relative text-slate-400 text-xl font-bold rounded-2xl px-2 py-2">
+                        ${{$price}}
+                    </div>
             </div>
             <div class="flex relative top-24">
                 <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="1em" viewBox="0 0 32 32">
@@ -59,17 +64,17 @@
                     class="product-image h-full w-full object-cover" />
             </div>
         </div>
-        
+
     </div>
     <div class="bg-black h-20 col-span-3 row-span-1 rounded-xl mx-3 mt-3 p-3">
         <a href="">
             <div class="flex flex-col items-center justify-center">
                 <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
-                    teta
+                    {{$item->product->name}}
                 </p>
-                <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
+                <a href="{{route('combos.show', $item->combo)}}" class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
                     Ver detalle →
-                </p>
+                </a>
             </div>
         </a>
     </div>

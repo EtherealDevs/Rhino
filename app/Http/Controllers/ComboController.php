@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Combo;
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class ComboController extends Controller
 {
     public function index()
     {
-        return view('combos.index');
+        $combos = Combo::all();
+        return view('combos.index', compact('combos'));
     }
 
-    public function show()
+    public function show(Combo $combo)
     {
-        return view('combos.show');
+        return view('combos.show', compact('combo'));
     }
 }

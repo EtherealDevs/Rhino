@@ -13,7 +13,7 @@ use App\Models\Combo;
 use App\Models\ProductItem;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
-use Carbon\Carbon;  
+use Carbon\Carbon;
 use App\Http\Controllers\FavoriteController;
 use App\Livewire\Navigation;
 
@@ -61,8 +61,8 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product}/{productItem}', [ProductController::class, 'show'])->name('products.show');
 Route::post('products/{product}/{productItem}', [ProductController::class, 'addToCart'])->name('products.addToCart');
 
-Route::get('/combos', [ComboController::class, 'index'])->name('combos.index');
-Route::get('/combos/show', [ComboController::class, 'show'])->name('combos.show');
+Route::resource('/combos', ComboController::class)->names('combos');
+// Route::get('/combos/show', [ComboController::class, 'show'])->name('combos.show');
 
 Route::get('/test', [TestController::class, 'index'])->name('test');
 

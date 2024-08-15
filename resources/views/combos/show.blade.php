@@ -8,8 +8,8 @@
     </div>
 
     <div class="mt-8 justify-center">
-        {{-- @foreach ($products as $product) --}}
         {{-- Se debera agregar el id id="product-{{ $product->id }}" en el segundo div  --}}
+        @foreach ($combo->items as $product)
         <div class="flex justify-center items-center mb-4">
             <div  class="flex w-full max-w-screen-xl transform cursor-pointer flex-col justify-between rounded-md bg-white bg-opacity-75 p-6 text-slate-800 transition duration-500 ease-in-out hover:-translate-y-1 hover:shadow-lg lg:flex-row lg:p-4">
 
@@ -21,7 +21,7 @@
                     </div>
                     <div class="ml-4 self-center overflow-x-hidden">
                         <div class="w-full truncate text-xl font-extrabold leading-5 tracking-tight">
-                            Remera Arrow
+                            {{ $product->name }}
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        {{-- @endforeach --}}
+        @endforeach
     </div>
 
     <div class="bottom-10 mt-8 max-w-screen-xl mx-auto p-6 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
@@ -99,7 +99,7 @@
                 let productId = this.getAttribute('data-product-id');
                 let productElement = document.getElementById('product-' + productId);
                 let isEditing = productElement.classList.contains('editing');
-    
+
                 if (isEditing) {
                     // Save logic
                     productElement.querySelectorAll('.form-input').forEach(function(input) {
@@ -109,7 +109,7 @@
                         attributeElement.textContent = input.value;
                         attributeElement.classList.remove('hidden');
                     });
-    
+
                     this.textContent = 'Editar';
                     this.classList.remove('bg-green-500');
                     this.classList.add('bg-blue-500');
@@ -122,7 +122,7 @@
                         input.classList.remove('hidden');
                         input.classList.add('form-input-visible');
                     });
-    
+
                     this.textContent = 'Guardar';
                     this.classList.remove('bg-blue-500');
                     this.classList.add('bg-green-500');
@@ -130,7 +130,7 @@
                 }
             });
         });
-    
+
         document.querySelectorAll('.form-input').forEach(function(input) {
             input.addEventListener('blur', function() {
                 let attributeElement = this.previousElementSibling;
@@ -142,7 +142,7 @@
         });
     });
     </script>
-    
+
     <style>
     .form-input-visible {
         display: block !important;
