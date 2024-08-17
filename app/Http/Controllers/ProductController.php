@@ -32,16 +32,17 @@ class ProductController extends Controller
             'amount' => 'required',
             'size' => 'required'
         ]);
-        try{
             CartManager::addItem($productItem, $request->amount, $request->size);
-        } catch (Exception $e) {
-            return redirect()->route('cart')->with('failure', $e->getMessage());
-        }
+
         //Check if user logged in. If true persist the Cart to Database
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
             CartManager::storeOrUpdateInDatabase($user);
             $cart = Cart::where('user_id',$user->id)->first();
+        }
+        
+        if (session('cartError')) {
+            return redirect()->route('cart')->with('failure', session('cartError'));
         }
         return redirect()->route('cart')->with('success', 'true');
     }

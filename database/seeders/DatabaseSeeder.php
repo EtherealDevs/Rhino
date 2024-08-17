@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             ZipCodeSeeder::class,
             AddressSeeder::class,
+            PaymentMethodSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 }

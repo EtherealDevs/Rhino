@@ -26,7 +26,7 @@ class CartManager
         // Si todavia no hay un carrito registrado en la sesion
         if (session()->missing('cart')) {
             // Crear los contenidos del carrito y ponerlos en la sesion bajo la variable 'cart'
-            $contents = collect([['id' => $item->id, 'item' => $item, 'size' => $size, 'amount' => $amount]]);
+            $contents = collect([['id' => $item->id, 'item' => $item->withoutRelations(), 'size' => $size, 'amount' => $amount]]);
             session()->put('cart', $contents);
             
         } else{
@@ -44,15 +44,16 @@ class CartManager
                         {
                             if ($collectionItem['id'] == $item->id && $collectionItem['size'] == $size) 
                             {
+                                $addedItems = 0;
                                 for ($i=0; $i < $amount; $i++)
                                 {
-                                    if ($collectionItem['amount'] >= $stock) 
+                                    if ($collectionItem['amount'] == $stock) 
                                     {
-                                        throw new Exception('La cantidad solicitada no esta disponible.');
+                                        session()->flash('cartError', "No se pueden añadir todas las unidades solicitadas, porque supera el stock disponible del producto. Pediste {$amount}, solo se añadieron {$addedItems}.");
                                         return $collectionItem;
-                                        break;
                                     }
                                     $collectionItem['amount'] += 1;
+                                    $addedItems += 1;
                                 }
                             }
                             return $collectionItem;
@@ -83,7 +84,7 @@ class CartManager
             // Iterar a traves de los contenidos del modelo. Buscar en la base de datos cada item decodificado, para asi traer cada item desde la base de datos con todas las relaciones y propiedades. Por cada item, añadir a una coleccion.
             foreach ($decodedContents as $decodedItem) {
                 $item = ProductItem::where('id', $decodedItem['id'])->first();
-                $collection->push(['id' => $item->id, 'item' => $item, 'size' => $decodedItem['size'], 'amount' => $decodedItem['amount']]);
+                $collection->push(['id' => $item->id, 'item' => $item->withoutRelations(), 'size' => $decodedItem['size'], 'amount' => $decodedItem['amount']]);
             }
             // Guardar en 'cart' la coleccion creada mas arriba
             session()->put('cart', $collection);
@@ -125,8 +126,8 @@ class CartManager
             $total += $itemPrice * $itemAmount;
         }
         $contents->transform(function ($item){
-            $itemWithoutRelations = ProductItem::where('id', $item['id'])->first()->withoutRelations();
-            $item['item'] = $itemWithoutRelations;
+            $itemWithRelations = ProductItem::where('id', $item['id'])->first()->load('product', 'images');
+            $item['item'] = $itemWithRelations;
             return $item;
         });
         // Serializar contenidos (convertir a JSON) para que la base de datos pueda interpretar los datos y guardarlos correctamente.

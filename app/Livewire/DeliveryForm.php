@@ -90,6 +90,9 @@ class DeliveryForm extends Component
 
     public function updatedZipCode($zipCode)
     {
+        $this->validate([
+            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode]
+        ]);
         $zipCodeModel = ModelsZipCode::where('code', '=', $zipCode)->first();
         $this->province = $zipCodeModel->province->name;
         $this->selectedCity = null; // Reset city selection when province changes

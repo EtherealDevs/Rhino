@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/checkout/delivery', [CheckoutController::class, 'showCheckoutDeliveryPage'])->name('checkout.delivery');
     Route::get('/checkout/payment', [CheckoutController::class, 'showCheckoutPaymentPage'])->name('checkout.payment');
     Route::post('checkout/delivery', [CheckoutController::class, 'validateAddressAndSaveToDatabase'])->name('checkout.delivery.address');
+    Route::post('/process_payment', [CheckoutController::class, 'processPayment'])->name('checkout.processPayment');
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');

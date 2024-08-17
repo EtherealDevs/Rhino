@@ -33,17 +33,16 @@ class CartController extends Controller
         $item = ProductItem::where('id', $decodedItem->id)->first();
 
         // Añadir Item al carrito de la sesión.
-        try {
             CartManager::addItem($item);
-        } catch (Exception $e) {
-            return redirect()->route('cart')->with('failure', $e->getMessage());
-        }
 
         // Chequear si en esta sesion, en este navegador, hay un usuario logueado. Si hay, persistir el carrito de la sesion a la base de datos
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
             CartManager::storeOrUpdateInDatabase($user);
             $cart = Cart::where('user_id',$user->id)->first();
+        }
+        if (session('cartError')) {
+            return redirect()->route('cart')->with('failure', session('cartError'));
         }
         return redirect()->route('cart')->with('success');
     }
