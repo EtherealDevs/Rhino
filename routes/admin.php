@@ -28,6 +28,7 @@ Route::resource('product',ProductController::class)->names('admin.products');
 Route::resource('promo',PromoController::class)->names('admin.promos');
 
 Route::resource('orders',OrderController::class)->names('admin.orders');
+Route::put('/admin/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 
 Route::resource('sale',SaleController::class)->names('admin.sales');
 

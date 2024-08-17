@@ -4,10 +4,10 @@
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
         <img src="{{ url(Storage::url($item->images->first()->url)) }}" class="product-image h-full w-full object-cover" />
         @if ($product->sale)
-            <div class="absolute top-2 left-2 bg-[#d14d4d] text-white text-sm font-bold rounded-xl px-2 py-1">
+            <div class="absolute top-2 left-2 bg-[#ff0101] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
                 {{ $product->sale->sale->discount }}% OFF
             </div>
-            <div class="absolute top-10 left-2 bg-[#82d8a0] text-white text-sm font-bold rounded-xl px-2 py-1">
+            <div class="absolute top-10 left-2 bg-[#82d8a0] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
                 ${{ number_format($item->sale_price(), 2, ',', ' ') }}
             </div>
         @else

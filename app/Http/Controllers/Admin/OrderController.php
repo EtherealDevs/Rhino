@@ -3,21 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     public function index()
     {
-       /*  $categories= Category::all(); */
-        return view('admin.orders.index');
+        $orders = Order::with('user', 'details.productItem', 'orderStatus')->get();
+        $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
+
+        return view('admin.orders.index', compact('orders', 'orderStatuses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    public function updateStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'order_status_id' => 'required|exists:order_statuses,id',
+        ]);
+
+        $order->update([
+            'order_status_id' => $request->input('order_status_id'),
+        ]);
+
+        return redirect()->route('admin.orders.index')->with('success', 'Estado del pedido actualizado.');
+    }
+
     public function create()
     {
-        return view('admin.orders.create');
+        $statuses = OrderStatus::all();
+        return view('admin.orders.create', compact('statuses'));
     }
 }
