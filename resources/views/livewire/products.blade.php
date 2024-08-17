@@ -193,7 +193,7 @@
                     <div class="max-w-7xl mx-auto">
                         <div id="default-carousel" class="relative" data-carousel="static">
                             <!-- Modificación en las clases de altura -->
-                            <div class="overflow-hidden relative h-62 sm:h-70 xl:h-88 2xl:h-[590px] rounded-lg">
+                            <div class="overflow-hidden relative h-62 sm:h-70 xl:h-96 2xl:h-[590px] rounded-lg">
                                 @foreach ($combos as $combo)
                                 <!-- Item  -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -205,8 +205,10 @@
                                             </p>
                                         </button>
                                     </div>
+                                    {{-- Muestra los Combos ↓ --}}
                                     <span
-                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800"> @livewire('combo',['id'=>$combo->id])</span>
+                                        class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800"> @livewire('combo',['id'=>$combo->id])
+                                    </span>
                                 </div>
                                 <div class="flex absolute bottom-5 right-12 z-30 space-x-3 -translate-x-1/2">
                                     <a href="{{ route('combos.show', $combo) }}">
@@ -225,10 +227,9 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <!-- Slider indicators -->
                             <!-- Slider controls -->
                             <button type="button"
-                                class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                                class="flex absolute top-0 left-0 z-50 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                                 data-carousel-prev>
                                 <span
                                     class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -240,7 +241,7 @@
                                 </span>
                             </button>
                             <button type="button"
-                                class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                                class="flex absolute top-0 right-0 z-50 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                                 data-carousel-next>
                                 <span
                                     class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -254,12 +255,10 @@
                         </div>
                         <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
                     </div>
-
                 </div>
 
-
-                <div class="flex w-full">
-                    <div class="grid grid-cols-2 mx-auto lg:grid-cols-5 gap-3 lg:gap-10">
+                <div class="flex w-full justify-end">
+                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-8 mx-20">
                         @foreach ($products as $product)
                             @php
                                 $item = $product->items()->first();
