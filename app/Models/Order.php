@@ -13,6 +13,21 @@ class Order extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['user_id', 'payment_method_id', 'total', 'delivery_service_id', 'delivery_price', 'address_id', 'order_status_id'];
 
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+    
+    public function deliveryService()
+    {
+        return $this->belongsTo(DeliveryService::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

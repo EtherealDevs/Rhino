@@ -110,9 +110,8 @@
                         <button class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs "
                             type="button">
                             <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                                <p class="flex">
-                                    Ver Más
-                                </p>
+                                <a href="{{ route('admin.orders.show', $order->id) }}"
+                                    class="text-blue-600 hover:underline">Ver detalles</a>
                             </span>
                         </button>
                     </td>

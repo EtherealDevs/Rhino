@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -16,7 +15,6 @@ class OrderController extends Controller
 
         return view('admin.orders.index', compact('orders', 'orderStatuses'));
     }
-
 
     public function updateStatus(Request $request, Order $order)
     {
@@ -35,5 +33,14 @@ class OrderController extends Controller
     {
         $statuses = OrderStatus::all();
         return view('admin.orders.create', compact('statuses'));
+    }
+
+    // Método show para visualizar el detalle de un pedido específico
+    public function show($id)
+    {
+        $order = Order::with('user', 'details.productItem', 'orderStatus', 'paymentMethod', 'deliveryService', 'address')
+            ->findOrFail($id);
+
+        return view('admin.orders.show', compact('order'));
     }
 }

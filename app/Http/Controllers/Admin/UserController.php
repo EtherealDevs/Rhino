@@ -48,9 +48,17 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $request->validate([
+            'roles' => 'array|exists:roles,id',
+        ]);
+
         $user->roles()->sync($request->roles);
-        return redirect()->route('admin.users.edit', $user)->with('info', 'Se asigno el role correctamente');
+
+        return redirect()->route('admin.users.edit', $user)
+            ->with('info', 'Roles actualizados correctamente');
     }
+
+
 
     public function destroy(User $user)
     {
