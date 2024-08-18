@@ -9,12 +9,16 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function index()
-    {
-        $orders = Order::with('user', 'details.productItem', 'orderStatus')->get();
-        $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
+{
+    // Filtrar los pedidos con order_status_id igual a 1
+    $orders = Order::with('user', 'details.productItem', 'orderStatus')
+                    ->get();
 
-        return view('admin.orders.index', compact('orders', 'orderStatuses'));
-    }
+    $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
+
+    return view('admin.orders.index', compact('orders', 'orderStatuses'));
+}
+
 
     public function updateStatus(Request $request, Order $order)
     {

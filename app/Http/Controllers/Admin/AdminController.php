@@ -14,7 +14,7 @@ class AdminController extends Controller
         $user = Auth::user();
         
         // Obtener el pedido con id 1
-        $pendingOrders = Order::where('id', 1)->get();
+        $pendingOrders = Order::where('order_status_id', 1)->get();
 
         return view('admin.index', compact('user', 'pendingOrders'));
     }

@@ -314,7 +314,7 @@
                                                         class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
                                                     <br>
                                                     <time
-                                                        class="mt-2 sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-gray-600 bg-gray-100 rounded-full">{{ $order->created_at->format('h:m') }}</time>
+                                                        class="mt-2 sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-gray-600 bg-gray-100 rounded-full"> {{ $order->created_at->format('H:i') }}</time>
                                                 </div>
 
                                                 <div class="text-xl font-bold text-slate-900">${{ $order->total }} -
@@ -325,9 +325,10 @@
                                                 </div>
                                             </div>
                                             <!-- Content -->
-                                            <div class="text-slate-500">
-                                                <p>Nombre: {{ $order->user->name }}</p>
-                                                <p>Email: {{ $order->user->email }}</p>
+                                            <div class="text-slate-500 flex">
+                                                <p class="mr-2">{{ $order->user->name }}</p>  -
+                                                <p class="ml-2">{{ $order->user->email }}</p>
+                                                <p class="ml-2">{{ $order->order_status_id }}</p>
                                             </div>
                                         </div>
                                     @endforeach
