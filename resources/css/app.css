@@ -34,14 +34,8 @@
 @media only screen and (max-width: 1344px) {
     #polygon {
         height: 590px;
-    width: 100px;
+        width: 100px;
     }
-}
-
-#map {
-    height: 340px;
-    width: 800px;
-    border-radius: 25px;
 }
 
 /* Media Query para pantallas con un ancho máximo de 600px (dispositivos móviles) */
@@ -51,4 +45,10 @@
         width: 200px;
         border-radius: 25px;
     }
+}
+
+#map {
+    height: 340px;
+    width: 800px;
+    border-radius: 25px;
 }
