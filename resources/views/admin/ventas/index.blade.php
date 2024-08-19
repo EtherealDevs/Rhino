@@ -8,7 +8,7 @@
         <div class="flex justify-between w-full mb-5">
             <div class="justify-start">
                 <h2 class="font-josefin font-bold italic text-2xl">
-                    Pedidos
+                    Mis Ventas
                 </h2>
             </div>
 
@@ -41,11 +41,6 @@
                     <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                         <p class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
                             Total
-                        </p>
-                    </th>
-                    <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                        <p class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                            Estado
                         </p>
                     </th>
                     <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
@@ -89,22 +84,6 @@
                     <td class="p-4 border-b border-blue-gray-50">
                         <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
                             {{ $order->total }} $$$</p>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                        <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="relative">
-                                <select name="order_status_id" class="form-select mt-1 block w-full">
-                                    @foreach ($orderStatuses as $status)
-                                        <option value="{{ $status->id }}" {{ $status->id == $order->order_status_id ? 'selected' : '' }}>
-                                            {{ $status->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <button type="submit" class="absolute top-1 right-1 bg-blue-500 text-white rounded px-2 py-1 text-xs">Actualizar</button>
-                            </div>
-                        </form>
                     </td>
                     <td class="p-4">
                         <button class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs "

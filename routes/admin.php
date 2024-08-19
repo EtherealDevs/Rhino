@@ -46,4 +46,7 @@ Route::resource('size', SizeController::class)->names('admin.sizes');
 
 Route::resource('users', UserController::class)->names('admin.users');
 
+Route::get('/ventas', [OrderController::class, 'ventas'])->name('admin.ventas.index');
+
+
 Route::resource('productitem', ProductItemController::class)->names('admin.productitems');

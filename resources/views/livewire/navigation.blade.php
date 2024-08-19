@@ -177,8 +177,11 @@
                                     <a href="{{ route('profile.show') }}"
                                         class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                    <a href="/orders" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
                                     <a href="/admin" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de Administracion</a>
+
                                     <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
                                         @csrf
                                         <button type="submit" href="{{ route('logout') }}"

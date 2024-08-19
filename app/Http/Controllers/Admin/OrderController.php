@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,16 +10,28 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function index()
-{
-    // Filtrar los pedidos con order_status_id igual a 1
-    $orders = Order::with('user', 'details.productItem', 'orderStatus')
-                    ->get();
+    {
+        // Filtrar los pedidos con order_status_id igual a 1
+        $orders = Order::with('user', 'details.productItem', 'orderStatus')
+            ->get();
 
-    $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
+        $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
 
-    return view('admin.orders.index', compact('orders', 'orderStatuses'));
-}
+        return view('admin.orders.index', compact('orders', 'orderStatuses'));
+    }
 
+    public function ventas()
+    {
+        // Filtrar los pedidos con order_status_id igual a 4
+        $orders = Order::with('user', 'details.productItem', 'orderStatus')
+            ->get();
+
+            $ventas = Order::where('order_status_id', 4)->get();
+
+        $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
+
+        return view('admin.ventas.index', compact('orders', 'orderStatuses'));
+    }
 
     public function updateStatus(Request $request, Order $order)
     {

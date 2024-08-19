@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use App\Http\Controllers\FavoriteController;
 use App\Livewire\Navigation;
+use App\Http\Controllers\OrderController;
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/add/{product}', [Navigation::class, 'add'])->name('favorites.add');
@@ -66,8 +67,15 @@ Route::get('/category/{category]', [ProductController::class, 'show'])->name('pr
 Route::resource('/combos', ComboController::class)->names('combos');
 // Route::get('/combos/show', [ComboController::class, 'show'])->name('combos.show');
 
-Route::get('/test', [TestController::class, 'index'])->name('test');
 
+// Ruta para mostrar todos los pedidos
+Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+// Ruta para mostrar un pedido específico
+Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+
+Route::get('/test', [TestController::class, 'index'])->name('test');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/envio', [CartController::class, 'envio'])->name('cart.envio');

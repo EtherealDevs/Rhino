@@ -245,57 +245,22 @@
             <div
                 class="p-6 col-span-2 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-lg rounded-xl mt-6">
                 <div class="max-w-2xl mx-auto">
-                    <h2 class="font-encode font-bold text-xl mb-3">Pedidos Pendientes</h2>
-                    <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
+                    <div class="flex justify-between w-full mb-5">
+                        <div class="justify-start">
+                            <h2 class="font-josefin font-bold italic text-2xl">
+                                Pedidos
+                            </h2>
+                        </div>
+            
+                        <div class="justify-end">
+                            <button class="bg-blue-500 rounded-xl p-2 px-4">
+                                <a class="text-white font-bold" href={{ route('admin.orders.index') }}>Ver Todos los pedidos</a>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full max-w-6xl mx-auto px-4 md:px-6">
                         <div class="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
-
-                            {{-- <div class="w-full max-w-3xl mx-auto">
-
-                                <!-- Vertical Timeline #1 -->
-                                <div class="-my-6">
-
-                                    <!-- Item #1 -->
-                                    <div class="relative pl-8 sm:pl-32 py-6 group">
-                                        <!-- Purple label -->
-                                        <div class="font-medium text-indigo-500 mb-1 sm:mb-0">The origin</div>
-                                        <!-- Vertical line (::before) ~ Date ~ Title ~ Circle marker (::after) -->
-                                        <div
-                                            class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                            <time
-                                                class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">May,
-                                                2020</time>
-                                            <div class="text-xl font-bold text-slate-900">Acme was founded in Milan, Italy
-                                            </div>
-                                        </div>
-                                        <!-- Content -->
-                                        <div class="text-slate-500">Pretium lectus quam id leo. Urna et pharetra pharetra
-                                            massa massa. Adipiscing enim eu neque aliquam vestibulum morbi blandit cursus
-                                            risus.</div>
-                                    </div>
-
-                                    <!-- Item #2 -->
-                                    <div class="relative pl-8 sm:pl-32 py-6 group">
-                                        <!-- Purple label -->
-                                        <div class="font-medium text-indigo-500 mb-1 sm:mb-0">The milestone</div>
-                                        <!-- Vertical line (::before) ~ Date ~ Title ~ Circle marker (::after) -->
-                                        <div
-                                            class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                            <time
-                                                class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">May,
-                                                2021</time>
-                                            <div class="text-xl font-bold text-slate-900">Reached 5K customers</div>
-                                        </div>
-                                        <!-- Content -->
-                                        <div class="text-slate-500">Pretium lectus quam id leo. Urna et pharetra pharetra
-                                            massa massa. Adipiscing enim eu neque aliquam vestibulum morbi blandit cursus
-                                            risus.</div>
-                                    </div>
-
-                                </div>
-                                <!-- End: Vertical Timeline #1 -->
-
-                            </div>
- --}}
                             @if ($pendingOrders->isEmpty())
                                 <p>No hay pedidos pendientes.</p>
                             @else
@@ -328,7 +293,6 @@
                                             <div class="text-slate-500 flex">
                                                 <p class="mr-2">{{ $order->user->name }}</p>  -
                                                 <p class="ml-2">{{ $order->user->email }}</p>
-                                                <p class="ml-2">{{ $order->order_status_id }}</p>
                                             </div>
                                         </div>
                                     @endforeach
