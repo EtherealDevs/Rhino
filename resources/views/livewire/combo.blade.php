@@ -1,7 +1,7 @@
 @php
-    $image = $item->product->items->first()->images;
-    $price = $item->product->items->first()->price();
-    $discount = $item->combo->discount;
+    $image = $items->first()->product->items->first()->images;
+    $image2 = $items->last()->product->items->first()->images;
+    $discount = $items->first()->combo->discount;
     $priceDiscount = $price - ($price * $discount) / 100;
 @endphp
 <div>
@@ -16,10 +16,10 @@
             <div class="justify-center w-1/2 col-span-1">
                 <div class=" mt-6">
                     <div class="flex relative text-black text-xl font-bold rounded-2xl px-2 py-2">
-                        ${{ $priceDiscount }}
+                        {{-- ${{ $priceDiscount }} --}}
                     </div>
                     <div class="flex line-through relative text-slate-400 text-xl font-bold rounded-2xl px-2 py-2">
-                        ${{ $price }}
+                        {{-- ${{ $price }} --}}
                     </div>
                 </div>
                 <div class="flex justify-center left-1/2 relative top-10">
@@ -52,24 +52,21 @@
             </div>
             <div class="relative z-10 flex w-44 lg:w-56 mt-1 flex-col bg-clip-border text-gray-700 col-span-2">
                 <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
-                    <img src="{{ url(Storage::url('images/product/' . $image->last()->url)) }}"
+                    <img src="{{ url(Storage::url('images/product/' . $image2->first()->url)) }}"
                         class="product-image h-full w-full object-cover" />
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-5">
-            <div class="flex col-span-3 bg-black h-20 row-span-1 rounded-xl ml-3 mt-3 p-3">
-                <a href="">
-                    <div class="flex flex-col items-center justify-center">
+        <div class="grid grid-cols-4">
+            <div class="flex relative col-span-2 gap-2 bg-black h-20 row-span-1 rounded-xl ml-3 mt-3 p-3">
+                @foreach ($items as $item)
+                    <div class="flex flex-col items-center justify-center w-full">
                         <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
                             {{ $item->product->name }}
                         </p>
-                        <a href="{{ route('combos.show', $item->combo) }}"
-                            class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
-                            Ver detalle →
-                        </a>
                     </div>
-                </a>
+                @endforeach
+                <div class="absolute left-1/2 top-1/4 text-white">+</div>
             </div>
             <div class="flex col-span-2 bg-black h-20 row-span-1 rounded-xl mx-3 mt-3 p-3">
                 <a class="left-1/2" href="">
@@ -81,7 +78,7 @@
                                 fill="white" />
                         </svg>
                     </p>
-                    <a href="{{ route('combos.show', $item->combo) }}"
+                    <a href="{{ route('combos.show', $items->first()->combo) }}"
                         class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center mt-2">
                         Agregar a carrito
                     </a>

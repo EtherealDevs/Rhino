@@ -13,7 +13,12 @@ class Combo extends Component
     }
     public function render()
     {
-        $item= Combo_items::where('combo_id', $this->id)->first();
-        return view('livewire.combo',compact('item'));
+        $items= Combo_items::where('combo_id', $this->id)->get();
+        $price = 0;
+        foreach($items as $item){
+            $price += $item->product->price;
+        }
+        $items= Combo_items::where('combo_id', $this->id)->limit(2)->get();
+        return view('livewire.combo',compact('items','price'));
     }
 }
