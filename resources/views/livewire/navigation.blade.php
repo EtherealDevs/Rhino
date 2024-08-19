@@ -50,22 +50,49 @@
                                     <div class="space-y-4">
                                         @forelse ($favorites as $favorite)
                                             <div class="flex items-center justify-between">
-                                                <div class="flex items-center space-x-4">
+                                                <div class="flex items-center space-x-4 p-4 border-b border-gray-200">
+                                                    @php
+                                                        $images = $favorite->product
+                                                            ? $favorite->product->images
+                                                            : collect([]);
+                                                    @endphp
+
+                                                    @if ($images->isNotEmpty())
+                                                        @php
+                                                            // Construir la URL de la imagen
+                                                            $imageUrl = asset(
+                                                                'storage/images/product/' . $images[0]->url,
+                                                            );
+                                                        @endphp
+                                                        <img src="{{ $imageUrl }}"
+                                                            class="w-12 h-12 object-cover rounded-lg"
+                                                            alt="{{ $favorite->product->name }}">
+                                                    @else
+                                                        <img src="{{ asset('storage/images/product/default.png') }}"
+                                                            class="w-12 h-12 object-cover rounded-lg"
+                                                            alt="Imagen no disponible">
+                                                    @endif
+
+
                                                     <div>
                                                         @if ($favorite->product)
-                                                            <p class="font-semibold text-xl">
+                                                            <p class="font-semibold text-xl text-gray-800">
                                                                 {{ $favorite->product->name }}</p>
-
                                                             <div class="text-sm font-semibold text-gray-500">
-                                                                <p>Color: {{ $favorite->color }}</p>
-                                                                <p>Talle: {{ $favorite->size }}</p>
+                                                                <p>Color: <span
+                                                                        class="text-gray-700">{{ $favorite->color }}</span>
+                                                                </p>
+                                                                <p>Talle: <span
+                                                                        class="text-gray-700">{{ $favorite->size }}</span>
+                                                                </p>
                                                             </div>
                                                         @else
                                                             <p class="text-gray-500">Agregar Productos a la lista</p>
                                                         @endif
-
                                                     </div>
                                                 </div>
+
+
                                                 <button wire:click="removeFromFavorites({{ $favorite->id }})"
                                                     class="text-red-500 hover:text-red-700">
                                                     <i class="ri-delete-bin-fill text-xl"></i>
@@ -107,38 +134,46 @@
                                         @forelse ($cartContents ?? [] as $cartItem)
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center space-x-4">
-                                                    <img src="{{ $cartItem['item']->product->image_url }}" alt="Producto"
-                                                        class="w-12 h-12 rounded-full">
+                                                    <div class="flex items-center space-x-4">
+                                                        @if ($cartItem['item']->images->isNotEmpty())
+                                                            <img src="{{ asset('storage/images/product/' . $cartItem['item']->images[0]->url) }}"
+                                                                class="w-12 h-12 object-cover rounded-full"
+                                                                alt="{{ $cartItem['item']->product->name }}">
+                                                        @else
+                                                            <img src="{{ asset('storage/images/product/default.png') }}"
+                                                                class="w-12 h-12 object-cover rounded-lg"
+                                                                alt="Imagen no disponible">
+                                                        @endif
+                                                        <div>
+                                                            <p class="font-semibold text-xl">
+                                                                {{ $cartItem['item']->product->name }}</p>
+                                                            <p class="text-sm font-semibold text-gray-500">Color:
+                                                                <span>{{ $cartItem['item']->product->color }}</span>
+                                                            </p>
+                                                            <p class="text-sm font-semibold text-gray-500">Talle:
+                                                                <span>{{ $cartItem['size'] }}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-center space-x-2">
+                                                        <button class="text-blue-500"
+                                                            wire:click="decrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">-</button>
+                                                        <span class="text-lg">{{ $cartItem['amount'] }}</span>
+                                                        <button class="text-blue-500"
+                                                            wire:click="incrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">+</button>
+                                                    </div>
                                                     <div>
-                                                        <p class="font-semibold text-xl">
-                                                            {{ $cartItem['item']->product->name }}</p>
-                                                        <p class="text-sm font-semibold text-gray-500">Color:
-                                                            <span>{{ $cartItem['item']->product->color }}</span>
-                                                        </p>
-                                                        <p class="text-sm font-semibold text-gray-500">Talle:
-                                                            <span>{{ $cartItem['size'] }}</span>
-                                                        </p>
+                                                        <button class="">
+                                                            <a href=""
+                                                                wire:click.prevent="removeItem({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">
+                                                                <i
+                                                                    class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
+                                                            </a>
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div class="flex items-center space-x-2">
-                                                    <button class="text-blue-500"
-                                                        wire:click="decrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">-</button>
-                                                    <span class="text-lg">{{ $cartItem['amount'] }}</span>
-                                                    <button class="text-blue-500"
-                                                        wire:click="incrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">+</button>
-                                                </div>
-                                                <div>
-                                                    <button class="">
-                                                        <a href=""
-                                                            wire:click.prevent="removeItem({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">
-                                                            <i
-                                                                class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        @empty
-                                            <p class="text-center text-gray-500">El carrito está vacío.</p>
+                                            @empty
+                                                <p class="text-center text-gray-500">El carrito está vacío.</p>
                                         @endforelse
                                     </div>
 

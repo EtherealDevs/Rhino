@@ -56,7 +56,7 @@ class Navigation extends Component
         CartManager::removeItem(ProductItem::find($itemId), $size);
         $this->cartContents = CartManager::getCartContents() ?? []; // Asegurar que es un array
     }
-    
+
     public function clearCart()
     {
         session()->forget('cart');
@@ -65,10 +65,11 @@ class Navigation extends Component
 
     public function loadFavorites()
     {
-        $this->favorites = Favorite::with('product')
+        $this->favorites = Favorite::with('product.images') // Cargar las imágenes de los productos
             ->where('user_id', Auth::id())
             ->get();
     }
+    
 
     public function addToFavorites($productId)
     {
