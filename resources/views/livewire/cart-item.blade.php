@@ -1,4 +1,11 @@
 <li class="py-3 mb-2 mt-6 sm:py-4 bg-white rounded-lg shadow-md">
+    {{-- @dd($item['item']->product->sale->sale->discount) --}}
+    @php
+        $discount = $item['item']->product->sale->sale->discount ?? 0;
+        $price = $item['item']->price();
+        $priceDiscount = ($price * $discount / 100);
+        $total = $price - $priceDiscount;
+    @endphp
     <div class="flex items-center space-x-4">
         <div class="grid grid-cols-7 gap-12">
             <div class="flex-shrink-0 ml-5">
@@ -9,10 +16,17 @@
                 <p class="text-2xl font-josefin font-bold text-gray-900 truncate ">
                     {{ $item['item']->product->name }}
                 </p>
-                <div class="w-1/2">
+                <div class="w-1/2 flex gap-2">
+                    @if ($discount)
+                        <div class=" flex justify-center bg-[#df2929] text-white text-sm font-bold rounded-xl px-2 py-1">
+                            <p class="text-sm text-white">
+                                {{number_format($discount, 0, ',', '.')}}%
+                            </p>
+                        </div>
+                    @endif
                     <div class=" flex justify-center bg-[#26ca60] text-white text-sm font-bold rounded-xl px-2 py-1">
                         <p class="text-sm text-white">
-                            ${{number_format($item['item']->price(), 2, ',', '.')}}
+                            ${{number_format($price, 2, ',', '.')}}
                         </p>
                     </div>
                 </div>
@@ -28,7 +42,7 @@
             <div class="">
                 <p class="font-josefin font-bold text-gray-900">Total</p>
                 <p class="text-base font-semibold text-green-500">
-                    ${{ number_format($item['item']->price() * $item['amount'], 2, ',', '.') }}</p>
+                    ${{ number_format($total * $item['amount'], 2, ',', '.') }}</p>
             </div>
             <form method="POST" action="{{ route('cart.removeItem', ['item' => $item['id']]) }}">
                 <input value="{{ $item['size'] }}" type="hidden" name="size">

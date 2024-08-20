@@ -86,8 +86,6 @@
                         <div class="grid lg:grid-cols-6 grid-cols-1 p-6">
                             <div class="col-span-2">
                                 <ul class="items-center">
-                                    <li class="font-josefin font-bold text-lg  text-[#d1d9fb]">Descuentos: <span
-                                            class="text-white text-lg ">30%</span></li>
                                     <li class="font-josefin font-bold text-lg  text-[#A3B7FF]">Productos: <span
                                             class="text-white text-lg ">@isset($cartItems){{ count(session('cart')) }}@endisset</span></li>
                                     <li class="font-josefin font-bold text-lg  text-[#A3B7FF]">Envio: <span
@@ -99,14 +97,16 @@
                                 @php
                                 $total = 0;
                                     foreach ($cartItems as $item) {
-                                        $itemPrice = $item['item']->price();
                                         $itemAmount = $item['amount'];
-                                        $total += $itemPrice * $itemAmount;
+                                        $discount = $item['item']->product->sale->sale->discount ?? 0;
+                                        $price = $item['item']->price();
+                                        $priceDiscount = ($price * $discount / 100);
+                                        $total += ($price - $priceDiscount) * $itemAmount;
                                     }
                                 @endphp
                                 @endisset
                                 <p class="font-josefin font-bold text-3xl text-white ">Total</p>
-                                @isset($cartItems)    
+                                @isset($cartItems)
                                 <p class="font-josefin font-bold text-3xl text-[#6BE64C]"> ${{number_format($total, 2, ',', '.')}}</p>
                                 @else
                                 <p class="font-josefin font-bold text-3xl text-[#6BE64C]">NO DATA</p>
@@ -116,7 +116,7 @@
                                 <button class="col-span-3 bg-[#11C818] rounded-lg">
                                     <p class="text-white text-lg font-bold font-josefin py-1 px-9">Comprar</p>
                                 </button>
-                                
+
                                 <form method="POST" action="{{route('cart.dropCart')}}">
                                     @csrf
                                     @method('delete')
@@ -130,6 +130,6 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 @endsection
