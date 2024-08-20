@@ -160,13 +160,13 @@
             </div>
 
             {{-- Content (Productos) --}}
-            <div class="col-span-5 ml-2 z-10 mb-8">
+            <div class="col-span-5 ml-0 lg:ml-2 z-10 mb-8">
 
-                <div class="bg-blue-800 rounded-2xl m-6">
+                <div class="bg-blue-800 rounded-none lg:rounded-2xl m-0 lg:m-6">
                     <div class="flex">
                         <!-- component -->
                         <div class="flex w-full justify-start p-12">
-                            <h2 class="text-blue-100 font-bold font-josefin text-4xl italic leading-tight">
+                            <h2 class="text-blue-100 font-bold font-josefin xl:text-4xl text-2xl italic leading-tight">
                                 Estilo y Ahorro: <br>
                                 <span class="text-blue-200 font-light not-italic">
                                     Descubre Nuestros <span class="italic">Combos de Ropa</span>
@@ -196,7 +196,7 @@
 
                         <div id="default-carousel" class="relative" data-carousel="static">
                             <!-- Carousel wrapper -->
-                            <div class="overflow-hidden relative h-56 rounded-lg sm:h-72 xl:h-96 2xl:h-[590px]">
+                            <div class="overflow-hidden relative h-[100vh] rounded-lg sm:h-72 xl:h-96 2xl:h-[590px]">
                                 <!-- Item 1 -->
                                 @foreach ($combos as $combo)
                                     <!-- Item  -->
@@ -211,7 +211,8 @@
                                         </div>
                                         <span
                                             class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
-                                            @livewire('combo', ['id' => $combo->id])</span>
+                                            @livewire('combo', ['id' => $combo->id])
+                                        </span>
                                     </div>
                                     <div class="flex absolute bottom-5 right-12 z-30 space-x-3 -translate-x-1/2">
                                         <a href="{{ route('combos.show', $combo) }}">
@@ -265,8 +266,8 @@
 
                 </div>
 
-                <div class="flex w-full justify-end">
-                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-8 mx-20">
+                <div class="flex w-full justify-center lg:justify-end">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
                         @foreach ($products as $product)
                             @php
                                 $item = $product->items()->first();
@@ -275,6 +276,7 @@
                         @endforeach
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
