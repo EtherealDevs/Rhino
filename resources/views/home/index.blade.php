@@ -224,7 +224,8 @@
                                     <div class="h-full bg-cover bg-center block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                         style="background-image: url('{{ url(Storage::url($sale->images->first()->url)) }}')">
                                         <div class="w-full flex justify-end"> 
-                                            <button
+                                            <a href="/promos">
+                                                <button
                                             class="rounded-full p-3 px-4 mt-12 mr-24 bg-black text-white flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900">
                                             <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -236,6 +237,8 @@
                                                 Ver promociones Activas
                                             </p>
                                         </button>
+                                            </a>
+                                            
                                         </div>
                                         
                                         <div
