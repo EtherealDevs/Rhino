@@ -20,29 +20,37 @@ class ProductCard extends Component
             'user_id' => Auth::id(),
             'product_id' => $productId,
         ]);
-
-        // Actualizar la lista de favoritos si es necesario
+        
         $this->favorites = Favorite::where('user_id', Auth::id())->get();
     }
 
     public function toggleFavorite($productId)
-{
-    $favorite = Favorite::where('user_id', Auth::id())
-                        ->where('product_id', $productId)
-                        ->first();
+    {
+        // Verificar si el usuario está autenticado
+        if (!Auth::check()) {
+            // Redirigir al usuario a la vista de inicio de sesión
+            return redirect()->route('login');
+        }
 
-    if ($favorite) {
-        $favorite->delete();
-    } else {
-        Favorite::create([
-            'user_id' => Auth::id(),
-            'product_id' => $productId,
-        ]);
+        // Buscar si el producto ya está en la lista de favoritos
+        $favorite = Favorite::where('user_id', Auth::id())
+            ->where('product_id', $productId)
+            ->first();
+
+        // Si ya existe en favoritos, eliminarlo; de lo contrario, agregarlo
+        if ($favorite) {
+            $favorite->delete();
+        } else {
+            Favorite::create([
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+            ]);
+        }
+
+        // Actualizar la lista de favoritos
+        $this->favorites = Favorite::where('user_id', Auth::id())->get();
     }
 
-    // Actualizar la lista de favoritos
-    $this->favorites = Favorite::where('user_id', Auth::id())->get();
-}
 
 
     public function isFavorite($productId)

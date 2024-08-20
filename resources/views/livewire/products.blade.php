@@ -65,7 +65,7 @@
                                                             class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
                                                             @if (in_array($category->id, request('categories', []))) checked @endif>
                                                         <span
-                                                            class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
+                                                            class="text-lg leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-150 ease-in-out">
                                                             {{ $category->name }} ({{ $category->products_count }})
                                                         </span>
                                                     </label>
@@ -162,7 +162,7 @@
             {{-- Content (Productos) --}}
             <div class="col-span-5 ml-2 z-10 mb-8">
 
-                <div class="bg-blue-600 rounded-2xl m-6">
+                <div class="bg-blue-800 rounded-2xl m-6">
                     <div class="flex">
                         <!-- component -->
                         <div class="flex w-full justify-start p-12">

@@ -26,6 +26,7 @@ class CartController extends Controller
         }
         return view('cart.index', ['productItems' => $productItems, 'cartItems' => $cartItems]);
     }
+
     public function addToCart(Request $request)
     {
         $admins = User::role('admin1')->get();
@@ -51,6 +52,7 @@ class CartController extends Controller
         }
         return redirect()->route('cart')->with('success');
     }
+    
     public function removeFromCart(Request $request, ProductItem $item)
     {
         $size = $request->size;

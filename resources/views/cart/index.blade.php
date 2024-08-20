@@ -83,8 +83,8 @@
                 </div>
                 <div class="mt-12 translate-x-2 translate-y-2 rounded-3xl bg-slate-900/30 w-11/12">
                     <div class="rounded-3xl -translate-x-2 -translate-y-2 bg-gradient-to-b via-[#2E3366] from-[#343678] to-[#273053]">
-                        <div class="grid lg:grid-cols-4 grid-cols-1 p-6">
-                            <div class="col-span-1">
+                        <div class="grid lg:grid-cols-6 grid-cols-1 p-6">
+                            <div class="col-span-2">
                                 <ul class="items-center">
                                     <li class="font-josefin font-bold text-lg  text-[#d1d9fb]">Descuentos: <span
                                             class="text-white text-lg ">30%</span></li>
@@ -94,7 +94,7 @@
                                             class="text-white text-lg ">15.000</span></li>
                                 </ul>
                             </div>
-                            <div class="col-span-1 grid grid-rows-2 ml-2">
+                            <div class="col-span-2 grid grid-rows-2 ml-2">
                                 @isset($cartItems)
                                 @php
                                 $total = 0;
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-span-2 gap-2 lg:mt-0 mt-6">
                                 <button class="col-span-3 bg-[#11C818] rounded-lg">
-                                    <p class="text-white text-lg font-bold font-josefin py-2 px-5">Comprar</p>
+                                    <p class="text-white text-lg font-bold font-josefin py-1 px-9">Comprar</p>
                                 </button>
                                 
                                 <form method="POST" action="{{route('cart.dropCart')}}">
