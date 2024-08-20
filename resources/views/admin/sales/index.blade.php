@@ -99,10 +99,21 @@
                                 </div>
                             </td>
                             <td class="p-4">
-                                <button data-modal-target="default-modal-{{$sale->id}}" data-modal-toggle="default-modal-{{$sale->id}}" class="flex text-sm text-red-600 hover:border-b hover:border-red-800 hover:text-red-800" type="button">
+                                <a href="{{ route('admin.sales.edit', $sale) }}"
+                                    class="flex text-sm text-blue-400 hover:border-b hover:border-blue-600 hover:text-blue-600">Editar</a>
+                            </td>
+                            <td class="p-4">
+                                <button data-modal-target="default-modal-{{ $sale->id }}"
+                                    data-modal-toggle="default-modal-{{ $sale->id }}"
+                                    class="flex text-sm text-red-600 hover:border-b hover:border-red-800 hover:text-red-800"
+                                    type="button">
                                     Eliminar
                                 </button>
-                                @include('admin.components.delete-modal',['item'=>$sale, 'route'=>'admin.sales.destroy','name'=>'promocion'])
+                                @include('admin.components.delete-modal', [
+                                    'item' => $sale,
+                                    'route' => 'admin.sales.destroy',
+                                    'name' => 'promocion',
+                                ])
                             </td>
                         </tr>
                     @endforeach
