@@ -24,8 +24,22 @@
                                     <div class="grid grid-cols-1">
                                         <div class="mt-4 mr-auto mb-4 ml-auto  max-w-lg">
                                             <div class="flex flex-col items-center pt-6 pr-6 pb-6 pl-6">
-                                                <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
-                                                    class="flex-shrink-0 object-cover object-center btn- flex w-16 h-16 mr-auto -mb-8 ml-auto rounded-full shadow-xl">
+                                                <div class="relative inline-block">
+                                                    <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
+                                                        class="flex-shrink-0 object-cover object-center w-16 h-16 border border-gray-500 rounded-full shadow-xl">
+                                                    <span
+                                                        class="absolute bottom-0 right-0 w-5 h-5 bg-gray-500 text-white rounded-full flex items-center justify-center">
+                                                        <!-- Loader Spinner -->
+                                                        <svg class="animate-spin h-4 w-4 text-white"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24">
+                                                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                                stroke="currentColor" stroke-width="4"></circle>
+                                                            <path class="opacity-75" fill="currentColor"
+                                                                d="M4 12a8 8 0 018-8v4a4 4 0 100 8v4a8 8 0 01-8-8z"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
                                                 <p
                                                     class="mt-8 text-2xl font-semibold leading-none text-slate-950 tracking-tighter lg:text-3xl">
                                                     El pago aun no fue acreditado</p>

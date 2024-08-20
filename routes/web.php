@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function () {
     $productItem = ProductItem::first();
     $combos = Combo::all();
-    $sales= Sale::all();
+    $sales = Sale::all();
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $now = Carbon::now('America/Argentina/Buenos_Aires')->translatedFormat('Y-m-d');
     foreach ($sales as $sale) {
@@ -36,7 +36,7 @@ Route::get('/', function () {
             SaleController::destroy($sale);
         }
     }
-    return view('home.index', compact('productItem','sales','combos'));
+    return view('home.index', compact('productItem', 'sales', 'combos'));
 });
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
@@ -59,7 +59,7 @@ Route::get('/checkout', function () {
 });
 
 Route::get('/successfullyPaid', function () {
-    return view('errors.successfullyPaid');
+    return view('payments.successfullyPaid');
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -92,12 +92,12 @@ Route::get('/products/show', function () {
 });
 
 Route::get('/auth/redirect/facebook', [AuthController::class, 'redirectFacebook'])->name('auth.redirect.facebook');
-Route::get('/auth/callback/facebook',[AuthController::class, 'callbackFacebook'])->name('auth.callback.facebook');
+Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook'])->name('auth.callback.facebook');
 
 Route::get('/auth/redirect/google', [AuthController::class, 'redirectGoogle'])->name('auth.redirect.google');
-Route::get('/auth/callback/google',[AuthController::class, 'callbackGoogle'])->name('auth.callback.google');
+Route::get('/auth/callback/google', [AuthController::class, 'callbackGoogle'])->name('auth.callback.google');
 
-Route::get('/enviowa',[WhapController::class,'envio']);
+Route::get('/enviowa', [WhapController::class, 'envio']);
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {

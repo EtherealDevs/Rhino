@@ -24,8 +24,20 @@
                                     <div class="grid grid-cols-1">
                                         <div class="mt-4 mr-auto mb-4 ml-auto  max-w-lg">
                                             <div class="flex flex-col items-center pt-6 pr-6 pb-6 pl-6">
-                                                <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
-                                                    class="flex-shrink-0 object-cover object-center btn- flex w-16 h-16 mr-auto -mb-8 ml-auto rounded-full shadow-xl">
+                                                <div class="relative inline-block">
+                                                    <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
+                                                        class="flex-shrink-0 object-cover object-center w-16 h-16 border border-red-500 rounded-full shadow-xl">
+                                                    <span
+                                                        class="absolute bottom-0 right-0 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center">
+                                                        <!-- Ícono de "X" -->
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd"
+                                                                d="M10 8.586l3.707-3.707a1 1 0 00-1.414-1.414L10 6.172 6.707 2.879a1 1 0 10-1.414 1.414L8.586 10l-3.707 3.707a1 1 0 001.414 1.414L10 11.414l3.707 3.707a1 1 0 001.414-1.414L11.414 10l3.707-3.707a1 1 0 00-1.414-1.414L10 8.586z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
                                                 <p
                                                     class="mt-8 text-2xl font-semibold leading-none text-slate-950 tracking-tighter lg:text-3xl">
                                                     El pago fue exitoso</p>
