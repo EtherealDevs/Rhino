@@ -58,6 +58,10 @@ Route::get('/checkout', function () {
     return view('checkout.index');
 });
 
+Route::get('/successfullyPaid', function () {
+    return view('errors.successfullyPaid');
+});
+
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}/{productItem}', [ProductController::class, 'show'])->name('products.show');
 Route::post('products/{product}/{productItem}', [ProductController::class, 'addToCart'])->name('products.addToCart');
