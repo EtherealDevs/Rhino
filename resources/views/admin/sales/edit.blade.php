@@ -39,25 +39,57 @@
         <div class="pt-16  ">
             <div class="p-6 rounded-xl bg-white">
                 <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
-                    Editar Combo {{ $combo->id }}
+                    Editar Promocion #{{ $sale->id }}
                 </h2>
 
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action={{ route('admin.combos.update', $combo) }} method="POST"
+                            <form action={{ route('admin.sales.update', $sale) }} method="POST"
                                 enctype="multipart/form-data">
-
                                 @csrf
                                 @method('PUT')
+                                <div class="relative z-0 w-full mb-5">
+                                    <input type="date" name="start_date" placeholder="{{ $sale->start_date }}" required
+                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                    <label for="start_date"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
+                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                </div>
+
+                                <div class="relative z-0 w-full mb-5">
+                                    <input type="date" name="end_date" placeholder="{{ $sale->end_date }}" required
+                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                    <label for="end_date"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
+                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                </div>
+
+                                <div class="relative z-0 w-full mb-5">
+                                    <input type="text" name="title" placeholder="{{ $sale->title }}" required
+                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                    <label for="title"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
+                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                </div>
+
+                                <div class="relative z-0 w-full mb-5">
+                                    <input type="textarea" name="description" placeholder="{{ $sale->description }}"
+                                        required
+                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                    <label for="description"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
+                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                </div>
+
                                 <div class="relative z-1 w-full mb-5">
                                     <select data-placeholder="Begin typing a name to filter..." multiple
-                                        class="chosen-select w-full" name="items[]" style="width: 100%">
+                                        class="chosen-select w-full" name="products[]">
                                         <option value="">Seleccionar Products</option>
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
                                                 @foreach ($category->products as $product)
-                                                    @foreach ($combo->items as $item)
+                                                    @foreach ($sale->products as $item)
                                                         @if ($item->product_id == $product->id)
                                                             <option value="{{ $product->id }}" selected="selected">
                                                                 {{ $product->name }}</option>
@@ -70,13 +102,30 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="number" name="discount" placeholder={{ $combo->discount }} required
+                                    <input type="number" name="discount" placeholder="{{ $sale->discount }}" required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="discout"
+                                    <label for="discount"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
                                     <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                </div>
+                                <div class="mb-8">
+
+                                    <label for="file"
+                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+                                        <div>
+                                            <span class="mb-2 block text-xl font-semibold text-[#07074D]">
+                                                Puedes Arrastrar archivos aqui
+                                            </span>
+                                            <span class="mb-2 block text-base font-medium text-[#6B7280]">
+                                                o
+                                            </span>
+                                            <span
+                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                                <input type="file" name="image" accept="image/*" id="image" />
+                                            </span>
+                                        </div>
+                                    </label>
                                 </div>
 
                                 <button id="button" type="submit"
@@ -86,7 +135,6 @@
                             </form>
                         </div>
                     </div>
-
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
                     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
@@ -95,7 +143,6 @@
                         $(".chosen-select").chosen({
                             no_results_text: "Oops, nothing found!"
                         })
-
                         document.getElementById('button').addEventListener('click', toggleError)
                         const errMessages = document.querySelectorAll('#error')
 

@@ -55,7 +55,8 @@ class SaleController extends Controller
 
     public function edit(Sale $sale)
     {
-        return view('admin.sales.edit', compact('sale'));
+        $categories= Category::all();
+        return view('admin.sales.edit', compact('sale','categories'));
     }
 
     public function update(Request $request, Sale $sale)
