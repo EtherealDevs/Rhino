@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\ComboController;
 use App\Http\Controllers\Auth\AuthController;
@@ -74,6 +75,8 @@ Route::resource('/combos', ComboController::class)->names('combos');
 
 // Ruta para mostrar todos los pedidos
 Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+Route::get('promos', [PromoController::class, 'index'])->name('promos.index');
 
 // Ruta para mostrar un pedido específico
 Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
