@@ -50,7 +50,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="date" name="start_date" placeholder="{{ $sale->start_date }}" required
+                                    <input type="date" name="start_date" placeholder="{{ $sale->start_date }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="start_date"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="date" name="end_date" placeholder="{{ $sale->end_date }}" required
+                                    <input type="date" name="end_date" placeholder="{{ $sale->end_date }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="end_date"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
@@ -66,7 +66,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="text" name="title" placeholder="{{ $sale->title }}" required
+                                    <input type="text" name="title" placeholder="{{ $sale->title }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="title"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
@@ -75,7 +75,7 @@
 
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="textarea" name="description" placeholder="{{ $sale->description }}"
-                                        required
+
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="description"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
@@ -103,7 +103,7 @@
                                     </select>
                                 </div>
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="number" name="discount" placeholder="{{ $sale->discount }}" required
+                                    <input type="number" name="discount" placeholder="{{ $sale->discount }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="discount"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>

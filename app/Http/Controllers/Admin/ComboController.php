@@ -47,9 +47,9 @@ class ComboController extends Controller
     }
 
     public function update(Request $request, Combo $combo)
-    {   
+    {
         $combo->update([
-            'discount'=> $request->discount
+            'discount'=> $request->discount??$combo->discount
         ]);
         $combo->items()->delete();
         foreach($request->items as $item){
