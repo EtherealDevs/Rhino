@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="static justify-center bg-white w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-6 gap-0 grid-row-4 lg:grid-rows-2">
+        <div class="grid grid-cols-1 gap-0 lg:grid-cols-3 lg:gap-6 lg:grid-rows-2">
 
             {{-- Seccion Bienvenida y Ofertas --}}
             <div class="col-span-3 mx-0 lg:mx-6 bg-black h-full rounded-none lg:rounded-b-3xl">
@@ -175,7 +175,8 @@
 
                     <div class="w-full flex justify-center">
                         <!-- component -->
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                            @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
                             @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
                             @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
                             @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
@@ -184,10 +185,10 @@
                 </div>
             </div>
 
-            <div class="col-span-1 mr-6 hidden lg:block bg-center bg-cover bg-[url(/public/img/video.mp4)] drop-shadow-lg w-full h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+            <div class="relative col-span-1 right-6 hidden lg:block bg-center bg-cover bg-[url(/public/img/video.mp4)] drop-shadow-lg w-full h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <div class="bg-black/30 w-full h-full rounded-none lg:rounded-3xl">
                     <div class="flex justify-center">
-                        <p class="text-4xl p-6 mr-6 mt-6 italic font-bold text-white">
+                        <p class="text-2xl p-6 mr-6 mt-6 italic font-bold text-white">
                             Aprovecha Nuestras ofertas Imperdibles
                         </p>
                     </div>

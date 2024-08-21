@@ -6,11 +6,11 @@
             class="product-image h-full w-full object-cover" />
         @if ($product->sale)
             <div
-                class="absolute top-2 left-2 bg-[#ff0101] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
+                class="absolute top-2 left-2 bg-[#ed5f5f] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
                 {{ $product->sale->sale->discount }}% OFF
             </div>
             <div
-                class="absolute top-10 left-2 bg-[#82d8a0] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
+                class="absolute top-10 left-2 bg-[#10b94b] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
                 ${{ number_format($item->sale_price(), 2, ',', ' ') }}
             </div>
         @else
