@@ -32,6 +32,7 @@
                                 </div>
                             </div>
 
+
                             <!-- Indicador de selección -->
                             <span
                                 :class="{ 'left-1/2 -ml-1 text-blue-700 font-semibold': selected === 'sucursal', 'left-1 text-blue-700 font-semibold': selected === 'domicilio' }"
@@ -39,21 +40,20 @@
                                 class="bg-white shadow text-sm flex items-center justify-center w-1/2 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
                         </div>
 
+
                         <!-- Formulario de dirección para ENVÍO A DOMICILIO -->
                         <div x-show="selected === 'domicilio'" class="mt-4">
-                            <form method="POST" action="{{ route('checkout.delivery.address') }}" class="space-y-4">
-                                @method('POST')
-                                @csrf
-                                
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div class="mb-4 col-span-1 sm:col-span-2 grid grid-cols-2 grid-rows-2">
-                                        <div class="col-span-2">
-                                            <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
-                                                wire:model.blur="zip_code"
-                                                class="appearance-none  block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-                                        </div>
-                                        <div class="col-span-1">
-                                            <label for="province" class="text-xs font-semibold  py-2">Provincia</label>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                                <div class="mb-4 col-span-1 sm:col-span-2 grid grid-cols-2 grid-rows-2">
+                                    <div class="col-span-2">
+                                        <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
+                                            wire:model.blur="zip_code"
+                                            class="appearance-none  block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label for="province" class="text-xs font-semibold  py-2">Provincia</label>
                                         <input name="province" type="text" readonly wire:model.live="province"
                                             class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
                                         @error('province')
@@ -61,35 +61,34 @@
                                                 <span class="error">{{ $message }}</span>
                                             </div>
                                         @enderror
-                                        </div>
-                    
-                                        <div class="mb-4 col-span-1">
-                                            <label for="city" class="text-xs font-semibold text-gray-600 py-2">Localidad</label>
-                                            <select name="city" wire:model.live="city"
-                                                class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
-                                                <option value="" selected>
-                                                    @if ($selectedProvince == 1)
-                                                        Seleccioná un barrio...
-                                                    @else
-                                                        Seleccioná una localidad...
-                                                    @endif
-                                                </option>
-                                                @foreach ($cities as $city)
-                                                    <option value="{{ $city->id }}">
-                                                        {{ $city->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('city')
-                                                <div class="mt-2 text-red-500 text-xs">
-                                                    <span class="error">{{ $message }}</span>
-                                                </div>
-                                            @enderror
-                                        </div>
                                     </div>
-                    
+
+                                    <div class="mb-4 col-span-1">
+                                        <label for="city"
+                                            class="text-xs font-semibold text-gray-600 py-2">Localidad</label>
+                                        <select name="city" wire:model.live="city"
+                                            class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
+                                            <option value="" selected>
+                                                @if ($selectedProvince == 1)
+                                                    Seleccioná un barrio...
+                                                @else
+                                                    Seleccioná una localidad...
+                                                @endif
+                                            </option>
+                                            @foreach ($cities as $city)
+                                                <option value="{{ $city->id }}">
+                                                    {{ $city->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('city')
+                                            <div class="mt-2 text-red-500 text-xs">
+                                                <span class="error">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
 
                         </div>
 
@@ -97,16 +96,14 @@
                         <div x-show="selected === 'sucursal'" class="mt-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código
-                                        Postal</label>
-                                    <input
-                                        class="w-full rounded-full px-2 py-2 bg-black/30 placeholder-gray-300 text-gray-100"
-                                        type="number" name="codigo_postal" placeholder="C.P." />
+                                    <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
+                                        wire:model.blur="zip_code"
+                                        class="w-full rounded-full px-2 py-2 bg-black/30 placeholder-gray-300 text-gray-100" />
                                 </div>
                                 <div>
-                                    <label for="sucursal2"
+                                    <label for="sucursal"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sucursal</label>
-                                    <select id="sucursal2"
+                                    <select id="sucursal" name="sucursal" wire:model.live="sucursal"
                                         class="w-full rounded-full px-2 py-2 bg-black/30 placeholder-gray-300 text-gray-100">
                                         <option>Sucursal D</option>
                                         <option>Sucursal E</option>
@@ -135,7 +132,8 @@
                                     {{ count(session('cart')) }}
                                 @endisset
                             </span></li>
-                        <li x-show="costoEnvio !== null" class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de Envío: <span x-text="costoEnvio"></span></li>
+                        <li x-show="costoEnvio !== null" class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de
+                            Envío: <span class="text-white text-lg">${{ $sendPrice }}</span></li>
 
                     </ul>
                 </div>
@@ -150,6 +148,7 @@
                                 $priceDiscount = ($price * $discount) / 100;
                                 $total += ($price - $priceDiscount) * $itemAmount;
                             }
+                            $total += $sendPrice;
                         @endphp
                     @endisset
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
@@ -183,34 +182,37 @@
         function shippingForm() {
             return {
                 selected: 'domicilio',
-                provinciaOrigen: 'AR-B',
+                provinciaOrigen: 'AR-W',
+                provinciaDestino: 'AR-B',
                 ciudad: '',
                 direccion: '',
-                codigoPostal: '',
-                codigoPostalSucursal: '',
+                codigoPostal: '3400',
+                codigoPostalDestino: document.querySelector('input[name='
+                    zip_code ']').value,
                 sucursal: '',
                 costoEnvio: null,
 
                 async submitForm() {
                     const params = new URLSearchParams();
                     params.append('cpOrigen', this.codigoPostal);
-                    params.append('cpDestino', this.codigoPostalSucursal || this.codigoPostal);
+                    params.append('cpDestino', this.codigoPostalDestino || this.codigoPostal);
                     params.append('provinciaOrigen', this.provinciaOrigen);
                     params.append('provinciaDestino', this.provinciaOrigen);
                     params.append('peso', 5); // Puedes ajustar el peso según tus necesidades
 
                     try {
-                        const response = await fetch('/calcular-envio', {
+                        const response = await fetch('https://correo-argentino1.p.rapidapi.com/calcularPrecio', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                    'content')
+                                'x-rapidapi-host: correo-argentino1.p.rapidapi.com',
+                                'x-rapidapi-key: a9bb5c690fmsh972c811eb4e482dp11ea44jsna844bc397594'
                             },
                             body: params.toString()
                         });
 
                         const data = await response.json();
+                        console.log('Costo de envío:', data.precio);
                         this.costoEnvio = data.precio;
                     } catch (error) {
                         console.error('Error al calcular el costo de envío:', error);

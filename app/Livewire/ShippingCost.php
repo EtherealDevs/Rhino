@@ -19,29 +19,6 @@ use Livewire\Attributes\Validate;
 
 class ShippingCost extends Component
 {
-    // ShippingCost.php
-    public function calcularEnvio(Request $request)
-    {
-        $response = Http::withHeaders([
-            'x-rapidapi-host' => 'correo-argentino1.p.rapidapi.com',
-            'x-rapidapi-key' => 'a9bb5c690fmsh972c811eb4e482dp11ea44jsna844bc397594',
-        ])->get('https://correo-argentino1.p.rapidapi.com/calcularPrecio', [
-            'cpOrigen' => '3400', // Código postal de origen fijo
-            'cpDestino' => $request->cpDestino,
-            'provinciaOrigen' => $request->provinciaOrigen,
-            'provinciaDestino' => $request->provinciaDestino,
-            'peso' => $request->peso,
-        ]);
-
-        // Manejar posibles errores en la respuesta
-        if ($response->ok()) {
-            $precio = $response->json()['tarifa'] ?? 'No disponible';
-            return response()->json(['precio' => $precio]);
-        }
-
-        return response()->json(['error' => 'Error al calcular el costo de envío'], 500);
-    }
-
     #[Validate]
     public $zip_code;
 
@@ -50,20 +27,47 @@ class ShippingCost extends Component
 
     public $selectedProvince = null;
     public $selectedCity = null;
+    public $sucursal = null;
     public $cities = [];
 
 
     public $city;
-
+    public $sendPrice=0;
     #[Validate]
     public $address;
+    // ShippingCost.php
+    public function updatedSendPrice($house)
+    {
+        $code = Province::where('name',$this->province)->first();
+        $response = Http::withHeaders([
+            'x-rapidapi-host' => env('RAPI_API_HOST'),
+            'x-rapidapi-key' => env('RAPI_API_KEY'),
+        ])->get(env('RAPI_API_URL').'/calcularPrecio', [
+            'cpOrigen' => '3400', // Código postal de origen fijo
+            'cpDestino' => $this->zip_code,
+            'provinciaOrigen' => 'AR-W',
+            'provinciaDestino' => $code->code,
+            'peso' => 10,
+        ]);
+
+        // Manejar posibles errores en la respuesta
+        if ($response->ok()) {
+            if ($house){
+                $this->sendPrice = $response->json()['paqarClasico']['aDomicilio'] ?? 'No disponible';
+            }else{
+                $this->sendPrice = $response->json()['paqarClasico']['aSucursal'] ?? 'No disponible';
+            }
+        }
+    }
+
+    
 
     public function mount(User $user)
     {
         $this->user = $user;
         
  
-        $this->fill( 
+        $this->fill(
             $user
         );
         if ($user->address != null) {
@@ -97,6 +101,7 @@ class ShippingCost extends Component
         $this->selectedCity = null; // Reset city selection when province changes
         $this->city = null; // Reset city when province changes
         $this->cities = City::where('province_id', $zipCodeModel->province->id)->get()->sortBy('name');
+        
     }
     public function updatedSelectedProvince($provinceName)
     {
@@ -107,9 +112,14 @@ class ShippingCost extends Component
         $this->city = null; // Reset city when province changes
 
     }
+
+    public function updatedSucursal(){
+        $this->updatedSendPrice(false);
+    }
     public function updatedCity($cityId)
     {
         $this->city = $cityId;
+        $this->updatedSendPrice(true);
 
     }
 

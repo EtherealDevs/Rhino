@@ -17,6 +17,7 @@ class ProvinceSeeder extends Seeder
         $provincias = File::json('public/storage/json/argentina_states.json');
         foreach ($provincias as $provincia) {
             Province::create([
+                'code' => $provincia['code'],
                 'name' => $provincia['name']
             ]);
         }
