@@ -50,7 +50,7 @@ class ProductItem extends Model
     }
     public function sizes() : BelongsToMany
     {
-        return $this->belongsToMany(Size::class, 'products_sizes')->withPivot('stock');
+        return $this->belongsToMany(Size::class, 'products_sizes')->withPivot('stock', 'id');
     }
     public function images() : MorphMany
     {

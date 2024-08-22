@@ -31,13 +31,16 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ProductItemSeeder::class,
             ComboSeeder::class,
+            FavoriteSeeder::class,
+            ProvinceSeeder::class,
+            CitySeeder::class,
+            ZipCodeSeeder::class,
             AddressSeeder::class,
             PaymentMethodSeeder::class,
             DeliveryServiceSeeder::class,
             OrderStatusSeeder::class,
             OrderSeeder::class,
-            OrderDetailSeeder::class,/* 
-            FavoriteSeeder::class, */
+            OrderDetailSeeder::class,
         ]);
     }
 }

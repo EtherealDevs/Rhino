@@ -1,18 +1,13 @@
 <li class="py-3 mb-2 mt-6 sm:py-4 bg-white rounded-lg shadow-md">
-    @php
-        $discount = $item['item']->product->sale->sale->discount ?? 0;
-        $price = $item['item']->price();
-        $priceDiscount = ($price * $discount / 100);
-        $total = $price - $priceDiscount;
-    @endphp
-    <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
-        <div class="flex-shrink-0 mx-auto sm:mx-0 sm:flex sm:justify-center">
-            <img class="w-14 h-14 rounded-full" src="/storage/images/product/{{ $item['item']->images[0]->url }}" alt="Product image">
-        </div>
-        <div class="flex-1 sm:flex sm:justify-between sm:items-center w-full sm:text-center">
-            <div class="sm:w-1/3 flex flex-col sm:items-center">
-                <p class="text-3xl flex left-1/2 justify-center sm:text-2xl font-josefin font-bold text-gray-900 truncate">
-                    {{ $item['item']->product->name }}
+    <div class="flex items-center space-x-4">
+        <div class="grid grid-cols-7 gap-12">
+            <div class="flex-shrink-0 ml-5">
+                <img class="w-14 h-14 rounded-full ml-2" src="/storage/images/product/{{ $images[0]->url }}"
+                    alt="Product Image">
+            </div>
+            <div class="flex-1 grid-rows-2 col-span-2">
+                <p class="text-2xl font-josefin font-bold text-gray-900 truncate ">
+                    {{ $product->name }}
                 </p>
                 <div class="flex gap-2 mt-2 justify-center">
                     @if ($discount)

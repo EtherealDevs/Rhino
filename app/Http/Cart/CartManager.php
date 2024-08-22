@@ -19,6 +19,7 @@ class CartManager
 
     public static function addItem(ProductItem $item, $amount = 1, $size = null)
     {
+        
         if ($size == null) {
             $size = $item->sizes()->first()->name;
         }
@@ -29,6 +30,7 @@ class CartManager
             // Crear los contenidos del carrito y ponerlos en la sesion bajo la variable 'cart'
             $contents = collect([['id' => $item->id, 'item' => $item->withoutRelations(), 'size' => $size, 'amount' => $amount]]);
             session()->put('cart', $contents);
+            
         } else{
             // Get carrito desde la sesion
             $cart = session()->get('cart');
@@ -44,15 +46,16 @@ class CartManager
                         {
                             if ($collectionItem['id'] == $item->id && $collectionItem['size'] == $size) 
                             {
+                                $addedItems = 0;
                                 for ($i=0; $i < $amount; $i++)
                                 {
-                                    if ($collectionItem['amount'] >= $stock) 
+                                    if ($collectionItem['amount'] == $stock) 
                                     {
-                                        throw new Exception('La cantidad solicitada no esta disponible.');
+                                        session()->flash('cartError', "No se pueden añadir todas las unidades solicitadas, porque supera el stock disponible del producto. Pediste {$amount}, solo se añadieron {$addedItems}.");
                                         return $collectionItem;
-                                        break;
                                     }
                                     $collectionItem['amount'] += 1;
+                                    $addedItems += 1;
                                 }
                             }
                             return $collectionItem;
@@ -74,6 +77,7 @@ class CartManager
     // cartModel se refiere al modelo de eloquent CartModel
     public static function getCartContents($cartModel = null)
     {
+        
         // Si cartModel no es nulo, es decir, que Sí hay un carrito guardado en la base de datos.
         if ($cartModel != null) {
             // Decodificar los contenidos del modelo (JSON) en un valor PHP
@@ -131,8 +135,8 @@ class CartManager
             $total += $itemPrice * $itemAmount;
         }
         $contents->transform(function ($item){
-            $itemWithoutRelations = ProductItem::where('id', $item['id'])->first()->withoutRelations();
-            $item['item'] = $itemWithoutRelations;
+            $itemWithRelations = ProductItem::where('id', $item['id'])->first()->load('product', 'images');
+            $item['item'] = $itemWithRelations;
             return $item;
         });
         // Serializar contenidos (convertir a JSON) para que la base de datos pueda interpretar los datos y guardarlos correctamente.
@@ -146,9 +150,9 @@ class CartManager
             ['user_id' => $user->id],
             ['contents' => $serializedContents, 'total' => $total]
         );
-
     }
-    // Comparar carritos, guardar los items que no tiene el carrito original, y modificar la cantidad de los items que ya tiene.
+
+    // // Comparar carritos, guardar los items que no tiene el carrito original, y modificar la cantidad de los items que ya tiene.
     public static function compareAndSaveCarts($databaseCart, $sessionCart, $user)
     {
         $databaseCartContents = json_decode($databaseCart->contents, true);

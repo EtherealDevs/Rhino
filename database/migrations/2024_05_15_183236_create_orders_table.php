@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('payment_method_id')->references('id')->on('payment_methods');
-            $table->integer('total');
+            $table->integer('total')->nullable();
 
-            $table->foreignId('delivery_service_id')->references('id')->on('delivery_services')->nullable();
+            $table->foreignId('delivery_service_id')->nullable()->references('id')->on('delivery_services');
             $table->string('delivery_price')->nullable();
-            $table->foreignId('address_id')->references('id')->on('addresses')->nullable();
+            $table->foreignId('address_id')->nullable()->references('id')->on('addresses');
             
             $table->foreignId('order_status_id')->references('id')->on('order_statuses');
 
