@@ -135,7 +135,7 @@
             </li>
             <span class="text-gray-400 font-bold">Gestion de Tienda</span>
             <li class="mb-1 group">
-                <a href="/myshop"
+                <a href="{{ route('admin.mystore.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-store-2-line mr-3 text-lg"></i>
                     <span class="text-sm">Mi Tienda</span>
