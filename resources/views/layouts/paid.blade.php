@@ -20,10 +20,28 @@
 </head>
 
 <body>
-    <div class="font-sans text-gray-900 antialiased">
-        @yield('content')
-    </div>
-    @livewireScripts
+    <header>
+        <div class="sticky top-0 min-h-full z-50">
+            <nav class="bg-white z-10 h-18 drop-shadow-xl">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="flex h-12 lg:h-16 justify-center items-center">
+                        <div class="flex-shrink-0 bg-white lg:py-6 lg:rounded-full">
+                            <a href="/">
+                                <img class="lg:px-8 xl:w-48 mt-10 2xl:w-48 lg:w-48 w-24" src="/img/rino-black.png"
+                                    alt="Rino Logo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="font-sans text-gray-900 antialiased">
+            @yield('content')
+        </div>
+        @livewireScripts
+    </main>
 </body>
 
 </html>

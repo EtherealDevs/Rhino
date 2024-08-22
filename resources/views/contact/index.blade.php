@@ -7,7 +7,7 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     </header>
 
-    <div class="absolute grid grid-cols-3 grid-rows-3 h-screen w-screen gap-24 z-20">
+    <div class="absolute grid grid-cols-3 grid-rows-3 h-screen w-full gap-24 z-20">
 
         {{-- Primer Row --}}
         <div class="col-span-3 mb-12">
@@ -257,7 +257,7 @@
 
     </div>
     <div class="h-screen ">
-        <div class="w-screen mx-auto relative">
+        <div class="w-full mx-auto relative">
             <div>
                 <div class="grid grid-cols-2 h-screen">
                     <div class="bg-cover bg-[url(/public/img/contact.png)]">
