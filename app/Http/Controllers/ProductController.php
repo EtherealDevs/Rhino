@@ -44,6 +44,8 @@ class ProductController extends Controller
         if (session('cartError')) {
             return redirect()->route('cart')->with('failure', session('cartError'));
         }
+        
+        notify()->success('Producto agregado ⚡️');
         return redirect()->route('cart')->with('success', 'true');
     }
     public function category(Category $category){

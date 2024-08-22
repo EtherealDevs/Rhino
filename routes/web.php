@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\ComboController;
@@ -22,10 +23,10 @@ use App\Http\Controllers\OrderController;
 
 use App\Livewire\ShippingCost;
 
+Route::get('/', [HomeController::class, 'index']);
+
 // web.php o api.php
 Route::post('/calcular-envio', [ShippingCost::class, 'calcularEnvio']);
-
-
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/add/{product}', [Navigation::class, 'add'])->name('favorites.add');
@@ -33,20 +34,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/favorites', Navigation::class)->name('favorites.view');
 });
 
-
-Route::get('/', function () {
-    $productItem = ProductItem::first();
-    $combos = Combo::all();
-    $sales = Sale::all();
-    date_default_timezone_set('America/Argentina/Buenos_Aires');
-    $now = Carbon::now('America/Argentina/Buenos_Aires')->translatedFormat('Y-m-d');
-    foreach ($sales as $sale) {
-        if ($sale->end_date == $now) {
-            SaleController::destroy($sale);
-        }
-    }
-    return view('home.index', compact('productItem', 'sales', 'combos'));
-});
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
 

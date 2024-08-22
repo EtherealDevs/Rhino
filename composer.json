@@ -15,6 +15,7 @@
         "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
+        "mckenziearts/laravel-notify": "^2.5",
         "mercadopago/dx-php": "3.0.7",
         "spatie/laravel-permission": "^6.7"
     },

@@ -8,6 +8,7 @@
 
     <title>{{ config('app.name', 'Rino Indumentaria') }}</title>
 
+    @notifyCss
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,6 +63,9 @@
     @stack('modals')
 
     @livewireScripts
+    <x-notify::notify />
+    @notifyJs
+</body>
 </body>
 
 </html>
