@@ -57,51 +57,20 @@
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código Postal</label>
                                 <input class="w-full rounded-full px-2 py-2 bg-black/30 placeholder-gray-300 text-gray-100" type="number" name="codigo_postal" placeholder="C.P." />
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-0 lg:mt-12 translate-x-0 translate-y-0 lg:translate-x-2 lg:translate-y-2 rounded-none lg:rounded-3xl bg-slate-900/30 w-full lg:w-11/12">
-                <div class="rounded-none lg:rounded-3xl lg:-translate-x-2 lg:-translate-y-2 bg-gradient-to-b via-[#2E3366] from-[#273053] to-[#343678]">
-                    <div class="grid lg:grid-cols-6 grid-cols-1 p-6">
-                        <div class="col-span-2">
-                            <ul class="items-center">
-                                <li class="font-josefin font-bold text-lg text-[#A3B7FF]">Productos: <span class="text-white text-lg">@isset($cartItems){{ count(session('cart')) }}@endisset</span></li>
-                                <li class="font-josefin font-bold text-lg text-[#A3B7FF]">Envío: <span class="text-white text-lg">15.000</span></li>
-                            </ul>
-                        </div>
-                        <div class="col-span-2 grid grid-rows-2 ml-2">
-                            @isset($cartItems)
-                            @php
-                            $total = 0;
-                                foreach ($cartItems as $item) {
-                                    $itemAmount = $item['amount'];
-                                    $discount = $item['item']->product->sale->sale->discount ?? 0;
-                                    $price = $item['item']->price();
-                                    $priceDiscount = ($price * $discount / 100);
-                                    $total += ($price - $priceDiscount) * $itemAmount;
-                                }
-                            @endphp
-                            @endisset
-                            <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
-                            @isset($cartItems)
-                            <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">${{number_format($total, 2, ',', '.')}}</p>
-                            @else
-                            <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">NO DATA</p>
-                            @endisset
-                        </div>
-                        <div class="col-span-2 gap-2 lg:mt-0 mt-6 flex flex-col sm:flex-row">
-                            <button class="w-full sm:w-auto bg-[#2957de] rounded-lg">
-                                <p class="text-white text-lg font-bold font-josefin py-1 px-4">Comprar</p>
-                            </button>
+                            <div class="col-span-2 gap-2 lg:mt-0 mt-6">
+                                <a href="{{route('checkout.delivery')}}" class="col-span-3 bg-[#11C818] rounded-lg">
+                                    <p class="text-white text-lg font-bold font-josefin py-2 px-5">Comprar</p>
+                                </a>
+                                
+                                <form method="POST" action="{{route('cart.dropCart')}}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="bg-[#FF6565] rounded-lg col-span-2">
+                                        <p class="font-josefin text-xl text-white font-bold py-1 px-2">Eliminar Lista</p>
+                                    </button>
+                                </form>
+                            </div>
 
-                            <form method="POST" action="{{route('cart.dropCart')}}">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="w-full sm:w-auto bg-[#f84e4e] rounded-lg mt-2 sm:mt-0">
-                                    <p class="font-josefin text-lg text-white font-bold py-1 px-4">Eliminar Lista</p>
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>

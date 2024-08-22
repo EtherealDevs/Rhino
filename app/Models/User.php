@@ -32,6 +32,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'password',
     ];
@@ -77,6 +78,10 @@ class User extends Authenticatable
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
+    }
+    public function address()
+    {
+        return $this->hasOne(Address::class);
     }
     public function cart() : HasOne
     {

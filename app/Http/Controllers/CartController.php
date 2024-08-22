@@ -29,26 +29,21 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        $admins = User::role('admin1')->get();
         
         $decodedItem = json_decode($request->item);
         $item = ProductItem::where('id', $decodedItem->id)->first();
 
-        //Add Item to Cart in session.
-        try {
+        // Añadir Item al carrito de la sesión.
             CartManager::addItem($item);
-        } catch (Exception $e) {
-            return redirect()->route('cart')->with('failure', $e->getMessage());
-        }
 
-        //Check if user logged in. If true persist the Cart to Database
+        // Chequear si en esta sesion, en este navegador, hay un usuario logueado. Si hay, persistir el carrito de la sesion a la base de datos
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
             CartManager::storeOrUpdateInDatabase($user);
             $cart = Cart::where('user_id',$user->id)->first();
-            foreach($admins as $admin){
-                $admin->notify(new OrderNotification($cart,$user,['database']));
-            }
+        }
+        if (session('cartError')) {
+            return redirect()->route('cart')->with('failure', session('cartError'));
         }
         return redirect()->route('cart')->with('success');
     }
@@ -57,7 +52,21 @@ class CartController extends Controller
     {
         $size = $request->size;
         // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
-        CartManager::removeItem($item, $size);
+       
+        if (auth()->check()) {
+            $user = User::where('id', auth()->user()->id)->first();
+            CartManager::removeItem($item, $size, $user);
+        } else{
+            CartManager::removeItem($item, $size);
+        }
+        if (!session()->has('cart')) {
+            session()->forget('cart');
+            if (auth()->user()){
+                $cart = Cart::where('user_id', auth()->user()->id);
+                $cart->delete();
+            }
+            return redirect('/');
+        }
         return redirect()->route('cart')->with('success');
     }
 

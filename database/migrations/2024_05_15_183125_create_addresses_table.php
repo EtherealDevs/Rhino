@@ -14,9 +14,17 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('name');
+            $table->string('last_name');
+            $table->foreignId('zip_code_id')->constrained();
+            $table->foreignId('province_id')->constrained();
+            $table->foreignId('city_id')->constrained();
+            $table->string('address');
             $table->string('street');
-            $table->integer('number');
-            $table->integer('zip_code');
+            $table->integer('number')->nullable();
+            $table->string('department')->nullable();
+            $table->string('street1')->nullable();
+            $table->string('street2')->nullable();
             $table->string('observation')->nullable();
 
             $table->timestamps();
