@@ -52,20 +52,38 @@
                                 class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-72 transition-transform duration-300 ease-in-out h-screen">
                                 <div class="space-y-10 py-10 p-6 md:space-y-4 sticky left-0 top-10 overflow-scroll">
                                     <h2 class="font-bold text-sm md:text-xl text-center">
-                                        Categorias
+                                        Categorías
                                     </h2>
-                                    <div class="flex flex-col pl-10 ">
-                                        @foreach ($categories as $category)
-                                            <div>
-                                                <a href=""
-                                                    class="text-base text-gray-700 py-2 px-1 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                                    <span class="">{{ $category->name }} ()</span>
-                                                </a>
+                                    <div class="flex flex-col pl-10">
+                                        <!-- Formulario de filtrado -->
+                                        <form action="{{ route('products.index') }}" method="GET">
+                                            @foreach ($categories as $category)
+                                                <div>
+                                                    <label class="flex items-center space-x-2">
+                                                        <input type="checkbox" name="categories[]"
+                                                            value="{{ $category->id }}"
+                                                            class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
+                                                            @if (in_array($category->id, request('categories', []))) checked @endif>
+                                                        <span
+                                                            class="text-lg leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-150 ease-in-out">
+                                                            {{ $category->name }} ({{ $category->products_count }})
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
+
+                                            <!-- Botón para aplicar el filtro -->
+                                            <div class="mt-4">
+                                                <button type="submit"
+                                                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-150 ease-in-out">
+                                                    Aplicar filtros
+                                                </button>
                                             </div>
-                                        @endforeach
+                                        </form>
                                     </div>
 
-                                    <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
+
+                                    {{-- <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
                                         Tallas
                                     </h2>
 
@@ -133,7 +151,7 @@
                                                 <i class="ri-filter-fill"></i>
                                             </a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -142,70 +160,117 @@
             </div>
 
             {{-- Content (Productos) --}}
-            <div class="col-span-5 ml-2 z-10 mb-8">
-                <!-- component -->
-                <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
+            <div class="col-span-5 ml-0 lg:ml-2 z-10 mb-8">
 
-                <div x-data="slider"
-                    class="relative w-full mb-12 flex flex-shrink-0 overflow-hidden shadow-2xl">
-                    <div
-                        class="rounded-full bg-gray-600 text-white absolute top-5 right-5 text-sm px-2 text-center z-10">
-                        <span x-text="currentIndex"></span>/
-                        <span x-text="images.length"></span>
+                <div class="bg-blue-800 rounded-none lg:rounded-2xl m-0 lg:m-6">
+                    <div class="flex">
+                        <!-- component -->
+                        <div class="flex w-full justify-start p-12">
+                            <h2 class="text-blue-100 font-bold font-josefin xl:text-4xl text-2xl italic leading-tight">
+                                Estilo y Ahorro: <br>
+                                <span class="text-blue-200 font-light not-italic">
+                                    Descubre Nuestros <span class="italic">Combos de Ropa</span>
+                                </span>
+                            </h2>
+                        </div>
+
+
+                        <div class="mt-4 mb-12 justify-end w-1/2">
+                            <a href="/combos">
+                                <button
+                                    class="rounded-full p-3 px-6 mt-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors text-white hover:text-blue-900">
+                                    <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
+                                            fill="#3E68FF" />
+                                    </svg>
+                                    <p class="">
+                                        Ver todos
+                                    </p>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="max-w-7xl mx-auto">
+
+                        <div id="default-carousel" class="relative" data-carousel="static">
+                            <!-- Carousel wrapper -->
+                            <div class="overflow-hidden relative h-[50vh] sm:h-56 md:h-64 lg:h-72 xl:h-80 2xl:h-[590px] rounded-lg">
+                                <!-- Item 1 -->
+                                @foreach ($combos as $combo)
+                                    <!-- Item  -->
+                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        <div class="flex absolute top-2 sm:top-5 left-16 sm:left-24 z-30 space-x-2 sm:space-x-3 -translate-x-1/2">
+                                            <button class="items-end rounded-full p-2 sm:p-3 px-3 sm:px-5 mt-4 bg-green-500 flex space-x-2 hover:bg-white transition-colors text-green-100 hover:text-green-700">
+                                                <p class="text-lg sm:text-xl font-bold">
+                                                    {{ $combo->discount }}%
+                                                </p>
+                                            </button>
+                                        </div>
+                                        <span class="absolute top-1/2 left-1/2 text-xl sm:text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
+                                            @livewire('combo', ['id' => $combo->id])
+                                        </span>
+                                    </div>
+                                    <div class="flex absolute bottom-2 sm:bottom-5 right-6 sm:right-12 z-30 space-x-2 sm:space-x-3 -translate-x-1/2">
+                                        <a href="{{ route('combos.show', $combo) }}">
+                                            <button class="items-end rounded-full p-2 sm:p-3 px-3 sm:px-4 mt-4 bg-white flex space-x-2 hover:bg-black transition-colors text-blue-800 hover:text-blue-200">
+                                                <svg width="20" height="16" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z" fill="#3E68FF"/>
+                                                </svg>
+                                                <p class="text-sm sm:text-base">
+                                                    Ver Combo
+                                                </p>
+                                            </button>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>                            
+
+                            <!-- Slider controls -->
+                            <button type="button"
+                                class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                                data-carousel-prev>
+                                <span
+                                    class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7"></path>
+                                    </svg>
+                                    <span class="hidden">Previous</span>
+                                </span>
+                            </button>
+                            <button type="button"
+                                class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                                data-carousel-next>
+                                <span
+                                    class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                    <span class="hidden">Next</span>
+                                </span>
+                            </button>
+                        </div>
+                        <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
                     </div>
 
-                    <template x-for="(image, index) in images">
-                        <figure class="h-96" x-show="currentIndex == index + 1"
-                            x-transition:enter="transition transform duration-300"
-                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                            x-transition:leave="transition transform duration-300"
-                            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-                            <img :src="image" alt="Image"
-                                class="absolute inset-0 z-10 h-full w-full object-cover opacity-70" />
-                            <figcaption
-                                class="absolute inset-x-0 bottom-1 z-20 w-96 mx-auto p-4 font-light text-sm text-center tracking-widest leading-snug bg-gray-300 bg-opacity-25">
-                                Any kind of content here!
-                                Primum in nostrane potestate est, quid meminerimus? Nulla erit controversia.
-                                Vestri haec verecundius, illi fortasse constantius.
-                            </figcaption>
-                        </figure>
-                    </template>
-
-                    <button @click="back()"
-                        class="absolute left-14 top-1/2 -translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-gray-100 hover:bg-gray-200">
-                        <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:-translate-x-0.5"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M15 19l-7-7 7-7">
-                            </path>
-                        </svg>
-                    </button>
-
-                    <button @click="next()"
-                        class="absolute right-14 top-1/2 translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-gray-100 hover:bg-gray-200">
-                        <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:translate-x-0.5"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
                 </div>
 
-
-                <div class="flex w-full">
-                    <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-3 lg:gap-10">
+                <div class="flex w-full justify-center lg:justify-end">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
                         @foreach ($products as $product)
                             @php
                                 $item = $product->items()->first();
                             @endphp
                             @livewire('product-card', ['product' => $product, 'item' => $item])
-                            @livewire('product-card', ['product' => $product, 'item' => $item])
-                            @livewire('product-card', ['product' => $product, 'item' => $item])
                         @endforeach
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

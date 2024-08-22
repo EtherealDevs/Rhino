@@ -38,4 +38,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductItem::class);
     }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

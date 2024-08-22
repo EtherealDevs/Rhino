@@ -28,6 +28,7 @@ Route::resource('product',ProductController::class)->names('admin.products');
 Route::resource('promo',PromoController::class)->names('admin.promos');
 
 Route::resource('orders',OrderController::class)->names('admin.orders');
+Route::put('/admin/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 
 Route::resource('sale',SaleController::class)->names('admin.sales');
 
@@ -44,5 +45,8 @@ Route::resource('brand', BrandController::class)->names('admin.brands');
 Route::resource('size', SizeController::class)->names('admin.sizes');
 
 Route::resource('users', UserController::class)->names('admin.users');
+
+Route::get('/ventas', [OrderController::class, 'ventas'])->name('admin.ventas.index');
+
 
 Route::resource('productitem', ProductItemController::class)->names('admin.productitems');

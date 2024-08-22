@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('product_item_id')->references('id')->on('product_items');
+            $table->foreignId('product_id')->references('id')->on('product_items');
             $table->timestamps();
         });
     }

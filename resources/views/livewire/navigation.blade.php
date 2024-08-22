@@ -3,7 +3,8 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-12 lg:h-16 justify-start lg:justify-between relative">
                 <!-- Barra de subrayado -->
-                <div class="underline-navbar absolute bottom-0 left-0 h-1 w-1/2 bg-black transition-all duration-300"></div>
+                <div class="underline-navbar absolute bottom-0 left-0 h-1 w-1/2 bg-black transition-all duration-300">
+                </div>
 
                 <div class="flex items-center">
                     <div class="hidden md:block">
@@ -47,31 +48,65 @@
                                         </button>
                                     </div>
                                     <div class="space-y-4">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-4">
-                                                <img src="" alt="Producto" class="w-12 h-12 rounded-full">
-                                                <div>
-                                                    <p class="font-semibold text-xl">Camisa Cuadrada</p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Color:
-                                                        <span> bla</span>
-                                                    </p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Talle:
-                                                        <span> M</span>
-                                                    </p>
+                                        @forelse ($favorites as $favorite)
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-4 p-4 border-b border-gray-200">
+                                                    @php
+                                                        $images = $favorite->product
+                                                            ? $favorite->product->images
+                                                            : collect([]);
+                                                    @endphp
+
+                                                    @if ($images->isNotEmpty())
+                                                        @php
+                                                            // Construir la URL de la imagen
+                                                            $imageUrl = asset(
+                                                                'storage/images/product/' . $images[0]->url,
+                                                            );
+                                                        @endphp
+                                                        <img src="{{ $imageUrl }}"
+                                                            class="w-12 h-12 object-cover rounded-lg"
+                                                            alt="{{ $favorite->product->name }}">
+                                                    @else
+                                                        <img src="{{ asset('storage/images/product/default.png') }}"
+                                                            class="w-12 h-12 object-cover rounded-lg"
+                                                            alt="Imagen no disponible">
+                                                    @endif
+
+
+                                                    <div>
+                                                        @if ($favorite->product)
+                                                            <p class="font-semibold text-xl text-gray-800">
+                                                                {{ $favorite->product->name }}</p>
+                                                            <div class="text-sm font-semibold text-gray-500">
+                                                                <p>Color: <span
+                                                                        class="text-gray-700">{{ $favorite->color }}</span>
+                                                                </p>
+                                                                <p>Talle: <span
+                                                                        class="text-gray-700">{{ $favorite->size }}</span>
+                                                                </p>
+                                                            </div>
+                                                        @else
+                                                            <p class="text-gray-500">Agregar Productos a la lista</p>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <button class="">
-                                                    <a href="">
-                                                        <i
-                                                            class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
-                                                    </a>
+
+
+                                                <button wire:click="removeFromFavorites({{ $favorite->id }})"
+                                                    class="text-red-500 hover:text-red-700">
+                                                    <i class="ri-delete-bin-fill text-xl"></i>
                                                 </button>
                                             </div>
-                                        </div>
+                                        @empty
+                                            <p class="text-gray-500 text-center">No tienes productos en tu lista de
+                                                favoritos.</p>
+                                        @endforelse
                                     </div>
                                 </div>
+
                             </div>
+
 
                             {{-- Carrito --}}
                             <div class="flex content-center" x-data="{ open: false }">
@@ -84,7 +119,7 @@
                                     </svg>
                                 </button>
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="absolute top-16  right-8 w-96 bg-white shadow-lg rounded-lg p-4">
+                                    class="absolute top-16 right-8 w-96 bg-white shadow-lg rounded-lg p-4">
                                     <div class="flex justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Carrito</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
@@ -96,34 +131,52 @@
                                         </button>
                                     </div>
                                     <div class="space-y-4">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-4">
-                                                <img src="" alt="Producto" class="w-12 h-12 rounded-full">
-                                                <div>
-                                                    <p class="font-semibold text-xl">Camisa Cuadrada</p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Color:
-                                                        <span> Amarillo</span>
-                                                    </p>
-                                                    <p class="text-sm font-semibold font-josefin text-gray-500">Talle:
-                                                        <span> M</span>
-                                                    </p>
+                                        @forelse ($cartContents ?? [] as $cartItem)
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-4">
+                                                    <div class="flex items-center space-x-4">
+                                                        @if ($cartItem['item']->images->isNotEmpty())
+                                                            <img src="{{ asset('storage/images/product/' . $cartItem['item']->images[0]->url) }}"
+                                                                class="w-12 h-12 object-cover rounded-full"
+                                                                alt="{{ $cartItem['item']->product->name }}">
+                                                        @else
+                                                            <img src="{{ asset('storage/images/product/default.png') }}"
+                                                                class="w-12 h-12 object-cover rounded-lg"
+                                                                alt="Imagen no disponible">
+                                                        @endif
+                                                        <div>
+                                                            <p class="font-semibold text-xl">
+                                                                {{ $cartItem['item']->product->name }}</p>
+                                                            <p class="text-sm font-semibold text-gray-500">Color:
+                                                                <span>{{ $cartItem['item']->product->color }}</span>
+                                                            </p>
+                                                            <p class="text-sm font-semibold text-gray-500">Talle:
+                                                                <span>{{ $cartItem['size'] }}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-center space-x-2">
+                                                        <button class="text-blue-500"
+                                                            wire:click="decrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">-</button>
+                                                        <span class="text-lg">{{ $cartItem['amount'] }}</span>
+                                                        <button class="text-blue-500"
+                                                            wire:click="incrementQuantity({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">+</button>
+                                                    </div>
+                                                    <div>
+                                                        <button class="">
+                                                            <a href=""
+                                                                wire:click.prevent="removeItem({{ $cartItem['item']->id }}, '{{ $cartItem['size'] }}')">
+                                                                <i
+                                                                    class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                <button class="text-blue-500">-</button>
-                                                <span class="text-lg">2</span>
-                                                <button class="text-blue-500">+</button>
-                                            </div>
-                                            <div>
-                                                <button class="">
-                                                    <a href="">
-                                                        <i
-                                                            class="ri-delete-bin-fill text-xl text-black hover:text-red-500"></i>
-                                                    </a>
-                                                </button>
-                                            </div>
-                                        </div>
+                                            @empty
+                                                <p class="text-center text-gray-500">El carrito está vacío.</p>
+                                        @endforelse
                                     </div>
+
                                     <div class="mt-4 flex justify-between">
                                         <button
                                             class="bg-black text-white px-4 py-2 font-bold rounded-lg flex items-center"
@@ -135,10 +188,11 @@
                                                     d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                             </svg>
                                         </button>
-                                        <button class="bg-red-500 text-white px-4 py-2 font-bold rounded-lg">Eliminar
-                                            Lista</button>
+                                        <button class="bg-red-500 text-white px-4 py-2 font-bold rounded-lg"
+                                            wire:click="clearCart">Eliminar Lista</button>
                                     </div>
                                 </div>
+
                             </div>
 
                             {{-- Perfil --}}
@@ -158,8 +212,11 @@
                                     <a href="{{ route('profile.show') }}"
                                         class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                    <a href="/orders" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
                                     <a href="/admin" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de Administracion</a>
+
                                     <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
                                         @csrf
                                         <button type="submit" href="{{ route('logout') }}"
@@ -205,48 +262,44 @@
                         <a href="/about"
                             class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
                             x-on:click="open = !open">Nosotros</a>
-                        <a href="/products"
-                            class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
-                            x-on:click="open = !open">Productos</a>
                         <a href="/contact"
                             class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
                             x-on:click="open = !open">Contactanos</a>
                     </div>
                     <!-- Botones de inicio de sesión y registro en la segunda columna a la izquierda -->
                     <div class="text-right">
-                        <div class="flex flex-col space-y-2">
+                        <div class="flex flex-col space-y-1">
                             @auth
                                 <!-- Bloque de autenticación para usuarios autenticados -->
-                                <div class="ml-4 items-center">
-                                    <div class="relative" x-data="{ open: false }">
-                                        <a href="{{ route('profile.show') }}"
-                                            class="text-gray-800 hover:bg-black hover:text-white px-3 py-2 rounded-md text-base font-bold flex justify-end"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-0"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                                                viewBox="0 0 24 24">
-                                                <g fill="none" stroke="currentColor" stroke-width="3">
-                                                    <path stroke-linejoin="round"
-                                                        d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
-                                                    <circle cx="12" cy="7" r="3" />
-                                                </g>
-                                            </svg></a>
+                                <div class="ml-4 items-end">
+                                    <div class="flex relative justify-end" x-data="{ open: false }">
+                                        <div class="border-4 w-10 rounded-full p-1">
+                                            <button x-on:click="open = !open" type="button"
+                                                class="flex items-end text-sm font-medium text-white ">
+                                                <img class="h-6 rounded-full"
+                                                    src="{{ auth()->user()->profile_photo_url }}" alt="">
+                                            </button>
+                                        </div>
 
-                                        <a href="{{ route('cart') }}"
-                                            class="text-gray-800 hover:bg-black hover:text-white px-3 py-2 rounded-md text-base font-bold flex justify-end"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-0"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24">
-                                                <path fill="currentColor"
-                                                    d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25q0-.075.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2" />
-                                            </svg></a>
-
-                                        <form method="POST" action="{{ route('logout') }}" x-data>
-                                            @csrf
-                                            <a href="{{ route('logout') }}"
-                                                class="text-gray-800 hover:bg-black hover:text-white  block px-3 py-2 rounded-md text-base font-bold italic"
-                                                role="menuitem" tabindex="-1" id="user-menu-item-2"
-                                                @click.prevent="$root.submit();">Cerrar Sesion</a>
-                                        </form>
+                                        <div x-show="open" x-on:click.away="open = false"
+                                            class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300"
+                                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                            tabindex="-1">
+                                            <a href="{{ route('profile.show') }}"
+                                                class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                                role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                            <a href="/admin"
+                                                class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                                role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
+                                                Administracion</a>
+                                            <form method="POST" class="flex justify-end" action="{{ route('logout') }}"
+                                                x-data>
+                                                @csrf
+                                                <button type="submit" href="{{ route('logout') }}"
+                                                    class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
+                                                    tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             @else
@@ -260,6 +313,12 @@
                                 </div>
                             @endauth
                         </div>
+                        <a href="/products"
+                            class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
+                            x-on:click="open = !open">Productos</a>
+                        <a href="{{ route('cart') }}"
+                            class="text-gray-800 hover:bg-black hover:text-white px-3 py-2 rounded-md text-base font-bold flex justify-end"
+                            role="menuitem" tabindex="-1" id="user-menu-item-0">Carrito de Compras</a>
                     </div>
                 </div>
             </div>

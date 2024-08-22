@@ -55,24 +55,35 @@ class SaleController extends Controller
 
     public function edit(Sale $sale)
     {
-        return view('admin.sales.edit', compact('sale'));
+        $categories= Category::all();
+        return view('admin.sales.edit', compact('sale','categories'));
     }
 
     public function update(Request $request, Sale $sale)
     {
-        $sale->Sale::update([
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'discount'=>$request->discount,
+        $sale->update([
+            'title'=>$request->title??$sale->title,
+            'description'=>$request->description??$sale->description,
+            'start_date'=>$request->start_date??$sale->start_date,
+            'end_date'=>$request->end_date??$sale->end_date,
+            'discount'=>$request->discount??$sale->discount,
         ]);
-        foreach($request->products as $product){
-            $sale->products->update([
-                'sale_id'=>$sale->id,
-                'product_id'=>$product->id,
-            ]);
-        }
+        if($request->file('image')){
+            $url = Storage::put('sales', $request->file('image'));
+            $sale->images()->update([
+                'url' => $url
+                ]);
+            }
+            if($request->products){
+                $sale->products()->delete();
+                foreach($request->products as $product){
+                    SaleProduct::create([
+                        'sale_id'=>$sale->id,
+                        'product_id'=>$product,
+                        ]);
+                }
+            }
+        return redirect()->route('admin.sales.index');
     }
 
     // public function destroy(Sale $sale)

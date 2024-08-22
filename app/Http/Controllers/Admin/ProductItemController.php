@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProductItem;
+use App\Models\ProductsSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,14 +34,17 @@ class ProductItemController extends Controller
         $product_item=ProductItem::create([
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
-            'size_id' => $request->size_id,
             'original_price'=>$request->original_price,
             'sale_price' => $request->sale_price,
+        ]);
+        ProductsSize::create([
+            'product_item_id' => $product_item->id,
+            'size_id' => $request->size_id,
             'stock' => $request->stock,
         ]);
         if($request->file('image')){
-            $url = Storage::put('products', $request->file('image'));
-            $product_item->image()->create([
+            $url = Storage::put('images/product', $request->file('image'));
+            $product_item->images()->create([
                 'url' => $url
             ]);
         }
@@ -84,6 +88,8 @@ class ProductItemController extends Controller
      */
     public function destroy(ProductItem $product_item)
     {
+        Storage::delete($product_item->images->first()->url);
+        $product_item->images()->delete();
         $product_item->delete();
         return redirect()->route('admin.products.index');
     }

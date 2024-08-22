@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('delivery_price')->nullable();
             $table->foreignId('address_id')->references('id')->on('addresses')->nullable();
             
+            $table->foreignId('order_status_id')->references('id')->on('order_statuses');
+
+
             $table->timestamps();
         });
     }
