@@ -8,7 +8,8 @@
             top: 0;
             left: 0;
             height: 100%;
-            width: 16rem; /* Adjust width as needed */
+            width: 16rem;
+            /* Adjust width as needed */
             z-index: 50;
             background-color: #f8f4f3;
             overflow-y: auto;
@@ -59,38 +60,38 @@
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.notifications.index')}}"
+                <a href="{{ route('admin.notifications.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-notification-3-fill mr-3 text-lg"></i>
                     <span class="text-sm">Notificaciones</span>
                     <span
-                        class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">{{count($user->notifications)}}</span>
+                        class=" md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-600 bg-red-200 rounded-full">{{ count($user->notifications) }}</span>
                 </a>
             </li>
             <span class="text-gray-400 font-bold">Tienda</span>
             <li class="mb-1 group">
-                <a href="{{route('admin.stock.index')}}"
+                <a href="{{ route('admin.stock.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-funds-fill mr-3 text-lg"></i>
                     <span class="text-sm">Stock</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.orders.index')}}"
+                <a href="{{ route('admin.orders.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-shopping-bag-line mr-3 text-lg'></i>
                     <span class="text-sm">Pedidos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.ventas.index')}}"
+                <a href="{{ route('admin.ventas.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-funds-box-fill mr-3 text-lg"></i>
                     <span class="text-sm">Ventas</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.sales.index')}}"
+                <a href="{{ route('admin.sales.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-percent-line mr-3 text-lg"></i>
                     <span class="text-sm">Promociones</span>
@@ -98,35 +99,35 @@
             </li>
             <span class="text-gray-400 font-bold">Administrar</span>
             <li class="mb-1 group">
-                <a href="{{route('admin.products.index')}}"
+                <a href="{{ route('admin.products.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-t-shirt-fill mr-3 text-lg"></i>
                     <span class="text-sm">Productos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.combos.index')}}"
+                <a href="{{ route('admin.combos.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-handbag-fill mr-3 text-lg'></i>
                     <span class="text-sm">Combos</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href={{route('admin.categories.index')}}
+                <a href={{ route('admin.categories.index') }}
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='bx bx-archive mr-3 text-lg'></i>
                     <span class="text-sm">Categorias</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.categories.index')}}"
+                <a href="{{ route('admin.categories.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-folders-line mr-3 text-lg"></i>
                     <span class="text-sm">Subcategorias</span>
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.brands.index')}}"
+                <a href="{{ route('admin.brands.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class='ri-barcode-box-fill mr-3 text-lg'></i>
                     <span class="text-sm">Marcas</span>
@@ -141,7 +142,7 @@
                 </a>
             </li>
             <li class="mb-1 group">
-                <a href="{{route('admin.users.index')}}"
+                <a href="{{ route('admin.users.index') }}"
                     class="flex font-semibold items-center py-2 px-4 text-gray-900 transition hover:bg-blue-500 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
                     <i class="ri-team-fill mr-3 text-lg"></i>
                     <span class="text-sm">Roles y Permisos</span>
@@ -162,36 +163,48 @@
             </button>
             <div class="p-2 md:block text-left">
                 <h2 class="text-xl font-thin text-gray-800">Hola, <span class="uppercase font-extrabold font-blinker">
-                        {{$user->name}}</span> 👋🏻</h2>
+                        {{ $user->name }}</span> 👋🏻</h2>
             </div>
 
             <ul class="ml-auto flex items-center">
-                <li class="mr-1 dropdown">
-                    <button type="button"
-                        class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24"
-                            style="fill: gray;transform: ;msFilter:;">
-                            <path
-                                d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z">
-                            </path>
-                        </svg>
-                    </button>
-                    <div
-                        class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100">
-                        <form action="" class="p-4 border-b border-b-gray-100">
-                            <div class="relative w-full">
-                                <input type="text"
-                                    class="py-2 pr-4 pl-10 bg-gray-50 w-full outline-none border border-gray-100 rounded-md text-sm focus:border-blue-500"
-                                    placeholder="Search...">
-                                <i class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-900"></i>
-                            </div>
-                        </form>
-                    </div>
-                </li>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const dropdownButton = document.querySelector('.dropdown-toggle');
+                        const dropdownMenu = document.querySelector('.dropdown-menu');
+                        const tabs = document.querySelectorAll('.notification-tab button');
+
+                        // Toggle dropdown menu visibility
+                        dropdownButton.addEventListener('click', () => {
+                            dropdownMenu.classList.toggle('hidden');
+                        });
+
+                        // Switch tabs in the dropdown menu
+                        tabs.forEach(tab => {
+                            tab.addEventListener('click', (e) => {
+                                const tabPage = e.target.getAttribute('data-tab-page');
+
+                                // Remove active class from all tabs and hide all tab contents
+                                tabs.forEach(button => {
+                                    button.classList.remove('active');
+                                });
+
+                                document.querySelectorAll('.dropdown-menu > div > ul').forEach(list => {
+                                    list.classList.add('hidden');
+                                });
+
+                                // Add active class to the clicked tab and show the associated content
+                                e.target.classList.add('active');
+                                document.querySelector(`[data-tab-for="notification"][data-page="${tabPage}"]`)
+                                    .classList.remove('hidden');
+                            });
+                        });
+                    });
+                </script>
+
                 <li class="dropdown">
                     <button type="button"
-                        class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600">
+                        class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center hover:text-gray-600">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24"
                             style="fill: gray;transform: ;msFilter:;">
@@ -201,28 +214,45 @@
                         </svg>
                     </button>
                     <div
-                        class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100">
+                        class="dropdown-menu absolute right-2 top-18 shadow-md shadow-black/5 hidden max-w-xs w-full bg-white z-50 rounded-md border border-gray-100">
                         <div class="flex items-center px-4 pt-4 border-b border-b-gray-100 notification-tab">
                             <button type="button" data-tab="notification" data-tab-page="notifications"
-                                class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1 active">Notifications</button>
+                                class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1 active">Pedidos</button>
                             <button type="button" data-tab="notification" data-tab-page="messages"
                                 class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1">Messages</button>
                         </div>
                         <div class="my-2">
                             <ul class="max-h-64 overflow-y-auto" data-tab-for="notification"
                                 data-page="notifications">
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt=""
-                                            class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div
-                                                class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-500">
-                                                New order</div>
-                                            <div class="text-[11px] text-gray-400">from a user</div>
-                                        </div>
-                                    </a>
-                                </li>
+                                <ul class="max-h-64 overflow-y-auto " data-tab-for="notification"
+                                    data-page="notifications">
+                                    @foreach ($pendingOrders as $order)
+                                        <li class="relative mt-2 p-8 group border-t border-gray-200 last:border-0">
+                                            <div class="flex">
+                                                <time
+                                                    class="translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
+                                                <br>
+                                                <time
+                                                    class="translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-gray-600 bg-gray-100 rounded-full">{{ $order->created_at->format('H:i') }}</time>
+                                            </div>
+                                            <div class="mt-2 font-medium text-indigo-500 mb-1 sm:mb-0">
+                                                Pedido #{{ $order->id }} - <a
+                                                    href="{{ route('admin.orders.show', $order->id) }}"
+                                                    class="text-blue-600 hover:underline">Ver detalles →</a>
+                                            </div>
+                                            <div class="flex flex-col sm:flex-row items-start mb-1">
+                                                <div class="text-xl font-bold text-slate-900">
+                                                    ${{ $order->total }}
+                                                </div>
+                                            </div>
+                                            <div class="text-slate-500 flex">
+                                                <p class="mr-2">{{ $order->user->name }}</p> -
+                                                <p class="ml-2">{{ $order->user->email }}</p>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
                             </ul>
                             <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification"
                                 data-page="messages">
@@ -242,6 +272,8 @@
                         </div>
                     </div>
                 </li>
+
+
                 <button id="fullscreen-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24"
@@ -252,43 +284,47 @@
 
 
                 <li class="dropdown ml-3">
-                    <button type="button" class="dropdown-toggle flex items-center">
-                        <div class="flex-shrink-0 w-10 h-10 relative">
-                            <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
-                                <img class="w-8 h-8 rounded-full"
-                                    src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
-                                    alt="" />
-                                <div
-                                    class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
+                    @auth
+                        <!-- Bloque de autenticación para usuarios autenticados -->
+                        <div class="ml-4 items-end">
+                            <div class="flex relative justify-end" x-data="{ open: false }">
+                                <div class="border-4 w-10 rounded-full p-1">
+                                    <button x-on:click="open = !open" type="button"
+                                        class="flex items-end text-sm font-medium text-white ">
+                                        <img class="h-6 rounded-full" src="{{ auth()->user()->profile_photo_url }}"
+                                            alt="">
+                                    </button>
                                 </div>
-                                <div
-                                    class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
+
+                                <div x-show="open" x-on:click.away="open = false"
+                                    class="z-50 absolute mt-6 right-2 top-8 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300"
+                                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                    tabindex="-1">
+                                    <a href="{{ route('profile.show') }}"
+                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                    <a href="/admin" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
+                                        Administracion</a>
+                                    <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
+                                        @csrf
+                                        <button type="submit" href="{{ route('logout') }}"
+                                            class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
-                    </button>
-                    <ul
-                        class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
-                        <li>
-                            <a href="#"
-                                class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
-                        </li>
-                        <li>
-                            <form method="POST" action="">
-                                <a role="menuitem"
-                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer"
-                                    onclick="event.preventDefault();
-                                this.closest('form').submit();">
-                                    Log Out
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
+                    @else
+                        <!-- Bloque de inicio de sesión y registro para usuarios no autenticados -->
+                        <div class="ml-4 flex items-center">
+                            <a href="{{ route('login') }}"
+                                class="text-gray-600 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Iniciar
+                                Sesión</a>
+                            <a href="{{ route('register') }}"
+                                class="text-gray-600 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Registrarme</a>
+                        </div>
+                    @endauth
                 </li>
             </ul>
         </div>
@@ -297,19 +333,19 @@
 
     <script>
         // Toggle sidebar and overlay
-        document.getElementById('toggle-sidebar').addEventListener('click', function () {
+        document.getElementById('toggle-sidebar').addEventListener('click', function() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('sidebar-overlay').classList.toggle('active');
         });
 
         // Close sidebar when overlay is clicked
-        document.getElementById('sidebar-overlay').addEventListener('click', function () {
+        document.getElementById('sidebar-overlay').addEventListener('click', function() {
             document.getElementById('sidebar').classList.remove('active');
             document.getElementById('sidebar-overlay').classList.remove('active');
         });
 
         // Open sidebar and overlay on page load only if not in desktop mode
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             if (window.innerWidth < 768) {
                 document.getElementById('sidebar').classList.add('active');
                 document.getElementById('sidebar-overlay').classList.add('active');
@@ -317,7 +353,7 @@
         });
 
         // Adjust sidebar visibility on window resize
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
             if (window.innerWidth >= 768) {
                 document.getElementById('sidebar').classList.remove('active');
                 document.getElementById('sidebar-overlay').classList.remove('active');
@@ -343,7 +379,9 @@
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"
+        integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://flowbite.com/docs/flowbite.min.js?v=2.5.1a"></script>
     <script src="https://flowbite.com/docs/docs.js?v=2.5.1a"></script>
 

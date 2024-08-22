@@ -39,25 +39,25 @@
 
                             <div class="w-full max-w-sm flex flex-col mx-auto text-center" x-data="{ selected: 'domicilio' }">
                                 <div class="w-full h-auto m-auto shadow flex flex-col p-8 pt-6 rounded-xl">
-                                    <h2 class="text-white text-2xl font-bold">Selecciona tu método de envío</h2>
+                                    <h2 class="text-white text-2xl font-bold mb-6">Selecciona tu método de envío</h2>
 
                                     <!-- Botones de selección de envío -->
-                                    <div class="relative w-full mt-4 rounded-md border h-10 p-1 bg-gray-200">
+                                    <div class="relative w-full mt-4 mb-2 rounded-md border h-10 p-1 bg-gray-200">
                                         <div class="relative w-full h-full flex items-center">
                                             <div @click="selected = 'domicilio'"
                                                 class="w-full flex justify-center cursor-pointer">
                                                 <button
-                                                    :class="{ 'bg-[#2957de] text-white': selected === 'domicilio', 'text-gray-400': selected !== 'domicilio' }"
+                                                    :class="{ ' text-white': selected === 'domicilio', 'text-gray-400': selected !== 'domicilio' }"
                                                     class="w-full sm:w-auto rounded-lg py-2 px-4 font-bold">
-                                                    ENVÍO A DOMICILIO
+                                                    Envio a Domicilio
                                                 </button>
                                             </div>
                                             <div @click="selected = 'sucursal'"
                                                 class="w-full flex justify-center cursor-pointer">
                                                 <button
-                                                    :class="{ 'bg-[#2957de] text-white': selected === 'sucursal', 'text-gray-400': selected !== 'sucursal' }"
+                                                    :class="{ ' text-white': selected === 'sucursal', 'text-gray-400': selected !== 'sucursal' }"
                                                     class="w-full sm:w-auto rounded-lg py-2 px-4 font-bold">
-                                                    ENVÍO A SUCURSAL
+                                                    Envio a Sucursal
                                                 </button>
                                             </div>
                                         </div>
@@ -183,7 +183,9 @@
                             </div>
                             <div class="col-span-2 gap-2 lg:mt-0 mt-6 flex flex-col sm:flex-row">
                                 <button class="w-full sm:w-auto bg-[#2957de] rounded-lg">
-                                    <p class="text-white text-lg font-bold font-josefin py-1 px-4">Comprar</p>
+                                    <a href="{{route('checkout.delivery')}}" class="col-span-3 bg-[#11C818] rounded-lg">
+                                        <p class="text-white text-lg font-bold font-josefin py-2 px-5">Comprar</p>
+                                    </a>
                                 </button>
 
                                 <form method="POST" action="{{ route('cart.dropCart') }}">
