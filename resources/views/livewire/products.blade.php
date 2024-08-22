@@ -5,18 +5,14 @@
             <div class="mx-auto col-span-8 relative">
                 <h2 class="w-12 border-b-2 text-2xl font-extrabold italic border-gray-500"> Coleccion</h2>
                 <div class="grid grid-cols-4 mt-3 relative">
-                    <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
-                        <p>Verano</p>
-                    </div>
-                    <div class="collection-item px-6 border-r-2 italic font-semibold border-gray-300">
-                        <p>Invierno</p>
-                    </div>
-                    <div class="collection-item px-6 border-r-2 italic font-semibold border-gray-300">
-                        <p>Street</p>
-                    </div>
-                    <div class="collection-item px-6 italic font-semibold border-gray-300">
-                        <p>Elegance</p>
-                    </div>
+                    @foreach ($categories as $category)
+                        @if (is_null($category->parent_id))
+                            <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
+                                <p>{{ $category->name }}</p>
+                            </div>
+                        @endif
+                    @endforeach
+
                 </div>
                 <div class="underline-bar absolute"></div>
             </div>
@@ -193,30 +189,38 @@
                         </div>
                     </div>
                     <div class="max-w-7xl mx-auto">
-
                         <div id="default-carousel" class="relative" data-carousel="static">
                             <!-- Carousel wrapper -->
-                            <div class="overflow-hidden relative h-[50vh] sm:h-56 md:h-64 lg:h-72 xl:h-80 2xl:h-[590px] rounded-lg">
+                            <div
+                                class="overflow-hidden relative h-[50vh] sm:h-56 md:h-64 lg:h-72 xl:h-80 2xl:h-[590px] rounded-lg">
                                 <!-- Item 1 -->
                                 @foreach ($combos as $combo)
                                     <!-- Item  -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <div class="flex absolute top-2 sm:top-5 left-16 sm:left-24 z-30 space-x-2 sm:space-x-3 -translate-x-1/2">
-                                            <button class="items-end rounded-full p-2 sm:p-3 px-3 sm:px-5 mt-4 bg-green-500 flex space-x-2 hover:bg-white transition-colors text-green-100 hover:text-green-700">
+                                        <div
+                                            class="flex absolute top-2 sm:top-5 left-16 sm:left-24 z-30 space-x-2 sm:space-x-3 -translate-x-1/2">
+                                            <button
+                                                class="items-end rounded-full p-2 sm:p-3 px-3 sm:px-5 mt-4 bg-green-500 flex space-x-2 hover:bg-white transition-colors text-green-100 hover:text-green-700">
                                                 <p class="text-lg sm:text-xl font-bold">
                                                     {{ $combo->discount }}%
                                                 </p>
                                             </button>
                                         </div>
-                                        <span class="absolute top-1/2 left-1/2 text-xl sm:text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
+                                        <span
+                                            class="absolute top-1/2 left-1/2 text-xl sm:text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
                                             @livewire('combo', ['id' => $combo->id])
                                         </span>
                                     </div>
-                                    <div class="flex absolute bottom-2 sm:bottom-5 right-6 sm:right-12 z-30 space-x-2 sm:space-x-3 -translate-x-1/2">
+                                    <div
+                                        class="flex absolute bottom-2 sm:bottom-5 right-6 sm:right-12 z-30 space-x-2 sm:space-x-3 -translate-x-1/2">
                                         <a href="{{ route('combos.show', $combo) }}">
-                                            <button class="items-end rounded-full p-2 sm:p-3 px-3 sm:px-4 mt-4 bg-white flex space-x-2 hover:bg-black transition-colors text-blue-800 hover:text-blue-200">
-                                                <svg width="20" height="16" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z" fill="#3E68FF"/>
+                                            <button
+                                                class="items-end rounded-full p-2 sm:p-3 px-3 sm:px-4 mt-4 bg-white flex space-x-2 hover:bg-black transition-colors text-blue-800 hover:text-blue-200">
+                                                <svg width="20" height="16" viewBox="0 0 25 20" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
+                                                        fill="#3E68FF" />
                                                 </svg>
                                                 <p class="text-sm sm:text-base">
                                                     Ver Combo
@@ -225,7 +229,7 @@
                                         </a>
                                     </div>
                                 @endforeach
-                            </div>                            
+                            </div>
 
                             <!-- Slider controls -->
                             <button type="button"
@@ -261,7 +265,8 @@
                 </div>
 
                 <div class="flex w-full justify-center lg:justify-end">
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
+                    <div
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
                         @foreach ($products as $product)
                             @php
                                 $item = $product->items()->first();
@@ -270,7 +275,7 @@
                         @endforeach
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

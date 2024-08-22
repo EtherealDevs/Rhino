@@ -21,6 +21,7 @@ class ProductCard extends Component
             'product_id' => $productId,
         ]);
         
+        notify()->success('Agregado a ♥️ ⚡️');
         $this->favorites = Favorite::where('user_id', Auth::id())->get();
     }
 

@@ -50,6 +50,7 @@ class SaleController extends Controller
                 'product_id'=>$product,
             ]);
         }
+        notify()->success('Creaste la promo con exito ⚡️');
         return redirect()->route('admin.sales.index');
     }
 
@@ -83,6 +84,7 @@ class SaleController extends Controller
                         ]);
                 }
             }
+            notify()->success('Actualizaste la promo con exito ⚡️');
         return redirect()->route('admin.sales.index');
     }
 
@@ -99,6 +101,8 @@ class SaleController extends Controller
         Storage::delete($sale->images->first()->url);
         $sale->images()->delete();
         $sale->delete();
+
+        notify()->success('Se borro la promo con exito ⚡️');
         return redirect()->back();
     }
 }
