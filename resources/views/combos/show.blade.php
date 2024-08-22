@@ -1,22 +1,22 @@
 @extends('layouts.app')
 @section('content')
-    <div class="my-12 h-full">
+    <div class="lg:my-12 h-full">
         <div class="flex flex-col items-center justify-center">
-            <h1 class="text-2xl font-bold text-slate-800">
+            <h1 class="text-2xl mt-6 md:text-3xl font-bold text-slate-800">
                 Combo
             </h1>
         </div>
         @php
             $total = 0;
         @endphp
-        <div class="mt-8 justify-center">
+        <div class="mt-8 flex flex-col items-center justify-center">
             {{-- Se debera agregar el id id="product-{{ $product->id }}" en el segundo div  --}}
             @foreach ($combo->items as $item)
                 @php
                     $product = $item->product;
                     $total += $product->items->first()->price();
                 @endphp
-                <div class="flex justify-center items-center mb-4">
+                <div class="flex justify-center items-center mb-4 w-full px-4">
                     <div
                         class="flex w-full max-w-screen-xl transform cursor-pointer flex-col justify-between rounded-md bg-gray-200 bg-opacity-75 p-6 text-slate-800 transition duration-500 ease-in-out hover:-translate-y-1 hover:shadow-lg lg:flex-row lg:p-4">
 
@@ -80,8 +80,8 @@
         </div>
 
         <div
-            class="bottom-10 mt-8 max-w-screen-xl mx-auto p-6 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
-            <div class="grid grid-cols-3 gap-4 text-center">
+            class="mt-8 max-w-screen-xl mx-auto p-6 rounded-none lg:rounded-3xl w-full bg-gradient-to-b via-[#2E3366] lg:-translate-x-2 lg:-translate-y-2 from-[#343678] to-[#273053] text-white shadow-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                 @php
                     $discount = ($combo->discount / 100) * $total;
                     $totalDiscount = $total - $discount;
@@ -91,16 +91,17 @@
                     <p class="text-2xl font-bold">-${{ number_format($discount, 2, '.', ',') }}</p>
                 </div>
                 <div>
-                    <p class="text-xl font-semibold">Precio</p>
-                    <p class="text-2xl font-bold">${{ number_format($total, 2, '.', ',') }}</p>
+                    <p class="text-xl font-semibold">Precio sin descuento</p>
+                    <p class="text-2xl line-through  font-bold text-gray-500">${{ number_format($total, 2, '.', ',') }}</p>
                 </div>
                 <div>
                     <p class="text-xl font-semibold">Total</p>
-                    <p class="text-2xl font-bold">${{ number_format($totalDiscount, 2, '.', ',') }}</p>
+                    <p class="text-2xl text-green-400 font-bold">${{ number_format($totalDiscount, 2, '.', ',') }}</p>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.edit-button').forEach(function(button) {
