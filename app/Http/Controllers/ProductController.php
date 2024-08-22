@@ -46,4 +46,11 @@ class ProductController extends Controller
         }
         return redirect()->route('cart')->with('success', 'true');
     }
+    public function category(Category $category){
+        $products = Product::where('category_id', $category->id)
+        ->where('name', $category->name)
+        ->paginate(12);
+
+        return view('products.category', compact('products'));
+    }
 }

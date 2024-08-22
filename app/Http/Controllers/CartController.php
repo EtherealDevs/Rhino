@@ -26,6 +26,7 @@ class CartController extends Controller
         }
         return view('cart.index', ['productItems' => $productItems, 'cartItems' => $cartItems]);
     }
+
     public function addToCart(Request $request)
     {
         
@@ -46,6 +47,7 @@ class CartController extends Controller
         }
         return redirect()->route('cart')->with('success');
     }
+    
     public function removeFromCart(Request $request, ProductItem $item)
     {
         $size = $request->size;
@@ -68,7 +70,7 @@ class CartController extends Controller
         return redirect()->route('cart')->with('success');
     }
 
-    public function dropCart(Request $request) {
+    public function dropCart() {
         session()->forget('cart');
         if (auth()->user()){
             $cart = Cart::where('user_id', auth()->user()->id);

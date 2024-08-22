@@ -133,7 +133,7 @@
                                             @foreach ($sizes as $size)
                                                 <input type="radio" id="color-{{ $size->id }}" name="size_id"
                                                     value="{{ $size->id }}" />
-                                                <label for="contactChoice1">{{ $size->size }}</label>
+                                                <label for="contactChoice1">{{ $size->name }}</label>
                                             @endforeach
                                         </div>
                                         <div>

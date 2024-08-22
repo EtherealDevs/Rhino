@@ -7,7 +7,6 @@ use App\Models\Province;
 use App\Models\User;
 use App\Models\ZipCode;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
 class AddressSeeder extends Seeder
 {

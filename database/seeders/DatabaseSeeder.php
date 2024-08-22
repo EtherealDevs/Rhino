@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\OrderStatus;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -36,7 +37,10 @@ class DatabaseSeeder extends Seeder
             ZipCodeSeeder::class,
             AddressSeeder::class,
             PaymentMethodSeeder::class,
+            DeliveryServiceSeeder::class,
+            OrderStatusSeeder::class,
             OrderSeeder::class,
+            OrderDetailSeeder::class,
         ]);
     }
 }

@@ -2,20 +2,22 @@
 
 namespace Database\Seeders;
 
+
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentMethod;
 use App\Models\ProductItem;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 
 class OrderSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
         for ($i=0; $i < 3; $i++) { 
             $order = Order::create([
@@ -36,6 +38,6 @@ class OrderSeeder extends Seeder
             $order->update([
                 'total' => $orderDetail->amount * $orderDetail->price,
             ]);
-        }
+        
     }
 }
