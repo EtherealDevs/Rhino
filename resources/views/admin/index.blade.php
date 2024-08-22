@@ -200,45 +200,54 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 col-span-2 h-5/6 gap-6">
-                <div class="p-2 bg-white rounded-xl ">
-                    <p class="font-blinker font-medium text-md text-center p-4">
+                <div class="p-2 bg-white rounded-xl">
+                    <p class="font-blinker block font-medium text-md text-center p-4">
                         <span class="font-bold text-4xl">
-                            36 <span>🛒</span>
+                            {{ $pendingOrdersCount }} <span>🛒</span>
                         </span>
                         <br>
                         Pedidos Nuevos
                     </p>
+                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm" href={{ route('admin.orders.index') }}> <p class="mt-2"> Ver todos
+                        </p> </a>
                 </div>
-                <div class="p-2 bg-white rounded-xl ">
+                <div class="p-2 bg-white rounded-xl">
                     <p class="font-blinker font-medium text-md text-center p-4">
                         <span class="font-bold text-4xl">
-                            36
+                            {{ $totalStock }}
                         </span>
                         <br>
                         Productos con Stock
                     </p>
+                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm" href={{ route('admin.stock.index') }}> <p class="mt-2"> Ver todos
+                    </p> </a>
                 </div>
-                <div class="p-2 bg-white rounded-xl ">
+                <div class="p-2 bg-white rounded-xl">
                     <p class="font-blinker font-medium text-md text-center p-4">
                         <span class="font-bold text-4xl">
-                            36
+                            {{ $deliveredOrdersCount }} <span>📦</span>
                         </span>
                         <br>
-                        Ventas
+                        Pedidos Entregados
                     </p>
+                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm" href={{ route('admin.ventas.index') }}> <p class="mt-2"> Ver todos
+                    </p> </a>
                 </div>
-                <a href="/admin/sale">
+                <a href="/admin/ventas">
                     <div class="p-2 bg-white rounded-xl ">
                         <p class="font-blinker font-medium text-md text-center p-4">
                             <span class="font-bold text-2xl text-green-700">
-                                $360.000
+                                ${{ number_format($totalGanancias, 2) }}
                             </span>
                             <br>
-                            Ganancias Generadas
+                            Ganancias Generadas 
+                            <br>
+                            <span class="text-sm text-gray-300"> Ultimos 30 dias</span>
+                           
                         </p>
                     </div>
                 </a>
-
+                
             </div>
 
             <!-- Sección de Pedidos Pendientes -->

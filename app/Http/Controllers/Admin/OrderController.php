@@ -28,9 +28,14 @@ class OrderController extends Controller
 
             $ventas = Order::where('order_status_id', 4)->get();
 
+             // Calcular el total de ganancias
+        $totalGanancias = $orders->sum('total');
+
+        $orderStatuses = OrderStatus::all();
+
         $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
 
-        return view('admin.ventas.index', compact('orders', 'orderStatuses'));
+        return view('admin.ventas.index', compact('orders', 'orderStatuses', 'totalGanancias'));
     }
 
     public function updateStatus(Request $request, Order $order)

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use App\Models\ProductsSize;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -13,11 +15,25 @@ class AdminController extends Controller
     {
         $user = Auth::user();
         
-        // Obtener el pedido con id 1
+        // Obtener los pedidos pendientes
         $pendingOrders = Order::where('order_status_id', 1)->get();
 
-        return view('admin.index', compact('user', 'pendingOrders'));
+         // Contar la cantidad de pedidos pendientes
+         $pendingOrdersCount = $pendingOrders->count();
+
+        // Calcular el total de ganancias para pedidos con estado 4 en los últimos 30 días
+        $totalGanancias = Order::where('order_status_id', 4)
+            ->whereDate('created_at', '>=', Carbon::now()->subDays(30))
+            ->sum('total');
+
+        $deliveredOrdersCount = Order::where('order_status_id', 4)->count();
+
+        $totalStock = ProductsSize::sum('stock');
+
+
+        return view('admin.index', compact('user', 'pendingOrders', 'totalGanancias', 'pendingOrdersCount', 'deliveredOrdersCount', 'totalStock'));
     }
+
 
     public function show($id)
 {
