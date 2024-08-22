@@ -20,6 +20,13 @@ use App\Http\Controllers\FavoriteController;
 use App\Livewire\Navigation;
 use App\Http\Controllers\OrderController;
 
+use App\Livewire\ShippingCost;
+
+// web.php o api.php
+Route::post('/calcular-envio', [ShippingCost::class, 'calcularEnvio']);
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/add/{product}', [Navigation::class, 'add'])->name('favorites.add');
     Route::post('/favorites/remove/{favorite}', [Navigation::class, 'remove'])->name('favorites.remove');
