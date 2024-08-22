@@ -19,7 +19,7 @@ class OrderSeeder extends Seeder
 {
     public function run()
     {
-        for ($i=0; $i < 3; $i++) { 
+        for ($i = 0; $i < 3; $i++) {
             $order = Order::create([
                 'user_id' => User::all()->random(1)->first()->id,
                 'payment_method_id' => PaymentMethod::all()->random(1)->first()->id,
@@ -27,7 +27,9 @@ class OrderSeeder extends Seeder
                 'delivery_service_id' => null,
                 'delivery_price' => null,
                 'address_id' => null,
+                'order_status_id' => 1, // Asigna un valor predeterminado
             ]);
+
             $item = ProductItem::all()->random(1)->first();
             $orderDetail = OrderDetail::create([
                 'order_id' => $order->id,
@@ -35,9 +37,11 @@ class OrderSeeder extends Seeder
                 'amount' => rand(1, 5),
                 'price' => $item->price()
             ]);
+
             $order->update([
                 'total' => $orderDetail->amount * $orderDetail->price,
             ]);
-        
+        }
     }
 }
+

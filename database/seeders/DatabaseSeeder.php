@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ProductItemSeeder::class,
             ComboSeeder::class,
-            FavoriteSeeder::class,
+            /* FavoriteSeeder::class, */
             ProvinceSeeder::class,
             CitySeeder::class,
             ZipCodeSeeder::class,
