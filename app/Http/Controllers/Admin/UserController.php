@@ -6,13 +6,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
 class UserController extends Controller
 {
-
     public function index(User $users)
     {
         $users = User::all();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -57,8 +59,6 @@ class UserController extends Controller
         return redirect()->route('admin.users.edit', $user)
             ->with('info', 'Roles actualizados correctamente');
     }
-
-
 
     public function destroy(User $user)
     {

@@ -33,44 +33,44 @@
                 class="bg-gradient-to-r from-[#2F3467] to-[#7D86DD] bg-r  col-span-2 h-5/6 rounded-xl border-t-4 border-purple-300 p-4 mb-2 shadow-md shadow-black/5">
                 <?php
                 use Carbon\Carbon;
-                
+
                 date_default_timezone_set('America/Argentina/Buenos_Aires');
-                
+
                 // Obtenemos la fecha actual en Buenos Aires
                 $now = Carbon::now('America/Argentina/Buenos_Aires');
-                
+
                 // Formateamos la fecha para mostrar "hoy es martes 16 de agosto"
                 setlocale(LC_TIME, 'es_ES'); // Establecer el idioma local a español
                 $formattedDate = $now->translatedFormat('l j \de F'); // "l" para el día de la semana, "j" para el día, "F" para el mes
-                
+
                 // Obtenemos la hora actual
                 $currentTime = $now->format('H:i'); // Formato hora:minuto:segundo
-                
+
                 // Obtener el pronóstico del clima actual usando OpenWeatherMap API
                 $apiKey = '4eb017fd3584fc1e33ce24ef2f3dad38'; // Reemplaza 'TU_API_KEY' con tu propia API key de OpenWeatherMap
                 $city = 'Corrientes';
-                
+
                 // Codificar el nombre de la ciudad para evitar problemas con caracteres especiales
                 $encodedCity = urlencode($city);
-                
+
                 // Construir la URL de la solicitud
                 $url = "https://api.openweathermap.org/data/2.5/weather?q={$encodedCity}&units=metric&appid={$apiKey}";
-                
+
                 // Realizar la solicitud HTTP para obtener los datos del clima
                 $response = file_get_contents($url);
-                
+
                 // Decodificar la respuesta JSON
                 $weatherData = json_decode($response);
-                
+
                 // Verificar si se recibió una respuesta válida
                 if ($weatherData && isset($weatherData->main, $weatherData->weather)) {
                     // Extraer los datos del clima
                     $temperature = $weatherData->main->temp;
                     $description = strtolower($weatherData->weather[0]->description); // Convertir descripción a minúsculas
-                
+
                     // Asignar emoji según la descripción del clima en inglés
                     $emoji = '';
-                
+
                     if (strpos($description, 'clear') !== false || strpos($description, 'sunny') !== false) {
                         $emoji = '☀️'; // Soleado o claro
                     } elseif (strpos($description, 'rain') !== false || strpos($description, 'shower') !== false) {
@@ -82,7 +82,7 @@
                     }
                 } else {
                     $errorMessage = 'No se pudo obtener la información del clima en este momento.';
-                
+
                     if ($response) {
                         $errorMessage .= " Respuesta de la API: {$response}";
                     }
@@ -208,8 +208,11 @@
                         <br>
                         Pedidos Nuevos
                     </p>
-                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm" href={{ route('admin.orders.index') }}> <p class="mt-2"> Ver todos
-                        </p> </a>
+                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm"
+                        href={{ route('admin.orders.index') }}>
+                        <p class="mt-2"> Ver todos
+                        </p>
+                    </a>
                 </div>
                 <div class="p-2 bg-white rounded-xl">
                     <p class="font-blinker font-medium text-md text-center p-4">
@@ -219,8 +222,11 @@
                         <br>
                         Productos con Stock
                     </p>
-                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm" href={{ route('admin.stock.index') }}> <p class="mt-2"> Ver todos
-                    </p> </a>
+                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm"
+                        href={{ route('admin.stock.index') }}>
+                        <p class="mt-2"> Ver todos
+                        </p>
+                    </a>
                 </div>
                 <div class="p-2 bg-white rounded-xl">
                     <p class="font-blinker font-medium text-md text-center p-4">
@@ -230,8 +236,11 @@
                         <br>
                         Pedidos Entregados
                     </p>
-                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm" href={{ route('admin.ventas.index') }}> <p class="mt-2"> Ver todos
-                    </p> </a>
+                    <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm"
+                        href={{ route('admin.ventas.index') }}>
+                        <p class="mt-2"> Ver todos
+                        </p>
+                    </a>
                 </div>
                 <a href="/admin/ventas">
                     <div class="p-2 bg-white rounded-xl ">
@@ -240,14 +249,12 @@
                                 ${{ number_format($totalGanancias, 2) }}
                             </span>
                             <br>
-                            Ganancias Generadas 
+                            Ganancias Generadas
                             <br>
                             <span class="text-sm text-gray-300"> Ultimos 30 dias</span>
-                           
                         </p>
                     </div>
                 </a>
-                
             </div>
 
             <!-- Sección de Pedidos Pendientes -->
@@ -260,14 +267,15 @@
                                 Pedidos
                             </h2>
                         </div>
-            
+
                         <div class="justify-end">
                             <button class="bg-blue-500 rounded-xl p-2 px-4">
-                                <a class="text-white font-bold" href={{ route('admin.orders.index') }}>Ver Todos los pedidos</a>
+                                <a class="text-white font-bold" href={{ route('admin.orders.index') }}>Ver Todos los
+                                    pedidos</a>
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="w-full max-w-6xl mx-auto px-4 md:px-6">
                         <div class="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
                             @if ($pendingOrders->isEmpty())
@@ -288,7 +296,8 @@
                                                         class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
                                                     <br>
                                                     <time
-                                                        class="mt-2 sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-gray-600 bg-gray-100 rounded-full"> {{ $order->created_at->format('H:i') }}</time>
+                                                        class="mt-2 sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-gray-600 bg-gray-100 rounded-full">
+                                                        {{ $order->created_at->format('H:i') }}</time>
                                                 </div>
 
                                                 <div class="text-xl font-bold text-slate-900">${{ $order->total }} -
@@ -300,19 +309,15 @@
                                             </div>
                                             <!-- Content -->
                                             <div class="text-slate-500 flex">
-                                                <p class="mr-2">{{ $order->user->name }}</p>  -
+                                                <p class="mr-2">{{ $order->user->name }}</p> -
                                                 <p class="ml-2">{{ $order->user->email }}</p>
                                             </div>
                                         </div>
                                     @endforeach
                                 </ul>
                             @endif
-
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
