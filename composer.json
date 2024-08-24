@@ -17,7 +17,7 @@
         "livewire/livewire": "^3.4",
         "mckenziearts/laravel-notify": "^2.5",
         "mercadopago/dx-php": "3.0.7",
-        "spatie/laravel-permission": "^6.7"
+        "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

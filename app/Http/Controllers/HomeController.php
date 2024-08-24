@@ -16,11 +16,11 @@ class HomeController extends Controller
         $productItem = ProductItem::first();
         $combos = Combo::all();
         $sales = Sale::all();
-        
+
         // Configurar la zona horaria
         date_default_timezone_set('America/Argentina/Buenos_Aires');
         $now = Carbon::now('America/Argentina/Buenos_Aires')->translatedFormat('Y-m-d');
-        
+
         // Eliminar las ventas que han terminado
         foreach ($sales as $sale) {
             if ($sale->end_date == $now) {
