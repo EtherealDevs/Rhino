@@ -42,7 +42,7 @@ class ShippingCost extends Component
         $response = Http::withHeaders([
             'x-rapidapi-host' => env('RAPI_API_HOST'),
             'x-rapidapi-key' => env('RAPI_API_KEY'),
-        ])->get(env('RAPI_API_URL').'/calcularPrecio', [
+        ])->get(env('RAPI_API_URL').'calcularPrecio', [
             'cpOrigen' => '3400', // Código postal de origen fijo
             'cpDestino' => $this->zip_code,
             'provinciaOrigen' => 'AR-W',
@@ -60,13 +60,13 @@ class ShippingCost extends Component
         }
     }
 
-    
+
 
     public function mount(User $user)
     {
         $this->user = $user;
-        
- 
+
+
         $this->fill(
             $user
         );
@@ -101,7 +101,7 @@ class ShippingCost extends Component
         $this->selectedCity = null; // Reset city selection when province changes
         $this->city = null; // Reset city when province changes
         $this->cities = City::where('province_id', $zipCodeModel->province->id)->get()->sortBy('name');
-        
+
     }
     public function updatedSelectedProvince($provinceName)
     {
