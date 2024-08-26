@@ -20,7 +20,7 @@ class ProductCard extends Component
             'user_id' => Auth::id(),
             'product_id' => $productId,
         ]);
-        
+
         notify()->success('Agregado a ♥️ ⚡️');
         $this->favorites = Favorite::where('user_id', Auth::id())->get();
     }
@@ -51,8 +51,6 @@ class ProductCard extends Component
         // Actualizar la lista de favoritos
         $this->favorites = Favorite::where('user_id', Auth::id())->get();
     }
-
-
 
     public function isFavorite($productId)
     {
