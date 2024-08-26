@@ -18,15 +18,15 @@
                             <div class="relative w-full h-full flex items-center">
                                 <div @click="selected = 'domicilio'" class="w-full flex justify-center cursor-pointer">
                                     <button
-                                        :class="{ 'text-blue-700': selected === 'domicilio', 'text-gray-400 text-sm': selected !== 'domicilio' }"
-                                        class="w-full sm:w-auto rounded-lg  py-2 px-4 font-bold">
+                                        :class="{ 'text-gray-600': selected === 'domicilio', 'text-gray-400 text-sm': selected !== 'domicilio' }"
+                                        class="w-full sm:w-auto rounded-lg text-sm py-2 px-4 font-bold">
                                         Envio a Domicilio
                                     </button>
                                 </div>
                                 <div @click="selected = 'sucursal'" class="w-full flex justify-center cursor-pointer">
                                     <button
-                                        :class="{ ' text-blue-700': selected === 'sucursal', 'text-gray-400  text-sm': selected !== 'sucursal' }"
-                                        class="w-full sm:w-auto rounded-lg py-2 px-4 font-bold">
+                                        :class="{ 'text-gray-600': selected === 'sucursal', 'text-gray-400  text-sm': selected !== 'sucursal' }"
+                                        class="w-full sm:w-auto rounded-lg text-sm py-2 px-4 font-bold">
                                         Envio a Sucursal
                                     </button>
                                 </div>
@@ -35,7 +35,7 @@
 
                             <!-- Indicador de selección -->
                             <span
-                                :class="{ 'left-1/2 -ml-1 text-blue-700 font-semibold': selected === 'sucursal', 'left-1 text-blue-700 font-semibold': selected === 'domicilio' }"
+                                :class="{ 'left-1/2 -ml-1 text-blue-700  font-semibold': selected === 'sucursal', 'left-1 text-blue-700  font-semibold': selected === 'domicilio' }"
                                 x-text="selected === 'domicilio' ? 'Envío a Domicilio' : 'Envío a Sucursal'"
                                 class="bg-white shadow text-sm flex items-center justify-center w-1/2 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
                         </div>

@@ -172,162 +172,164 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                            @empty
-                                                <p class="text-center text-gray-500">El carrito está vacío.</p>
+                                            </div>
+                                        @empty
+                                            <p class="text-center text-gray-500">El carrito está vacío.</p>
                                         @endforelse
-                                    </div>
 
-                                    <div class="mt-4 flex justify-between">
-                                        <button
-                                            class="bg-black text-white px-4 py-2 font-bold rounded-lg flex items-center"
-                                            onclick="location.href='/cart'" type="button">
-                                            <span>Ir al carrito</span>
-                                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                            </svg>
-                                        </button>
-                                        <button class="bg-red-500 text-white px-4 py-2 font-bold rounded-lg"
-                                            wire:click="clearCart">Eliminar Lista</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            {{-- Perfil --}}
-                            <div class="relative" x-data="{ open: false }">
-                                <div class=" border-4 rounded-full p-1">
-                                    <button x-on:click="open = !open" type="button"
-                                        class="flex items-center text-sm font-medium text-white ">
-                                        <img class="h-6 w-6 rounded-full" src="{{ auth()->user()->profile_photo_url }}"
-                                            alt="">
-                                    </button>
-                                </div>
-
-                                <div x-show="open" x-on:click.away="open = false"
-                                    class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300 rounded-md shadow-sm "
-                                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                                    tabindex="-1">
-                                    <a href="{{ route('profile.show') }}"
-                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
-                                    <a href="/orders" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
-                                    @can('admin.home')
-                                        <a href="{{ route('admin.home') }}"
-                                            class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
-                                            Administracion</a>
-                                    @endcan
-                                    <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
-                                        @csrf
-                                        <button type="submit" href="{{ route('logout') }}"
-                                            class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
-                                            tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <a href="{{ route('login') }}"
-                            class="text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Iniciar
-                            Sesión</a>
-                        <a href="{{ route('register') }}"
-                            class="text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Registrarme</a>
-                    @endauth
-                </div>
-            </div>
-        </div>
-
-        {{-- Modal Menu --}}
-        <div class="relative" x-data="{ open: false }">
-            <div class="flex top-0 md:hidden justify-end">
-                <button x-on:click="open = !open" type="button"
-                    class="inline-flex items-center justify-center p-2 text-gray-400">
-                    <span class="sr-only">Open menu</span>
-                    <svg class="block h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
-
-            {{-- Mobile links --}}
-            <div class="md:hidden" x-show="open" x-on:click.away="open = false">
-                <div class="grid grid-cols-2 transition-opacity transform gap-4 p-4">
-                    <!-- Enlaces principales en la primera columna a la derecha -->
-                    <div class="text-left">
-                        <a href="/"
-                            class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
-                            x-on:click="open = !open">Inicio</a>
-                        <a href="/about"
-                            class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
-                            x-on:click="open = !open">Nosotros</a>
-                        <a href="/contact"
-                            class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
-                            x-on:click="open = !open">Contactanos</a>
-                    </div>
-                    <!-- Botones de inicio de sesión y registro en la segunda columna a la izquierda -->
-                    <div class="text-right">
-                        <div class="flex flex-col space-y-1">
-                            @auth
-                                <!-- Bloque de autenticación para usuarios autenticados -->
-                                <div class="ml-4 items-end">
-                                    <div class="flex relative justify-end" x-data="{ open: false }">
-                                        <div class="border-4 w-10 rounded-full p-1">
-                                            <button x-on:click="open = !open" type="button"
-                                                class="flex items-end text-sm font-medium text-white ">
-                                                <img class="h-6 rounded-full"
-                                                    src="{{ auth()->user()->profile_photo_url }}" alt="">
+                                        <div class="mt-4 flex justify-between">
+                                            <button
+                                                class="bg-black text-white px-4 py-2 font-bold rounded-lg flex items-center"
+                                                onclick="location.href='/cart'" type="button">
+                                                <span>Ir al carrito</span>
+                                                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                                </svg>
                                             </button>
-                                        </div>
-
-                                        <div x-show="open" x-on:click.away="open = false"
-                                            class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300"
-                                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                                            tabindex="-1">
-                                            <a href="{{ route('profile.show') }}"
-                                                class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                                role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
-                                            @can('admin.home')
-                                                <a href="{{ route('admin.home') }}"
-                                                    class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                                    role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
-                                                    Administracion</a>
-                                            @endcan
-                                            <form method="POST" class="flex justify-end" action="{{ route('logout') }}"
-                                                x-data>
-                                                @csrf
-                                                <button type="submit" href="{{ route('logout') }}"
-                                                    class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
-                                                    tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
-                                            </form>
+                                            <button class="bg-red-500 text-white px-4 py-2 font-bold rounded-lg"
+                                                wire:click="clearCart">Eliminar Lista</button>
                                         </div>
                                     </div>
+
                                 </div>
-                            @else
-                                <!-- Bloque de inicio de sesión y registro para usuarios no autenticados -->
-                                <div class="ml-4 flex items-center">
-                                    <a href="{{ route('login') }}"
-                                        class="text-gray-600 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Iniciar
-                                        Sesión</a>
-                                    <a href="{{ route('register') }}"
-                                        class="text-gray-600 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Registrarme</a>
+
+                                {{-- Perfil --}}
+                                <div class="relative" x-data="{ open: false }">
+                                    <div class=" border-4 rounded-full p-1">
+                                        <button x-on:click="open = !open" type="button"
+                                            class="flex items-center text-sm font-medium text-white ">
+                                            <img class="h-6 w-6 rounded-full"
+                                                src="{{ auth()->user()->profile_photo_url }}" alt="">
+                                        </button>
+                                    </div>
+
+                                    <div x-show="open" x-on:click.away="open = false"
+                                        class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300 rounded-md shadow-sm "
+                                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                        tabindex="-1">
+                                        <a href="{{ route('profile.show') }}"
+                                            class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                            role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                        <a href="/orders"
+                                            class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                            role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
+                                        @can('admin.home')
+                                            <a href="{{ route('admin.home') }}"
+                                                class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                                role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
+                                                Administracion</a>
+                                        @endcan
+                                        <form method="POST" class="flex justify-end" action="{{ route('logout') }}"
+                                            x-data>
+                                            @csrf
+                                            <button type="submit" href="{{ route('logout') }}"
+                                                class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
+                                                tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            @endauth
-                        </div>
-                        <a href="/products"
-                            class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
-                            x-on:click="open = !open">Productos</a>
-                        <a href="{{ route('cart') }}"
-                            class="text-gray-800 hover:bg-black hover:text-white px-3 py-2 rounded-md text-base font-bold flex justify-end"
-                            role="menuitem" tabindex="-1" id="user-menu-item-0">Carrito de Compras</a>
+                            </div>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Iniciar
+                                Sesión</a>
+                            <a href="{{ route('register') }}"
+                                class="text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Registrarme</a>
+                        @endauth
                     </div>
                 </div>
             </div>
-        </div>
+
+            {{-- Modal Menu --}}
+            <div class="relative" x-data="{ open: false }">
+                <div class="flex top-0 md:hidden justify-end">
+                    <button x-on:click="open = !open" type="button"
+                        class="inline-flex items-center justify-center p-2 text-gray-400">
+                        <span class="sr-only">Open menu</span>
+                        <svg class="block h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Mobile links --}}
+                <div class="md:hidden" x-show="open" x-on:click.away="open = false">
+                    <div class="grid grid-cols-2 transition-opacity transform gap-4 p-4">
+                        <!-- Enlaces principales en la primera columna a la derecha -->
+                        <div class="text-left">
+                            <a href="/"
+                                class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
+                                x-on:click="open = !open">Inicio</a>
+                            <a href="/about"
+                                class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
+                                x-on:click="open = !open">Nosotros</a>
+                            <a href="/contact"
+                                class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
+                                x-on:click="open = !open">Contactanos</a>
+                        </div>
+                        <!-- Botones de inicio de sesión y registro en la segunda columna a la izquierda -->
+                        <div class="text-right">
+                            <div class="flex flex-col space-y-1">
+                                @auth
+                                    <!-- Bloque de autenticación para usuarios autenticados -->
+                                    <div class="ml-4 items-end">
+                                        <div class="flex relative justify-end" x-data="{ open: false }">
+                                            <div class="border-4 w-10 rounded-full p-1">
+                                                <button x-on:click="open = !open" type="button"
+                                                    class="flex items-end text-sm font-medium text-white ">
+                                                    <img class="h-6 rounded-full"
+                                                        src="{{ auth()->user()->profile_photo_url }}" alt="">
+                                                </button>
+                                            </div>
+
+                                            <div x-show="open" x-on:click.away="open = false"
+                                                class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300"
+                                                role="menu" aria-orientation="vertical"
+                                                aria-labelledby="user-menu-button" tabindex="-1">
+                                                <a href="{{ route('profile.show') }}"
+                                                    class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                                    role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                                @can('admin.home')
+                                                    <a href="{{ route('admin.home') }}"
+                                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                                        role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
+                                                        Administracion</a>
+                                                @endcan
+                                                <form method="POST" class="flex justify-end"
+                                                    action="{{ route('logout') }}" x-data>
+                                                    @csrf
+                                                    <button type="submit" href="{{ route('logout') }}"
+                                                        class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
+                                                        tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <!-- Bloque de inicio de sesión y registro para usuarios no autenticados -->
+                                    <div class="ml-4 flex items-center">
+                                        <a href="{{ route('login') }}"
+                                            class="text-gray-600 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Iniciar
+                                            Sesión</a>
+                                        <a href="{{ route('register') }}"
+                                            class="text-gray-600 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Registrarme</a>
+                                    </div>
+                                @endauth
+                            </div>
+                            <a href="/products"
+                                class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
+                                x-on:click="open = !open">Productos</a>
+                            <a href="{{ route('cart') }}"
+                                class="text-gray-800 hover:bg-black hover:text-white px-3 py-2 rounded-md text-base font-bold flex justify-end"
+                                role="menuitem" tabindex="-1" id="user-menu-item-0">Carrito de Compras</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     </nav>
     <style>
