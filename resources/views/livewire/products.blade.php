@@ -268,10 +268,12 @@
                     <div
                         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
                         @foreach ($products as $product)
-                            @php
-                                $item = $product->items()->first();
-                            @endphp
-                            @livewire('product-card', ['product' => $product, 'item' => $item])
+                            @if ($product->items->first())
+                                @php
+                                    $item = $product->items()->first();
+                                @endphp
+                                @livewire('product-card', ['product' => $product, 'item' => $item])
+                            @endif
                         @endforeach
                     </div>
                 </div>

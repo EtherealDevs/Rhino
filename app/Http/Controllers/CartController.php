@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Cart\CartManager;
 use App\Models\Cart;
+use App\Models\Combo;
 use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\User;
@@ -29,7 +30,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        
+
         $decodedItem = json_decode($request->item);
         $item = ProductItem::where('id', $decodedItem->id)->first();
 
@@ -47,12 +48,32 @@ class CartController extends Controller
         }
         return redirect()->route('cart')->with('success');
     }
-    
+
+    public function addComboToCart(Request $request){
+        $combo = Combo::where('id', $request->comboId)->first();
+        foreach($combo->items as $item){
+            $itemCart=$item->product->items->first();
+
+            // Añadir Item al carrito de la sesión.
+                CartManager::addItem($itemCart);
+
+            // Chequear si en esta sesion, en este navegador, hay un usuario logueado. Si hay, persistir el carrito de la sesion a la base de datos
+            if (Auth::check()) {
+                $user = User::where('id', Auth::user()->id)->first();
+                CartManager::storeOrUpdateInDatabase($user);
+                $cart = Cart::where('user_id',$user->id)->first();
+            }
+            if (session('cartError')) {
+                return redirect()->route('cart')->with('failure', session('cartError'));
+            }
+        }
+        return redirect()->route('cart')->with('success');
+    }
     public function removeFromCart(Request $request, ProductItem $item)
     {
         $size = $request->size;
         // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
-       
+
         if (auth()->check()) {
             $user = User::where('id', auth()->user()->id)->first();
             CartManager::removeItem($item, $size, $user);

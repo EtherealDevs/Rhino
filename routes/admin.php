@@ -80,5 +80,4 @@ Route::get('/ventas', [OrderController::class, 'ventas'])
     ->middleware(['can:admin.ventas.index', 'can:admin.ventas.show', 'can:admin.ventas.edit', 'can:admin.ventas.create']);
 
 Route::resource('productitems', ProductItemController::class)
-    ->names('admin.productitems')
-    ->middleware(['can:admin.productitem.index', 'can:admin.productitem.show', 'can:admin.productitem.edit', 'can:admin.productitem.create']);
+    ->names('admin.productitems');

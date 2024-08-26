@@ -34,6 +34,11 @@ class Product extends Model
         return $this->hasOne(SaleProduct::class);
     }
 
+    public function combo() : HasOne
+    {
+        return $this->hasOne(Combo_items::class);
+    }
+
     public function items() : HasMany
     {
         return $this->hasMany(ProductItem::class);

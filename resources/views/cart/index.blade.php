@@ -13,7 +13,11 @@
                     @isset($cartItems)
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
                             @foreach ($cartItems as $item)
+                                @if ($item['item']->product->combo)
+                                 hola
+                                @else
                                 @livewire('cart-item', ['item' => $item])
+                                @endif
                             @endforeach
                         </ul>
                     @else
