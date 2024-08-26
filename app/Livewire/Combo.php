@@ -16,7 +16,7 @@ class Combo extends Component
         $items= Combo_items::where('combo_id', $this->id)->get();
         $price = 0;
         foreach($items as $item){
-            $price += $item->product->price;
+            $price += $item->product->items->first()->price();
         }
         $items= Combo_items::where('combo_id', $this->id)->limit(2)->get();
         return view('livewire.combo',compact('items','price'));
