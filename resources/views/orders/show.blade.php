@@ -27,10 +27,18 @@
             @endforeach
         </ul>
         
-        <div class="mt-6">
-            <a href="{{ route('orders.index') }}" class="inline-block px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold">
-                Volver a la lista de pedidos
-            </a>
+        <div class="flex mt-6 gap-6">
+            <div class="">
+                <a href="{{ route('orders.index') }}" class="inline-block px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold">
+                    Ver lista de pedidos
+                </a>
+            </div>
+
+            <div class="">
+                <a href="{{ route('orders.index') }}" class="inline-block px-6 py-2 text-white bg-green-400 hover:bg-green-600 rounded-lg font-semibold">
+                    Contactanos por algun problema
+                </a>
+            </div>
         </div>
     </div>
 @endsection
