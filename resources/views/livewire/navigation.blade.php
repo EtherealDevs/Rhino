@@ -293,6 +293,9 @@
                                                 <a href="{{ route('profile.show') }}"
                                                     class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                                     role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                                <a href="/orders"
+                                                    class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                                    role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
                                                 @can('admin.home')
                                                     <a href="{{ route('admin.home') }}"
                                                         class="flex justify-end px-4 py-2 text-sm text-back font-extralight"

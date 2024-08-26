@@ -2,7 +2,7 @@
 @section('content')
     <div class="lg:my-12 h-full">
         <div class="flex flex-col items-center justify-center">
-            <h1 class="text-2xl mt-6 md:text-3xl font-bold text-slate-800">
+            <h1 class="xl:text-5xl text-2xl mt-6 md:text-3xl mt-42 font-josefin font-extrabold text-slate-800">
                 Productos del Combo
             </h1>
         </div>
@@ -80,7 +80,6 @@
                             <p class="text-white text-lg font-bold font-josefin py-2 px-5">Agregar al Carrito</p>
                         </a>
                     </button>
-
                     <button class="w-full sm:w-auto bg-black rounded-lg">
                         <a href="/products" class="col-span-3 bg-[#11C818] rounded-lg">
                             <p class="text-white text-lg font-bold font-josefin py-2 px-5">Volver</p>
