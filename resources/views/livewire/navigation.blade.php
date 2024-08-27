@@ -25,7 +25,9 @@
                 <div class="hidden md:flex items-center space-x-6">
                     @auth
                         <div
-                            class="grid grid-cols-3 bg-gradient-to-r from-gray-50 to-blue-100 via-gray-100 rounded-full px-4 mr-12">
+                            class="grid grid-cols-3 bg-gradient-to-r from-gray-50 to-blue-100 via-gray-100 rounded-full pl-4 mr-12">
+
+                            {{-- Mis Intereses --}}
                             <div class="flex content-center" x-data="{ open: false }">
                                 <button x-on:click="open = !open" type="button" class="flex items-center">
                                     <svg width="18" height="16" viewBox="0 0 17 16" fill="none"
@@ -192,43 +194,42 @@
                                                 wire:click="clearCart">Eliminar Lista</button>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
+                            {{-- Perfil --}}
+                            <div class="relative" x-data="{ open: false }">
+                                <div class=" border-4 rounded-full p-1">
+                                    <button x-on:click="open = !open" type="button"
+                                        class="flex items-center text-sm font-medium text-white ">
+                                        <img class="h-6 w-6 rounded-full"
+                                            src="{{ auth()->user()->profile_photo_url }}" alt="">
+                                    </button>
                                 </div>
 
-                                {{-- Perfil --}}
-                                <div class="relative" x-data="{ open: false }">
-                                    <div class=" border-4 rounded-full p-1">
-                                        <button x-on:click="open = !open" type="button"
-                                            class="flex items-center text-sm font-medium text-white ">
-                                            <img class="h-6 w-6 rounded-full"
-                                                src="{{ auth()->user()->profile_photo_url }}" alt="">
-                                        </button>
-                                    </div>
-
-                                    <div x-show="open" x-on:click.away="open = false"
-                                        class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300 rounded-md shadow-sm "
-                                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                                        tabindex="-1">
-                                        <a href="{{ route('profile.show') }}"
+                                <div x-show="open" x-on:click.away="open = false"
+                                    class="z-50 absolute mt-6 -right-6 2xl:-right-14 w-48 bg-white backdrop-blur-2xl divide-y divide-gray-300 rounded-md shadow-sm "
+                                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                    tabindex="-1">
+                                    <a href="{{ route('profile.show') }}"
+                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
+                                    <a href="/orders"
+                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
+                                    @can('admin.home')
+                                        <a href="{{ route('admin.home') }}"
                                             class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
-                                        <a href="/orders"
-                                            class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                            role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
-                                        @can('admin.home')
-                                            <a href="{{ route('admin.home') }}"
-                                                class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
-                                                role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
-                                                Administracion</a>
-                                        @endcan
-                                        <form method="POST" class="flex justify-end" action="{{ route('logout') }}"
-                                            x-data>
-                                            @csrf
-                                            <button type="submit" href="{{ route('logout') }}"
-                                                class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
-                                                tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
-                                        </form>
-                                    </div>
+                                            role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
+                                            Administracion</a>
+                                    @endcan
+                                    <form method="POST" class="flex justify-end" action="{{ route('logout') }}"
+                                        x-data>
+                                        @csrf
+                                        <button type="submit" href="{{ route('logout') }}"
+                                            class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-2">Cerrar Sesion</button>
+                                    </form>
                                 </div>
                             </div>
                         @else
