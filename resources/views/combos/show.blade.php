@@ -17,8 +17,7 @@
                     $total += $product->items->first()->price();
                 @endphp
                 <div class="flex justify-center items-center mb-4 w-full px-4">
-                    <div
-                        class="flex w-full max-w-screen-xl transform cursor-pointer flex-col justify-between rounded-md bg-gray-200 bg-opacity-75 p-6 text-slate-800 transition duration-500 ease-in-out hover:-translate-y-1 hover:shadow-lg lg:flex-row lg:p-4">
+                    <div class="flex w-full max-w-screen-xl transform cursor-pointer flex-col justify-between rounded-md bg-opacity-75 p-6 text-slate-800 transition duration-500 ease-in-out hover:shadow-lg lg:flex-row lg:p-4">
                         <div class="flex w-full lg:w-2/12">
                             <div class="ml-4 self-center overflow-x-hidden">
                                 <div class="w-full truncate text-xl font-extrabold leading-5 tracking-tight">
@@ -63,6 +62,11 @@
                                             </a>
                                         </div>
                                     </div>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         </div>
         <div
