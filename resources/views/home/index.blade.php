@@ -224,20 +224,20 @@
     </div>
 
     {{-- Carrousel Promociones --}}
-    <section class="mt-6">
-        <div class="col-span-3 mx-6">
+    <section class="mt-0 lg:mt-6">
+        <div class="col-span-3 mx-0 lg:mx-6">
             <div class="w-full mx-auto">
                 @if ($sales->first() != null)
                     <div id="default-carousel" class="relative" data-carousel="active">
                         <!-- Carousel wrapper -->
-                        <div class="overflow-hidden relative rounded-t-[25px] h-[90vh]">
+                        <div class="overflow-hidden relative rounded-none lg:rounded-t-[25px] h-[90vh]">
                             <!-- Items -->
                             @foreach ($sales as $sale)
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <div class="h-full bg-cover bg-center block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                         style="background-image: url('{{ url(Storage::url($sale->images->first()->url)) }}')">
                                         <div class="w-full flex justify-end">
-                                            <a href="/promos">
+                                           {{--  <a href="/promos">
                                                 <button
                                                     class="rounded-full p-3 px-4 mt-12 mr-24 bg-black text-white flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900">
                                                     <svg width="25" height="20" viewBox="0 0 25 20"
@@ -250,7 +250,7 @@
                                                         Ver promociones Activas
                                                     </p>
                                                 </button>
-                                            </a>
+                                            </a> --}}
                                         </div>
                                         <div
                                             class="flex flex-col py-20 space-y-4 bg-gradient-to-b z-40 h-full from-transparent from-10% to-70% to-white">
