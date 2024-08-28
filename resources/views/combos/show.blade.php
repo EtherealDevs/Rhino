@@ -25,36 +25,68 @@
                                     class="product-image h-full w-full object-cover" />
                             </div>
                             <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
-                                <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
-                                    <div class="flex flex-col items-center justify-center">
-                                        <p
-                                            class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
-                                            {{ $product->name }}
-                                        </p>
-                                        <div class="text-sm text-slate-500">
-                                            <span class="product-attribute" data-attribute="color">
-                                                {{ $product->items->first()->color->name }} </span>
-                                            <select class="hidden form-input" name="color">
-                                                <option value="Rojo">Rojo</option>
-                                                <option value="Azul">Azul</option>
-                                                <option value="Verde">Verde</option>
-                                            </select>
+
+                                <div class="flex flex-col items-center justify-center">
+                                    <p
+                                        class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
+                                        {{ $product->name }}
+                                    </p>
+                                    <div class="text-sm text-slate-500">
+                                        <span class="product-attribute" data-attribute="color">
+                                            {{ $product->items->first()->color->name }} </span>
+                                    </div>
+                                    <div class="text-sm text-slate-500">
+                                        <!-- Dropdown de talles -->
+                                        <div x-data="{
+                                            open: false,
+                                            sizes: {{ json_encode($product->items->first()->sizes->pluck('name')) }},
+                                            selectedSize: '{{ $product->items->first()->sizes->first()->name }}'
+                                        }" class="max-w-sm rounded overflow-hidden shadow-lg">
+                                            <div class="mr-8 ml-4">
+                                                <div class="relative">
+                                                    <!-- Botón para desplegar el dropdown -->
+                                                    <button @click="open = !open"
+                                                        class="bg-teal p-3 rounded text-white shadow-inner w-full">
+                                                        <span class="float-left" x-text="selectedSize">Elegir talle</span>
+
+                                                        <svg class="ml-1 h-4 float-right fill-current text-white"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129">
+                                                            <g>
+                                                                <path
+                                                                    d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z" />
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+
+                                                    <!-- Menú desplegable -->
+                                                    <div x-show="open" @click.away="open = false"
+                                                        class="rounded shadow-md my-2 relative z-10 bg-white">
+                                                        <ul class="list-reset">
+                                                            <template
+                                                                x-for="size in sizes.filter(s => s.toLowerCase().includes(search.toLowerCase()))">
+                                                                <li>
+                                                                    <p @click="selectedSize = size; open = false"
+                                                                        class="p-2 block text-black hover:bg-gray-200 cursor-pointer">
+                                                                        <span x-text="size"></span>
+                                                                    </p>
+                                                                </li>
+                                                            </template>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="text-sm text-slate-500">
-                                            <span class="product-attribute" data-attribute="size">
-                                                {{ $product->items->first()->sizes->first()->name }} </span>
-                                            <select class="form-input" name="size">
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
-                                            </select>
-                                        </div>
+
+                                    </div>
+
+                                    <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
                                         <p
                                             class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center mt-2">
                                             Ver Producto →
                                         </p>
-                                    </div>
-                                </a>
+
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
