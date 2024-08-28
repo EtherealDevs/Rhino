@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="static justify-center bg-white w-full">
-        <div class="grid grid-cols-1 grid-rows-3 gap-0 lg:grid-cols-3 lg:gap-6 lg:grid-rows-2">
+        <div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-0 lg:gap-6 ">
 
             {{-- Seccion Bienvenida y Ofertas --}}
-            <div class="col-span-3 mx-0 lg:mx-6 bg-black h-full rounded-none lg:rounded-b-3xl">
+            <div class=" lg:col-span-3 mx-0 lg:mx-6 bg-black h-full rounded-none lg:rounded-b-3xl">
                 <div class="grid grid-cols-1 lg:grid-cols-3 justify-between lg:gap-6 gap-0">
 
                     {{-- Seccion de Bienvenida --}}
@@ -147,7 +147,7 @@
 
             {{-- Seccion Nuevos Ingresos --}}
             <div
-                class="lg:col-span-2 lg:ml-6 bg-center bg-cover bg-[url(/public/img/new.png)] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class=" lg:col-span-2 lg:ml-6 bg-center bg-contain bg-[url(/public/img/new.png)] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <div class="backdrop-blur-2xl w-full py-6 rounded-none lg:rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
@@ -189,7 +189,7 @@
 
             {{-- Seccion Ofertas --}}
             <div
-                class="relative lg:col-span-1 bg-center bg-cover bg-[url(/public/img/video.mp4)] drop-shadow-lg w-full h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class=" lg:col-span-1 relative bg-center bg-cover bg-[url(/public/img/video.mp4)] drop-shadow-lg w-full h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <div class="bg-black/30 w-full h-full rounded-none lg:rounded-3xl">
                     <div class="flex justify-center">
                         <p class="text-2xl p-6 mr-6 mt-6 italic font-bold text-white">
