@@ -69,7 +69,7 @@
                                     <div class="flex flex-col">
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{ $product->name }}</p>
+                                            {{ $product->product->name }}</p>
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
                                             {{ $product->created_at->format('d-m-Y') }}</p>
@@ -81,10 +81,9 @@
                                     <div class="flex flex-col">
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            name</p>
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                            Cantidad</p>
+                                            {{ $product->color->name }}</p>
+                                        <span class="block border-4 border-[{{ $product->color->color }}]">
+                                        </span>
                                     </div>
                                     {{-- @php
                             $subtotal=$orderDetail->price * $orderDetail->amount;
@@ -97,17 +96,19 @@
                                 <div class="flex flex-col">
                                     <p
                                         class="block antialiased font-sans text-sm leading-normal text-green-500 font-normal">
-                                        ${{ optional($product->items->first())->original_price }}</p>
+                                        ${{ $product->original_price }}</p>
                                 </div>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <p
                                     class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                    {{ optional($product->items->first())->original_price }}</p>
-                                @dd($product->items->size())
+                                </p>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <div class="w-max">
+                                    <p
+                                        class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                        {{ $product->sizes->first()->pivot->stock }}</p>
                                     <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
                                         style="opacity: 1;">
                                         <span class="">En Stock</span>
