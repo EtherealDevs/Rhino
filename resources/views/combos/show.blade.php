@@ -17,68 +17,48 @@
                     $total += $product->items->first()->price();
                 @endphp
                 <div class="flex justify-center items-center mb-4 w-full px-4">
-                    <div class="flex w-full lg:w-full">
-                        <div class="w-full truncate text-xl font-extrabold leading-5 tracking-tight">
-                            <div class="relative z-10 flex justify-center w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105">
-                                <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
-                                    <img src="{{ url(Storage::url('images/product/')) }}"
-                                        class="product-image h-full w-full object-cover" />
-                                </div>
-                                <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
-                                    <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
-                                        <div class="flex flex-col items-center justify-center">
-                                            <p
-                                                class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
-                                                {{ $product->name }}
-                                            </p>
-                                            <div class="text-sm text-slate-500">
-                                                <span class="product-attribute" data-attribute="color">
-                                                    {{ $product->items->first()->color->name }} </span>
-                                                <select class="hidden form-input" name="color">
-                                                    <option value="Rojo">Rojo</option>
-                                                    <option value="Azul">Azul</option>
-                                                    <option value="Verde">Verde</option>
-                                                </select>
-                                            </div>
-                                            <div class="text-sm text-slate-500">
-                                                <span class="product-attribute" data-attribute="size">
-                                                    {{ $product->items->first()->sizes->first()->name }} </span>
-                                                <select class="form-input" name="size">
-                                                    <option value="S">S</option>
-                                                    <option value="M">M</option>
-                                                    <option value="L">L</option>
-                                                </select>
-                                            </div>
-                                            <!-- Formulario para editar talle y cantidad -->
-                                            <form action="{{ route('', ['productItem' => $item->id]) }}" method="POST" class="mt-3 w-full">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="mb-2">
-                                                    <label for="size" class="text-white">Talle:</label>
-                                                    <select name="size" id="size" class="w-full form-input">
-                                                        <option value="S" {{ $item->size == 'S' ? 'selected' : '' }}>S</option>
-                                                        <option value="M" {{ $item->size == 'M' ? 'selected' : '' }}>M</option>
-                                                        <option value="L" {{ $item->size == 'L' ? 'selected' : '' }}>L</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label for="quantity" class="text-white">Cantidad:</label>
-                                                    <input type="number" name="quantity" id="quantity" value="{{ $item->quantity }}" class="w-full form-input" min="1" required>
-                                                </div>
-                                                <button type="submit" class="w-full bg-blue-500 text-white rounded-md py-2 mt-2">Actualizar</button>
-                                            </form>
-                                            <p
-                                                class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center mt-2">
-                                                Ver detalle →
-                                            </p>
+                    <div class="w-full truncate text-xl font-extrabold leading-5 tracking-tight">
+                        <div
+                            class="relative z-10 flex justify-center w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105">
+                            <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-clip-border text-gray-700">
+                                <img src="{{ url(Storage::url('images/product/')) }}"
+                                    class="product-image h-full w-full object-cover" />
+                            </div>
+                            <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
+                                <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <p
+                                            class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
+                                            {{ $product->name }}
+                                        </p>
+                                        <div class="text-sm text-slate-500">
+                                            <span class="product-attribute" data-attribute="color">
+                                                {{ $product->items->first()->color->name }} </span>
+                                            <select class="hidden form-input" name="color">
+                                                <option value="Rojo">Rojo</option>
+                                                <option value="Azul">Azul</option>
+                                                <option value="Verde">Verde</option>
+                                            </select>
                                         </div>
-                                    </a>
-                                </div>
+                                        <div class="text-sm text-slate-500">
+                                            <span class="product-attribute" data-attribute="size">
+                                                {{ $product->items->first()->sizes->first()->name }} </span>
+                                            <select class="form-input" name="size">
+                                                <option value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                            </select>
+                                        </div>
+                                        <p
+                                            class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center mt-2">
+                                            Ver Producto →
+                                        </p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                
             @endforeach
         </div>
         <div
