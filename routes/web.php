@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\Admin\SaleController;
@@ -42,6 +43,9 @@ Route::get('/contact', function () {
     return view('contact.index');
 });
 
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+
 Route::get('/eliminacion-datos', function () {
     return view('eliminacion-datos.index');
 });
@@ -50,7 +54,7 @@ Route::get('/about', function () {
     return view('about.index');
 });
 
-Route::group(['middleware' => 'auth'], function (){
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkout/delivery', [CheckoutController::class, 'showCheckoutDeliveryPage'])->name('checkout.delivery');
     Route::get('/checkout/payment', [CheckoutController::class, 'showCheckoutPaymentPage'])->name('checkout.payment');
     Route::post('checkout/delivery', [CheckoutController::class, 'validateAddressAndSaveToDatabase'])->name('checkout.delivery.address');
