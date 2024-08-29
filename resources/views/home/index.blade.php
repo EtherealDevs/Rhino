@@ -1,41 +1,38 @@
 @extends('layouts.app')
 @section('content')
     <div class="static justify-center bg-white w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-0 lg:gap-6 ">
+        <div class="grid grid-cols-1 h-full lg:grid-cols-3 lg:grid-rows-2 gap-0 lg:gap-6 ">
 
             {{-- Seccion Bienvenida y Ofertas --}}
             <div class=" lg:col-span-3 mx-0 lg:mx-6 bg-black h-full rounded-none lg:rounded-b-3xl">
-                <div class="grid grid-cols-1 lg:grid-cols-3 justify-between lg:gap-6 gap-0">
+                <div class="grid grid-cols-1 lg:grid-cols-5 justify-between h-full gap-0">
 
                     {{-- Seccion de Bienvenida --}}
-                    <div class="col-span-1 p-20 mt-6 ml-2">
-                        <div>
-                            <h1 class="text-5xl font-extrabold font-sans shadow-blue-500/50 text-white">
-                                Bienvenidos a <br>
+                    <div class="col-span-2 px-8 pt-8 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
+                        <div class="text-center">
+                            <h1 class="text-5xl font-extrabold text-white mb-4">
+                                Bienvenidos a 
                             </h1>
-                            <img class="rounded-xl justify-center lg:px-8 w-98 mt-6" src="/img/rino.png" alt="Your Company">
+                            <img class="mx-auto rounded-xl shadow-lg lg:w-3/4 w-3/5 mt-6 " src="/img/rino.png" alt="Your Company">
                         </div>
-                        <div class="mt-6">
-                            <p class="text-lg italic font-encode text-white">
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
-                                laboriosam,
-                                nisi ut al Ut enim ad minima veniam.
+                        <div class="mt-6 text-center">
+                            <p class="text-lg italic font-sans font-josefin text-white leading-relaxed">
+                                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
+                                al Ut enim ad minima veniam. Dolor sit amet consectetur adipisicing elit. Rerum, eveniet!
                             </p>
                         </div>
                     </div>
+                    
 
                     {{-- Carrousel --}}
-                    <div class="col-span-2 flex rounded-none lg:rounded-br-3xl mt-10">
-                        <div class="max-w-7xl w-full mr-10 justify-end">
+                    <div class="col-span-3 h-full flex rounded-none lg:rounded-br-3xl">
+                        <div class="max-w-7xl w-full justify-end">
 
-                            <div id="default-carousel" class="relative" data-carousel="active">
+                            <div id="default-carousel" class="relative h-full" data-carousel="active">
                                 <!-- Carousel wrapper -->
-                                <div class="overflow-hidden relative h-48 rounded-lg sm:h-96 xl:h-96 2xl:h-96">
+                                <div class="overflow-hidden relative h-48 sm:h-96 lg:h-[440px]">
                                     <!-- Item 1 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <span
-                                            class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">First
-                                            Slide</span>
                                         <img src="/img/banners/banner1.png"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
@@ -52,21 +49,6 @@
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
-                                </div>
-                                <!-- Slider indicators -->
-                                <div class="flex absolute bottom-0 left-1/2 z-30 space-x-3 -translate-x-1/2">
-                                    <button
-                                        class="rounded-full p-3 px-4 mt-6 bg-black text-white flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900">
-                                        <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
-                                                fill="#3E68FF" />
-                                        </svg>
-                                        <p class="">
-                                            Ver Ingresos
-                                        </p>
-                                    </button>
                                 </div>
                                 <!-- Slider controls -->
                                 <button type="button"
