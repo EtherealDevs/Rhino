@@ -8,17 +8,16 @@
                 <div class="grid grid-cols-1 lg:grid-cols-5 justify-between h-full gap-0">
 
                     {{-- Seccion de Bienvenida --}}
-                    <div class="col-span-2 px-8 pt-8 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
+                    <div class="col-span-2 px-8 pt-8 mb-6 lg:mb-0 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
                         <div class="text-center">
-                            <h1 class="text-5xl font-extrabold text-white mb-4">
+                            <h1 class="text-4xl lg:text-5xl font-extrabold font-josefin text-white mb-4">
                                 Bienvenidos a 
                             </h1>
                             <img class="mx-auto rounded-xl shadow-lg lg:w-3/4 w-3/5 mt-6 " src="/img/rino.png" alt="Your Company">
                         </div>
                         <div class="mt-6 text-center">
-                            <p class="text-lg italic font-sans font-josefin text-white leading-relaxed">
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
-                                al Ut enim ad minima veniam. Dolor sit amet consectetur adipisicing elit. Rerum, eveniet!
+                            <p class="text-lg italic font-josefin text-white leading-relaxed">
+                                Aca vas a encontrar una selección cuidada de prendas y accesorios diseñados para resaltar tu estilo y personalidad. <span class="font-bold">¡Explora nuestra colección y descubre lo que te hace único!</span> 
                             </p>
                         </div>
                     </div>
@@ -130,7 +129,7 @@
             {{-- Seccion Nuevos Ingresos --}}
             <div
                 class=" lg:col-span-2 lg:ml-6 bg-center bg-contain bg-[url(/public/img/new.png)] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
-                <div class="backdrop-blur-2xl w-full py-6 rounded-none lg:rounded-3xl">
+                <div class="backdrop-blur-2xl w-full py-14 rounded-none lg:rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
                             <p class="text-4xl pb-8 italic font-bold mr-6 text-white">
@@ -159,27 +158,26 @@
 
                     <div class="w-full flex justify-center">
                         <!-- component -->
-                        <div class="grid grid-cols-2 lg:grid-cols-4 xl:gap-3 gap-8">
-                            @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
-                            @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
-                            @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
-                            @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
+                        <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-8">
+                            @foreach($latestProductItems as $productItem)
+                                @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
 
             {{-- Seccion Ofertas --}}
-            <div class="relative lg:col-span-1 drop-shadow-lg w-full h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+            <div class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <!-- Video de fondo -->
                 <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-none lg:rounded-3xl">
                     <source src="/img/nigga.mp4" type="video/mp4">
                 </video>
             
                 <!-- Capa de superposición oscura -->
-                <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl">
+                <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl mb-8">
                     <div class="flex justify-center">
-                        <p class="text-3xl p-6 mr-6 mt-6 italic font-extrabold text-blue-100 tracking-wide">
+                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold text-blue-100 tracking-wide">
                             ¡No Dejes Pasar Nuestras Ofertas Exclusivas!
                         </p>
                     </div>

@@ -42,6 +42,12 @@ class ProductItemController extends Controller
             'size_id' => $request->size_id,
             'stock' => $request->stock,
         ]);
+        if($request->file('size-image')){
+            $url = Storage::put('images/product', $request->file('image'));
+            $product_item->images()->create([
+                'url' => $url
+            ]);
+        }
         if($request->file('image')){
             $url = Storage::put('images/product', $request->file('image'));
             $product_item->images()->create([

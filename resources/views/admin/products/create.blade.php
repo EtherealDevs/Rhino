@@ -150,21 +150,18 @@
                                 </div>
 
                                 <div class="mb-8">
-
                                     <label for="file"
                                         class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
                                         <div>
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
-                                                Selecciona una Imagen aqui 👇🏼
+                                                Selecciona una o más imágenes aquí 👇🏼
                                             </span>
-                                            <span
-                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                                <input type="file" name="image" accept="image/*" id="image" />
+                                            <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                                <input type="file" name="images[]" accept="image/*" id="image" multiple />
                                             </span>
                                         </div>
                                     </label>
                                 </div>
-
                                 <button id="button" type="submit"
                                     class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
                                     Guardar
