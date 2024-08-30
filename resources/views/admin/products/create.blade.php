@@ -162,6 +162,7 @@
                                         </div>
                                     </label>
                                 </div>
+                                
                                 <button id="button" type="submit"
                                     class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
                                     Guardar

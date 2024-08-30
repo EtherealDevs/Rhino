@@ -31,31 +31,33 @@ class ProductItemController extends Controller
      */
     public function store(Request $request)
     {
-        $product_item=ProductItem::create([
+        $product_item = ProductItem::create([
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
-            'original_price'=>$request->original_price,
+            'original_price' => $request->original_price,
             'sale_price' => $request->sale_price,
         ]);
+
         ProductsSize::create([
             'product_item_id' => $product_item->id,
             'size_id' => $request->size_id,
             'stock' => $request->stock,
         ]);
-        if($request->file('size-image')){
-            $url = Storage::put('images/product', $request->file('image'));
-            $product_item->images()->create([
-                'url' => $url
-            ]);
+
+        // Verifica si se han subido imágenes
+        if ($request->hasFile('images')) {
+            // Itera sobre cada imagen y guárdala
+            foreach ($request->file('images') as $image) {
+                $url = Storage::put('images/product', $image);
+                $product_item->images()->create([
+                    'url' => $url,
+                ]);
+            }
         }
-        if($request->file('image')){
-            $url = Storage::put('images/product', $request->file('image'));
-            $product_item->images()->create([
-                'url' => $url
-            ]);
-        }
+
         return redirect()->route('admin.products.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -68,10 +70,7 @@ class ProductItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductItem $product_item)
-    {
-
-    }
+    public function edit(ProductItem $product_item) {}
 
     /**
      * Update the specified resource in storage.
@@ -82,7 +81,7 @@ class ProductItemController extends Controller
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
             'size_id' => $request->size_id,
-            'original_price'=>$request->original_price,
+            'original_price' => $request->original_price,
             'sale_price' => $request->sale_price,
             'stock' => $request->stock,
         ]);
