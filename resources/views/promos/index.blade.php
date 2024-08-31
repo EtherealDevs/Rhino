@@ -5,7 +5,7 @@
             {{-- Navbar --}}
             <div class="w-full grid grid-cols-8 justify-between p-14">
                 <div class="mx-auto col-span-8 relative">
-                    <h2 class="w-12 border-b-2 text-2xl font-extrabold italic border-gray-500"> Coleccion</h2>
+                    <h2 class="w-full border-b-2 text-2xl font-extrabold italic border-gray-200">Disfruta de las Promociones</h2>
                     <div class="grid grid-cols-4 mt-3 relative">
                         <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
                             <p>Verano</p>
@@ -25,44 +25,7 @@
             </div>
 
             {{-- Products --}}
-            <div class="bg-white grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
-                {{-- Sidebar --}}
-                <div class="flex sticky left-0 top-16 content-center space-y-10 md:space-y-4 z-30" x-data="{ open: window.innerWidth >= 768 }"
-                    x-init="() => {
-                        window.addEventListener('resize', () => {
-                            open = window.innerWidth >= 768;
-                        });
-                    }">
-                    <button x-on:click="open = !open" class="block md:hidden p-2 mb-6 ml-6 rounded-full bg-white shadow-xl"
-                        type="button" class="flex items-center">
-                        <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em"
-                            height="1em" viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M472 168H40a24 24 0 0 1 0-48h432a24 24 0 0 1 0 48m-80 112H120a24 24 0 0 1 0-48h272a24 24 0 0 1 0 48m-96 112h-80a24 24 0 0 1 0-48h80a24 24 0 0 1 0 48" />
-                        </svg>
-
-                        <svg x-show="open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                    <div x-show="open" x-on:click.away="open = false" class="absolute">
-                        <div class="absolute font-poppins antialiased">
-                            <div id="view" class="flex flex-row">
-                                <div id="sidebar"
-                                    class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-72 transition-transform duration-300 ease-in-out h-screen">
-                                    <div class="space-y-10 py-10 p-6 md:space-y-4 sticky left-0 top-10 overflow-scroll">
-                                        <h2 class="font-bold text-sm md:text-xl text-center">
-                                            Categorías
-                                        </h2>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="bg-white grid grid-cols-2 lg:grid-cols-6 justify-between mx-auto">
 
                 {{-- Content (Productos) --}}
                 <div class="col-span-5 ml-2 z-10 mb-8">
