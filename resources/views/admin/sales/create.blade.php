@@ -52,16 +52,22 @@
                                     <input type="date" name="start_date" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="start_date"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de inicio
+                                    </label>
+                                    @error('start_date')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="date" name="end_date" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="end_date"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de
+                                        Finalizacion</label>
+                                    @error('end_date')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
@@ -69,7 +75,9 @@
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="title"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    @error('title')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
@@ -77,7 +85,9 @@
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="description"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    @error('description')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-1 w-full mb-5">
@@ -86,6 +96,9 @@
                                         <option value="">Seleccionar Products</option>
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
+                                                @error('products')
+                                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                @enderror
                                                 @foreach ($category->products as $product)
                                                     @if ($product->sale == null)
                                                         <option value="{{ $product->id }}">{{ $product->name }}</option>
@@ -100,7 +113,9 @@
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="discount"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    @error('discount')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="mb-8">
 
@@ -156,10 +171,31 @@
                             })
                         }
                     </script>
+                    <script>
+                        document.getElementById('button').addEventListener('click', function(event) {
+                            const inputs = document.querySelectorAll('input[required], textarea[required]');
+                            let isValid = true;
+
+                            inputs.forEach((input) => {
+                                const errorMessage = input.nextElementSibling;
+
+                                if (input.value.trim() === '') {
+                                    errorMessage.classList.remove('hidden'); // Muestra el mensaje de error
+                                    input.classList.add('border-red-600'); // Resalta el borde
+                                    isValid = false;
+                                } else {
+                                    errorMessage.classList.add('hidden'); // Oculta el mensaje de error
+                                    input.classList.remove('border-red-600'); // Quita el resaltado del borde
+                                }
+                            });
+
+                            if (!isValid) {
+                                event.preventDefault(); // Evita que el formulario se envíe si hay errores
+                            }
+                        });
+                    </script>
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection

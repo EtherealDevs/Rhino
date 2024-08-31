@@ -53,16 +53,21 @@
                                     <input type="date" name="start_date" placeholder="{{ $sale->start_date }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="start_date"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de
+                                        Inicio</label>
+                                    @error('start_date')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
-
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="date" name="end_date" placeholder="{{ $sale->end_date }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="end_date"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de
+                                        Finalizacion</label>
+                                    @error('end_date')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
@@ -70,16 +75,19 @@
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="title"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    @error('title')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="textarea" name="description" placeholder="{{ $sale->description }}"
-
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="description"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    @error('description')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-1 w-full mb-5">
@@ -88,6 +96,9 @@
                                         <option value="">Seleccionar Products</option>
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
+                                                @error('products')
+                                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                @enderror
                                                 @foreach ($category->products as $product)
                                                     @foreach ($sale->products as $item)
                                                         @if ($item->product_id == $product->id)
@@ -107,7 +118,9 @@
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="discount"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    @error('disscount')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="mb-8">
 
@@ -163,10 +176,35 @@
                             })
                         }
                     </script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Seleccionar todos los inputs y textareas
+                            const inputs = document.querySelectorAll('input, textarea');
+
+                            // Añadir un event listener a cada input para manejar los errores en tiempo real
+                            inputs.forEach(input => {
+                                input.addEventListener('input', function() {
+                                    const errorSpan = this.nextElementSibling;
+
+                                    // Limpiar clases de error previas
+                                    this.classList.remove('border-red-600');
+                                    if (errorSpan && errorSpan.classList.contains('text-red-500')) {
+                                        errorSpan.classList.add('hidden');
+                                    }
+
+                                    // Si hay un error, aplicar estilos de error
+                                    if (!this.checkValidity()) {
+                                        this.classList.add('border-red-600');
+                                        if (errorSpan && errorSpan.classList.contains('text-red-500')) {
+                                            errorSpan.classList.remove('hidden');
+                                        }
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection

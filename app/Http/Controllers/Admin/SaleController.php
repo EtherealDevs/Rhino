@@ -10,6 +10,7 @@ use App\Models\SaleProduct;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SaleController extends Controller
 {
@@ -29,30 +30,49 @@ class SaleController extends Controller
         return view('admin.sales.create', compact('categories'));
     }
 
-    public function store(Request $request)
-    {
-        $sale=Sale::create([
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'discount'=>$request->discount,
+
+public function store(Request $request)
+{
+    // Validación de los datos de entrada
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after_or_equal:start_date',
+        'discount' => 'required|numeric|min:0',
+        'products' => 'required|array|min:1',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    // Crear la venta después de la validación
+    $sale = Sale::create([
+        'title' => $validatedData['title'],
+        'description' => $validatedData['description'],
+        'start_date' => $validatedData['start_date'],
+        'end_date' => $validatedData['end_date'],
+        'discount' => $validatedData['discount'],
+    ]);
+
+    // Manejo de la carga de imágenes
+    if ($request->file('image')) {
+        $url = Storage::put('sales', $request->file('image'));
+        $sale->images()->create([
+            'url' => $url
         ]);
-        if($request->file('image')){
-            $url = Storage::put('sales', $request->file('image'));
-            $sale->images()->create([
-                'url' => $url
-            ]);
-        }
-        foreach($request->products as $product){
-            SaleProduct::create([
-                'sale_id'=>$sale->id,
-                'product_id'=>$product,
-            ]);
-        }
-        notify()->success('Creaste la promo con exito ⚡️');
-        return redirect()->route('admin.sales.index');
     }
+
+    // Manejo de los productos asociados a la venta
+    foreach ($validatedData['products'] as $product) {
+        SaleProduct::create([
+            'sale_id' => $sale->id,
+            'product_id' => $product,
+        ]);
+    }
+
+    notify()->success('Creaste la promo con éxito ⚡️');
+    return redirect()->route('admin.sales.index');
+}
+
 
     public function edit(Sale $sale)
     {
@@ -62,31 +82,55 @@ class SaleController extends Controller
 
     public function update(Request $request, Sale $sale)
     {
-        $sale->update([
-            'title'=>$request->title??$sale->title,
-            'description'=>$request->description??$sale->description,
-            'start_date'=>$request->start_date??$sale->start_date,
-            'end_date'=>$request->end_date??$sale->end_date,
-            'discount'=>$request->discount??$sale->discount,
+        // Validación de los datos de entrada
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'discount' => 'required|numeric|min:0',
+            'products' => 'nullable|array|min:1',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        if($request->file('image')){
+
+        // Actualizar la venta después de la validación
+        $sale->update([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'start_date' => $validatedData['start_date'],
+            'end_date' => $validatedData['end_date'],
+            'discount' => $validatedData['discount'],
+        ]);
+
+        // Manejo de la carga de imágenes
+        if ($request->file('image')) {
             $url = Storage::put('sales', $request->file('image'));
-            $sale->images()->update([
-                'url' => $url
+            if ($sale->images()->exists()) {
+                $sale->images()->update([
+                    'url' => $url
+                ]);
+            } else {
+                $sale->images()->create([
+                    'url' => $url
                 ]);
             }
-            if($request->products){
-                $sale->products()->delete();
-                foreach($request->products as $product){
-                    SaleProduct::create([
-                        'sale_id'=>$sale->id,
-                        'product_id'=>$product,
-                        ]);
-                }
+        }
+
+        // Manejo de los productos asociados a la venta
+        if ($request->products) {
+            $sale->products()->delete(); // Elimina los productos existentes relacionados con la venta
+            foreach ($validatedData['products'] as $product) {
+                SaleProduct::create([
+                    'sale_id' => $sale->id,
+                    'product_id' => $product,
+                ]);
             }
-            notify()->success('Actualizaste la promo con exito ⚡️');
+        }
+
+        notify()->success('Actualizaste la promo con éxito ⚡️');
         return redirect()->route('admin.sales.index');
     }
+
 
     // public function destroy(Sale $sale)
     // {
