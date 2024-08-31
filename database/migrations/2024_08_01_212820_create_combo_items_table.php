@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('combo_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('combo_id');
-            $table->unsignedBigInteger('product_id');
+        
+            $table->foreignId('combo_id')->constrained()->onDelete('cascade');
+        
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
         });
     }
 
