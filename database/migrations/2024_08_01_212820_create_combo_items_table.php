@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('combo_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-        
-            $table->foreignId('combo_id')->constrained()->onDelete('cascade');
-        
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+
+            // Hacemos que las claves foráneas sean nullable
+            $table->foreignId('combo_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('product_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 
