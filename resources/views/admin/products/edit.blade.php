@@ -39,7 +39,7 @@
         <div class="pt-16  ">
             <div class="p-6 rounded-xl bg-white">
                 <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
-                    Almacenar Productos
+                    Editar {{ $product->name }}
                 </h2>
 
                 <div class="mt-6">
@@ -53,7 +53,8 @@
                                             <select name="product_id" id=""
                                                 onclick="this.setAttribute('value', this.value);"
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                                <option value="null">No tiene padre</option>
+                                                <option value="null">
+                                                    {{ $product->name }}</option>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                                                 @endforeach
