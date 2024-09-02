@@ -19,6 +19,9 @@ class CartItem extends Component
     }
     public function render()
     {
-        return view('livewire.cart-item');
+        $discount = $this->item['discount'] ?? 0;
+        $price = $this->item['item']->price(); // Ajusta esto según cómo obtienes el precio
+        $total = $price;
+        return view('livewire.cart-item',compact('discount', 'price','total'));
     }
 }
