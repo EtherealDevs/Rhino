@@ -25,7 +25,10 @@ class CartController extends Controller
         } else{
             $cartItems = CartManager::getCartContents();
         }
-        return view('cart.index', ['productItems' => $productItems, 'cartItems' => $cartItems]);
+        $groupedCartItems = $cartItems->groupBy(function($item) {
+            return $item['item']->product->combo->combo->id ?? null; // Asumiendo que `combo_id` es el identificador del combo
+        });
+        return view('cart.index', ['productItems' => $productItems, 'groupedCartItems' => $groupedCartItems]);
     }
 
     public function addToCart(Request $request)

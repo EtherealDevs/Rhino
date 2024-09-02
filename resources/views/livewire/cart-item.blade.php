@@ -1,8 +1,4 @@
-@php
-    $discount = $item['discount'] ?? 0;
-    $price = $item['item']->price(); // Ajusta esto según cómo obtienes el precio
-    $total = $price; // Ajusta esto según cómo calculas el total
-@endphp
+
 <li class="py-3 mb-2 mt-6 sm:py-4 bg-white rounded-lg shadow-md">
     <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
         <div class="flex-shrink-0 mx-auto sm:mx-0 sm:flex sm:justify-center">

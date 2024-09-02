@@ -10,13 +10,15 @@
                     @session('failure')
                         <p>{{ session('failure') }}</p>
                     @endsession
-                    @isset($cartItems)
+                    @isset($groupedCartItems)
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
-                            @foreach ($cartItems as $item)
-                                @if ($item['item']->product->combo)
-                                    hola
+                            @foreach ($groupedCartItems as $comboId => $items)
+                                @if ($comboId)
+                                @livewire('cart-combo',['items'=>$items,'combo'=>$comboId])
                                 @else
-                                    @livewire('cart-item', ['item' => $item])
+                                    @foreach ($items as $item)
+                                        @livewire('cart-item', ['item' => $item])
+                                    @endforeach
                                 @endif
                             @endforeach
                         </ul>
@@ -58,7 +60,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                
+
                                     <div x-data="{ tooltip: false }" class="relative inline-flex transition duration-300 ease-in-out" x-cloak>
                                         <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
                                             class="z-10 h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl dark:border-slate-800"
@@ -84,7 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                             <div class="w-full self-center pt-4 lg:w-1/6 lg:pt-0">
@@ -98,7 +100,7 @@
                                 <div class="ml-1">
                                     <div class="text-xl font-extrabold leading-5 tracking-tight">
                                         <span class="align-middle text-slate-900">$1,234.56</span>
-                                        
+
                                     </div>
                                     <div class="text-[13px] text-slate-900">Total Con descuento</div>
                                 </div>
