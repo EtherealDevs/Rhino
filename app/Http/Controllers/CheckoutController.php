@@ -13,7 +13,10 @@ use App\Models\User;
 use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\ZipCode;
 use Illuminate\Http\Request;
+use MercadoPago\Client\Common\RequestOptions;
+use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Client\Preference\PreferenceClient;
+use MercadoPago\Exceptions\MPApiException;
 use MercadoPago\MercadoPagoConfig;
 
 class CheckoutController extends Controller
@@ -25,7 +28,7 @@ class CheckoutController extends Controller
     }
     public function showCheckoutPaymentPage()
     {
-        MercadoPagoConfig::setAccessToken('TEST-1863433352034000-081121-b3a2bd0c928b6a40cccfbf412ea5b6e5-1943115456');
+        MercadoPagoConfig::setAccessToken(config('app.mp_access_token'));
         $mpAccessToken = MercadoPagoConfig::getAccessToken();
 
         $user = User::where('id', auth()->user()->id)->with('address')->first();
@@ -61,8 +64,10 @@ class CheckoutController extends Controller
             "pending" => "{$appUrl}/payment_pending"
         ]
         ]);
+        $colors = Color::all();
+        $address = $user->address->load('zipCode', 'city', 'province');
 
-        return view('checkout.payment', ['cart' => $cart, 'pref' => $preference]);
+        return view('checkout.payment', ['cart' => $cart, 'pref' => $preference, 'items' => $items, 'colors' => $colors, 'address' => $address]);
     }
     public function validateAddressAndSaveToDatabase(Request $request)
     {
@@ -103,6 +108,31 @@ class CheckoutController extends Controller
 
     public function processPayment(Request $request)
     {
-        return response($request, 200);
+        MercadoPagoConfig::setAccessToken(config('app.mp_access_token'));
+
+        $client = new PaymentClient();
+
+        try
+        {
+            $payment = $client->create([
+                "transaction_amount" => $request->transaction_amount,
+                "token" => $request->token,
+                "installments" => $request->installments,
+                "payment_method_id" => $request->payment_method_id,
+                "issuer_id" => $request->issuer,
+                "payer" => [
+                "email" => $request->payer['email'],
+                "identification" => [
+                    "type" => $request->payer['identification']['type'],
+                    "number" => $request->payer['identification']['number']
+                ],
+            ],
+            ]);
+        } catch (MPApiException $e) {
+            dd($e);
+        }
+        $array = json_decode(json_encode($payment), true);
+        // $implode = implode("", $array);
+        return $array;
     }
 }

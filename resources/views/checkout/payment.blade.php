@@ -5,7 +5,14 @@
 <script>
     const mp = new MercadoPago('TEST-72c541f1-18d2-4c49-9f44-d95167a37771');
     const bricksBuilder = mp.bricks();
-    var cart = {!! json_encode($cart) !!}
+    var cart = {!! json_encode($cart) !!};
+    var colors = {!! json_encode($colors) !!};
+    var address = {!! json_encode($address) !!}
+    console.log(colors);
+    console.log(address);
+    console.log(address.province.name);
+    console.log(address.city.name);
+    console.log(address.zip_code.code);
     var contents = [];
     var prefId = "{{ $pref->id }}";
     var csrf = "{{csrf_token()}}";
@@ -13,7 +20,7 @@
     for (const element of cart.contents) {
         var item = {
             units: element.amount,
-            value: element.item.sale_price ? element.item.sale_price : element.item.original_price,
+            value: element.item.sale_price ? element.item.sale_price / 100 : element.item.original_price / 100,
             name: element.item.product.name,
             imageURL: element.item.images[0].url
         }
@@ -38,12 +45,25 @@
             totalItemsAmount: cart.total / 100,
             itemsList: contents
             },
+            shipping: { // opcional
+      costs: 5, // opcional
+      shippingMode: "<SHIPPING_MODE>",
+      description: "<SHIPPING_DESCRIPTION>", // opcional
+      receiverAddress: {
+        streetName: address.street,
+        streetNumber: `${address.number}`,
+        complement: address.department,
+        neighborhood: address.city.name, // opcional
+        city: address.province.name, // opcional
+        zipCode: address.zip_code.code,
+        additionalInformation: address.observation, // opcional
+      },
+    },
             preferenceId: prefId,
           },
           customization: {
             enableReviewStep: true,
             paymentMethods: {
-              ticket: "all",
               creditCard: "all",
               debitCard: "all",
               mercadoPago: "all",
@@ -75,6 +95,7 @@
                   })
                   .catch((error) => {
                     // manejar la respuesta de error al intentar crear el pago
+                    console.log(error);
                     reject();
                   });
               });
@@ -83,6 +104,10 @@
               // callback llamado para todos los casos de error de Brick
               console.error(error);
             },
+            onClickEditShippingData: () => {}, // opcional
+    onClickEditBillingData: () => {}, // opcional
+    onRenderNextStep: (currentStep) => {}, // opcional
+    onRenderPreviousStep: (currentStep) => {}, // opcional
           },
         };
         window.paymentBrickController = await bricksBuilder.create(
