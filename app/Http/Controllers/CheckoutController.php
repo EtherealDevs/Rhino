@@ -108,7 +108,7 @@ class CheckoutController extends Controller
 
     public function processPayment(Request $request)
     {
-        MercadoPagoConfig::setAccessToken(config('app.mp_access_token'));
+        MercadoPagoConfig::setAccessToken(config('app.mp_access_token_test'));
 
         $client = new PaymentClient();
 
@@ -134,5 +134,9 @@ class CheckoutController extends Controller
         $array = json_decode(json_encode($payment), true);
         // $implode = implode("", $array);
         return $array;
+    }
+    public function paymentStatus(Request $request)
+    {
+        dd($request);
     }
 }
