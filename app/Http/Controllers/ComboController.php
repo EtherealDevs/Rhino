@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Livewire\ShowCombo;
 use App\Models\Combo;
 use App\Models\Size;
 use Illuminate\Http\Request;

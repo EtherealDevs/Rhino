@@ -143,7 +143,7 @@
                             $total = 0;
                             foreach ($cartItems as $item) {
                                 $itemAmount = $item['amount'];
-                                $discount = $item['item']->product->sale->sale->discount ?? 0;
+                                $discount = $item['item']->product->sale->sale->discount ?? $item['item']->product->combo->combo->discount ??0;
                                 $price = $item['item']->price();
                                 $priceDiscount = ($price * $discount) / 100;
                                 $total += ($price - $priceDiscount) * $itemAmount;
