@@ -29,10 +29,7 @@
                 </svg>
             </button>
 
-
-            <form method="POST" action="{{ route('cart.addItem') }}">
-                @csrf
-                <input type="hidden" name="item" value="{{ $item }}">
+            <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
                 <button class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +38,7 @@
                             fill="white" />
                     </svg>
                 </button>
-            </form>
+            </a>
         </div>
     </div>
     <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">

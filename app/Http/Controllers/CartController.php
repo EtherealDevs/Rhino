@@ -22,12 +22,16 @@ class CartController extends Controller
         if (Auth::check()) {
             $cartModel = Cart::where('user_id', Auth::user()->id)->first();
             $cartItems = CartManager::getCartContents($cartModel);
-        } else{
+        } else {
             $cartItems = CartManager::getCartContents();
         }
+    
+        $cartItems = $cartItems ?? collect(); // Asegúrate de que $cartItems no sea null
+    
         $groupedCartItems = $cartItems->groupBy(function($item) {
-            return $item['item']->product->combo->combo->id ?? null; // Asumiendo que `combo_id` es el identificador del combo
+            return $item['item']->product->combo->combo->id ?? null;
         });
+    
         return view('cart.index', ['productItems' => $productItems, 'groupedCartItems' => $groupedCartItems]);
     }
 

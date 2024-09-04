@@ -11,7 +11,7 @@
                         <p>{{ session('failure') }}</p>
                     @endsession
                     @isset($groupedCartItems)
-                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
+                        <ul role="list" class="">
                             @foreach ($groupedCartItems as $comboId => $items)
                                 @if ($comboId)
                                     @livewire('cart-combo', ['items' => $items, 'combo' => $comboId])
