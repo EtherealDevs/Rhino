@@ -174,7 +174,7 @@
 
             {{-- Seccion Ofertas --}}
             <div
-                class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] xl:w-[460px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <!-- Video de fondo -->
                 <video autoplay muted loop playsinline
                     class="absolute inset-0 w-full h-full object-cover rounded-none lg:rounded-3xl">
