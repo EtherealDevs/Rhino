@@ -51,7 +51,7 @@
                                     </h2>
                                     <div class="flex flex-col pl-10">
                                         <!-- Formulario de filtrado -->
-                                        <form action="{{ route('products.index') }}" method="GET">
+                                        <form action="{{ route('products.category') }}" method="GET">
                                             @foreach ($categories as $category)
                                                 <div>
                                                     <label class="flex items-center space-x-2">
@@ -66,7 +66,7 @@
                                                     </label>
                                                 </div>
                                             @endforeach
-
+                                        
                                             <!-- Botón para aplicar el filtro -->
                                             <div class="mt-4">
                                                 <button type="submit"
@@ -75,6 +75,7 @@
                                                 </button>
                                             </div>
                                         </form>
+                                        
                                     </div>
 
 

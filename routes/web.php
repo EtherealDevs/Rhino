@@ -69,7 +69,8 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product}/{productItem}', [ProductController::class, 'show'])->name('products.show');
 Route::post('products/{product}/{productItem}', [ProductController::class, 'addToCart'])->name('products.addToCart');
 
-Route::get('/category/{category]', [ProductController::class, 'show'])->name('products.category');
+// Esta ruta se usa para filtrar productos por categoría
+Route::get('/category', [ProductController::class, 'category'])->name('products.category');
 
 Route::resource('/combos', ComboController::class)->names('combos');
 // Route::get('/combos/show', [ComboController::class, 'show'])->name('combos.show');

@@ -8,6 +8,8 @@ use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\Category;
+use App\Models\Size;
+use App\Models\Combo;
 use App\Models\User;
 use App\Notifications\OrderNotification;
 use Exception;
@@ -32,27 +34,42 @@ class ProductController extends Controller
             'amount' => 'required',
             'size' => 'required'
         ]);
-            CartManager::addItem($productItem, $request->amount, $request->size);
+        CartManager::addItem($productItem, $request->amount, $request->size);
 
         //Check if user logged in. If true persist the Cart to Database
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
             CartManager::storeOrUpdateInDatabase($user);
-            $cart = Cart::where('user_id',$user->id)->first();
+            $cart = Cart::where('user_id', $user->id)->first();
         }
-        
+
         if (session('cartError')) {
             return redirect()->route('cart')->with('failure', session('cartError'));
         }
-        
+
         notify()->success('Producto agregado ⚡️');
         return redirect()->route('cart')->with('success', 'true');
     }
-    public function category(Category $category){
-        $products = Product::where('category_id', $category->id)
-        ->where('name', $category->name)
-        ->paginate(12);
 
-        return view('products.category', compact('products'));
+    public function category(Request $request)
+    {
+        // Obtener las categorías seleccionadas de la solicitud
+        $selectedCategories = $request->input('categories', []);
+
+        // Consultar productos basados en las categorías seleccionadas
+        $productsQuery = Product::query();
+
+        if (!empty($selectedCategories)) {
+            $productsQuery->whereIn('category_id', $selectedCategories);
+        }
+
+        $products = $productsQuery->paginate(12); // Paginación de productos
+
+        // Obtener todos los datos necesarios para la vista
+        $categories = Category::all();
+        $sizes = Size::all();
+        $combos = Combo::all();
+
+        return view('products.category', compact('products', 'categories', 'sizes', 'combos'));
     }
 }
