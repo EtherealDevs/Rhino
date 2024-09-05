@@ -9,50 +9,53 @@
         @php
             $total = 0;
         @endphp
-        <div class="mt-8 max-w-screen-xl mx-auto grid grid-cols-2 gap-2 lg:grid-cols-4 justify-center ">
-            {{-- Se debera agregar el id id="product-{{ $product->id }}" en el segundo div  --}}
-            @foreach ($combo->items as $item)
-                @php
-                    $product = $item->product;
-                    $productItem = $product->items->first();
-                    $total += $product->items->first()->price();
-                @endphp
-                @livewire('show-combo',['item'=>$item])
-            @endforeach
-        </div>
-        <div
-            class="mt-8 max-w-screen-xl mx-auto p-6 rounded-none lg:rounded-3xl w-full bg-gradient-to-b via-[#2E3366] lg:-translate-x-2 lg:-translate-y-2 from-[#343678] to-[#273053] text-white shadow-lg">
-            <div class="grid grid-cols-1 xl:grid-cols-4 gap-4 text-center">
-                @php
-                    $discount = ($combo->discount / 100) * $total;
-                    $totalDiscount = $total - $discount;
-                @endphp
-                <div class="col-span-1 md:col-span-1">
-                    <p class="text-xl font-semibold">Descuento</p>
-                    <p class="text-2xl font-bold">-${{ number_format($discount, 2, '.', ',') }}</p>
-                </div>
-                <div class="col-span-1 md:col-span-1">
-                    <p class="text-xl font-semibold">Precio sin descuento</p>
-                    <p class="text-2xl line-through  font-bold text-gray-500">${{ number_format($total, 2, '.', ',') }}</p>
-                </div>
-                <div class="col-span-1 md:col-span-1">
-                    <p class="text-xl font-semibold">Total</p>
-                    <p class="text-2xl text-green-400 font-bold">${{ number_format($totalDiscount, 2, '.', ',') }}</p>
-                </div>
-                <div class="col-span-1 m-2">
-                    <button class="w-full sm:w-auto bg-[#2957de] rounded-lg">
-                        <a href="{{ route('checkout.delivery') }}" class="col-span-3 bg-[#11C818] rounded-lg">
-                            <p class="text-white text-lg font-bold font-josefin py-2 px-5">Agregar al Carrito</p>
-                        </a>
-                    </button>
-                    <button class="w-full sm:w-auto bg-black rounded-lg">
-                        <a href="/products" class="col-span-3 bg-[#11C818] rounded-lg">
-                            <p class="text-white text-lg font-bold font-josefin py-2 px-5">Volver</p>
-                        </a>
-                    </button>
+        <form action="{{route('cart.addCombo')}}" method="POST">
+            @csrf
+            <div class="mt-8 max-w-screen-xl mx-auto grid grid-cols-2 gap-2 lg:grid-cols-4 justify-center ">
+                {{-- Se debera agregar el id id="product-{{ $product->id }}" en el segundo div  --}}
+                @foreach ($combo->items as $item)
+                    @php
+                        $product = $item->product;
+                        $productItem = $product->items->first();
+                        $total += $product->items->first()->price();
+                    @endphp
+                    @livewire('show-combo',['item'=>$item])
+                @endforeach
+            </div>
+            <div
+                class="mt-8 max-w-screen-xl mx-auto p-6 rounded-none lg:rounded-3xl w-full bg-gradient-to-b via-[#2E3366] lg:-translate-x-2 lg:-translate-y-2 from-[#343678] to-[#273053] text-white shadow-lg">
+                <div class="grid grid-cols-1 xl:grid-cols-4 gap-4 text-center">
+                    @php
+                        $discount = ($combo->discount / 100) * $total;
+                        $totalDiscount = $total - $discount;
+                    @endphp
+                    <div class="col-span-1 md:col-span-1">
+                        <p class="text-xl font-semibold">Descuento</p>
+                        <p class="text-2xl font-bold">-${{ number_format($discount, 2, '.', ',') }}</p>
+                    </div>
+                    <div class="col-span-1 md:col-span-1">
+                        <p class="text-xl font-semibold">Precio sin descuento</p>
+                        <p class="text-2xl line-through  font-bold text-gray-500">${{ number_format($total, 2, '.', ',') }}</p>
+                    </div>
+                    <div class="col-span-1 md:col-span-1">
+                        <p class="text-xl font-semibold">Total</p>
+                        <p class="text-2xl text-green-400 font-bold">${{ number_format($totalDiscount, 2, '.', ',') }}</p>
+                    </div>
+                    <div class="col-span-1 m-2">
+                        <button type="submit" class="w-full sm:w-auto bg-[#2957de] rounded-lg">
+                            <a class="col-span-3 bg-[#11C818] rounded-lg">
+                                <p class="text-white text-lg font-bold font-josefin py-2 px-5">Agregar al Carrito</p>
+                            </a>
+                        </button>
+                        <button class="w-full sm:w-auto bg-black rounded-lg">
+                            <a href="/products" class="col-span-3 bg-[#11C818] rounded-lg">
+                                <p class="text-white text-lg font-bold font-josefin py-2 px-5">Volver</p>
+                            </a>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+    </form>
     </div>
 
     <script>
