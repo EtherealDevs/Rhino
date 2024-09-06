@@ -174,7 +174,7 @@
 
             {{-- Seccion Ofertas --}}
             <div
-                class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] xl:w-[460px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] xl:w-[440px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <!-- Video de fondo -->
                 <video autoplay muted loop playsinline
                     class="absolute inset-0 w-full h-full object-cover rounded-none lg:rounded-3xl">
@@ -272,7 +272,7 @@
                                                     <button
                                                         class="rounded-full p-1 lg:p-3 px-4 text-white mt-6 bg-black hover:ring-2 ring-black flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900"
                                                         style="height: 42px;>
-                                                    
+
                                                     <p class="ml-2">
                                                         Ver mas Promociones <span class="ml-2 text-xl">→</span>
                                                         </p>
