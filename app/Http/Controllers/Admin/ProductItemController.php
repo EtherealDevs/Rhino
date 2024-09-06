@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ProductItem;
 use App\Models\ProductsSize;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -75,16 +76,19 @@ class ProductItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductItem $product_item)
+    public function update(Request $request, ProductItem $product_item, Size $size) 
     {
+        
         $product_item->update([
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
-            'size_id' => $request->size_id,
             'original_price' => $request->original_price,
             'sale_price' => $request->sale_price,
-            'stock' => $request->stock,
         ]);
+        if ($request->file){
+            $url = Storage::put('images/product', $request->file('image'));
+            $product_item->images()->create( ['url' => $url]);
+        }
         return redirect()->route('admin.products.index');
     }
 

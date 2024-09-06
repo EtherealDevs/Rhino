@@ -16,7 +16,7 @@
 @endphp
 
 {{-- Card --}}
-<div class="max-w-7xl mx-auto">
+<div class=" mx-auto">
     <div
         class="custom-card bg-white rounded-xl shadow-md transition-transform pb-0 lg:pb-4 duration-300 hover:scale-105">
 

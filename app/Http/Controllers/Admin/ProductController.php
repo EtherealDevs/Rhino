@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
+use App\Models\ProductsSize;
 use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=ProductItem::all();
+        $products=ProductsSize::all();
         return view('admin.products.index',compact('products'));
     }
 
@@ -62,14 +63,15 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(ProductItem $productItem, Size $size)
     {
+        $productItem = $productItem->first();
+        $stock= ProductsSize::where('product_item_id', $productItem->id)->where('size_id',$size->first()->id)->first()->stock;
         $colors= Color::all();
         $products= Product::all();
         $brands=Brand::all();
-        $sizes=Size::all();
         $categories=Category::all();
-        return view('admin.products.edit', compact('colors', 'products','brands','sizes','categories','product'));
+        return view('admin.products.edit', compact('colors', 'products','brands','size','categories','productItem','stock'));
     }
 
     /**
