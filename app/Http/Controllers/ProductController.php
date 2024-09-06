@@ -53,9 +53,11 @@ class ProductController extends Controller
 
     public function filter(Request $request)
     {
-        // Obtener las categorías y talles seleccionados de la solicitud
+        // Obtener las categorías, talles y precios seleccionados
         $selectedCategories = $request->input('categories', []);
         $selectedSizes = $request->input('sizes', []);
+        $minPrice = str_replace(['$', '.', ' '], '', $request->input('minprice', 0));
+        $maxPrice = str_replace(['$', '.', ' '], '', $request->input('maxprice', 500000));
 
         // Consultar productos basados en las categorías seleccionadas
         $productsQuery = Product::query();
@@ -73,8 +75,21 @@ class ProductController extends Controller
             });
         }
 
+        // Filtrar por rango de precios, considerando sale_price y original_price
+        if ($minPrice && $maxPrice) {
+            $productsQuery->whereHas('items', function ($query) use ($minPrice, $maxPrice) {
+                $query->where(function ($query) use ($minPrice, $maxPrice) {
+                    $query->whereBetween('sale_price', [$minPrice, $maxPrice])
+                        ->orWhere(function ($query) use ($minPrice, $maxPrice) {
+                            $query->whereNull('sale_price')
+                                ->whereBetween('original_price', [$minPrice, $maxPrice]);
+                        });
+                });
+            });
+        }
+
         // Obtener los productos filtrados
-        $products = $productsQuery->paginate(12); // Paginación de productos
+        $products = $productsQuery->paginate(12);
 
         // Obtener todas las categorías en estructura jerárquica
         $categories = Category::hierarchicalCategories();
