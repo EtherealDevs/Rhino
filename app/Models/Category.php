@@ -21,24 +21,36 @@ class Category extends Model
         'parent_id',
     ];
 
-    public function parentCategory() : BelongsTo
+    public function parentCategory(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
-    public function subCategories() : HasMany
+    public function subCategories(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
-    public function image() : MorphOne
+    public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }
-    public function products() : HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
-    public function items() : HasManyThrough
+    public function items(): HasManyThrough
     {
         return $this->hasManyThrough(ProductItem::class, Product::class);
+    }
+    // En tu modelo Category.php
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public static function hierarchicalCategories($parentId = null)
+    {
+        return Category::where('parent_id', $parentId)
+            ->with('children')  // Carga recursivamente las categorías hijas
+            ->get();
     }
 }

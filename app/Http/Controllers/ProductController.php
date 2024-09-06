@@ -51,10 +51,13 @@ class ProductController extends Controller
         return redirect()->route('cart')->with('success', 'true');
     }
 
-    public function category(Request $request)
+    public function filter(Request $request)
     {
-        // Obtener las categorías seleccionadas de la solicitud
+        // Obtener las categorías, talles y precios seleccionados
         $selectedCategories = $request->input('categories', []);
+        $selectedSizes = $request->input('sizes', []);
+        $minPrice = str_replace(['$', '.', ' '], '', $request->input('minprice', 0));
+        $maxPrice = str_replace(['$', '.', ' '], '', $request->input('maxprice', 500000));
 
         // Consultar productos basados en las categorías seleccionadas
         $productsQuery = Product::query();
@@ -63,13 +66,38 @@ class ProductController extends Controller
             $productsQuery->whereIn('category_id', $selectedCategories);
         }
 
-        $products = $productsQuery->paginate(12); // Paginación de productos
+        // Filtrar por talles a nivel de ProductItem
+        if (!empty($selectedSizes)) {
+            $productsQuery->whereHas('items', function ($query) use ($selectedSizes) {
+                $query->whereHas('sizes', function ($query) use ($selectedSizes) {
+                    $query->whereIn('size_id', $selectedSizes);
+                });
+            });
+        }
 
-        // Obtener todos los datos necesarios para la vista
-        $categories = Category::all();
+        // Filtrar por rango de precios, considerando sale_price y original_price
+        if ($minPrice && $maxPrice) {
+            $productsQuery->whereHas('items', function ($query) use ($minPrice, $maxPrice) {
+                $query->where(function ($query) use ($minPrice, $maxPrice) {
+                    $query->whereBetween('sale_price', [$minPrice, $maxPrice])
+                        ->orWhere(function ($query) use ($minPrice, $maxPrice) {
+                            $query->whereNull('sale_price')
+                                ->whereBetween('original_price', [$minPrice, $maxPrice]);
+                        });
+                });
+            });
+        }
+
+        // Obtener los productos filtrados
+        $products = $productsQuery->paginate(12);
+
+        // Obtener todas las categorías en estructura jerárquica
+        $categories = Category::hierarchicalCategories();
+
+        // Obtener todos los talles
         $sizes = Size::all();
         $combos = Combo::all();
 
-        return view('products.category', compact('products', 'categories', 'sizes', 'combos'));
+        return view('products.filter', compact('products', 'categories', 'sizes', 'combos'));
     }
 }
