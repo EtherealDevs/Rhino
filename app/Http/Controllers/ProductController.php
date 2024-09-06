@@ -51,10 +51,11 @@ class ProductController extends Controller
         return redirect()->route('cart')->with('success', 'true');
     }
 
-    public function category(Request $request)
+    public function filter(Request $request)
     {
-        // Obtener las categorías seleccionadas de la solicitud
+        // Obtener las categorías y talles seleccionados de la solicitud
         $selectedCategories = $request->input('categories', []);
+        $selectedSizes = $request->input('sizes', []);
 
         // Consultar productos basados en las categorías seleccionadas
         $productsQuery = Product::query();
@@ -63,13 +64,25 @@ class ProductController extends Controller
             $productsQuery->whereIn('category_id', $selectedCategories);
         }
 
+        // Filtrar por talles a nivel de ProductItem
+        if (!empty($selectedSizes)) {
+            $productsQuery->whereHas('items', function ($query) use ($selectedSizes) {
+                $query->whereHas('sizes', function ($query) use ($selectedSizes) {
+                    $query->whereIn('size_id', $selectedSizes);
+                });
+            });
+        }
+
+        // Obtener los productos filtrados
         $products = $productsQuery->paginate(12); // Paginación de productos
 
-        // Obtener todos los datos necesarios para la vista
-        $categories = Category::all();
+        // Obtener todas las categorías en estructura jerárquica
+        $categories = Category::hierarchicalCategories();
+
+        // Obtener todos los talles
         $sizes = Size::all();
         $combos = Combo::all();
 
-        return view('products.category', compact('products', 'categories', 'sizes', 'combos'));
+        return view('products.filter', compact('products', 'categories', 'sizes', 'combos'));
     }
 }

@@ -45,13 +45,14 @@
                         <div id="view" class="flex flex-row">
                             <div id="sidebar"
                                 class="bg-white shadow-2xl px-3 pb-5 w-30 md:w-60 lg:w-72 transition-transform duration-300 ease-in-out h-screen">
-                                <div class="space-y-10 py-10 p-6 md:space-y-4 sticky left-0 top-10 overflow-scroll">
-                                    <h2 class="font-bold text-sm md:text-xl text-center">
-                                        Categorías
-                                    </h2>
-                                    <div class="flex flex-col pl-10">
-                                        <!-- Formulario de filtrado -->
-                                        <form action="{{ route('products.category') }}" method="GET">
+                                <form action="{{ route('products.filter') }}" method="GET">
+                                    <div class="space-y-10 py-10 p-6 md:space-y-4 sticky left-0 top-10 overflow-scroll">
+                                        <h2 class="font-bold text-sm md:text-xl text-center">
+                                            Categorías
+                                        </h2>
+                                        <div class="flex flex-col pl-10">
+                                            <!-- Formulario de filtrado -->
+
                                             @foreach ($categories as $category)
                                                 <div>
                                                     <label class="flex items-center space-x-2">
@@ -65,90 +66,104 @@
                                                         </span>
                                                     </label>
                                                 </div>
+
+                                                @if ($category->children->isNotEmpty())
+                                                    <div class="ml-4">
+                                                        @foreach ($category->children as $child)
+                                                            <div>
+                                                                <label class="flex items-center space-x-2">
+                                                                    <input type="checkbox" name="categories[]"
+                                                                        value="{{ $child->id }}"
+                                                                        class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
+                                                                        @if (in_array($child->id, request('categories', []))) checked @endif>
+                                                                    <span
+                                                                        class="text-lg leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-150 ease-in-out">
+                                                                        {{ $child->name }}
+                                                                        ({{ $child->products_count }})
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
                                             @endforeach
-                                        
-                                            <!-- Botón para aplicar el filtro -->
-                                            <div class="mt-4">
+                                        </div>
+
+
+                                        <h2 class="font-bold text-sm md:text-xl text-center">Talles</h2>
+                                        <div class="flex flex-col pl-10">
+                                            @foreach ($sizes as $size)
+                                                <div>
+                                                    <label class="flex items-center space-x-2">
+                                                        <input type="checkbox" name="sizes[]"
+                                                            value="{{ $size->id }}"
+                                                            class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
+                                                            @if (in_array($size->id, request('sizes', []))) checked @endif>
+                                                        <span
+                                                            class="text-lg leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-150 ease-in-out">
+                                                            {{ $size->name }}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
+                                            Precio
+                                        </h2>
+
+                                        <div class="flex flex-col space-y-2 space-x-10">
+                                            <div>
+                                                <p class="text-base text-dark">Minimo</p>
+                                                <div class="max-w-[24rem] mx-auto">
+                                                    <div class="flex mb-2">
+                                                        <label for="currency-input"
+                                                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
+                                                            Email</label>
+                                                        <div class="relative w-full">
+                                                            <input type="number" id="currency-input"
+                                                                class="block p-2.5 w-full z-20 text-sm  bg-white border-gray-300 rounded-lg dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600"
+                                                                placeholder="Enter amount" value="500" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="relative">
+                                                        <label for="price-range-input" class="sr-only">Default
+                                                            range</label>
+                                                        <input id="price-range-input" type="range" value="500"
+                                                            min="100" max="1500"
+                                                            class="w-full h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer">
+                                                    </div>
+                                                </div>
+                                                <p class="mt-5 text-base text-dark">Maximo
+                                                </p>
+                                                <div class="max-w-[24rem] mx-auto">
+                                                    <div class="flex mb-2">
+                                                        <label for="currency-input"
+                                                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
+                                                            Email</label>
+                                                        <div class="relative w-full">
+                                                            <input type="number" id="currency-input"
+                                                                class="block p-2.5 w-full z-20 text-sm  bg-white border-gray-300 rounded-lg  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600""
+                                                                placeholder="Enter amount" value="500000" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="relative">
+                                                        <label for="price-range-input" class="sr-only">Default
+                                                            range</label>
+                                                        <input id="price-range-input" type="range" value="1000"
+                                                            min="100" max="1500"
+                                                            class="w-full h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer">
+                                                    </div>
+                                                </div>
                                                 <button type="submit"
-                                                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-150 ease-in-out">
-                                                    Aplicar filtros
+                                                    class="mt-5 text-base text-center  border font-medium text-white py-2 px-2 bg-blue-800  border-blue-800  hover:text-base rounded-md transition duration-150 ease-in-out">
+                                                    <span class="">Filtrar</span>
+                                                    <i class="ri-filter-fill"></i>
                                                 </button>
                                             </div>
-                                        </form>
-                                        
-                                    </div>
-
-
-                                    {{-- <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
-                                        Tallas
-                                    </h2>
-
-                                    <div class="flex flex-col pl-10">
-                                        @foreach ($sizes as $size)
-                                            <div>
-                                                <a href=""
-                                                    class="text-base text-gray-700 py-2 px-2 hover:text-gray-900 hover:text-lg transition duration-150 ease-in-out">
-                                                    <span class="">{{ $size->name }}</span>
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-
-                                    <h2 class="hidden md:block font-bold text-sm md:text-xl text-center">
-                                        Precio
-                                    </h2>
-
-                                    <div class="flex flex-col space-y-2 space-x-10">
-                                        <div>
-                                            <p class="text-base text-dark">Minimo</p>
-                                            <form class="max-w-[24rem] mx-auto">
-                                                <div class="flex mb-2">
-                                                    <label for="currency-input"
-                                                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
-                                                        Email</label>
-                                                    <div class="relative w-full">
-                                                        <input type="number" id="currency-input"
-                                                            class="block p-2.5 w-full z-20 text-sm  bg-white border-gray-300 rounded-lg dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600"
-                                                            placeholder="Enter amount" value="500" required />
-                                                    </div>
-                                                </div>
-                                                <div class="relative">
-                                                    <label for="price-range-input" class="sr-only">Default
-                                                        range</label>
-                                                    <input id="price-range-input" type="range" value="500"
-                                                        min="100" max="1500"
-                                                        class="w-full h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer">
-                                                </div>
-                                            </form>
-                                            <p class="mt-5 text-base text-dark">Maximo
-                                            </p>
-                                            <form class="max-w-[24rem] mx-auto">
-                                                <div class="flex mb-2">
-                                                    <label for="currency-input"
-                                                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
-                                                        Email</label>
-                                                    <div class="relative w-full">
-                                                        <input type="number" id="currency-input"
-                                                            class="block p-2.5 w-full z-20 text-sm  bg-white border-gray-300 rounded-lg  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600""
-                                                            placeholder="Enter amount" value="500000" required />
-                                                    </div>
-                                                </div>
-                                                <div class="relative">
-                                                    <label for="price-range-input" class="sr-only">Default
-                                                        range</label>
-                                                    <input id="price-range-input" type="range" value="1000"
-                                                        min="100" max="1500"
-                                                        class="w-full h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer">
-                                                </div>
-                                            </form>
-                                            <a href=""
-                                                class="mt-5 text-base text-center  border font-medium text-white py-2 px-2 bg-blue-800  border-blue-800  hover:text-base rounded-md transition duration-150 ease-in-out">
-                                                <span class="">Filtrar</span>
-                                                <i class="ri-filter-fill"></i>
-                                            </a>
                                         </div>
-                                    </div> --}}
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
