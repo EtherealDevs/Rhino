@@ -6,7 +6,7 @@
             <div class="w-full grid grid-cols-8 justify-between mb-4">
 
                 <div
-                    class="mx-auto col-span-8 relative bg-gradient-to-r from-blue-400 to-blue-600 p-8 py-14 shadow-lg text-center text-white">
+                    class="w-full col-span-8 relative bg-gradient-to-r from-blue-400 to-blue-600 p-8 py-14 shadow-lg text-center text-white">
                     <h3 class="text-3xl font-josefin font-bold">¡Ofertas Especiales en Combos!</h3>
                     <p class="mt-2 text-lg">Aprovecha descuentos únicos en nuestros combos seleccionados.</p>
                 </div>
