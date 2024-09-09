@@ -14,7 +14,7 @@
                 ${{ number_format($item->sale_price(), 2, ',', ' ') }}
             </div>
         @else
-            <div class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold rounded-xl px-2 py-1">
+            <div class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
                 ${{ number_format($item->price(), 2, ',', ' ') }}
             </div>
         @endif
