@@ -4,12 +4,10 @@
         <div class="w-full">
             {{-- Navbar --}}
             <div class="w-full grid grid-cols-8 justify-between mb-4">
-                <div class="mx-auto col-span-8 relative">
-                    <!-- Banner o elemento llamativo -->
-                    <div class="w-[100vw] bg-gradient-to-r from-blue-400 to-blue-600 p-8 py-14 shadow-lg text-center text-white">
-                        <h3 class="text-3xl font-josefin font-bold">¡Ofertas Especiales en Combos!</h3>
-                        <p class="mt-2 text-lg">Aprovecha descuentos únicos en nuestros combos seleccionados.</p>
-                    </div>
+                <div
+                    class="mx-auto col-span-8 relative bg-gradient-to-r from-blue-400 to-blue-600 p-8 py-14 shadow-lg text-center text-white">
+                    <h3 class="text-3xl font-josefin font-bold">¡Ofertas Especiales en Combos!</h3>
+                    <p class="mt-2 text-lg">Aprovecha descuentos únicos en nuestros combos seleccionados.</p>
                 </div>
             </div>
 
@@ -19,7 +17,8 @@
                 {{-- Content (Productos) --}}
                 <div class="col-span-5 ml-2 z-10 mb-8">
                     <div class="flex w-full justify-center lg:justify-end">
-                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
+                        <div
+                            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
                             @foreach ($products as $product)
                                 @php
                                     $item = $product->items()->first();
