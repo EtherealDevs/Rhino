@@ -29,10 +29,39 @@
                 {{-- Content (Productos) --}}
                 <div class="col-span-5 ml-2 z-10 mb-8">
                     <div class="flex w-full">
-                        <div class="grid grid-cols-2 mx-auto lg:grid-cols-4 gap-3 lg:gap-10">
-                            <div id="">
-                                @livewire('combo')
-                            </div>
+                        <div
+                            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 justify-items-center mx-auto lg:gap-10">
+                            @foreach ($combos as $combo)
+                                <!-- Item -->
+                                <div
+                                    class="relative bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-500 ease-in-out hover:scale-105 w-full max-w-xs">
+
+
+                                    <!-- Contenido del combo -->
+                                    <div class="p-6">
+                                        <!-- Botones de descuento y precio -->
+                                        <div class="absolute top-4 left-4 flex space-x-2">
+                                            <button
+                                                class="rounded-full p-2 bg-green-500 text-white text-sm font-bold hover:bg-white hover:text-green-700 transition-colors">
+                                                {{ $combo->discount }}%
+                                            </button>
+                                            <button
+                                                class="rounded-full p-2 bg-green-500 text-white text-sm font-bold hover:bg-white hover:text-green-700 transition-colors">
+                                                @php
+                                                    $total = 0;
+                                                    // Calcular total de combo (puedes ajustar esta lógica según sea necesario)
+                                                    $discount = ($combo->discount / 100) * $total;
+                                                    $totalDiscount = $total - $discount;
+                                                @endphp
+                                                ${{ number_format($totalDiscount, 2, '.', ',') }}
+                                            </button>
+                                        </div>
+                                        <span class="block text-center text-xl font-semibold text-gray-800">
+                                            <a href="{{ route('combos.show', $combo) }}">@livewire('combo', ['id' => $combo->id])</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
