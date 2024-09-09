@@ -196,37 +196,11 @@
                                 @foreach ($combos as $combo)
                                     <!-- Item  -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        
                                         <div
-                                            class="flex absolute top-5 sm:top-5 right-16 xl:left-[27rem] z-30 xl:gap-[53rem] space-x-2 sm:space-x-3 -translate-x-1/2">
-                                            <button
-                                                class="items-end rounded-full p-2 sm:p-3 sm:px-5 mt-4 bg-green-500 flex space-x-2 hover:bg-white transition-colors text-green-100 hover:text-green-700">
-                                                <p class="text-lg sm:text-xl font-bold">
-                                                    {{ $combo->discount }}%
-                                                </p>
-                                            </button>
-                                            <button
-                                                class="items-end rounded-full p-2 sm:p-3 px-3 sm:px-5 mt-4 bg-green-500 flex space-x-2 hover:bg-white transition-colors text-green-100 hover:text-green-700">
-                                                @php
-                                                    $total = 0;
-                                                @endphp
-                                                {{-- @php
-                                                    $item = $combo->items;
-                                                    $product = $item->product;
-                                                    $total += $product->items->first()->price();
-                                                @endphp
-                                                @dd($combo->items) --}}
-                                                @php
-                                                    $discount = ($combo->discount / 100) * $total;
-                                                    $totalDiscount = $total - $discount;
-                                                @endphp
-                                                <p class="text-lg sm:text-xl font-bold">
-                                                    ${{ number_format($totalDiscount, 2, '.', ',') }}</p>
-                                            </button>
-                                        </div>
-                                        <span
                                             class="absolute top-1/2 left-1/2 text-xl sm:text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 dark:text-gray-800">
                                             <a href="{{ route('combos.show', $combo) }}">@livewire('combo', ['id' => $combo->id])</a>
-                                        </span>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>

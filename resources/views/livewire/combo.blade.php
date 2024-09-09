@@ -41,10 +41,8 @@
         {{-- Grid de Imagenes --}}
         <div class="grid grid-cols-5 lg:grid-cols-5 p-2 lg:p-4">
             <div class="relative col-span-2 md:col-span-2 lg:col-span-2 flex justify-center">
-                @if ($image && $image->isNotEmpty())
-                    <img src="{{ url(Storage::url('images/product/' . $image->first()->url)) }}"
-                        class="w-full h-auto object-cover rounded-2xl" />
-                @endif
+                <img src="{{ url(Storage::url('images/product/' . $image2->first()->url)) }}"
+                    class="w-full h-auto object-cover rounded-2xl" />
             </div>
             <div class="col-span-1 md:col-span-1 flex flex-col justify-center items-center text-center">
                 <div class="">
@@ -63,8 +61,22 @@
                 </div>
             </div>
             <div class="relative col-span-2 md:col-span-2 lg:col-span-2 flex justify-center">
-                <img src="{{ url(Storage::url('images/product/' . $image2->first()->url)) }}"
-                    class="w-full h-auto object-cover rounded-2xl" />
+                @if ($image && $image->isNotEmpty())
+                    <img src="{{ url(Storage::url('images/product/' . $image->first()->url)) }}"
+                        class="w-full h-auto object-cover rounded-2xl" />
+                @endif
+
+                <!-- Botones de descuento y precio (Ahora en la esquina superior derecha) -->
+                <div class="absolute top-4 right-4 flex space-x-2">
+                    <button
+                        class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-base font-bold hover:bg-white hover:text-green-700 transition-colors">
+                        ${{ number_format($price, 2, ',', ' ') }}
+                    </button>
+                    <button
+                        class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-base font-bold hover:bg-white hover:text-green-700 transition-colors">
+                        {{ $discount }}%
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -152,4 +164,3 @@
         }
     </script>
 </div>
-
