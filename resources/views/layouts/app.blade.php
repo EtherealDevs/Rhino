@@ -33,7 +33,7 @@
         <div id="loader" class="h-18 mx-auto mt-12"></div>
     </div>
 
-    <div class="fixed z-50 bottom-20 right-10">
+    <div class="fixed z-50 bottom-14 right-10">
         <a href="https://wa.me/c/5493794316606" class="">
             <button class="p-3 rounded-full bg-[#4bcb51]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

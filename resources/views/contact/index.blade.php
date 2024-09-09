@@ -113,7 +113,7 @@
 
                         {{-- Whatsapp --}}
                         <li class="">
-                            <a href="https://wa.me/c/5493794316606">
+                            <a href="https://wa.me/c/5493794316606" target="_blank">
                                 <svg width="45" height="45" viewBox="0 0 45 45" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g filter="url(#filter0_d_351_1050)">
@@ -151,7 +151,7 @@
 
                         {{-- INSTAGRAM --}}
                         <li class="">
-                            <a href="https://www.instagram.com/rino.indumentaria/">
+                            <a href="https://www.instagram.com/rino.indumentaria/" target="_blank">
                                 <svg width="45" height="45" viewBox="0 0 45 45" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g filter="url(#filter0_d_351_1039)">
@@ -185,7 +185,7 @@
 
                         {{-- TIKTOK --}}
                         <li class="">
-                            <a href="">
+                            <a href="https://www.tiktok.com/@rinoindumentaria12" target="_blank">
                                 <svg width="45" height="45" viewBox="0 0 45 45" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g filter="url(#filter0_d_351_1044)">
@@ -217,7 +217,7 @@
 
                         {{-- FACEBOOK --}}
                         <li class="">
-                            <a href="">
+                            <a href="https://www.facebook.com/andreacacer/" target="_blank">
                                 <svg width="45" height="45" viewBox="0 0 45 45" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g filter="url(#filter0_d_351_1048)">

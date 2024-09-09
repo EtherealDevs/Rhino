@@ -134,23 +134,17 @@
                                                                 class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
 
                                                             <div class="relative z-10 h-2">
-
                                                                 <div
                                                                     class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200">
                                                                 </div>
-
                                                                 <div class="absolute z-20 top-0 bottom-0 rounded-md bg-blue-500"
                                                                     x-bind:style="'right:' + maxthumb + '%; left:' + minthumb + '%'">
                                                                 </div>
-
                                                                 <div class="absolute z-30 w-6 h-6 top-0 left-0 bg-blue-500 rounded-full -mt-2 -ml-1"
                                                                     x-bind:style="'left: ' + minthumb + '%'"></div>
-
                                                                 <div class="absolute z-30 w-6 h-6 top-0 right-0 bg-blue-500 rounded-full -mt-2 -mr-3"
                                                                     x-bind:style="'right: ' + maxthumb + '%'"></div>
-
                                                             </div>
-
                                                         </div>
 
                                                         <div class="flex justify-between items-center py-5">
@@ -161,7 +155,6 @@
                                                                 x-on:input="maxtrigger" x-model="maxprice"
                                                                 class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
                                                         </div>
-
                                                     </div>
 
 
@@ -183,7 +176,6 @@
 
             {{-- Content (Productos) --}}
             <div class="col-span-5 ml-0 lg:ml-2 z-10 mb-8">
-
                 <div class="bg-blue-800 rounded-none lg:rounded-2xl m-0 lg:m-6">
                     <div class="flex">
                         <!-- component -->
@@ -195,7 +187,6 @@
                                 </span>
                             </h2>
                         </div>
-
 
                         <div class="mt-4 mb-12 justify-end w-1/2">
                             <a href="/combos">
@@ -303,7 +294,6 @@
                         @endforeach
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
