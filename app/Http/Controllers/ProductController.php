@@ -24,7 +24,9 @@ class ProductController extends Controller
     }
     public function show(Product $product, $id)
     {
-        $item = ProductItem::with(['product' => ['items' => ['color'], 'category'], 'sizes', 'images'])->where('id', $id)->first();
+        $item = ProductItem::with(['product' => ['items' => ['color'], 'category'], 'sizes', 'images'])
+            ->where('id', $id)
+            ->first();
         $colors = $item->colors();
         return view('products.show', compact('item', 'colors'));
     }
@@ -32,7 +34,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'amount' => 'required',
-            'size' => 'required'
+            'size' => 'required',
         ]);
         CartManager::addItem($productItem, $request->amount, $request->size);
 
@@ -56,8 +58,8 @@ class ProductController extends Controller
         // Obtener las categorías, talles y precios seleccionados
         $selectedCategories = $request->input('categories', []);
         $selectedSizes = $request->input('sizes', []);
-        $minPrice = str_replace(['$', '.', ' '], '', $request->input('minprice', 0));
-        $maxPrice = str_replace(['$', '.', ' '], '', $request->input('maxprice', 500000));
+        $minPrice = max(1, (int) str_replace(['$', '.', ' '], '', $request->input('minprice', 1)));
+        $maxPrice = max(1, (int) str_replace(['$', '.', ' '], '', $request->input('maxprice', 500000)));
 
         // Consultar productos basados en las categorías seleccionadas
         $productsQuery = Product::query();
@@ -79,11 +81,11 @@ class ProductController extends Controller
         if ($minPrice && $maxPrice) {
             $productsQuery->whereHas('items', function ($query) use ($minPrice, $maxPrice) {
                 $query->where(function ($query) use ($minPrice, $maxPrice) {
-                    $query->whereBetween('sale_price', [$minPrice, $maxPrice])
-                        ->orWhere(function ($query) use ($minPrice, $maxPrice) {
-                            $query->whereNull('sale_price')
-                                ->whereBetween('original_price', [$minPrice, $maxPrice]);
-                        });
+                    // Verifica si sale_price está dentro del rango
+                    $query->whereBetween('sale_price', [$minPrice, $maxPrice])->orWhere(function ($query) use ($minPrice, $maxPrice) {
+                        // Si sale_price es NULL, entonces original_price debe estar dentro del rango
+                        $query->whereNull('sale_price')->whereBetween('original_price', [$minPrice, $maxPrice]);
+                    });
                 });
             });
         }

@@ -312,20 +312,27 @@
     <script>
         function range() {
             return {
-                min: 0,
+                min: 1, // Valor mínimo del rango
                 max: 500000,
-                minprice: 0,
+                minprice: 1,
                 maxprice: 500000,
-                minthumb: 0,
+                minthumb: 0, // Inicialmente 0 pero será ajustado por mintrigger
                 maxthumb: 100,
                 mintrigger() {
+                    if (this.minprice < this.min) { // Verifica que no sea menor al mínimo permitido
+                        this.minprice = this.min;
+                    }
                     this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
                 },
                 maxtrigger() {
+                    if (this.maxprice < this.min) { // Verifica que no sea menor al mínimo permitido
+                        this.maxprice = this.min;
+                    }
                     this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
                 }
             }
         }
+
 
         document.addEventListener('alpine:init', () => {
             Alpine.data('slider', () => ({
