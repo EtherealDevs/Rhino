@@ -36,17 +36,24 @@
 {{-- Card --}}
 <div class="max-w-7xl mx-auto">
     <div
-        class="custom-card bg-white rounded-xl shadow-md transition-transform pb-0 lg:pb-4 duration-300 hover:scale-105">
+        class="custom-card bg-white rounded-xl shadow-xl transition-transform pb-2 lg:pb-3 duration-300 hover:scale-105">
 
         {{-- Grid de Imagenes --}}
-        <div class="grid grid-cols-5 lg:grid-cols-5 p-2 lg:p-4">
-            <div class="relative col-span-2 md:col-span-2 lg:col-span-2 flex justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 p-4 lg:p-4 gap-4">
+            <div class="relative col-span-1 sm:col-span-2 lg:col-span-2 flex justify-center items-center">
                 <img src="{{ url(Storage::url('images/product/' . $image2->first()->url)) }}"
                     class="w-full h-auto object-cover rounded-2xl" />
+        
+                <div class="absolute top-4 left-4 flex space-x-2">
+                    <button
+                        class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-sm font-bold hover:bg-white hover:text-green-700 transition-colors">
+                        {{ $discount }}%
+                    </button>
+                </div>
             </div>
-            <div class="col-span-1 md:col-span-1 flex flex-col justify-center items-center text-center">
-                <div class="">
-                    <div class="text-black text-xl font-bold rounded-2xl px-2 py-2 ">
+            <div class="col-span-1 flex flex-col justify-center items-center text-center space-y-2">
+                <div>
+                    <div class="text-black text-xl font-bold rounded-2xl px-2 py-2">
                         {{-- ${{ $priceDiscount }} --}}
                     </div>
                     <div class="line-through text-slate-400 text-xl font-bold rounded-2xl px-2 py-2">
@@ -60,21 +67,17 @@
                     </svg>
                 </div>
             </div>
-            <div class="relative col-span-2 md:col-span-2 lg:col-span-2 flex justify-center">
+            <div class="relative col-span-1 sm:col-span-2 lg:col-span-2 flex justify-center items-center">
                 @if ($image && $image->isNotEmpty())
                     <img src="{{ url(Storage::url('images/product/' . $image->first()->url)) }}"
                         class="w-full h-auto object-cover rounded-2xl" />
                 @endif
-
+        
                 <!-- Botones de descuento y precio (Ahora en la esquina superior derecha) -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button
-                        class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-base font-bold hover:bg-white hover:text-green-700 transition-colors">
+                        class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-sm font-bold hover:bg-white hover:text-green-700 transition-colors">
                         ${{ number_format($price, 2, ',', ' ') }}
-                    </button>
-                    <button
-                        class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-base font-bold hover:bg-white hover:text-green-700 transition-colors">
-                        {{ $discount }}%
                     </button>
                 </div>
             </div>

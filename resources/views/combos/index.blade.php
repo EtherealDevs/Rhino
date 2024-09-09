@@ -6,7 +6,7 @@
             <div class="w-full grid grid-cols-8 justify-between mb-4">
                 <div class="mx-auto col-span-8 relative">
                     <!-- Banner o elemento llamativo -->
-                    <div class="w-screen bg-gradient-to-r from-green-400 to-blue-500 p-8 py-14 rounded-lg shadow-lg text-center text-white">
+                    <div class="w-screen bg-gradient-to-r from-blue-400 to-blue-600 p-8 py-14 rounded-lg shadow-lg text-center text-white">
                         <h3 class="text-3xl font-josefin font-bold">¡Ofertas Especiales en Combos!</h3>
                         <p class="mt-2 text-lg">Aprovecha descuentos únicos en nuestros combos seleccionados.</p>
                     </div>
@@ -14,16 +14,16 @@
             </div>
 
             {{-- comboss --}}
-            <div class="grid grid-cols-4 lg:grid-cols-6 justify-between mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-6 justify-between mx-auto max-w-screen-2xl px-4">
                 {{-- Content (Productos) --}}
-                <div class="col-span-5 ml-2 z-10 mb-8">
-                    <div class="flex w-full">
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 justify-items-center mx-auto lg:gap-10">
+                <div class="col-span-4 lg:col-span-6 mx-auto z-10 mb-8">
+                    <div class="flex w-full justify-center">
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center mx-auto lg:gap-10">
                             @foreach ($combos as $combo)
                                 <!-- Item -->
-                                <div class="relative overflow-hidden transition-transform duration-500 ease-in-out hover:scale-105 w-full max-w-xl"> <!-- max-w-lg o max-w-xl para aumentar el tamaño -->
+                                <div class="relative overflow-hidden transition-transform duration-500 ease-in-out hover:scale-105 w-full max-w-md sm:max-w-lg lg:max-w-xl"> <!-- Ajustar el tamaño máximo -->
                                     <!-- Contenido del combo -->
-                                    <div class="p-1"> <!-- Aumentar padding a 10 -->
+                                    <div class="p-4"> <!-- Aumentar padding -->
                                         <span class="block text-center text-xl font-semibold text-gray-800">
                                             <a href="{{ route('combos.show', $combo) }}">@livewire('combo', ['id' => $combo->id])</a>
                                         </span>
