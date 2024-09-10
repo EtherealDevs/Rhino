@@ -45,7 +45,7 @@
         <td class="p-4">
         <td class="p-4 border-b border-blue-gray-50">
             <div class="inline-flex items-center rounded-md shadow-sm">
-                <a href="{{ route('admin.products.edit', $productItem, $size) }}">
+                <a href="{{ route('admin.productitems.edit', $productSize->id, $size) }}">
                     <button
                         class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
                         <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

@@ -63,15 +63,8 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductItem $productItem, Size $size)
+    public function edit(ProductsSize $product, Size $size)
     {
-        $productItem = $productItem->first();
-        $stock= ProductsSize::where('product_item_id', $productItem->id)->where('size_id',$size->first()->id)->first()->stock;
-        $colors= Color::all();
-        $products= Product::all();
-        $brands=Brand::all();
-        $categories=Category::all();
-        return view('admin.products.edit', compact('colors', 'products','brands','size','categories','productItem','stock'));
     }
 
     /**

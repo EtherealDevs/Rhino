@@ -40,16 +40,17 @@
 
             <div class="p-6 rounded-xl bg-white">
                 <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
-                    Editar {{ $productItem->product->name }}
+                    Editar {{ $productItem->product->name }} ({{$productItem->color->name}} - {{$size->name}})
                 </h2>
 
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action={{ route('admin.productitems.update', $productItem, $size) }} method="POST"
+                            <form action={{ route('admin.productitems.update', $productItem) }} method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+                                <input type="text" class="hidden" value="{{$size->id}}" name="size_id">
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-10 gap-2">
                                         <div class="col-span-9">
