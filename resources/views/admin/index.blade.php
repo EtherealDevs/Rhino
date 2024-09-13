@@ -1,6 +1,98 @@
 @extends('layouts.admin')
 @section('content')
     <div class="p-6 pt-20">
+        <style>
+            #loaderadmin {
+                width: 60px;
+                height: 10px;
+                border-radius: 5px;
+                background: linear-gradient(to right, #4a90e2, #4a90e2 50%, #ffffff 50%, #ffffff);
+                background-size: 200% 100%;
+                animation: slide 2.5s infinite linear;
+                position: absolute;
+            }
+        
+            @keyframes slide {
+                0% {
+                    background-position: 0 0;
+                }
+                100% {
+                    background-position: 100% 0;
+                }
+            }
+        
+            @keyframes fadeOut {
+                0% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                }
+            }
+        
+            @keyframes slideDown {
+                0% {
+                    transform: translateY(0);
+                }
+                100% {
+                    transform: translateY(50px); /* Ajusta la distancia del deslizamiento según sea necesario */
+                }
+            }
+        
+            #contain-loader {
+                background: rgba(255, 255, 255, 0.8);
+                position: fixed; /* Asegúrate de que el contenedor esté posicionado correctamente */
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 50;
+                animation: fadeOut 1.5s forwards 5s, slideDown 1.5s forwards 5s;
+                /* Agrega un retraso de 5 segundos para las animaciones de desvanecimiento y deslizamiento */
+            }
+        </style>
+        
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                showLoaderAdmin();
+            });
+        
+            function showLoaderAdmin() {
+                const loaderElement = document.querySelector("#contain-loader");
+        
+                if (loaderElement) {
+                    loaderElement.style.display = "flex"; // Mostrar el loader
+                }
+        
+                // Ocultar el loader después de 10 segundos
+                setTimeout(() => {
+                    hideLoaderAdmin();
+                }, 10000); // 10000 ms = 10 segundos
+            }
+        
+            function hideLoaderAdmin() {
+                const loaderElement = document.querySelector("#contain-loader");
+        
+                if (loaderElement) {
+                    loaderElement.style.animation = "fadeOut 1.5s forwards, slideDown 1.5s forwards";
+                    setTimeout(() => {
+                        loaderElement.style.display = "none"; // Ocultar el loader después del desvanecimiento
+                    }, 1500); // 1500 ms = duración de la animación de desvanecimiento y deslizamiento
+                }
+            }
+        </script>
+        
+        
+        <div id="contain-loader" class="fixed h-screen bg-transparent backdrop-blur-md inset-0 flex items-center justify-center z-50">
+            <div id="loaderadmin" class="w-16 h-16 border-4 border-t-4">
+                <div class="absolute text-center text-gray-800 font-semibold text-lg">
+                    <h2 class="text-xl font-thin text-gray-800">Hola, <span class="uppercase font-extrabold font-blinker">{{ $user->name }}</span> 👋🏻</h2>
+                </div>
+            </div>
+        </div>
+        
+
         <!-- Carrousel -->
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -33,44 +125,44 @@
                 class="bg-gradient-to-r from-[#2F3467] to-[#7D86DD] bg-r  col-span-2 h-5/6 rounded-xl border-t-4 border-purple-300 p-4 mb-2 shadow-md shadow-black/5">
                 <?php
                 use Carbon\Carbon;
-
+                
                 date_default_timezone_set('America/Argentina/Buenos_Aires');
-
+                
                 // Obtenemos la fecha actual en Buenos Aires
                 $now = Carbon::now('America/Argentina/Buenos_Aires');
-
+                
                 // Formateamos la fecha para mostrar "hoy es martes 16 de agosto"
                 setlocale(LC_TIME, 'es_ES'); // Establecer el idioma local a español
                 $formattedDate = $now->translatedFormat('l j \de F'); // "l" para el día de la semana, "j" para el día, "F" para el mes
-
+                
                 // Obtenemos la hora actual
                 $currentTime = $now->format('H:i'); // Formato hora:minuto:segundo
-
+                
                 // Obtener el pronóstico del clima actual usando OpenWeatherMap API
                 $apiKey = '4eb017fd3584fc1e33ce24ef2f3dad38'; // Reemplaza 'TU_API_KEY' con tu propia API key de OpenWeatherMap
                 $city = 'Corrientes';
-
+                
                 // Codificar el nombre de la ciudad para evitar problemas con caracteres especiales
                 $encodedCity = urlencode($city);
-
+                
                 // Construir la URL de la solicitud
                 $url = "https://api.openweathermap.org/data/2.5/weather?q={$encodedCity}&units=metric&appid={$apiKey}";
-
+                
                 // Realizar la solicitud HTTP para obtener los datos del clima
                 $response = file_get_contents($url);
-
+                
                 // Decodificar la respuesta JSON
                 $weatherData = json_decode($response);
-
+                
                 // Verificar si se recibió una respuesta válida
                 if ($weatherData && isset($weatherData->main, $weatherData->weather)) {
                     // Extraer los datos del clima
                     $temperature = $weatherData->main->temp;
                     $description = strtolower($weatherData->weather[0]->description); // Convertir descripción a minúsculas
-
+                
                     // Asignar emoji según la descripción del clima en inglés
                     $emoji = '';
-
+                
                     if (strpos($description, 'clear') !== false || strpos($description, 'sunny') !== false) {
                         $emoji = '☀️'; // Soleado o claro
                     } elseif (strpos($description, 'rain') !== false || strpos($description, 'shower') !== false) {
@@ -82,7 +174,7 @@
                     }
                 } else {
                     $errorMessage = 'No se pudo obtener la información del clima en este momento.';
-
+                
                     if ($response) {
                         $errorMessage .= " Respuesta de la API: {$response}";
                     }
@@ -99,8 +191,8 @@
                         <div class="justify-center">
                             <h2 class="text-[#FFF1F1] font-encode font-bold text-2xl leading-8  italic">Bienvenido
                             </h2>
-                            <h3 class="text-white uppercase mt-0 font-lg text-semibold leading-6">
-                                <span>
+                            <h3 class="text-white uppercase mt-0 font-blinker font-bold font-lg text-semibold leading-6">
+                                <span class="font-blinker">
                                     {{ $user->name }}
                                 </span>
                             </h3>

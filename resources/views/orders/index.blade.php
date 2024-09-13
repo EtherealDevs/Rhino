@@ -41,11 +41,19 @@
 
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-medium text-gray-900 truncate">
-                                                <div
-                                                    class="right-10 inline-flex items-center justify-center text-xs font-semibold uppercase w-24 xl:w-40 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">
-                                                    {{ $order->orderStatus->name }} -
-                                                    ${{ $order->delivery_price }}
-                                                </div>
+                                                    <div
+                                                        class="right-10 inline-flex items-center justify-center text-xs font-semibold uppercase w-24 xl:w-40 h-6 mb-3 sm:mb-0
+                                                        @if ($order->orderStatus->id == 5)
+                                                            text-red-500 bg-red-100
+                                                        @elseif ($order->orderStatus->id == 1)
+                                                            text-yellow-600 bg-yellow-300
+                                                        @else
+                                                            text-emerald-600 bg-emerald-100
+                                                        @endif
+                                                        rounded-full">
+                                                        {{ $order->orderStatus->name }} -
+                                                        ${{ $order->delivery_price }}
+                                                    </div>
                                                 </p>
                                             </div>
 
