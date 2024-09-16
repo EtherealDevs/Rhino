@@ -6,11 +6,20 @@
         
         <div class="mb-6">
             <p class="text-lg text-gray-600"><strong class="font-medium">Usuario:</strong> {{ $order->user->name }}</p>
-            <p class="text-lg text-gray-600"><strong class="font-medium">Estado:</strong> 
-                <span class="inline-block px-2 py-1 text-xs font-semibold text-white bg-emerald-500 rounded-full">
+            <p class="text-sm font-medium text-gray-900 truncate">
+                <div class="inline-flex items-center justify-center text-xs font-semibold uppercase w-24 xl:w-40 h-6 mb-3 sm:mb-0 rounded-full
+                    @if ($order->orderStatus->id == 5)
+                        text-red-500 bg-red-100
+                    @elseif ($order->orderStatus->id == 1)
+                        text-yellow-600 bg-yellow-300
+                    @else
+                        text-emerald-600 bg-emerald-100
+                    @endif
+                ">
                     {{ $order->orderStatus->name }}
-                </span>
+                </div>
             </p>
+                        
             <p class="text-lg text-gray-600"><strong class="font-medium">Total:</strong> ${{ number_format($order->total, 2) }}</p>
             <p class="text-lg text-gray-600"><strong class="font-medium">Fecha de Creación:</strong> {{ $order->created_at->format('d-m-Y H:i') }}</p>
         </div>
