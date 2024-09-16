@@ -1,4 +1,12 @@
-<div x-data="{ openModal: true, successModal: false, value: null }">
+<div x-data="{ 
+    openModal: !localStorage.getItem('review-modal-closed') || Date.now() > localStorage.getItem('review-modal-closed'),
+    successModal: false,
+    value: null,
+    closeModal() {
+        this.openModal = false;
+        localStorage.setItem('review-modal-closed', Date.now() + (2 * 60 * 60 * 1000)); // Guardar la hora actual + 2 horas en milisegundos
+    }
+}">
     <!-- Modal -->
     <div x-show="openModal" class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xl">
         <div class="bg-white p-16 rounded-2xl w-[45rem] h-[40rem] flex flex-col justify-between">
@@ -35,7 +43,7 @@
             </ul>
             <!-- Botones -->
             <div class="mt-8 flex space-x-4">
-                <button @click="openModal = false"
+                <button @click="closeModal()"
                     class="w-full h-16 uppercase bg-black text-white hover:bg-white hover:text-blue-900 transition-colors rounded-full flex items-center justify-center">
                     Haré mi reseña luego
                 </button>
@@ -70,32 +78,5 @@
         </div>
     </div>
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-
-    <script>
-        const buttons = document.querySelectorAll(".list__item");
-        const submit = document.querySelector(".btn__submit");
-        const rating = document.querySelector(".span__value");
-        const card = document.querySelector(".card");
-        const success = document.querySelector(".success");
-
-        let value;
-
-        buttons.forEach((button) => {
-            button.addEventListener("click", (e) => {
-                buttons.forEach((button) => button.classList.remove("bg-yellow-400"));
-                e.target.classList.add("bg-yellow-400");
-                value = e.target.textContent;
-            });
-        });
-
-        submit.addEventListener("click", () => {
-            rating.textContent = value;
-            card.style.display = "none";
-            success.style.display = "flex";
-        });
-    </script>
 </div>
