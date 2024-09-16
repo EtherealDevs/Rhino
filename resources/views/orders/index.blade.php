@@ -20,12 +20,10 @@
                                             <div class="flex-shrink-0">
                                                 <td class="py-3 px-6 text-center">
                                                     <div class="flex items-center justify-center">
+                                                        @foreach($order->details as $item)
                                                         <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border transform hover:scale-125"
-                                                            src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                                        <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border -m-1 transform hover:scale-125"
-                                                            src="https://randomuser.me/api/portraits/women/2.jpg" />
-                                                        <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border -m-1 transform hover:scale-125"
-                                                            src="https://randomuser.me/api/portraits/men/3.jpg" />
+                                                        src="{{url(Storage::url('images/product/'.$item->productItem->images->first()->url))}}" />
+                                                        @endforeach
                                                     </div>
                                                     <time
                                                     class="right-10 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
