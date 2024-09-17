@@ -34,6 +34,7 @@
                                 </li>
                             @endforeach
                         </ul>
+                    </div>
                 </div>
                 @endif
             </div>
@@ -98,15 +99,11 @@
                     </select>
                 </div>
                 
-                <div class="mb-4" id="quantity-container">
+                <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Cantidad:</label>
                     <div class="flex items-center space-x-2">
                         @livewire('counter')
                     </div>
-                </div>
-                
-                <div id="no-stock-message" class="hidden mb-4 text-red-600">
-                    <p>No hay stock disponible para el producto seleccionado.</p>
                 </div>
                 
                 <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('products.addToCart', ['product' => $item->product, 'productItem' => $item])}}">
@@ -169,6 +166,7 @@
         </div>
     </div>
 
+    <script src="{{asset('js/products/show.js')}}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             new Glide('.glide', {
@@ -186,7 +184,7 @@
                 }
             }).mount();
         });
-
+/* 
         function sizeOptionChanged() {
             let selectedOption = document.querySelector('#size-selector option:checked');
             let stock = selectedOption ? selectedOption.getAttribute('data-stock') : null;
@@ -201,9 +199,9 @@
                 messageElement.classList.add('hidden');
                 formElement.classList.remove('hidden');
             }
-        }
+        } */
 
-        function populateProductSubmitForm(event, sizes) {
+        /* function populateProductSubmitForm(event, sizes) {
             event.preventDefault();
             let sizeInput = document.getElementById('sizeInput');
             let counterInput = document.getElementById('counterInput');
@@ -213,6 +211,6 @@
             counterInput.value = document.getElementById('counterInput').value;
 
             document.getElementById('sendProductToCart').submit();
-        }
+        } */
     </script>
 @endsection
