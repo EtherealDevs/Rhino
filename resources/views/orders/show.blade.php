@@ -47,7 +47,7 @@
             </div>
 
             <div class="">
-                <a href="{{ route('orders.index') }}" class="inline-block px-6 py-2 text-white bg-green-400 hover:bg-green-600 rounded-lg font-semibold">
+                <a href="https://wa.me/c/5493794316606" class="inline-block px-6 py-2 text-white bg-green-400 hover:bg-green-600 rounded-lg font-semibold">
                     Contactanos por algun problema
                 </a>
             </div>

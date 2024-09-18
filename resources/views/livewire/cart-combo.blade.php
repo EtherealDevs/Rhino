@@ -5,9 +5,9 @@
     <a @click.prevent="isOpen = !isOpen" class="flex justify-center items-center">
         <div
             class="mb-3 py-3 mt-6 w-full max-w-screen-xl transform cursor-pointer flex-col lg:flex-row justify-between rounded-xl bg-white bg-opacity-75 p-6 text-slate-800 transition-shadow duration-500 hover:-translate-y-1 hover:shadow-lg">
-            <div class="w-full grid grid-cols-7 gap-4">
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
                 <!-- Imagenes -->
-                <div class="col-span-2 flex space-x-2">
+                <div class="col-span-1 lg:col-span-2 flex space-x-2 justify-center lg:justify-start">
                     @for ($i = 0; $i < 2; $i++)
                         <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
                             <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
@@ -42,9 +42,9 @@
                 </div>
 
                 <!-- Total OFF -->
-                <div class="col-span-3 flex flex-col items-center justify-center">
+                <div class="col-span-1 lg:col-span-3 flex flex-col items-center justify-center">
                     <div class="text-sm text-slate-900">Total con Descuento</div>
-                    <div class="text-xl font-extrabold text-slate-900">
+                    <div class="text-xl font-extrabold text-green-500">
                         ${{ number_format($total, 0, ',', '.') }}
                     </div>
                 </div>

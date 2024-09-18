@@ -161,7 +161,7 @@
                 <div class="bg-blue-800 md:rounded-lg m-0 md:m-4 lg:m-6 p-4 lg:p-8">
                     <div class="flex flex-col lg:flex-row lg:items-center">
                         <!-- Contenido de texto -->
-                        <div class="flex-1 lg:mr-6">
+                        <div class="flex-1 lg:mr-6 mt-12 lg:mt-0">
                             <h2 class="text-blue-100 font-bold font-josefin text-2xl lg:text-4xl italic leading-tight">
                                 Estilo y Ahorro: <br>
                                 <span class="text-blue-200 font-light not-italic">
@@ -171,7 +171,7 @@
                         </div>
                 
                         <!-- Botón -->
-                        <div class="mt-4 lg:mt-0 lg:w-1/2 flex justify-center">
+                        <div class="mt-12 lg:mt-0 lg:w-1/2 flex justify-center">
                             <a href="/combos">
                                 <button class="rounded-full p-3 px-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors text-white hover:text-blue-900">
                                     <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -184,7 +184,7 @@
                     </div>
                 
                     <!-- Carrusel -->
-                    <div class="max-w-7xl mx-auto mt-8">
+                    <div class="max-w-7xl mx-auto mt-6">
                         <div id="default-carousel" class="relative" data-carousel="static">
                             <!-- Carousel wrapper -->
                             <div class="overflow-hidden relative h-[900px] sm:h-56 md:h-64 lg:h-72 xl:h-[550px] 2xl:h-[590px] rounded-lg">
