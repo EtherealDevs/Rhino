@@ -8,27 +8,52 @@
             <div class="w-full grid grid-cols-7 gap-4">
                 <!-- Imagenes -->
                 <div class="col-span-2 flex space-x-2">
-                    @for ($i = 0; $i < 2; $i++)
-                        <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
-                            <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
-                                class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-                                src="{{ url(Storage::url('images/product/' . $items[$i]['item']->images->first()->url)) }}"
-                                alt="Imagen Producto" />
+                    @if (count($items)>1)
 
-                            <!-- Tooltip -->
-                            <div class="absolute z-50 left-14 -top-2" x-show="tooltip"
-                                x-transition:enter="transition ease-out duration-150"
-                                x-transition:enter-start="opacity-0 transform translate-y-2"
-                                x-transition:enter-end="opacity-100 transform translate-y-0"
-                                x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100 transform translate-y-0"
-                                x-transition:leave-end="opacity-0 transform translate-y-2">
-                                <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
-                                    {{ $items[$i]['item']->product->name }}
+                        @for ($i = 0; $i < 2; $i++)
+                            <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
+                                <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
+                                    class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
+                                    src="{{ url(Storage::url('images/product/' . $items[$i]['item']->images->first()->url)) }}"
+                                    alt="Imagen Producto" />
+
+                                <!-- Tooltip -->
+                                <div class="absolute z-50 left-14 -top-2" x-show="tooltip"
+                                    x-transition:enter="transition ease-out duration-150"
+                                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                                    x-transition:leave-end="opacity-0 transform translate-y-2">
+                                    <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
+                                        {{ $items[$i]['item']->product->name }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endfor
+                        @endfor
+                    @else
+                        @for ($i = 0; $i < count($items); $i++)
+                            <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
+                                <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
+                                    class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
+                                    src="{{ url(Storage::url('images/product/' . $items[$i]['item']->images->first()->url)) }}"
+                                    alt="Imagen Producto" />
+
+                                <!-- Tooltip -->
+                                <div class="absolute z-50 left-14 -top-2" x-show="tooltip"
+                                    x-transition:enter="transition ease-out duration-150"
+                                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                                    x-transition:leave-end="opacity-0 transform translate-y-2">
+                                    <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
+                                        {{ $items[$i]['item']->product->name }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endfor
+                    @endif
                 </div>
 
                 <!-- Precio / Descuento -->

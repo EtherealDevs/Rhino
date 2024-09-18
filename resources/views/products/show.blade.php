@@ -85,7 +85,7 @@
                         return value;
                     }
                 </script>
-                
+
                 <div class="mb-4" id="size-container">
                     <label class="block text-gray-700 mb-2">Talle:</label>
                     <select x-data id="size-selector" onchange="sizeOptionChanged()">
@@ -94,18 +94,22 @@
                             $sizes = $item->sizes()->orderBy('sort_number')->get();
                         @endphp
                         @foreach ($sizes as $size)
-                            <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$size->pivot->stock}} })" data-stock="{{$size->pivot->stock}}" value="{{$size->name}}" class="w-10 h-10 border rounded-lg focus:outline-none">{{$size->name}} - disponibles : {{$size->pivot->stock}}</option>
+                            <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$size->pivot->stock}} })" data-stock="{{$size->pivot->stock}}" value="{{$size->name}}" class="w-10 h-10 border rounded-lg focus:outline-none">{{$size->name}} -  @if ($size->pivot->stock < 1)
+                                No Hay Stock
+                                @else
+                                disponibles :{{$size->pivot->stock}}
+                            @endif </option>
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Cantidad:</label>
                     <div class="flex items-center space-x-2">
                         @livewire('counter')
                     </div>
                 </div>
-                
+
                 <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('products.addToCart', ['product' => $item->product, 'productItem' => $item])}}">
                     @csrf
                     <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">Agregar al carrito</button>
@@ -184,14 +188,14 @@
                 }
             }).mount();
         });
-/* 
+/*
         function sizeOptionChanged() {
             let selectedOption = document.querySelector('#size-selector option:checked');
             let stock = selectedOption ? selectedOption.getAttribute('data-stock') : null;
             let messageElement = document.getElementById('no-stock-message');
             let formElement = document.getElementById('sendProductToCart');
             let counterInput = document.getElementById('counterInput');
-            
+
             if (stock === '0') {
                 messageElement.classList.remove('hidden');
                 formElement.classList.add('hidden');
