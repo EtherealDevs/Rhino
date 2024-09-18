@@ -158,7 +158,7 @@
 
             {{-- Content (Productos) --}}
             <div class="col-span-5 ml-0 lg:ml-2 z-10 mb-8">
-                <div class="bg-blue-800 rounded-lg m-4 lg:m-6 p-4 lg:p-8">
+                <div class="bg-blue-800 md:rounded-lg m-0 md:m-4 lg:m-6 p-4 lg:p-8">
                     <div class="flex flex-col lg:flex-row lg:items-center">
                         <!-- Contenido de texto -->
                         <div class="flex-1 lg:mr-6">
@@ -187,7 +187,7 @@
                     <div class="max-w-7xl mx-auto mt-8">
                         <div id="default-carousel" class="relative" data-carousel="static">
                             <!-- Carousel wrapper -->
-                            <div class="overflow-hidden relative h-48 sm:h-56 md:h-64 lg:h-72 xl:h-[550px] 2xl:h-[590px] rounded-lg">
+                            <div class="overflow-hidden relative h-[900px] sm:h-56 md:h-64 lg:h-72 xl:h-[550px] 2xl:h-[590px] rounded-lg">
                                 <!-- Item 1 -->
                                 @foreach ($combos as $combo)
                                     <!-- Item -->
@@ -200,7 +200,7 @@
                             </div>
                 
                             <!-- Slider controls -->
-                            <button type="button" class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none" data-carousel-prev>
+                            <button type="button" class="flex absolute top-0 left-0 z-30 justify-center items-center px-0 md:px-4 h-full cursor-pointer group focus:outline-none" data-carousel-prev>
                                 <span class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                                     <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>

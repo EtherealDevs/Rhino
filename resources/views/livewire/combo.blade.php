@@ -52,14 +52,6 @@
                 </div>
             </div>
             <div class="col-span-1 flex flex-col justify-center items-center text-center space-y-2">
-                <div>
-                    <div class="text-black text-xl font-bold rounded-2xl px-2 py-2">
-                        {{-- ${{ $priceDiscount }} --}}
-                    </div>
-                    <div class="line-through text-slate-400 text-xl font-bold rounded-2xl px-2 py-2">
-                        {{-- ${{ $price }} --}}
-                    </div>
-                </div>
                 <div class="my-1 lg:my-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="1em" viewBox="0 0 32 32">
                         <path fill="black"
