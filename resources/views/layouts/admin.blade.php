@@ -86,8 +86,6 @@
 
 <body class="text-gray-800 font-inter">
 
-    
-
     @livewire('admin.admin-panel')
     <div
         class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gradient-to-r from-rose-50 via-blue-50 to-gray-100 min-h-screen transition-all main">
