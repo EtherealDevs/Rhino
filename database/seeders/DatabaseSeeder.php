@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             OrderStatusSeeder::class,
             OrderSeeder::class,
             OrderDetailSeeder::class,
+            ReviewsSeeder::class,
         ]);
     }
 }

@@ -42,11 +42,15 @@
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-3xl font-bold">{{$item->product->name}}</h2>
                     <span class="text-xl text-yellow-500">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= floor($averageRating))
+                                <i class="ri-star-fill"></i>
+                            @elseif ($i == ceil($averageRating))
+                                <i class="ri-star-half-fill"></i>
+                            @else
+                                <i class="ri-star-line"></i> <!-- Estrella vacía -->
+                            @endif
+                        @endfor
                     </span>
                 </div>
 
@@ -122,17 +126,17 @@
                     <div class="flex space-x-4 border-b-2 mb-4">
                         <button @click="activeTab = 'description'"
                             :class="{ 'border-blue-500 text-blue-500': activeTab === 'description' }"
-                            class="py-2 px-4 border-b-2">Descripción</button>
+                            class="py-2 px-4 text-[14px] xl:text-lg border-b-2">Descripción</button>
                         <button @click="activeTab = 'size'"
                             :class="{ 'border-blue-500 text-blue-500': activeTab === 'size' }"
-                            class="py-2 px-4 border-b-2">Tamaños y Medidas</button>
+                            class="py-2 px-4 text-[14px] xl:text-lg border-b-2">Tamaños y Medidas</button>
                         <button @click="activeTab = 'reviews'"
                             :class="{ 'border-blue-500 text-blue-500': activeTab === 'reviews' }"
-                            class="py-2 px-4 border-b-2">Reseñas y Calificaciones</button>
+                            class="py-2 px-4 text-[14px] xl:text-lg border-b-2">Reseñas y Calificaciones</button>
                     </div>
                     <div x-show="activeTab === 'description'">
                         <h3 class="text-2xl font-bold mb-4">Descripción</h3>
-                        <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="text-gray-700">{{$item->product->description}}</p>
                     </div>
                     <div x-show="activeTab === 'size'">
                         <h3 class="text-2xl font-bold mb-4">Tamaños y Medidas</h3>
@@ -163,9 +167,64 @@
                     </div>
                     <div x-show="activeTab === 'reviews'">
                         <h3 class="text-2xl font-bold mb-4">Reseñas y Calificaciones</h3>
-                        <p class="text-gray-700">No hay reseñas disponibles para este producto.</p>
+<div class="flex justify-center items-center h-full">
+    <div class="max-w-[720px] mx-auto">
+        @foreach($reviews as $review)
+        <div class="relative mb-6 flex items-start gap-4 p-6 mb-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <img
+                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80"
+                alt="{{ $review->user->name }}" 
+                class="h-16 w-16 rounded-full object-cover border-2 border-gray-300" />
+            <div class="flex flex-col w-full">
+                <div class="flex items-center justify-between">
+                    <h5 class="text-lg font-semibold text-blue-gray-900">
+                        {{ $review->user->name }}
+                    </h5>
+                    <div class="flex items-center">
+                        @for($i = 0; $i < $review->rating; $i++)
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-yellow-700">
+                                <path fill-rule="evenodd"
+                                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        @endfor
                     </div>
                 </div>
+                <p class="mt-1 text-sm text-gray-600">
+                    {{ $review->product->name }} <!-- Asegúrate de que tengas la relación definida -->
+                </p>
+            </div>
+        </div>
+        <div class="p-4 mb-4 bg-gray-50 rounded-lg">
+            <p class="text-base text-gray-800 italic">
+                "{{ $review->content }}"
+            </p>
+        </div>
+    @endforeach
+    
+    
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Recommended Products Section -->
+        <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-2xl font-bold mb-4">Productos Recomendados</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @foreach ($item->category()->products()->where('id', '!=', $item->product_id)->with('items')->take(4)->get() as $relatedProduct)
+                    @php
+                        $relatedItem = $relatedProduct->items()->first();
+                    @endphp
+                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                    <a href="{{route('products.show', ['product' => $relatedProduct,'productItem' => $relatedItem])}}">
+                        <img class="w-full h-48 object-cover rounded-t-lg" src="/storage/images/product/{{$relatedItem->images->first()->url}}"
+                            alt="Producto 1">
+                        <h4 class="text-lg font-semibold mt-2">{{$relatedProduct->name}}</h4>
+                        <p class="text-gray-700">${{$relatedItem->price()}}</p>
+                    </a>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>

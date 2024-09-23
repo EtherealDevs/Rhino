@@ -10,6 +10,7 @@ use App\Models\ProductItem;
 use App\Models\Category;
 use App\Models\Size;
 use App\Models\Combo;
+use App\Models\Reviews;
 use App\Models\User;
 use App\Notifications\OrderNotification;
 use Exception;
@@ -22,14 +23,23 @@ class ProductController extends Controller
     {
         return view('products.index');
     }
+
     public function show(Product $product, $id)
     {
+        // Calcular el promedio de estrellas
+        $averageRating = $product->reviews()->avg('rating');
+
+        // Redondear a la estrella más cercana
+        $averageRating = round($averageRating * 2) / 2;
+
         $item = ProductItem::with(['product' => ['items' => ['color'], 'category'], 'sizes', 'images'])
             ->where('id', $id)
             ->first();
         $colors = $item->colors();
-        return view('products.show', compact('item', 'colors'));
+        $reviews = Reviews::with('user', 'product')->get();
+        return view('products.show', compact('item', 'colors', 'reviews', 'averageRating'));
     }
+
     public function addToCart(Request $request, Product $product, ProductItem $productItem)
     {
         $request->validate([
