@@ -42,7 +42,7 @@
                 </button>
 
                 <div x-show="open" x-on:click.away="open = false" class="absolute">
-                    <div class="absolute font-poppins antialiased">
+                    <div class="absolute font-poppins antialiased mt-12">
                         <div id="view" class="flex flex-row">
                             <!-- Sidebar ajustado para ser sticky -->
                             <div id="sidebar"

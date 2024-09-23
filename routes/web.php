@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\FavoriteController;
 use App\Livewire\Navigation;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 
 use App\Livewire\ShippingCost;
 
@@ -53,7 +54,7 @@ Route::resource('/combos', ComboController::class)->names('combos');
 // Ruta para mostrar todos los pedidos
 Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 
-
+Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
 
 // Ruta para mostrar un pedido específico
 Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');

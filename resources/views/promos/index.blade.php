@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('title', 'Seccion de promociones')
+
+@section('meta_description', '¡Ofertas imperdibles! Descubre descuentos increíbles en nuestra tienda online. Ropa para hombre y adolescente a precios bajos. ¡Renueva tu armario sin gastar de más!')
+
 @section('content')
     <section class="bg-white">
         <div class="w-full">

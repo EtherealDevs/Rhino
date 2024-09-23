@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Rino Indumentaria') }}</title>
+    <link rel="icon" type="image/x-icon" href="/img/rino-blue.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -24,6 +25,20 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    <!-- Google Analitycs -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VJZ69QX1T3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VJZ69QX1T3');
+    </script>
 </head>
 
 <body class="font-sans antialiased">

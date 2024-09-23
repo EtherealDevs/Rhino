@@ -1,4 +1,10 @@
 @extends('layouts.app')
+
+@section('title', 'Seccion de combos')
+
+@section('meta_description', '
+"¡Ahorra en grande con nuestros combos! Combina tus prendas favoritas y paga mucho menos. ¡La mejor opción para renovar tu armario sin gastar una fortuna!')
+
 @section('content')
     <section class="bg-white">
         <div class="w-full">
