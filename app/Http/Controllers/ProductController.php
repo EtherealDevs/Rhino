@@ -26,14 +26,20 @@ class ProductController extends Controller
 
     public function show(Product $product, $id)
     {
+        // Calcular el promedio de estrellas
+        $averageRating = $product->reviews()->avg('rating');
+
+        // Redondear a la estrella más cercana
+        $averageRating = round($averageRating * 2) / 2;
+
         $item = ProductItem::with(['product' => ['items' => ['color'], 'category'], 'sizes', 'images'])
             ->where('id', $id)
             ->first();
         $colors = $item->colors();
         $reviews = Reviews::with('user', 'product')->get();
-        return view('products.show', compact('item', 'colors', 'reviews'));
+        return view('products.show', compact('item', 'colors', 'reviews', 'averageRating'));
     }
-    
+
     public function addToCart(Request $request, Product $product, ProductItem $productItem)
     {
         $request->validate([
