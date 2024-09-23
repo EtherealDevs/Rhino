@@ -132,8 +132,8 @@
                                     {{ count(session('cart')) }}
                                 @endisset
                             </span></li>
-                        <li x-show="costoEnvio !== null" class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de
-                            Envío: <span class="text-white text-lg">${{ $sendPrice }}</span></li>
+                        <li  class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de
+                            Envío: <span class="text-white text-lg">${{ number_format($sendPrice,2,',','.') }}</span></li>
 
                     </ul>
                 </div>

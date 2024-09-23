@@ -10,17 +10,17 @@ class DeliveryServiceController extends Controller
 {
 
     // Método para obtener tarifas desde la API
-    public function obtenerTarifas(Request $request)
+    public static function obtenerTarifas($params)
     {
         $response = Http::get("http://webservice.oca.com.ar/ePak_Tracking_TEST/Oep_TrackEPak.asmx/Tarifar_Envio_Corporativo", [
             'cuit'    => '30-53625919-4',
-            'Operativa' =>  94584,
-            'PesoTotal'   => 50,
-            'VolumenTotal'=> 2,
-            'CodigoPostalOrigen' => 3400,
-            'CodigoPostalDestino'=> 2846,
-            'CantidadPaquetes'=> 1,
-            'ValorDeclarado'=> 100,
+            'Operativa' =>  $params['operativa'],
+            'PesoTotal'   => $params['peso'],
+            'VolumenTotal'=> $params['volumen'],
+            'CodigoPostalOrigen' => $params['cP'],
+            'CodigoPostalDestino'=> $params['cPDes'],
+            'CantidadPaquetes'=> $params['cantidad'],
+            'ValorDeclarado'=> $params['valor'],
             // otros parámetros según la API
         ]);
 

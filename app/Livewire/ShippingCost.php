@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 use App\Http\Cart\CartManager;
+use App\Http\Controllers\DeliveryServiceController;
 use App\Models\Cart;
 use App\Models\ProductItem;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ class ShippingCost extends Component
 
     #[Validate]
     public $province;
+    public $total=0;
 
     public $selectedProvince = null;
     public $selectedCity = null;
@@ -39,25 +41,29 @@ class ShippingCost extends Component
     public function updatedSendPrice($house)
     {
         $code = Province::where('name',$this->province)->first();
-        $response = Http::withHeaders([
-            'x-rapidapi-host' => env('RAPI_API_HOST'),
-            'x-rapidapi-key' => env('RAPI_API_KEY'),
-        ])->get(env('RAPI_API_URL').'calcularPrecio', [
-            'cpOrigen' => '3400', // Código postal de origen fijo
-            'cpDestino' => $this->zip_code,
-            'provinciaOrigen' => 'AR-W',
-            'provinciaDestino' => $code->code,
-            'peso' => 10,
-        ]);
+        $code = ModelsZipCode::where('province_id', $code->id)->first();
+        $params= ['operativa'=>64665,'peso'=>10,'volumen'=>3,'cP'=>$this->zip_code,'cPDes'=>$code->code,'cantidad'=>1,'valor'=>$this->total];
+        $price = DeliveryServiceController::obtenerTarifas($params);
+        $this->sendPrice = $price;
+        // $response = Http::withHeaders([
+        //     'x-rapidapi-host' => env('RAPI_API_HOST'),
+        //     'x-rapidapi-key' => env('RAPI_API_KEY'),
+        // ])->get(env('RAPI_API_URL').'calcularPrecio', [
+        //     'cpOrigen' => '3400', // Código postal de origen fijo
+        //     'cpDestino' => $this->zip_code,
+        //     'provinciaOrigen' => 'AR-W',
+        //     'provinciaDestino' => $code->code,
+        //     'peso' => 10,
+        // ]);
 
-        // Manejar posibles errores en la respuesta
-        if ($response->ok()) {
-            if ($house){
-                $this->sendPrice = $response->json()['paqarClasico']['aDomicilio'] ?? 'No disponible';
-            }else{
-                $this->sendPrice = $response->json()['paqarClasico']['aSucursal'] ?? 'No disponible';
-            }
-        }
+        // // Manejar posibles errores en la respuesta
+        // if ($response->ok()) {
+        //     if ($house){
+        //         $this->sendPrice = $response->json()['paqarClasico']['aDomicilio'] ?? 'No disponible';
+        //     }else{
+        //         $this->sendPrice = $response->json()['paqarClasico']['aSucursal'] ?? 'No disponible';
+        //     }
+        // }
     }
 
 
@@ -65,7 +71,6 @@ class ShippingCost extends Component
     public function mount(User $user)
     {
         $this->user = $user;
-
 
         $this->fill(
             $user
