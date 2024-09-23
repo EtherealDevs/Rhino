@@ -8,6 +8,7 @@ use App\Http\Controllers\ComboController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DeliveryServiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FirebaseController;
@@ -113,7 +114,7 @@ Route::get('/successfullyPaid', function () {
     return view('payments.successfullyPaid');
 });
 
-Route::post('/calcular-envio', [ShippingCost::class, 'calcularEnvio']);
+Route::get('/calcular-envio', [DeliveryServiceController::class , 'obtenerTarifas']);
 
 
 /* Rutas de ADMIN */
