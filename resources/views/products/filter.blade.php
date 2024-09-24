@@ -22,15 +22,19 @@
             {{-- Products --}}
             <div class="flex justify-between ">
                 {{-- Sidebar --}}
-                <div class="w-full md:w-1/4 mt-10 xl:mb-4 xl:w-[271px] xl:mt-6 lg:w-1/6 ml-4" x-data="{ open: true }"
-                    x-init="open = window.innerWidth >= 768">
+                <div class="w-full md:w-1/4 mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 ml-4" x-data="{ open: window.innerWidth >= 768 }"
+                    x-init="$watch('open', value => { if (window.innerWidth >= 768) open = true })">
+
+                    <!-- Botón de cerrar solo visible en pantallas móviles -->
                     <button x-on:click="open = !open" class="block md:hidden p-2 mb-6 ml-6 rounded-full bg-white shadow-xl"
                         type="button">
+                        <!-- Icono cuando está cerrado -->
                         <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em"
                             height="1em" viewBox="0 0 512 512">
                             <path fill="currentColor"
                                 d="M472 168H40a24 24 0 0 1 0-48h432a24 24 0 0 1 0-48m-80 112H120a24 24 0 0 1 0-48h272a24 24 0 0 1 0 48m-96 112h-80a24 24 0 0 1 0-48h80a24 24 0 0 1 0 48" />
                         </svg>
+                        <!-- Icono cuando está abierto -->
                         <svg x-show="open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -38,9 +42,11 @@
                         </svg>
                     </button>
 
-                    <div x-show="open" x-on:click.away="open = false"
+                    <!-- Contenido del sidebar -->
+                    <div x-show="open" x-on:click.away="if(window.innerWidth < 768) open = false"
                         class="sticky top-16 xl:top-[80px] h-screen bg-white/50 rounded-lg shadow-xl p-4 space-y-10">
                         <form action="{{ route('products.filter') }}" method="GET">
+                            <!-- Contenido del formulario de categorías -->
                             <h2 class="font-bold text-xl text-center">Categorías</h2>
                             <div class="flex flex-col">
                                 @foreach ($categories as $category)
@@ -76,6 +82,7 @@
                                 @endforeach
                             </div>
 
+                            <!-- Resto del contenido del formulario -->
                             <h2 class="font-bold text-xl text-center mt-10">Talles</h2>
                             <div class="flex flex-col">
                                 @foreach ($sizes as $size)
@@ -93,10 +100,12 @@
                                 @endforeach
                             </div>
 
+                            <!-- Rango de precio -->
                             <h2 class="font-bold text-xl text-center mt-10">Precio</h2>
                             <div class="flex flex-col space-y-4">
                                 <div x-data="range()" x-init="mintrigger();
                                 maxtrigger()" class="relative max-w-xl w-full">
+                                    <!-- Slider de rango -->
                                     <div>
                                         <input type="range" step="100" x-bind:min="min"
                                             x-bind:max="max" x-on:input="mintrigger" x-model="minprice"
@@ -122,6 +131,7 @@
                                     </div>
                                 </div>
 
+                                <!-- Botón de filtrar -->
                                 <button type="submit"
                                     class="mt-5 text-base text-center border font-medium text-white py-2 px-2 bg-blue-800 border-blue-800 hover:text-base rounded-md transition duration-150 ease-in-out">
                                     <span>Filtrar</span>
