@@ -19,7 +19,9 @@ class ProductSeeder extends Seeder
             foreach (Brand::all() as $brand) {
                 Product::factory(1)->create([
                     'brand_id' => $brand->id,
-                    'category_id' => $category->id
+                    'category_id' => $category->id,
+                    'volume'=> rand(2,5),
+                    'weight'=> rand(1,3)
                 ]);
             }
         }

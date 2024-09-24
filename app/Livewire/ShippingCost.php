@@ -31,6 +31,10 @@ class ShippingCost extends Component
     public $selectedCity = null;
     public $sucursal = null;
     public $cities = [];
+    public $volume;
+    public $weigth;
+    public $productItems;
+    public $cartItems;
 
 
     public $city;
@@ -42,28 +46,10 @@ class ShippingCost extends Component
     {
         $code = Province::where('name',$this->province)->first();
         $code = ModelsZipCode::where('province_id', $code->id)->first();
-        $params= ['operativa'=>64665,'peso'=>10,'volumen'=>3,'cP'=>$this->zip_code,'cPDes'=>$code->code,'cantidad'=>1,'valor'=>$this->total];
+        $params= ['operativa'=>64665,'peso'=>1,'volumen'=>1,'cP'=>$this->zip_code,'cPDes'=>$code->code,'cantidad'=>1,'valor'=>$this->total];
         $price = DeliveryServiceController::obtenerTarifas($params);
         $this->sendPrice = $price;
-        // $response = Http::withHeaders([
-        //     'x-rapidapi-host' => env('RAPI_API_HOST'),
-        //     'x-rapidapi-key' => env('RAPI_API_KEY'),
-        // ])->get(env('RAPI_API_URL').'calcularPrecio', [
-        //     'cpOrigen' => '3400', // Código postal de origen fijo
-        //     'cpDestino' => $this->zip_code,
-        //     'provinciaOrigen' => 'AR-W',
-        //     'provinciaDestino' => $code->code,
-        //     'peso' => 10,
-        // ]);
-
-        // // Manejar posibles errores en la respuesta
-        // if ($response->ok()) {
-        //     if ($house){
-        //         $this->sendPrice = $response->json()['paqarClasico']['aDomicilio'] ?? 'No disponible';
-        //     }else{
-        //         $this->sendPrice = $response->json()['paqarClasico']['aSucursal'] ?? 'No disponible';
-        //     }
-        // }
+        $this->total += $this->sendPrice;
     }
 
 
@@ -84,6 +70,23 @@ class ShippingCost extends Component
                 $user->address->only('name', 'last_name', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'),
             );
         }
+        $this->productItems = ProductItem::all();
+        if (Auth::check()) {
+            $cartModel = Cart::where('user_id', Auth::user()->id)->first();
+            $this->cartItems = CartManager::getCartContents($cartModel);
+        } else {
+            $this->cartItems = CartManager::getCartContents();
+        }
+
+            foreach ($this->cartItems as $item) {
+                $itemAmount = $item['amount'];
+                $discount = $item['item']->product->sale->sale->discount ?? $item['item']->product->combo->combo->discount ??0;
+                $price = $item['item']->price();
+                $priceDiscount = ($price * $discount) / 100;
+                $this->total += ($price - $priceDiscount) * $itemAmount;
+                $this->volume += $item['item']->product->volume;
+                $this->weigth += $item['item']->product->weigth;
+            }
     }
 
     public function rules()
@@ -130,14 +133,7 @@ class ShippingCost extends Component
 
     public function render()
     {
-        $productItems = ProductItem::all();
-        if (Auth::check()) {
-            $cartModel = Cart::where('user_id', Auth::user()->id)->first();
-            $cartItems = CartManager::getCartContents($cartModel);
-        } else {
-            $cartItems = CartManager::getCartContents();
-        }
 
-        return view('livewire.shipping-cost',  ['productItems' => $productItems, 'cartItems' => $cartItems]);
+        return view('livewire.shipping-cost');
     }
 }

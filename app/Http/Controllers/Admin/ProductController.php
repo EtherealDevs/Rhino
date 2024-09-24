@@ -78,6 +78,8 @@ class ProductController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
+            'volume' => $request->volume,
+            'weigth' =>$request->weigth
         ]);
         return redirect()->back();
     }

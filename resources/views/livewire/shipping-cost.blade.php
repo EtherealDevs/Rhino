@@ -1,4 +1,5 @@
 <div class="flex flex-col w-full lg:block justify-center place-content-center bg-transparent">
+
     <div class="place-content-center w-full lg:w-11/12 translate-x-0 translate-y-0 lg:translate-x-2 lg:translate-y-2 rounded-none lg:rounded-3xl bg-slate-900/30"
         id="cart">
         <div
@@ -133,24 +134,12 @@
                                 @endisset
                             </span></li>
                         <li  class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de
-                            Envío: <span class="text-white text-lg">${{ number_format($sendPrice,2,',','.') }}</span></li>
+                            Envío: <span class="text-white text-lg">${{ number_format($sendPrice, 2, ',', '.') }}</span></li>
 
                     </ul>
                 </div>
                 <div class="col-span-2 grid grid-rows-2 ml-2">
-                    @isset($cartItems)
-                        @php
-                            $total = 0;
-                            foreach ($cartItems as $item) {
-                                $itemAmount = $item['amount'];
-                                $discount = $item['item']->product->sale->sale->discount ?? $item['item']->product->combo->combo->discount ??0;
-                                $price = $item['item']->price();
-                                $priceDiscount = ($price * $discount) / 100;
-                                $total += ($price - $priceDiscount) * $itemAmount;
-                            }
-                            $total += $sendPrice;
-                        @endphp
-                    @endisset
+
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
                     @isset($cartItems)
                         <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">
