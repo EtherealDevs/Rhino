@@ -211,7 +211,7 @@
                     </div>
                 </div>
 
-                <div class="flex w-full justify-center lg:justify-end">
+                <div class="xl:ml-[18px] flex w-full justify-center lg:justify-end">
                     <div
                         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-12 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
                         @foreach ($products as $product)
