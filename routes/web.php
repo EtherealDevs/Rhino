@@ -23,7 +23,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Livewire\Navigation;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
-
+use App\Livewire\RatingStars;
 use App\Livewire\ShippingCost;
 
 /* Rutas Normales */
@@ -67,6 +67,10 @@ Route::get('/test', [TestController::class, 'index'])->name('test');
 Route::get('/products/show', function () {
     return view('products.show');
 });
+
+Route::get('/products-api', [ProductController::class, 'api']);
+Route::post('/submit-review', [RatingStars::class, 'submitReview'])
+    ->middleware('auth');
 
 
 /* Autenticacion */

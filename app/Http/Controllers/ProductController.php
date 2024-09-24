@@ -24,6 +24,15 @@ class ProductController extends Controller
         return view('products.index');
     }
 
+    public function api()
+    {
+        // Obtener todos los productos
+        $products = Product::all();
+
+        // Devolver los productos como JSON
+        return response()->json($products);
+    }
+
     public function show(Product $product, $id)
     {
         // Calcular el promedio de estrellas

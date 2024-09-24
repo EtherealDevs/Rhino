@@ -1,18 +1,28 @@
-<div x-data="{ 
+<div x-data="{
     openModal: !localStorage.getItem('review-modal-closed') || Date.now() > localStorage.getItem('review-modal-closed'),
     successModal: false,
     value: null,
+    reviewText: '',
     selectedProduct: null,
-    products: [
-        { id: 1, name: 'Producto 1' },
-        { id: 2, name: 'Producto 2' },
-        { id: 3, name: 'Producto 3' }
-    ], // Simula la lista de productos, puedes reemplazar con una llamada AJAX o similar
+    products: [],
+
+    // Función para cargar productos desde el backend
+    async loadProducts() {
+        try {
+            const response = await fetch('/products-api'); // Endpoint correcto
+            if (!response.ok) throw new Error('Error al cargar productos');
+            this.products = await response.json(); // Asigna productos al array 'products'
+        } catch (error) {
+            console.error(error);
+            // Manejo de errores aquí
+        }
+    },
+
     closeModal() {
         this.openModal = false;
-        localStorage.setItem('review-modal-closed', Date.now() + (2 * 60 * 60 * 1000)); // Guardar la hora actual + 2 horas
+        localStorage.setItem('review-modal-closed', Date.now() + (2 * 60 * 60 * 1000)); // Cierra modal por 2 horas
     }
-}">
+}" x-init="loadProducts()">
     <!-- Modal -->
     <div x-show="openModal" class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xl">
         <div class="bg-white p-16 rounded-2xl w-[45rem] h-[40rem] flex flex-col justify-between">
@@ -25,18 +35,20 @@
                     <h1 class="text-gray-800 text-3xl">Selecciona un producto para reseñar</h1>
                     <select x-model="selectedProduct" class="w-full h-12 mt-4 border rounded-lg p-2">
                         <option value="" disabled>Seleccione un producto</option>
+                        <!-- Mostrar productos obtenidos de la base de datos -->
                         <template x-for="product in products" :key="product.id">
                             <option :value="product.id" x-text="product.name"></option>
                         </template>
                     </select>
-                    <button @click="if (selectedProduct) openModal = false" 
-                            class="mt-8 w-full h-16 uppercase bg-black text-white hover:bg-white hover:text-blue-900 transition-colors rounded-full flex items-center justify-center">
+
+                    <button @click="if (selectedProduct) openModal = true"
+                        class="mt-8 w-full h-16 uppercase bg-black text-white hover:bg-white hover:text-blue-900 transition-colors rounded-full flex items-center justify-center">
                         Continuar
                     </button>
                 </div>
             </template>
 
-            <!-- Step 2: Modal de reseña -->
+            <!-- Step 2: Reseña de producto -->
             <template x-if="selectedProduct">
                 <div>
                     <div class="card__image w-8 h-8 rounded-full bg-white flex items-center justify-center p-8">
@@ -44,41 +56,27 @@
                     </div>
                     <h1 class="text-gray-800 text-3xl">¿Qué te pareció el producto?</h1>
                     <p class="text-gray-800 text-lg pr-8 leading-7">
-                        Por favor, háganos saber cómo fue su experiencia. ¡Agradecemos todos los comentarios para
-                        ayudarnos a mejorar nuestra oferta!
+                        Por favor, háganos saber cómo fue su experiencia. ¡Agradecemos todos los comentarios para ayudarnos a mejorar nuestra oferta!
                     </p>
                     <!-- Reseña -->
                     <ul class="flex space-x-12">
-                        <li class="list__item w-11 h-11 rounded-full cursor-pointer flex items-center justify-center bg-gray-100 text-gray-800 text-base hover:bg-gray-700 hover:text-white"
-                            @click="value = 1">
-                            1
-                        </li>
-                        <li class="list__item w-11 h-11 rounded-full cursor-pointer flex items-center justify-center bg-gray-100 text-gray-800 text-base hover:bg-gray-700 hover:text-white"
-                            @click="value = 2">
-                            2
-                        </li>
-                        <li class="list__item w-11 h-11 rounded-full cursor-pointer flex items-center justify-center bg-gray-100 text-gray-800 text-base hover:bg-gray-700 hover:text-white"
-                            @click="value = 3">
-                            3
-                        </li>
-                        <li class="list__item w-11 h-11 rounded-full cursor-pointer flex items-center justify-center bg-gray-100 text-gray-800 text-base hover:bg-gray-700 hover:text-white"
-                            @click="value = 4">
-                            4
-                        </li>
-                        <li class="list__item w-11 h-11 rounded-full cursor-pointer flex items-center justify-center bg-gray-100 text-gray-800 text-base hover:bg-gray-700 hover:text-white"
-                            @click="value = 5">
-                            5
-                        </li>
+                        <template x-for="n in 5" :key="n">
+                            <li class="list__item w-11 h-11 rounded-full cursor-pointer flex items-center justify-center bg-gray-100 text-gray-800 text-base hover:bg-gray-700 hover:text-white"
+                                @click="value = n">
+                                <span x-text="n"></span>
+                            </li>
+                        </template>
                     </ul>
-                    <!-- Botones -->
+                    <!-- Reseña de texto -->
+                    <textarea x-model="reviewText" class="w-full h-24 border rounded-lg p-2 mt-4" placeholder="Escribe tu reseña aquí..."></textarea>
                     <div class="mt-8 flex space-x-4">
                         <button @click="closeModal()"
                             class="w-full h-16 uppercase bg-black text-white hover:bg-white hover:text-blue-900 transition-colors rounded-full flex items-center justify-center">
                             Haré mi reseña luego
                         </button>
-                        <button @click="if(value){ openModal = false; successModal = true }"
+                        <button @click="if(value && reviewText) { $wire.submitReview(selectedProduct, value, reviewText).then(() => { successModal = true; openModal = false; }) }"
                             class="w-full h-16 uppercase bg-black text-white hover:bg-white hover:text-blue-900 transition-colors rounded-full flex items-center justify-center">
-                            Calificar
+                            Enviar reseña
                         </button>
                     </div>
                 </div>

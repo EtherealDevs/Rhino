@@ -170,7 +170,7 @@
 <div class="flex justify-center items-center h-full">
     <div class="max-w-[720px] mx-auto">
         @foreach($reviews as $review)
-        <div class="relative mb-6 flex items-start gap-4 p-6 mb-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="relative mb-6 flex items-start gap-4 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <img
                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80"
                 alt="{{ $review->user->name }}" 
@@ -184,8 +184,8 @@
                         @for($i = 0; $i < $review->rating; $i++)
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-yellow-700">
                                 <path fill-rule="evenodd"
-                                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                      clip-rule="evenodd"></path>
+                                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                                    clip-rule="evenodd"></path>
                             </svg>
                         @endfor
                     </div>
@@ -208,24 +208,26 @@
                 </div>
             </div>
         </div>
-        <!-- Recommended Products Section -->
-        <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
-            <h3 class="text-2xl font-bold mb-4">Productos Recomendados</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach ($item->category()->products()->where('id', '!=', $item->product_id)->with('items')->take(4)->get() as $relatedProduct)
-                    @php
-                        $relatedItem = $relatedProduct->items()->first();
-                    @endphp
-                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                    <a href="{{route('products.show', ['product' => $relatedProduct,'productItem' => $relatedItem])}}">
-                        <img class="w-full h-48 object-cover rounded-t-lg" src="/storage/images/product/{{$relatedItem->images->first()->url}}"
-                            alt="Producto 1">
-                        <h4 class="text-lg font-semibold mt-2">{{$relatedProduct->name}}</h4>
-                        <p class="text-gray-700">${{$relatedItem->price()}}</p>
-                    </a>
-                </div>
-                @endforeach
+
+       
+    </div>
+     <!-- Recommended Products Section -->
+     <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-2xl font-bold mb-4">Productos Recomendados</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            @foreach ($item->category()->products()->where('id', '!=', $item->product_id)->with('items')->take(4)->get() as $relatedProduct)
+                @php
+                    $relatedItem = $relatedProduct->items()->first();
+                @endphp
+            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                <a href="{{route('products.show', ['product' => $relatedProduct,'productItem' => $relatedItem])}}">
+                    <img class="w-full h-48 object-cover rounded-t-lg" src="/storage/images/product/{{$relatedItem->images->first()->url}}"
+                        alt="Producto 1">
+                    <h4 class="text-lg font-semibold mt-2">{{$relatedProduct->name}}</h4>
+                    <p class="text-gray-700">${{$relatedItem->price()}}</p>
+                </a>
             </div>
+            @endforeach
         </div>
     </div>
 
