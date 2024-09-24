@@ -37,7 +37,7 @@
 }" x-init="loadProducts()">
 
     <!-- Modal inicial de confirmación para calificar productos -->
-    <div x-show="openInitialModal" x-transition.opacity.duration.300
+    <div x-show="openInitialModal" @keydown.window.escape="closeInitialModal" x-transition.opacity.duration.300
         class="fixed top-20 shadow-2xl drop-shadow-xl right-10 z-50 flex items-center justify-center">
         <div
             class="bg-white py-6 px-12 rounded-2xl w-[25rem] shadow-lg h-auto flex flex-col items-center justify-center relative">
@@ -62,9 +62,8 @@
         </div>
     </div>
 
-
     <!-- Modal principal de reseñas -->
-    <div x-show="openModal" x-transition.opacity.duration.300
+    <div x-show="openModal" @keydown.window.escape="closeModal" x-transition.opacity.duration.300
         class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xl">
         <div class="bg-white p-8 rounded-2xl w-[30rem] h-auto shadow-lg flex flex-col justify-between relative">
             <button @click="closeModal"
@@ -146,7 +145,7 @@
     </div>
 
     <!-- Modal de Éxito -->
-    <div x-show="successModal" x-transition.opacity.duration.300
+    <div x-show="successModal" @keydown.window.escape="closeSuccessModal" x-transition.opacity.duration.300
         class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xl">
         <div class="bg-white p-8 rounded-2xl w-[35rem] flex flex-col items-center space-y-4 shadow-lg relative">
             <button @click="closeSuccessModal"
