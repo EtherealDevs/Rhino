@@ -20,7 +20,7 @@
         {{-- Main content with sidebar and products --}}
         <div class="justify-between md:flex relative">
             {{-- Sidebar --}}
-            <div class="w-2/3  md:w-1/4 md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-50 sticky top-20" x-data="{ open: window.innerWidth >= 768 }"
+            <div class="w-2/3  md:w-1/4 md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-50 md:z-0 sticky top-20" x-data="{ open: window.innerWidth >= 768 }"
                 x-init="$watch('open', value => { if (window.innerWidth >= 768) open = false })">
 
                 <!-- Botón de cerrar solo visible en pantallas móviles -->

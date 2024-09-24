@@ -20,9 +20,9 @@
             </div>
 
             {{-- Products --}}
-            <div class="flex justify-between ">
+            <div class="justify-between md:flex relative">
                 {{-- Sidebar --}}
-                <div class="w-full md:w-1/4 mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 ml-4" x-data="{ open: window.innerWidth >= 768 }"
+                <div class="w-2/3  md:w-1/4 md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-50 md:z-0 sticky top-20" x-data="{ open: window.innerWidth >= 768 }"
                     x-init="$watch('open', value => { if (window.innerWidth >= 768) open = true })">
 
                     <!-- Botón de cerrar solo visible en pantallas móviles -->
@@ -44,7 +44,7 @@
 
                     <!-- Contenido del sidebar -->
                     <div x-show="open" x-on:click.away="if(window.innerWidth < 768) open = false"
-                        class="sticky top-16 xl:top-[80px] h-screen bg-white/50 rounded-lg shadow-xl p-4 space-y-10">
+                        class="sticky top-16 xl:top-[80px] h-full md:h-screen bg-white md:bg-white/50 rounded-lg shadow-xl p-4 space-y-10">
                         <form action="{{ route('products.filter') }}" method="GET">
                             <!-- Contenido del formulario de categorías -->
                             <h2 class="font-bold text-xl text-center">Categorías</h2>
@@ -144,7 +144,7 @@
 
                 {{-- Content (Productos) --}}
                 <div class="col-span-5 ml-0 lg:ml-2 z-10 mb-8">
-                    <div class="flex w-full justify-center lg:justify-end">
+                    <div class="xl:ml-[18px] 2xl:ml-0 flex w-full justify-center lg:justify-end">
                         <div
                             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 xl:mx-12 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
                             @foreach ($products as $product)
