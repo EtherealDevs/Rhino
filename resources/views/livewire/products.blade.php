@@ -18,9 +18,10 @@
         </div>
 
         {{-- Main content with sidebar and products --}}
-        <div class="flex justify-between mx-auto">
+        <div class="flex justify-between ">
             {{-- Sidebar --}}
-            <div class="w-full md:w-1/4 mt-10 lg:w-1/6 xl:w-[271px] p-4" x-data="{ open: true }" x-init="open = window.innerWidth >= 768">
+            <div class="w-full md:w-1/4 mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 ml-4" x-data="{ open: true }"
+                x-init="open = window.innerWidth >= 768">
                 <button x-on:click="open = !open" class="block md:hidden p-2 mb-6 ml-6 rounded-full bg-white shadow-xl"
                     type="button">
                     <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -36,7 +37,7 @@
                 </button>
 
                 <div x-show="open" x-on:click.away="open = false"
-                    class="sticky top-0 h-screen bg-white rounded-lg shadow-xl p-4 space-y-10">
+                    class="sticky top-16 xl:top-[80px] h-screen bg-white/50 rounded-lg shadow-xl p-4 space-y-10">
                     <form action="{{ route('products.filter') }}" method="GET">
                         <h2 class="font-bold text-xl text-center">Categorías</h2>
                         <div class="flex flex-col">
@@ -212,7 +213,7 @@
 
                 <div class="flex w-full justify-center lg:justify-end">
                     <div
-                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 xl:mx-12 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-12 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
                         @foreach ($products as $product)
                             @if ($product->items->first())
                                 @php
