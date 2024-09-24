@@ -110,7 +110,7 @@ class ProductController extends Controller
         }
 
         // Obtener los productos filtrados
-        $products = $productsQuery->paginate(12);
+        $products = $productsQuery->get();
 
         // Obtener todas las categorías en estructura jerárquica
         $categories = Category::hierarchicalCategories();

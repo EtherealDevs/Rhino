@@ -38,7 +38,7 @@
 
     <!-- Modal inicial de confirmación para calificar productos -->
     <div x-show="openInitialModal" @keydown.window.escape="closeInitialModal" x-transition.opacity.duration.300
-        class="fixed top-20 shadow-2xl drop-shadow-xl right-10 z-50 flex items-center justify-center">
+        class="fixed shadow-2xl drop-shadow-xl top-28 right-2 lg:right-10 lg:top-20 z-50 flex items-center justify-center">
         <div
             class="bg-white py-6 px-12 rounded-2xl w-[25rem] shadow-lg h-auto flex flex-col items-center justify-center relative">
             <button @click="closeInitialModal"

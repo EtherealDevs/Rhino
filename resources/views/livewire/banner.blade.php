@@ -1,6 +1,6 @@
 <div id="modalBanner" class="hidden">
     <div id="modalContent"
-        class="max-w-screen-lg mx-auto fixed z-50 bg-white inset-x-5 p-5 bottom-10 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between">
+        class="max-w-screen-lg mx-auto fixed z-50 bg-white inset-x-5 p-5 bottom-5 lg:bottom-10 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between">
         
         @auth
             <div class="w-full">
