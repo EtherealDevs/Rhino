@@ -11,6 +11,7 @@ use App\Models\ProductItem;
 use App\Models\User;
 use App\Notifications\OrderNotification;
 use App\Http\Cart\CartItem;
+use App\Http\Cart\SessionCartManager;
 use App\Models\Size;
 use Exception;
 use Illuminate\Http\Request;
@@ -22,9 +23,17 @@ class CartController extends Controller
 {
     protected $cartManager;
     // Inyectar el CartManager en el constructor del controlador
-    public function __construct(CartManager $cartManager)
+    public function __construct()
     {
-        $this->cartManager = $cartManager;
+        if (Auth::user() == null)
+        {
+            $cartManager = new SessionCartManager();
+            $this->cartManager = $cartManager;
+        }
+        else if (Auth::user()) {
+            $cartManager = new CartManager();
+            $this->cartManager = $cartManager;
+        }
     }
 
 
@@ -128,7 +137,6 @@ class CartController extends Controller
         ]);
         $combo = Combo::where('id', $request->comboId)->first();
         $sizes = json_decode($request->sizes, true);
-        $combo_items = $combo->items;
         // Añadir Combo  al carrito de la sesión.
         $cartCombo = new CartCombo($combo, $sizes);
         $this->cartManager->addCombo($cartCombo);
@@ -137,6 +145,7 @@ class CartController extends Controller
         }
         return redirect()->route('cart')->with('success');
     }
+    
 
     // public function addComboToCart(Request $request){
     //     $combo = Combo::where('id', $request->comboId)->first();
@@ -175,8 +184,9 @@ class CartController extends Controller
 
     public function dropCart() {
         session()->forget('cart');
-        if (auth()->user()){
-            $cart = Cart::where('user_id', auth()->user()->id);
+        $user = Auth::user();
+        if ($user){
+            $cart = Cart::where('user_id', $user->id);
             $cart->delete();
         }
         return redirect('/');

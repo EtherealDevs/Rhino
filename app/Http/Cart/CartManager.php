@@ -2,20 +2,12 @@
 namespace App\Http\Cart;
 
 use App\Http\Cart\CartItem;
-use App\Http\Controllers\CartController;
 use App\Models\Cart as CartModel;
 use App\Models\Combo;
-use App\Models\Combo_items;
 use App\Models\ProductItem;
-use App\Models\ProductSize;
-use App\Models\Size;
-use App\Models\User;
-use Error;
 use Exception;
-use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class CartManager
 {
@@ -55,10 +47,10 @@ class CartManager
      */
     public function updateCart($contents)
     {
+        $contents = $contents->sortBy('type');
         $this->updateCartContents($contents);
         $this->updateCartTotal();
     }
-    
     /**
      * Updates the contents of the user's cart in the database.
      *
@@ -98,10 +90,10 @@ class CartManager
                 $itemPrice = $itemModel->price();
                 
                 // Get the quantity of the item
-                $itemAmount = $item->quantity;
+                $itemQuantity = $item->quantity;
                 
                 // Add the product of the item's price and quantity to the total
-                $total += $itemPrice * $itemAmount;
+                $total += $itemPrice * $itemQuantity;
             } else if ($item->type == CartCombo::DEFAULT_TYPE)
             {
                 // Retrieve the combo model from the database using the combo ID
@@ -112,10 +104,10 @@ class CartManager
                 $comboPrice = $comboModel->totalPrice();
                 
                 // Get the quantity of the item
-                $comboAmount = $item->quantity;
+                $comboQuantity = $item->quantity;
                 
                 // Add the product of the item's price and quantity to the total
-                $total += $comboPrice * $comboAmount;
+                $total += $comboPrice * $comboQuantity;
             }
         }
 
@@ -146,7 +138,7 @@ class CartManager
         $itemInCart = $contents->get($cartItem->id);
         if ($itemInCart)
         {
-            $cartItemId = "$itemInCart->type" . "$itemInCart->variation_id";
+            $cartItemId = $this->getCartItemId($itemInCart);
             $this->updateQuantity($cartItemId, 'add');
         } else 
         {
@@ -202,7 +194,6 @@ class CartManager
                 break;
         }
     }
-
     /**
      * Adds a combo item to the shopping cart.
      *
@@ -229,10 +220,9 @@ class CartManager
         } else
         {
             $contents->put($combo->id, $cartCombo);
+            $this->updateCart($contents);
         }
-        $this->updateCart($contents);
     }
-
     /**
      * Updates the quantity of an item in the cart.
      *
@@ -251,7 +241,7 @@ class CartManager
         
         switch ($mode) {
             case 'add':
-                $newQuantity = $itemInCart->quantity + 1;
+                $newQuantity = $itemInCart->quantity + $quantity;
                 if ($newQuantity > $itemVariation->stock)
                 {
                     session()->flash('cartError', "No se pueden añadir mas unidades.");
@@ -262,7 +252,7 @@ class CartManager
                 }
                 break;
             case 'subtract':
-                $newQuantity = $itemInCart->quantity - 1;
+                $newQuantity = $itemInCart->quantity - $quantity;
                 if ($newQuantity <= 0)
                 {
                     session()->flash('cartError', "No se pueden quitar mas unidades.");
@@ -283,7 +273,6 @@ class CartManager
             $this->updateCart($contents);
         }
     }
-
     /**
      * Updates the quantity of a combo item in the shopping cart.
      *
@@ -296,20 +285,13 @@ class CartManager
      */
     public function updateComboQuantity($itemInCart, $mode, $contents, $quantity = 1)
     {
-        $comboModel = Combo::where('id', $itemInCart->combo_id)->first();
-        
-        $stocks = collect();
-        foreach ($itemInCart->contents as $item) {
-            $itemVariation = DB::table('products_sizes')->where('id', $item->variation_id)->first();
-            $stocks->push($itemVariation->stock);
-        }
-        $max_stock = $stocks->min();
-        $cartItemId = "$itemInCart->type" . "$itemInCart->combo_id";
+        $cartItemId = $this->getCartItemId($itemInCart);
+        $max_stock = $this->updateComboMaxStockBasedOnItemSize($itemInCart);
 
         $success = null;
         switch ($mode) {
             case 'add':
-                $newQuantity = $itemInCart->quantity + 1;
+                $newQuantity = $itemInCart->quantity + $quantity;
                 // $comboMaxStock = $this->getComboMaxStock($itemInCart);
                 // $max_stock = 
                 if ($newQuantity > $max_stock)
@@ -322,7 +304,7 @@ class CartManager
                 }
                 break;
             case'subtract':
-                $newQuantity = $itemInCart->quantity - 1;
+                $newQuantity = $itemInCart->quantity - $quantity;
                 if ($newQuantity <= 0)
                 {
                     session()->flash('cartError', "No se pueden quitar mas unidades.");
@@ -341,6 +323,40 @@ class CartManager
                 $contents->put($cartItemId, $itemInCart);
                 $this->updateCart($contents);
             }
+    }
+    /**
+     * Generate a unique identifier for an item in the shopping cart.
+     *
+     * @param object $itemInCart The item in the cart to generate an identifier for.
+     * @return string The unique identifier for the item in the cart.
+     */
+    public function getCartItemId($itemInCart)
+    {
+        switch ($itemInCart->type) {
+            case CartItem::DEFAULT_TYPE:
+                $cartItemId = "$itemInCart->type" . "$itemInCart->variation_id";
+                break;
+            case CartCombo::DEFAULT_TYPE:
+                $cartItemId = "$itemInCart->type" . "$itemInCart->combo_id";
+                break;
+        }
+        return $cartItemId;
+    }
+    /**
+     * Update the maximum stock for a combo item based on its item sizes.
+     *
+     * @param object $itemInCart The combo item in the cart to update.
+     * @return int The maximum stock for the combo item.
+     */
+    public function updateComboMaxStockBasedOnItemSize($itemInCart)
+    {
+        $stocks = collect();
+        foreach ($itemInCart->contents as $item) {
+            $itemVariation = DB::table('products_sizes')->where('id', $item->variation_id)->first();
+            $stocks->push($itemVariation->stock);
+        }
+        $max_stock = $stocks->min();
+        return $max_stock;
     }
     // public function getComboMaxStock(CartCombo $combo, $quantity)
     // {
