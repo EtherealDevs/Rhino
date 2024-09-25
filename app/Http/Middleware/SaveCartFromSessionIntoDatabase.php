@@ -16,7 +16,7 @@ class SaveCartFromSessionIntoDatabase
 
     public function __construct()
     {
-        $this->cartContents = CartManager::getCartContents();
+        // $this->cartContents = CartManager::getCartContents();
     }
     /**
      * Handle an incoming request.
@@ -25,23 +25,24 @@ class SaveCartFromSessionIntoDatabase
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            $user = User::where('id', auth()->user()->id)->first();
-            $dbCart = Cart::where('user_id', $user->id)->first();
+        // If user is logged in, save the session cart into the database
+        // if (auth()->check()) {
+        //     $user = User::where('id', auth()->user()->id)->first();
+        //     $dbCart = Cart::where('user_id', $user->id)->first();
 
-            if (session()->exists('cart')) {
-                $sessionCart = session('cart');
-            } else { $sessionCart = null; }
+        //     if (session()->exists('cart')) {
+        //         $sessionCart = session('cart');
+        //     } else { $sessionCart = null; }
 
-            if ($sessionCart != null) {
-                if ($dbCart != null) {
-                    CartManager::compareAndSaveCarts($dbCart, $sessionCart, $user);
-                } else {
-                    CartManager::storeOrUpdateInDatabase($user, $sessionCart);
-                }
-            }
+        //     if ($sessionCart != null) {
+        //         if ($dbCart != null) {
+        //             CartManager::compareAndSaveCarts($dbCart, $sessionCart, $user);
+        //         } else {
+        //             CartManager::storeOrUpdateInDatabase($user, $sessionCart);
+        //         }
+        //     }
         
-        }
-        return $next($request);
+        // }
+        // return $next($request);
     }
 }

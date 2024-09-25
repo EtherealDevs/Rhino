@@ -14,27 +14,26 @@ class Combo extends Component
     }
     public function render()
 {
-    $items = Combo_items::where('combo_id', $this->id)
-        ->with('product', 'product.items.images') // Asegúrate de cargar las relaciones necesarias
+    $combo_items = Combo_items::where('combo_id', $this->id)
+        ->with('item', 'item.images') // Asegúrate de cargar las relaciones necesarias
         ->get();
 
     $price = 0;
 
-    foreach ($items as $item) {
-        if ($item->product && $item->product->items->first()) {
-            $price += $item->product->items->first()->price();
-        }
+    
+    foreach ($combo_items as $combo_item) {
+        $price += $combo_item->item->price();
     }
 
     // Define $image y $image2, asumiendo que es una colección de imágenes
-    $image = $items->isNotEmpty() && $items->first()->product && $items->first()->product->items->isNotEmpty()
-        ? $items->first()->product->items->first()->images
+    $image = $combo_items->isNotEmpty() && $combo_items->first()->item && $combo_items->first()->item->images->isNotEmpty()
+        ? $combo_items->first()->item->images->first()
         : collect(); // Usamos una colección vacía en lugar de null
 
-    $image2 = $items->isNotEmpty() && $items->last()->product && $items->last()->product->items->isNotEmpty()
-        ? $items->last()->product->items->first()->images
+    $image2 = $combo_items->isNotEmpty() && $combo_items->last()->item && $combo_items->last()->item->images->isNotEmpty()
+        ? $combo_items->last()->item->images->first()
         : collect(); // Usamos una colección vacía en lugar de null
 
-    return view('livewire.combo', compact('items', 'price', 'image', 'image2'));
+    return view('livewire.combo', compact('combo_items', 'price', 'image', 'image2'));
 }
 }

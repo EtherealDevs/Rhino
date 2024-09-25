@@ -10,7 +10,10 @@
                     @session('failure')
                         <p>{{ session('failure') }}</p>
                     @endsession
-                    @isset($groupedCartItems)
+                    @session('cartError')
+                        <p>{{ session('cartError') }}</p>
+                    @endsession
+                    {{-- @isset($groupedCartItems)
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
                             @foreach ($groupedCartItems as $comboId => $items)
                                 @if ($comboId)
@@ -21,6 +24,12 @@
                                     @endforeach
                                 @endif
                             @endforeach
+                        </ul> --}}
+                    @isset($cartItems)
+                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
+                                    @foreach ($cartItems as $cartItemKey => $cartItem)
+                                        @livewire('cart-item', ['cartItemId' => $cartItemKey, 'cartItem' => $cartItem])
+                                    @endforeach
                         </ul>
                     @else
                         <p class="text-2xl sm:text-3xl lg:text-4xl text-gray-300 mt-24 mb-24">No tienes productos en tu carrito
@@ -33,7 +42,7 @@
 
         <div
             class="col-span-12 lg:col-span-5 lg:h-screen flex lg:sticky left-0 top-16 lg:space-y-10 items-center lg:content-center">
-            @livewire('shipping-cost')
+            {{-- @livewire('shipping-cost') --}}
         </div>
 
         <script>

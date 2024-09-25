@@ -33,6 +33,8 @@
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
                 <input type="hidden" name="item" value="{{ $item }}">
+                <input type="hidden" name="size" value="{{ $item->sizes()->wherePivot('stock', '!=', 0)->first() }}">
+                <input type="hidden" name="quantity" value="1">
                 <button class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">

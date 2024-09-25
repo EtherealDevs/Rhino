@@ -19,6 +19,7 @@ use Livewire\Attributes\Validate;
 
 class ShippingCost extends Component
 {
+    public $user;
     #[Validate]
     public $zip_code;
 

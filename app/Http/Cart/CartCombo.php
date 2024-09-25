@@ -3,36 +3,38 @@ namespace App\Http\Cart;
 
 use App\Models\Combo;
 use App\Models\ProductItem;
+use App\Models\Size;
+use Illuminate\Support\Facades\DB;
 
-class CartItem
+class CartCombo
 {
-    const DEFAULT_TYPE = 'item';
+    const DEFAULT_TYPE = 'combo';
 
     public $id;
-    public $item_id;
-    public $variation_id;
+    public $combo_id;
+    public $contents;
     public $max_stock;
     public $quantity;
-    public $size;
-    public $price;
     public $type;
-    public $productItemModel;
-    public $sizeModel;
-    public $pivotModel;
-    public function __construct(ProductItem $productItem, $size, $quantity = 1)
+    public function __construct(Combo $combo, array $sizes, $quantity = 1)
     {
-        $this->pivotModel = $productItem->getItemPivotModel($size);
-        $this->productItemModel = $productItem;
-        $this->sizeModel = $productItem->sizes()->find($this->pivotModel->size_id);
+        $this->max_stock = $combo->getMaximumAddableAmount();
+        $items = collect();
+        foreach ($sizes as $key => $value) {
+            $size_id = Size::where('name', $value)->first()->id;
+            $item_variation_id = DB::table('products_sizes')->where('product_item_id', $key)->where('size_id', $size_id)->first()->id;
+            $items->put("item$key", ['item_id' => $key, 'variation_id' => $item_variation_id, 'size' => $value]);
+        }
+        $this->contents = $items;
 
-        $this->id = self::DEFAULT_TYPE . $this->pivotModel->id;
-        $this->variation_id = $this->pivotModel->id;
-        $this->max_stock = $this->pivotModel->stock;
-        $this->size = $this->sizeModel->name;
-        $this->price = $this->productItemModel->price();
+        $this->combo_id = $combo->id;
+        $this->id = self::DEFAULT_TYPE . $combo->id;
         $this->type = self::DEFAULT_TYPE;
-        $this->item_id = $this->productItemModel->id;
         $this->quantity = $quantity;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
     }
     /**
      * Increases the quantity of the product item in the cart.

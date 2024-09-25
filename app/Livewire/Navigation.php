@@ -17,7 +17,7 @@ class Navigation extends Component
     public function mount()
     {
         // Cargar el contenido del carrito al montar el componente
-        $this->cartContents = CartManager::getCartContents() ?? []; // Asegurar que es un array
+        // $this->cartContents = CartManager::getCartContents() ?? []; // Asegurar que es un array
 
         // Cargar los favoritos
         $this->loadFavorites();

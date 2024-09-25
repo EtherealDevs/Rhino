@@ -1,19 +1,20 @@
 @php
     // Verifica si $items tiene al menos un elemento y que las relaciones necesarias existen
     $image =
-        $items->isNotEmpty() && $items->first()->product && $items->first()->product->items->isNotEmpty()
-            ? $items->first()->product->items->first()->images
+        $combo_items->isNotEmpty() && $combo_items->first()->item && $combo_items->first()->item->images->isNotEmpty()
+            ? $combo_items->first()->item->images->first()
             : null;
 
     $image2 =
-        $items->isNotEmpty() && $items->last()->product && $items->last()->product->items->isNotEmpty()
-            ? $items->last()->product->items->first()->images
+        $combo_items->isNotEmpty() && $combo_items->last()->item && $combo_items->last()->item->images->isNotEmpty()
+            ? $combo_items->last()->item->images->first()
             : null;
 
-    $discount = $items->isNotEmpty() && $items->first()->combo ? $items->first()->combo->discount : 0;
+    $discount = $combo_items->isNotEmpty() && $combo_items->first()->combo ? $combo_items->first()->combo->discount : 0;
 
     $priceDiscount = $price - ($price * $discount) / 100;
 @endphp
+{{-- @dd($image, $image2, $discount, $priceDiscount, $combo_items) --}}
 
 {{-- Card --}}
 <div class="max-w-7xl mx-auto">
@@ -23,7 +24,7 @@
         {{-- Grid de Imagenes --}}
         <div class="grid grid-cols-5 lg:grid-cols-5 p-2 lg:p-4">
             <div class="relative col-span-2 md:col-span-2 lg:col-span-2 flex justify-center">
-                @if ($image && $image->isNotEmpty())
+                @if ($image != null)
                     <img src="{{ url(Storage::url('images/product/' . $image->first()->url)) }}"
                         class="w-full h-auto object-cover rounded-2xl" />
                 @endif
@@ -55,12 +56,12 @@
 
             {{-- Title --}}
             <div class="grid grid-cols-6 bg-black h-20 rounded-t-xl p-3 text-white relative">
-                @foreach ($items as $item)
+                @foreach ($combo_items as $combo_item)
                     <div class="flex col-span-2 items-center justify-center w-full">
                         <!-- Verifica que $item->product no sea null antes de acceder a su propiedad -->
-                        @if ($item->product)
+                        @if ($combo_item->item->product)
                             <p class="font-sans font-bold text-base text-white text-center">
-                                {{ $item->product->name }}
+                                {{ $combo_item->item->product->name }}
                             </p>
                         @else
                             <p class="font-sans font-bold text-base text-white text-center">
@@ -81,7 +82,8 @@
             <div class="flex bg-black h-18 rounded-b-xl p-3 text-white">
                 <form method="POST" action="{{ route('cart.addCombo') }}">
                     @csrf
-                    <input type="hidden" name="comboId" value="{{ $items->first()->combo_id }}">
+                    <input type="hidden" name="comboId" value="{{ $combo_items->first()->combo_id }}">
+                    <input type="hidden" name="sizes" value="{{ json_encode($combo_items->first()->combo->getItemsSizesByMinimumStockValue()) }}">
 
                     <button href="" class="w-full flex justify-center">
                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none"

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Combo;
 use App\Models\Combo_items;
-use App\Models\Product;
 use App\Models\ProductItem;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,10 +24,10 @@ class ComboSeeder extends Seeder
             ]);
 
             for($j=0; $j < $amountOfProducts; $j++){
-                $product = Product::inRandomOrder()->first();
+                $item = ProductItem::inRandomOrder()->first();
                 Combo_items::create([
                     'combo_id' => $combo->id,
-                    'product_id' => $product->id
+                    'item_id' => $item->id
                 ]);
             }
         }
