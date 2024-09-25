@@ -11,37 +11,42 @@
                 animation: slide 2.5s infinite linear;
                 position: absolute;
             }
-        
+
             @keyframes slide {
                 0% {
                     background-position: 0 0;
                 }
+
                 100% {
                     background-position: 100% 0;
                 }
             }
-        
+
             @keyframes fadeOut {
                 0% {
                     opacity: 1;
                 }
+
                 100% {
                     opacity: 0;
                 }
             }
-        
+
             @keyframes slideDown {
                 0% {
                     transform: translateY(0);
                 }
+
                 100% {
-                    transform: translateY(50px); /* Ajusta la distancia del deslizamiento según sea necesario */
+                    transform: translateY(50px);
+                    /* Ajusta la distancia del deslizamiento según sea necesario */
                 }
             }
-        
+
             #contain-loader {
                 background: rgba(255, 255, 255, 0.8);
-                position: fixed; /* Asegúrate de que el contenedor esté posicionado correctamente */
+                position: fixed;
+                /* Asegúrate de que el contenedor esté posicionado correctamente */
                 inset: 0;
                 display: flex;
                 align-items: center;
@@ -51,29 +56,29 @@
                 /* Agrega un retraso de 5 segundos para las animaciones de desvanecimiento y deslizamiento */
             }
         </style>
-        
-        
+
+
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 showLoaderAdmin();
             });
-        
+
             function showLoaderAdmin() {
                 const loaderElement = document.querySelector("#contain-loader");
-        
+
                 if (loaderElement) {
                     loaderElement.style.display = "flex"; // Mostrar el loader
                 }
-        
+
                 // Ocultar el loader después de 10 segundos
                 setTimeout(() => {
                     hideLoaderAdmin();
                 }, 10000); // 10000 ms = 10 segundos
             }
-        
+
             function hideLoaderAdmin() {
                 const loaderElement = document.querySelector("#contain-loader");
-        
+
                 if (loaderElement) {
                     loaderElement.style.animation = "fadeOut 1.5s forwards, slideDown 1.5s forwards";
                     setTimeout(() => {
@@ -82,16 +87,18 @@
                 }
             }
         </script>
-        
-        
-        <div id="contain-loader" class="fixed h-screen bg-transparent backdrop-blur-md inset-0 flex items-center justify-center z-50">
+
+
+        <div id="contain-loader"
+            class="fixed h-screen bg-transparent backdrop-blur-md inset-0 flex items-center justify-center z-50">
             <div id="loaderadmin" class="w-16 h-16 border-4 border-t-4">
                 <div class="absolute text-center text-gray-800 font-semibold text-lg">
-                    <h2 class="text-xl font-thin text-gray-800">Hola, <span class="uppercase font-extrabold font-blinker">{{ $user->name }}</span> 👋🏻</h2>
+                    <h2 class="text-xl font-thin text-gray-800">Hola, <span
+                            class="uppercase font-extrabold font-blinker">{{ $user->name }}</span> 👋🏻</h2>
                 </div>
             </div>
         </div>
-        
+
 
         <!-- Carrousel -->
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -351,67 +358,76 @@
 
             <!-- Sección de Pedidos Pendientes -->
             <div
-                class="p-6 col-span-2 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-lg rounded-xl mt-6">
+                class="p-6 col-span-2 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-xl rounded-xl mt-6">
                 <div class="max-w-2xl mx-auto">
-                    <div class="flex justify-between w-full mb-5">
-                        <div class="justify-start">
-                            <h2 class="font-josefin font-bold italic text-2xl">
-                                Pedidos
-                            </h2>
-                        </div>
+                    <!-- Header de la sección -->
+                    <div class="flex justify-between w-full mb-6 items-center">
+                        <h2 class="font-josefin font-bold italic text-3xl text-gray-800">
+                            Pedidos
+                        </h2>
 
-                        <div class="justify-end">
-                            <button class="bg-blue-500 rounded-xl p-2 px-4">
-                                <a class="text-white font-bold" href={{ route('admin.orders.index') }}>Ver Todos los
-                                    pedidos</a>
-                            </button>
-                        </div>
+                        <a href="{{ route('admin.orders.index') }}"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                            Ver Todos los Pedidos
+                        </a>
                     </div>
 
-                    <div class="w-full max-w-6xl mx-auto px-4 md:px-6">
-                        <div class="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
-                            @if ($pendingOrders->isEmpty())
-                                <p>No hay pedidos pendientes.</p>
-                            @else
-                                <ul>
-                                    @foreach ($pendingOrders as $order)
-                                        <!-- Item #1 -->
-                                        <div class="relative pl-8 sm:pl-32 py-6 group">
-                                            <!-- Purple label -->
-                                            <div class="font-medium text-indigo-500 mb-1 sm:mb-0">Pedido
-                                                #{{ $order->id }} - Corrientes, Capital</div>
-                                            <!-- Vertical line (::before) ~ Date ~ Title ~ Circle marker (::after) -->
-                                            <div
-                                                class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                                <div>
-                                                    <time
-                                                        class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
-                                                    <br>
-                                                    <time
-                                                        class="mt-2 sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-gray-600 bg-gray-100 rounded-full">
-                                                        {{ $order->created_at->format('H:i') }}</time>
-                                                </div>
+                    <!-- Contenido con altura fija y scroll -->
+                    <div
+                        class="w-full mx-auto px-12 md:px-6 h-96 overflow-y-auto border-t border-gray-200 divide-y divide-gray-200">
+                        @if ($pendingOrders->isEmpty())
+                            <p class="text-center text-gray-500 py-10">No hay pedidos pendientes.</p>
+                        @else
+                            <ul>
+                                @foreach ($pendingOrders as $order)
+                                    <!-- Pedido individual -->
+                                    <li class="relative pl-8 sm:pl-32 py-16 group hover:bg-gray-50 transition duration-300">
+                                        <!-- Etiqueta con el número del pedido -->
+                                        <div class="font-medium text-indigo-500 mb-1 sm:mb-0">
+                                            Pedido #{{ $order->id }} - Corrientes, Capital
+                                        </div>
 
-                                                <div class="text-xl font-bold text-slate-900">${{ $order->total }} -
-                                                    <strong class=""><a
-                                                            href="{{ route('admin.orders.show', $order->id) }}"
-                                                            class="text-blue-600 hover:underline">Ver detalles
-                                                            →</a></strong>
+                                        <!-- Línea vertical y marcador de posición -->
+                                        <div
+                                            class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden relative">
+                                            {{-- <div
+                                                class="absolute left-2 sm:left-0 before:h-full before:bg-gray-300 sm:before:left-28 before:absolute before:px-px before:-translate-x-1/2 before:translate-y-3">
+                                                <div
+                                                    class="after:absolute after:left-2 sm:after:left-28 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:border-white after:rounded-full after:-translate-x-1/2 after:translate-y-1.5">
                                                 </div>
+                                            </div> --}}
+
+                                            <!-- Fechas del pedido -->
+                                            <div class="flex flex-col items-start mb-3 sm:mb-0">
+                                                <time
+                                                    class="inline-flex items-center justify-center text-xs font-semibold uppercase w-24 h-6 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
+                                                <time
+                                                    class="mt-2 inline-flex items-center justify-center text-xs font-semibold uppercase w-24 h-6 text-gray-600 bg-gray-100 rounded-full">{{ $order->created_at->format('H:i') }}</time>
                                             </div>
-                                            <!-- Content -->
-                                            <div class="text-slate-500 flex">
-                                                <p class="mr-2">{{ $order->user->name }}</p> -
-                                                <p class="ml-2">{{ $order->user->email }}</p>
+
+                                            <!-- Detalles del pedido -->
+                                            <div class="text-xl font-bold text-slate-900 mt-2 sm:mt-0 ml-4">
+                                                ${{ $order->total }} -
+                                                <a href="{{ route('admin.orders.show', $order->id) }}"
+                                                    class="text-blue-600 hover:underline">
+                                                    Ver detalles →
+                                                </a>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </div>
+
+                                        <!-- Información del usuario -->
+                                        <div class="text-slate-500 mt-2 flex">
+                                            <span class="mr-2">{{ $order->user->name }}</span> -
+                                            <span class="ml-2">{{ $order->user->email }}</span>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     @vite('resources/js/app.js')
