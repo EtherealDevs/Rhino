@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->string('name');
             $table->string('last_name');
+            $table->string('number_phone');
             $table->foreignId('zip_code_id')->constrained();
             $table->foreignId('province_id')->constrained();
             $table->foreignId('city_id')->constrained();
