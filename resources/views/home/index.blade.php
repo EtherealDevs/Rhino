@@ -22,11 +22,11 @@
                                 alt="Your Company">
                         </div>
                         <div class="mt-6 text-center">
-                            <p class="text-lg italic font-josefin text-white leading-relaxed">
+                            <h2 class="text-lg italic font-josefin text-white leading-relaxed">
                                 Aca vas a encontrar una selección cuidada de prendas y accesorios diseñados para resaltar tu
                                 estilo y personalidad. <span class="font-bold">¡Explora nuestra colección y descubre lo que
                                     te hace único!</span>
-                            </p>
+                            </h2>
                         </div>
                     </div>
 
