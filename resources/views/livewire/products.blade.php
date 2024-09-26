@@ -44,6 +44,7 @@
                         <h2 class="font-bold text-xl text-center">Categorías</h2>
                         <div class="flex flex-col">
                             @foreach ($categories as $category)
+                            @if($category->parentCategory && is_null($category->parentCategory->parent_id))
                                 <div>
                                     <label class="flex items-center space-x-2">
                                         <input type="checkbox" name="categories[]" value="{{ $category->id }}"
@@ -73,6 +74,7 @@
                                         @endforeach
                                     </div>
                                 @endif
+                            @endif
                             @endforeach
                         </div>
 

@@ -134,7 +134,7 @@
                                 @endisset
                             </span></li>
                         <li  class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de
-                            Envío: <span class="text-white text-lg">${{ number_format($sendPrice, 2, ',', '.') }}</span></li>
+                            Envío: <span class="text-white text-lg">@if($sendPrice)${{ number_format($sendPrice, 2, ',', '.') }}@endif</span></li>
 
                     </ul>
                 </div>

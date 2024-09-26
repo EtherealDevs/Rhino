@@ -56,7 +56,6 @@ class ShippingCost extends Component
 
     public function mount(User $user)
     {
-        $this->user = $user;
 
         $this->fill(
             $user
@@ -77,7 +76,7 @@ class ShippingCost extends Component
         } else {
             $this->cartItems = CartManager::getCartContents();
         }
-
+        if(isset($this->cartItems)){
             foreach ($this->cartItems as $item) {
                 $itemAmount = $item['amount'];
                 $discount = $item['item']->product->sale->sale->discount ?? $item['item']->product->combo->combo->discount ??0;
@@ -87,6 +86,7 @@ class ShippingCost extends Component
                 $this->volume += $item['item']->product->volume;
                 $this->weigth += $item['item']->product->weigth;
             }
+        }
     }
 
     public function rules()
