@@ -9,12 +9,14 @@
                 <div class="flex items-center">
                     <div class="hidden md:block">
                         <div class="flex items-baseline space-x-4">
-                            <a href="/" class="nav-item text-gray-800 font-black px-3 py-2 text-sm"
+                            <a href="/" class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2"
                                 aria-current="page">Inicio</a>
                             <a href="/products"
-                                class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Productos</a>
-                            <a href="/about" class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Nosotros</a>
-                            <a href="/contact" class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Contacto</a>
+                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Productos</a>
+                            <a href="/about"
+                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Nosotros</a>
+                            <a href="/contact"
+                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Contacto</a>
                         </div>
                     </div>
                     <div class="flex-shrink-0 flex bg-white lg:py-6 lg:rounded-full lg:ml-36">
@@ -38,7 +40,7 @@
                                     </svg>
                                 </button>
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="absolute top-16 right-8 w-80 bg-white shadow-lg rounded-lg p-4">
+                                    class="fixed top-14 right-0 h-full w-1/4 bg-white shadow-lg rounded-lg p-4 overflow-y-auto">
                                     <div class="flex justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Mis Intereses</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
@@ -77,20 +79,27 @@
 
 
                                                     <div>
-                                                        @if ($favorite->product)
+                                                        @if ($favorite->product && $favorite->product->items->isNotEmpty())
                                                             <p class="font-semibold text-xl text-gray-800">
                                                                 {{ $favorite->product->name }}</p>
                                                             <div class="text-sm font-semibold text-gray-500">
-                                                                <p>Color: <span
-                                                                        class="text-gray-700">{{ $favorite->color }}</span>
-                                                                </p>
-                                                                <p>Talle: <span
-                                                                        class="text-gray-700">{{ $favorite->size }}</span>
-                                                                </p>
+                                                                @php
+                                                                    // Obtener el primer productItem relacionado al producto
+                                                                    $firstProductItem = $favorite->product->items->first();
+                                                                @endphp
+
+                                                                <a
+                                                                    href="{{ route('products.show', ['product' => $favorite->product->id, 'productItem' => $firstProductItem->id]) }}">
+                                                                    <button
+                                                                        class="bg-gray-300 hover:bg-gray-100 text-black font-bold py-2 px-4 rounded-full">
+                                                                        Ver Detalle
+                                                                    </button>
+                                                                </a>
                                                             </div>
                                                         @else
                                                             <p class="text-gray-500">Agregar Productos a la lista</p>
                                                         @endif
+
                                                     </div>
                                                 </div>
 
@@ -121,8 +130,8 @@
                                     </svg>
                                 </button>
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="absolute top-16 right-8 w-96 bg-white shadow-lg rounded-lg p-4">
-                                    <div class="flex justify-between items-center border-b pb-2 mb-2">
+                                    class="fixed top-14 right-0 h-full w-1/4 bg-white shadow-lg rounded-lg p-4">
+                                    <div class="flex fixed justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Carrito</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -132,7 +141,7 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <div class="space-y-4">
+                                    <div class="space-y-4 overflow-y-auto">
                                         @forelse ($cartContents ?? [] as $cartItem)
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center space-x-4">
@@ -202,8 +211,8 @@
                                 <div class=" border-4 rounded-full p-1">
                                     <button x-on:click="open = !open" type="button"
                                         class="flex items-center text-sm font-medium text-white ">
-                                        <img class="h-6 w-6 rounded-full"
-                                            src="{{ auth()->user()->profile_photo_url }}" alt="">
+                                        <img class="h-6 w-6 rounded-full" src="{{ auth()->user()->profile_photo_url }}"
+                                            alt="">
                                     </button>
                                 </div>
 
@@ -214,8 +223,7 @@
                                     <a href="{{ route('profile.show') }}"
                                         class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
-                                    <a href="/orders"
-                                        class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
+                                    <a href="/orders" class="flex justify-end px-4 py-2 text-sm text-back font-extralight"
                                         role="menuitem" tabindex="-1" id="user-menu-item-1">Mis Pedidos</a>
                                     @can('admin.home')
                                         <a href="{{ route('admin.home') }}"
@@ -223,8 +231,7 @@
                                             role="menuitem" tabindex="-1" id="user-menu-item-1">Panel de
                                             Administracion</a>
                                     @endcan
-                                    <form method="POST" class="flex justify-end" action="{{ route('logout') }}"
-                                        x-data>
+                                    <form method="POST" class="flex justify-end" action="{{ route('logout') }}" x-data>
                                         @csrf
                                         <button type="submit" href="{{ route('logout') }}"
                                             class="px-4 py-2 text-sm text-backfont-extralight" role="menuitem"
@@ -343,12 +350,17 @@
         }
 
         .nav-item {
-            position: relative;
+            color: inherit;
+            /* Color inicial */
+            transition: color 0.3s ease, transform 0.3s ease;
+            /* Transiciones para color y escala */
         }
 
         .nav-item:hover {
-            color: blue;
-            /* Cambiar el color del texto al hacer hover si se desea */
+            color: black;
+            /* Cambiar el color del texto al hacer hover */
+            transform: scale(1.05);
+            /* Aumentar ligeramente el tamaño */
         }
     </style>
     <script>

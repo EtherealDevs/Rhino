@@ -1,93 +1,148 @@
 @extends('layouts.app')
+
 @section('content')
     <section>
-        <div class="relative isolate px-6 pt-14 lg:px-8">
+        <div class="relative isolate px-6 pt-16 lg:px-8">
+            <!-- Fondo superior optimizado -->
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true">
-                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#2a2a2a] to-[#000000] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                <div class="relative left-1/2 aspect-[1155/678] w-144 -translate-x-1/2 rotate-30 bg-gradient-to-tr from-gray-800 to-black opacity-30 sm:left-1/2 sm:w-288"
                     style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                 </div>
             </div>
-            <div class=" text-black font-sans antialiased py-8">
+
+            <div class="text-black font-sans antialiased py-4">
                 <div class="container mx-auto flex flex-col items-start md:flex-row my-12 md:my-24">
-                    <div class="flex flex-col w-full sticky md:top-36 lg:w-1/3 mt-2 md:mt-12 px-8">
-                        <div class="text-center">
-                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Bienvenidos a RINO
-                                Indumentaria</h1>
-                            <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt
-                                sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat
-                                aliqua.</p>
-
+                    <!-- Sección de bienvenida optimizada -->
+                    <div class="flex flex-col w-full lg:w-2/3 mt-4 md:mt-16 px-16 sticky top-0 relative overflow-hidden">
+                        <!-- Div de la imagen con efecto pintura -->
+                        <div class="relative text-center py-8 mt-32 z-10">
+                            <h1 class="text-3xl lg:text-6xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
+                                Nuestra Historia
+                            </h1>
+                            <p class="mt-8 text-xl leading-9 text-gray-700">
+                                Desde nuestros humildes comienzos hasta convertirnos en una referencia de estilo y calidad.
+                                Acompáñanos en este viaje de pasión, esfuerzo y crecimiento, donde cada prenda cuenta una
+                                historia y cada cliente es parte de nuestra familia.
+                            </p>
                         </div>
-                    </div>
-                    <div class="ml-0 md:ml-12 lg:w-2/3 sticky">
-                        <div class="container mx-auto w-full h-full">
-                            <div class="relative wrap overflow-hidden p-10 h-full">
-                                <div class="border-2-2 border-yellow-555 absolute h-full border"
-                                    style="right: 50%; border: 2px solid #000000; border-radius: 1%;"></div>
-                                <div class="border-2-2 border-yellow-555 absolute h-full border"
-                                    style="left: 50%; border: 2px solid #000000; border-radius: 1%;"></div>
-                                <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
-                                    <div class="order-1 w-5/12"></div>
-                                    <div class="order-1 w-5/12 px-1 py-4 text-right">
-                                        <p class="mb-3 text-base text-black">1-6 May, 2018</p>
-                                        <h4 class="mb-3 font-bold text-lg md:text-2xl">Apertura</h4>
-                                        <p class="text-sm md:text-base leading-snug  text-black text-opacity-100">
-                                            Pick your favourite event(s) and register in that event by filling the form
-                                            corresponding to that
-                                            event. Its that easy :)
-                                        </p>
+                        <!-- component -->
+                        <div class="flex justify-center items-center">
+                            <div class="w-full mx-8 space-y-8 p-16">
+                                <div class="grid grid-cols-6 gap-6">
+                                    <!-- Imagen 1 -->
+                                    <div class="overflow-hidden rounded-xl col-span-3 max-h-[28rem]">
+                                        <img class="h-full w-full object-contain" src="img/about.jpg" alt="">
                                     </div>
-                                </div>
-                                <div class="mb-8 flex justify-between items-center w-full right-timeline">
-                                    <div class="order-1 w-5/12"></div>
-                                    <div class="order-1  w-5/12 px-1 py-4 text-left">
-                                        <p class="mb-3 text-base text-black">6-9 May, 2021</p>
-                                        <h4 class="mb-3 font-bold text-lg md:text-2xl">Inicio de expansion</h4>
-                                        <p class="text-sm md:text-base leading-snug  text-black text-opacity-100">
-                                            Participate online. The links for your registered events will be sent to you via
-                                            email and whatsapp
-                                            groups. Use those links and show your talent.
-                                        </p>
+                                    <!-- Imagen 2 -->
+                                    <div class="overflow-hidden rounded-xl col-span-3 max-h-[28rem]">
+                                        <img class="h-full w-full object-cover"
+                                            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1399&q=80"
+                                            alt="">
                                     </div>
-                                </div>
-                                <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
-                                    <div class="order-1 w-5/12"></div>
-                                    <div class="order-1 w-5/12 px-1 py-4 text-right">
-                                        <p class="mb-3 text-base text-black"> 10 May, 2021</p>
-                                        <h4 class="mb-3 font-bold text-lg md:text-2xl">Adquisision de nuevas herramientas
-                                        </h4>
-                                        <p class="text-sm md:text-base leading-snug  text-black text-opacity-100">
-                                            The ultimate genius will be revealed by our judging panel on 10th May, 2021 and
-                                            the
-                                            resukts will be
-                                            announced on the whatsapp groups and will be mailed to you.
-                                        </p>
+                                    <!-- Imagen 3 -->
+                                    <div class="overflow-hidden rounded-xl col-span-2 max-h-[20rem]">
+                                        <img class="h-full w-full object-cover"
+                                            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                                            alt="">
                                     </div>
-                                </div>
-
-                                <div class="mb-8 flex justify-between items-center w-full right-timeline">
-                                    <div class="order-1 w-5/12"></div>
-
-                                    <div class="order-1  w-5/12 px-1 py-4">
-                                        <p class="mb-3 text-base text-black">12 May, 2021</p>
-                                        <h4 class="mb-3 font-bold  text-lg md:text-2xl text-left">Continua la expansion</h4>
-                                        <p class="text-sm md:text-base leading-snug text-black text-opacity-100">
-                                            The winners will be contacted by our team for their addresses and the winning
-                                            goodies will be sent at
-                                            their addresses.
-                                        </p>
+                                    <!-- Imagen 4 -->
+                                    <div class="overflow-hidden rounded-xl col-span-2 max-h-[20rem]">
+                                        <img class="h-full w-full object-cover"
+                                            src="https://images.unsplash.com/photo-1503602642458-232111445657?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                                            alt="">
+                                    </div>
+                                    <!-- Imagen 5 -->
+                                    <div class="relative overflow-hidden rounded-xl col-span-2 max-h-[20rem]">
+                                        <div
+                                            class="text-white text-2xl absolute inset-0 bg-slate-900/80 flex justify-center items-center">
+                                            <a href="#">
+                                                <p>Ver más</p>
+                                            </a>
+                                        </div>
+                                        <img class="h-full w-full object-cover"
+                                            src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
-                            {{-- <img class="mx-auto -mt-36 md:-mt-36" src="https://user-images.githubusercontent.com/54521023/116968861-ef21a000-acd2-11eb-95ac-a34b5b490265.png" /> --}}
                         </div>
                     </div>
+
+
+                    <!-- Línea de tiempo optimizada -->
+                    <div class="ml-0 md:ml-12 lg:w-2/3 backdrop-blur-3xl lg:backdrop-blur-none">
+                        <div class="relative wrap overflow-hidden p-10 h-full">
+                            <!-- Líneas verticales simplificadas -->
+                            <div
+                                class="absolute h-full border-2 border-black left-1/2 transform -translate-x-1/2 rounded-md">
+                            </div>
+
+                            <!-- Eventos de la línea de tiempo -->
+                            @php
+                                $events = [
+                                    [
+                                        'date' => '1-6 May, 2018',
+                                        'title' => 'El Comienzo de un Sueño 🌟',
+                                        'description' =>
+                                            '¡Hola a todos! 👋 ¿Listos para descubrir cómo comenzó nuestra emocionante travesía en el universo de la moda? Hace diez años, con una pequeña bebé y solo un año de convivencia, mi pareja y yo decidimos dar el primer paso en este hermoso camino. Nuestra misión siempre ha sido clara: proveer ropa de calidad y estilo para que cada persona se sienta cómoda y segura en su propia piel. :)',
+                                        'side' => 'right',
+                                    ],
+                                    [
+                                        'date' => '6-9 May, 2021',
+                                        'title' => 'El Primer Paso 👣',
+                                        'description' =>
+                                            'Iniciamos nuestro viaje con recursos limitados, ofreciendo prendas en concesión y una mezcla de estilos. Con cada cliente que atendíamos, crecimos en experiencia y pasión, comprendiendo la importancia de ofrecer moda contemporánea y tendencias actuales que resonaran con la esencia de quienes somos.',
+                                        'side' => 'left',
+                                    ],
+                                    [
+                                        'date' => '10 May, 2021',
+                                        'title' => 'Evolución y Crecimiento 🚀',
+                                        'description' =>
+                                            'La demanda de nuestros clientes fue un gran impulso que nos llevó a enfocarnos en Rino, nuestra línea de moda urbana masculina. Con una actitud de lucha, seguridad y perseverancia, comenzamos a crear piezas que no solo visten, sino que empoderan. "Conócete a ti mismo y vencerás" se convirtió en nuestro mantra.',
+                                        'side' => 'right',
+                                    ],
+                                    [
+                                        'date' => '12 May, 2021',
+                                        'title' => 'Reconocimiento y Comunidad 💪👥',
+                                        'description' =>
+                                            'Hoy, somos reconocidos y queridos en nuestra ciudad y en los alrededores. La satisfacción de nuestros clientes nos motiva a seguir creciendo. Nuestro objetivo es expandir nuestro alcance y llevar nuestras prendas a cada rincón del país, convirtiéndonos en una referencia de estilo y calidad en el mundo de la moda.',
+                                        'side' => 'left',
+                                    ],
+                                    [
+                                        'date' => '12 May, 2021',
+                                        'title' => 'Compromiso con Nuestros Clientes 🤝❤️',
+                                        'description' =>
+                                            'Esperamos que su experiencia con nosotros sea siempre positiva y que podamos superar sus expectativas en cada compra. Estamos aquí para brindarles lo mejor, porque su confianza y satisfacción son nuestra mayor recompensa. ¡Gracias por ser parte de nuestra historia! 🫂',
+                                        'side' => 'right',
+                                    ],
+                                ];
+                            @endphp
+
+                            @foreach ($events as $event)
+                                <div
+                                    class="mb-8 flex justify-between items-center w-full {{ $event['side'] === 'right' ? 'flex-row-reverse' : '' }}">
+                                    <div class="w-5/12"></div>
+                                    <div class="w-5/12 px-1 py-4 text-{{ $event['side'] === 'right' ? 'right' : 'left' }}">
+                                        <p class="mb-3 text-sm md:text-base text-black">{{ $event['date'] }}</p>
+                                        <h4 class="mb-3 font-bold text-lg md:text-2xl">{{ $event['title'] }}</h4>
+                                        <p class="text-xs md:text-base leading-snug text-black text-opacity-100">
+                                            {{ $event['description'] }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+
+            <!-- Fondo inferior optimizado -->
             <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
                 aria-hidden="true">
-                <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#686868] to-[#0e0953] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                <div class="relative left-1/2 aspect-[1155/678] w-144 -translate-x-1/2 bg-gradient-to-tr from-gray-600 to-indigo-900 opacity-30 sm:left-1/2 sm:w-288"
                     style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                 </div>
             </div>

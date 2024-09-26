@@ -13,18 +13,6 @@
                     @session('cartError')
                         <p>{{ session('cartError') }}</p>
                     @endsession
-                    {{-- @isset($groupedCartItems)
-                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
-                            @foreach ($groupedCartItems as $comboId => $items)
-                                @if ($comboId)
-                                    @livewire('cart-combo', ['items' => $items, 'combo' => $comboId])
-                                @else
-                                    @foreach ($items as $item)
-                                        @livewire('cart-item', ['item' => $item])
-                                    @endforeach
-                                @endif
-                            @endforeach
-                        </ul> --}}
                     @if ($combos !== null && $items !== null)
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
                             @if ($combos->isNotEmpty())

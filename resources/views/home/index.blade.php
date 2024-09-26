@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('title', 'Bienvenidos a Rino Indumentaria | Moda Única')
+
+@section('meta_description', 'Descubre la última moda para hombres y adolescentes en nuestra tienda online. Desde ropa casual y deportiva hasta estilos más formales, tenemos todo lo que necesitas para lucir a la última. ¡Renueva tu armario con las últimas tendencias! #modamasculina #ropaonline #tendencias')
+
 @section('content')
     <div class="static justify-center bg-white w-full">
         <div class="grid grid-cols-1 h-full lg:grid-cols-3 lg:grid-rows-2 gap-0 lg:gap-6 ">
@@ -17,11 +22,11 @@
                                 alt="Your Company">
                         </div>
                         <div class="mt-6 text-center">
-                            <p class="text-lg italic font-josefin text-white leading-relaxed">
+                            <h2 class="text-lg italic font-josefin text-white leading-relaxed">
                                 Aca vas a encontrar una selección cuidada de prendas y accesorios diseñados para resaltar tu
                                 estilo y personalidad. <span class="font-bold">¡Explora nuestra colección y descubre lo que
                                     te hace único!</span>
-                            </p>
+                            </h2>
                         </div>
                     </div>
 
@@ -62,7 +67,7 @@
                                     class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                                     data-carousel-prev>
                                     <span
-                                        class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                        class="inline-flex justify-center items-center w-10 h-10 rounded-full sm:w-10 sm:h-10 bg-white/80 text-black hover:bg-white/100 group-focus:ring-4 group-focus:ring-black group-focus:outline-none">
                                         <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -75,7 +80,7 @@
                                     class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                                     data-carousel-next>
                                     <span
-                                        class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                        class="inline-flex justify-center items-center w-10 h-10 rounded-full sm:w-10 sm:h-10 bg-white/80 text-black hover:bg-white/100 group-focus:ring-4 group-focus:ring-black">
                                         <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -137,7 +142,7 @@
                 <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
-                            <p class="text-4xl pb-8 italic font-bold mr-6 text-white">
+                            <p class="text-4xl pb-8 italic font-bold font-josefin mr-6 text-white">
                                 Nuevos Ingresos
                             </p>
                         </div>
@@ -174,7 +179,7 @@
 
             {{-- Seccion Ofertas --}}
             <div
-                class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] xl:w-[450px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <!-- Video de fondo -->
                 <video autoplay muted loop playsinline
                     class="absolute inset-0 w-full h-full object-cover rounded-none lg:rounded-3xl">
@@ -184,12 +189,12 @@
                 <!-- Capa de superposición oscura -->
                 <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl mb-8">
                     <div class="flex justify-center">
-                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold text-blue-100 tracking-wide">
+                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-blue-100 tracking-wide">
                             ¡No Dejes Pasar Nuestras Ofertas Exclusivas!
                         </p>
                     </div>
                     <div class="flex justify-start p-4 mb-12">
-                        <p class="text-center mt-6 text-xl mx-8   py-2 px-4 rounded-full shadow-lg">
+                        <p class="text-center mt-6 text-xl mx-8 font-josefin  py-2 px-4 rounded-full shadow-lg">
                             Disponibles por tiempo limitado. No dejes pasar esta oportunidad de ahorrar y disfrutar de la
                             mejor calidad al mejor precio.
                         </p>
@@ -272,7 +277,7 @@
                                                     <button
                                                         class="rounded-full p-1 lg:p-3 px-4 text-white mt-6 bg-black hover:ring-2 ring-black flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900"
                                                         style="height: 42px;>
-                                                    
+
                                                     <p class="ml-2">
                                                         Ver mas Promociones <span class="ml-2 text-xl">→</span>
                                                         </p>
@@ -316,7 +321,7 @@
                     </div>
                     <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
                 @else
-                    <p class="flex text-center text-4xl font-bold">No hay promoción creada</p>
+                    <div></div>
                 @endif
             </div>
         </div>

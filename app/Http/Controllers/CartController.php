@@ -146,44 +146,9 @@ class CartController extends Controller
         }
         return redirect()->route('cart')->with('success');
     }
-    
-
-    // public function addComboToCart(Request $request){
-    //     $combo = Combo::where('id', $request->comboId)->first();
-    //     $sizes = json_decode($request->sizes, true);
-    //     $combo_items = $combo->items;
-    //     // Añadir Combo  al carrito de la sesión.
-    //     $cartCombo = new CartCombo($combo, $sizes);
-    //         $this->cartManager->addCombo($combo_items, $combo);
-
-    //     //     // Chequear si en esta sesion, en este navegador, hay un usuario logueado. Si hay, persistir el carrito de la sesion a la base de datos
-    //     //     if (Auth::check()) {
-    //     //         $user = User::where('id', Auth::user()->id)->first();
-    //     //         CartManager::storeOrUpdateInDatabase($user);
-    //     //         $cart = Cart::where('user_id',$user->id)->first();
-    //     //     }
-    //     //     if (session('cartError')) {
-    //     //         return redirect()->route('cart')->with('failure', session('cartError'));
-    //     //     }
-    //     $combo = Combo::where('id', $request->comboId)->first();
-    //         // Añadir Item al carrito de la sesión.
-    //         $cartCombo = new CartItem('combo', $combo);
-    //         CartManager::addCombo($cartCombo);
-
-    //         // Chequear si en esta sesion, en este navegador, hay un usuario logueado. Si hay, persistir el carrito de la sesion a la base de datos
-    //         if (Auth::check()) {
-    //             $user = User::where('id', Auth::user()->id)->first();
-    //             CartManager::storeOrUpdateInDatabase($user);
-    //             $cart = Cart::where('user_id',$user->id)->first();
-    //         }
-    //         if (session('cartError')) {
-    //             return redirect()->route('cart')->with('failure', session('cartError'));
-    //         }
-    //     return redirect()->route('cart')->with('success');
-    // }
-    
 
     public function dropCart() {
+        // Cambiar despues. CartItem || CartCombo :: DEFAULT_TYPE
         session()->forget('cart');
         $user = Auth::user();
         if ($user){

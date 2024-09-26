@@ -34,6 +34,7 @@ class User extends Authenticatable
         'name',
         'last_name',
         'email',
+        'phone_number',
         'password',
     ];
 
@@ -71,7 +72,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function image() : MorphOne
+    public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }
@@ -83,12 +84,17 @@ class User extends Authenticatable
     {
         return $this->hasOne(Address::class);
     }
-    public function cart() : HasOne
+    public function cart(): HasOne
     {
         return $this->hasOne(Cart::class);
     }
-    public function items() : BelongsToMany
+    public function items(): BelongsToMany
     {
         return $this->belongsToMany(ProductItem::class, 'favorites', 'user_id', 'product_item_id')->as('favorites')->withTimestamps();
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Reviews::class);
     }
 }

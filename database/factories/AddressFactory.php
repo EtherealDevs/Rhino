@@ -21,6 +21,7 @@ class AddressFactory extends Factory
         return [
             'name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
+            'phone_number' => $this->faker->phoneNumber(),
             'address' => $this->faker->streetAddress(),
             'street' => $this->faker->streetName(),
             'number' => $this->faker->buildingNumber(),

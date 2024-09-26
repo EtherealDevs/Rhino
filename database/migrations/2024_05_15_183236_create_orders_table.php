@@ -23,7 +23,6 @@ return new class extends Migration
             
             $table->foreignId('order_status_id')->references('id')->on('order_statuses');
 
-
             $table->timestamps();
         });
     }

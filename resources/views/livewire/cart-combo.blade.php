@@ -107,39 +107,31 @@
                                         class="text-slate-700 dark:text-slate-200 text-center text-base font-extrabold">
                                         Nombre Producto</div>
                                 </div>
-                                <svg class="absolute right-2 z-50 h-6 w-6 -translate-x-4 translate-y-0 transform fill-current stroke-current text-blue-200 dark:text-slate-900"
-                                    width="8" height="8">
-                                    <rect x="9" y="-8" width="8" height="8" transform="rotate(45)">
-                                    </rect>
-                                </svg>
                             </div>
-                        </div>
-                    @endfor
-                    {{-- 
-                    <div x-data="{ tooltip: false }" class="relative inline-flex transition duration-300 ease-in-out" x-cloak>
-                        <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
-                            class="z-10 h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl dark:border-slate-800"
-                            src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&w=128&h=128&q=60&facepad=1.5"
-                            alt="Salesperson" />
-                        <div class="relative z-50 overflow-visible pt-2" x-cloak x-show="tooltip"
-                            x-transition:enter="transition ease-out duration-150"
-                            x-transition:enter-start="transform opacity-0 translate-y-full"
-                            x-transition:enter-end="transform opacity-100 translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="transform opacity-100 translate-y-0"
-                            x-transition:leave-end="transform opacity-0 translate-y-full">
-                            <div
-                                class="absolute -right-1 z-50 mt-1 w-40 -translate-x-10 -translate-y-5 transform overflow-x-hidden rounded-lg bg-blue-200 p-2 text-center leading-tight text-white shadow-md dark:bg-slate-900">
-                                <div class="text-slate-700 dark:text-slate-200 text-center text-base font-extrabold">
-                                    Nombre producto</div>
+                        @endfor
+                    @else
+                        @for ($i = 0; $i < count($items); $i++)
+                            <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
+                                <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
+                                    class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
+                                    src="{{ url(Storage::url('images/product/' . $items[$i]['item']->images->first()->url)) }}"
+                                    alt="Imagen Producto" />
+
+                                <!-- Tooltip -->
+                                <div class="absolute z-50 left-14 -top-2" x-show="tooltip"
+                                    x-transition:enter="transition ease-out duration-150"
+                                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                                    x-transition:leave-end="opacity-0 transform translate-y-2">
+                                    <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
+                                        {{ $items[$i]['item']->product->name }}
+                                    </div>
+                                </div>
                             </div>
-                            <svg class="absolute right-2 z-50 h-6 w-6 -translate-x-4 translate-y-0 transform fill-current stroke-current text-blue-200 dark:text-slate-900"
-                                width="8" height="8">
-                                <rect x="9" y="-8" width="8" height="8" transform="rotate(45)">
-                                </rect>
-                            </svg>
-                        </div>
-                    </div> --}}
+                        @endfor
+                    @endif
                 </div>
 
             </div>
@@ -158,7 +150,24 @@
                         <span class="align-middle text-slate-900">${{ number_format($total / 100, 2, ',', '.') }}</span>
 
                     </div>
-                    <div class="text-[13px] text-slate-900">Total Con descuento</div>
+                    <span class="text-xs rounded bg-green-600 px-2 py-1 font-bold text-white">
+                        {{ number_format($discount, 0, ',', '.') }}% OFF
+                    </span>
+                </div>
+
+                <!-- Total OFF -->
+                <div class="col-span-1 lg:col-span-3 flex flex-col items-center justify-center">
+                    <div class="text-sm text-slate-900">Total con Descuento</div>
+                    <div class="text-xl font-extrabold text-green-500">
+                        ${{ number_format($total, 0, ',', '.') }}
+                    </div>
+                </div>
+
+                <!-- Eliminar -->
+                <div class="col-span-1 flex items-center justify-end">
+                    <button type="submit" class="text-gray-400 hover:text-red-500 text-xl font-bold">
+                        &times;
+                    </button>
                 </div>
             </div>
 

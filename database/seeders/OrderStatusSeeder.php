@@ -10,11 +10,11 @@ class OrderStatusSeeder extends Seeder
     public function run()
     {
         DB::table('order_statuses')->insert([
-            ['name' => 'Pending'],
-            ['name' => 'Processing'],
-            ['name' => 'Shipped'],
-            ['name' => 'Delivered'],
-            ['name' => 'Cancelled'],
+            ['name' => 'Pendiente'],
+            ['name' => 'Procesando'],
+            ['name' => 'Enviado'],
+            ['name' => 'Entregado'],
+            ['name' => 'Cancelado'],            
         ]);
     }
 }
