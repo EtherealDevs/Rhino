@@ -16,7 +16,7 @@ class Combo extends Model
     {
         return $this->hasMany(Combo_items::class);
     }
-    public function totalPrice()
+    public function getTotalPriceWithoutDiscount()
     {
         $items = $this->items;
         $totalPrice = 0;
@@ -24,7 +24,12 @@ class Combo extends Model
             $itemPrice = $item->item->original_price;
             $totalPrice += $itemPrice;
         }
-        return ($totalPrice * (1 - $this->discount / 100));
+        return $totalPrice;
+    }
+    public function totalPrice()
+    {
+        $totalPrice = $this->getTotalPriceWithoutDiscount();
+        return (integer) ($totalPrice * (1 - $this->discount / 100));
     }
     public function getMaximumAddableAmount()
     {

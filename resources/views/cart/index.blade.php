@@ -25,17 +25,27 @@
                                 @endif
                             @endforeach
                         </ul> --}}
-                    @isset($cartItems)
+                    @if ($combos !== null && $items !== null)
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
-                                    @foreach ($cartItems as $cartItemKey => $cartItem)
-                                        @livewire('cart-item', ['cartItemId' => $cartItemKey, 'cartItem' => $cartItem])
-                                    @endforeach
+                            @if ($combos->isNotEmpty())
+                                @foreach ($combos as $comboKey => $comboValue)
+                                    @livewire('cart-combo', ['cartComboId' => $comboKey, 'cartCombo' => $comboValue])
+                                @endforeach
+                            @endif
+                            @if ($items->isNotEmpty())
+                                @foreach ($items as $itemKey => $itemValue)
+                                    @livewire('cart-item', ['cartItemId' => $itemKey, 'cartItem' => $itemValue])
+                                @endforeach
+                            @endif
+                            @if ($combos->isEmpty() && $items->isEmpty())
+                                <p class="text-2xl sm:text-3xl lg:text-4xl text-gray-300 mt-24 mb-24">No tenes productos en
+                                    tu carrito
+                                </p>
+                            @endif
                         </ul>
-                    @else
-                        <p class="text-2xl sm:text-3xl lg:text-4xl text-gray-300 mt-24 mb-24">No tienes productos en tu carrito
-                        </p>
-                    @endisset
+                    @endif
                 </div>
+                {{number_format($cartTotal / 100, 2, ',', '.')}}
 
             </div>
         </div>

@@ -21,22 +21,40 @@ class SessionCartManager
         $this->total = $total;
         $this->contents = $cart;
     }
-    
+    public static function checkIfCartExists()
+    {
+        return !is_null(session(self::CART_NAME));
+    }
+    /**
+     * Retrieves the contents of the shopping cart from the session.
+     *
+     * @return Illuminate\Support\Collection The contents of the shopping cart.
+     */
     public function getCartContents()
     {
-        return session(self::CART_NAME) ? session(self::CART_NAME) : session()->put(self::CART_NAME, collect());
+        return session(self::CART_NAME) ? collect(json_decode(session(self::CART_NAME))) : session()->put(self::CART_NAME, collect());
     }
+    /**
+     * Retrieves the total cost of the shopping cart from the session.
+     *
+     * @return float The total cost of the shopping cart.
+     */
     public function getCartTotal()
     {
         return session(self::CART_TOTAL) ? session(self::CART_TOTAL) : session()->put(self::CART_TOTAL, 0);
     }
-    
+    /**
+     * Sets the total cost of the shopping cart in the session.
+     *
+     * @param float $total The new total cost of the shopping cart.
+     *
+     * @return void
+     */
     public function setCartTotal($total)
     {
         $this->total = $total;
         session()->put(self::CART_TOTAL, $this->total);
     }
-
     /**
      * Updates the contents of the shopping cart and recalculates the total cost.
      *
@@ -51,6 +69,7 @@ class SessionCartManager
      */
     public function updateCart($contents)
     {
+        $contents = $contents->sortBy('type');
         $this->updateCartContents($contents);
         $this->updateCartTotal();
     }
@@ -323,7 +342,6 @@ class SessionCartManager
                 $this->updateCart($contents);
             }
     }
-
     /**
      * Generate a unique identifier for an item in the shopping cart.
      *
@@ -357,6 +375,11 @@ class SessionCartManager
         }
         $max_stock = $stocks->min();
         return $max_stock;
+    }
+    public function dropCart()
+    {
+        session()->forget(self::CART_NAME);
+        session()->forget(self::CART_TOTAL);
     }
 }
 

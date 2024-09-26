@@ -3,20 +3,26 @@
 namespace App\Http\Middleware;
 
 use App\Http\Cart\CartManager;
+use App\Http\Cart\SessionCartManager;
 use App\Models\Cart;
 use App\Models\User;
 use Closure;
 use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\CartService;
 
 class SaveCartFromSessionIntoDatabase
 {
-    protected $cartContents;
+    protected $cartService;
+    protected $user;
 
     public function __construct()
     {
-        // $this->cartContents = CartManager::getCartContents();
+        $user = Auth::user();
+        $this->user = $user;
+        $this->cartService = new CartService();
     }
     /**
      * Handle an incoming request.
@@ -25,24 +31,12 @@ class SaveCartFromSessionIntoDatabase
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // If user is logged in, save the session cart into the database
-        // if (auth()->check()) {
-        //     $user = User::where('id', auth()->user()->id)->first();
-        //     $dbCart = Cart::where('user_id', $user->id)->first();
-
-        //     if (session()->exists('cart')) {
-        //         $sessionCart = session('cart');
-        //     } else { $sessionCart = null; }
-
-        //     if ($sessionCart != null) {
-        //         if ($dbCart != null) {
-        //             CartManager::compareAndSaveCarts($dbCart, $sessionCart, $user);
-        //         } else {
-        //             CartManager::storeOrUpdateInDatabase($user, $sessionCart);
-        //         }
-        //     }
+        // Check if a session cart exists before attempting to transfer it
+        $sessionCartExists = SessionCartManager::checkIfCartExists();
         
-        // }
-        // return $next($request);
+        if ($sessionCartExists) {
+            $this->cartService->transferCart();
+        }
+        return $next($request);
     }
 }

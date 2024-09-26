@@ -18,7 +18,7 @@
                         </div>
                     @endif
                     <div class="flex justify-center bg-[#26ca60] text-white text-sm font-bold rounded-xl px-2 py-1">
-                        <p>${{ number_format($price, 2, ',', '.') }}</p>
+                        <p>${{ number_format($price / 100, 2, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
@@ -28,12 +28,27 @@
             </div>
             <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
                 <p class="font-josefin font-bold text-gray-900">Cantidad</p>
-                <p class="font-josefin font-bold"><button onclick="subtract()">-</button> {{ $quantity }} <button onclick="add()">+</button></p>
+                <p class="font-josefin font-bold">
+                    <form method="POST" action="{{route('cart.updateItem', ['cartItemId' => $cartItemId])}}" class="inline">
+                        @csrf
+                        @method('post')
+                        <input value="subtract" type="hidden" name="mode">
+                        <button type="submit">
+                            -
+                        </button>
+                    </form> {{ $quantity }} <form method="POST" action="{{route('cart.updateItem', ['cartItemId' => $cartItemId])}}" class="inline">
+                        @csrf
+                        @method('post')
+                        <input value="add" type="hidden" name="mode">
+                        <button type="submit">
+                            +
+                        </button>
+                    </form></p>
             </div>
             <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
                 <p class="font-josefin font-bold text-gray-900">Total</p>
                 <p class="text-base font-semibold text-green-500">
-                    ${{ number_format($total * $quantity, 2, ',', '.') }}</p>
+                    ${{ number_format(($total * $quantity) / 100, 2, ',', '.') }}</p>
             </div>
             <form method="POST" action="{{ route('cart.removeItem', ['cartItemId' => $cartItemId]) }}"
                 class="mt-4 sm:mt-0 sm:w-auto text-center">
@@ -44,41 +59,6 @@
                     x
                 </button>
             </form>
-            <form id="updateItemForm" class="hidden" method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}">
-                @csrf
-                @method('post')
-                <input value="{{ $productItem->id }}" type="hidden" name="productItemId">
-                <input type="radio" name="mode" id="add" value="add">
-                <input type="radio" name="mode" id="subtract" value="subtract">
-            </form>
-            <script>
-                function add()
-                {
-                    addInput = document.getElementById('add');
-                    subtractInput = document.getElementById('subtract');
-                    updateItemForm = document.getElementById('updateItemForm');
-                    addInput.checked = true;
-                    console.log(addInput);
-                    console.log(addInput.checked);
-                    console.log(subtractInput);
-                    console.log(subtractInput.checked);
-                    console.log(updateItemForm);
-                    document.getElementById('updateItemForm').submit();
-                }
-                function subtract()
-                {
-                    addInput = document.getElementById('add');
-                    subtractInput = document.getElementById('subtract');
-                    updateItemForm = document.getElementById('updateItemForm');
-                    subtractInput.checked = true;
-                    console.log(addInput);
-                    console.log(addInput.checked);
-                    console.log(subtractInput);
-                    console.log(subtractInput.checked);
-                    console.log(updateItemForm);
-                    document.getElementById('updateItemForm').submit();
-                }
-            </script>
         </div>
     </div>
 </li>

@@ -7,20 +7,32 @@ use Livewire\Component;
 
 class CartCombo extends Component
 {
-    public $items;
+    public $cartItemId;
+    public $comboItems;
+    public $itemSizes;
     public $subtotal;
     public $combo;
+    public $quantity;
     public $discount;
     public $total;
-    public function mount($items, $combo){
-        $this->items=$items;
-        $this->combo= Combo::where('id',$combo)->first();
-        $this->discount= $this->combo->discount;
-        foreach($this->items as $item){
-            $subtotal = $item['item']->price() * $item['amount'];
-            $this->subtotal += $subtotal;
+    public function mount($cartComboId, $cartCombo){
+        $itemSizes = [];
+        foreach ($cartCombo->contents as $key => $item)
+        {
+            $itemSizes[$item->item_id] = $item->size;
         }
-        $this->total = $this->subtotal - (($this->discount/100)*$this->subtotal);
+        $this->quantity = $cartCombo->quantity;
+        $this->itemSizes = $itemSizes;
+        $this->cartItemId = $cartComboId;
+        $this->combo= Combo::where('id',$cartCombo->combo_id)->first();
+        $this->comboItems=$this->combo->items;
+        $this->discount= $this->combo->discount;
+        // foreach($this->items as $item){
+        //     $subtotal = $item['item']->price() * $item['amount'];
+        //     $this->subtotal += $subtotal;
+        // }
+        $this->subtotal = $this->combo->getTotalPriceWithoutDiscount() * $this->quantity;
+        $this->total = $this->combo->totalPrice() * $this->quantity;
     }
     public function render()
     {

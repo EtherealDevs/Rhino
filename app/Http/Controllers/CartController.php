@@ -45,16 +45,17 @@ class CartController extends Controller
     */
     public function index(){
         $productItems = ProductItem::all();
-        if (Auth::check()) {
-            $cartItems = $this->cartManager->getCartContents();
-        } else{
+        $cartItems = $this->cartManager->getCartContents();
+        [$combos, $items] = $cartItems->partition(function ($item) {
+            return $item->type == CartCombo::DEFAULT_TYPE;
+        });
+        $cartTotal = $this->cartManager->getCarttotal();
             // $cartItems = CartManager::getCartContents();
-        }
         // $groupedCartItems = $cartItems->groupBy(function($item) {
         //     return $item['item']->product->combo->combo->id ?? null; // Asumiendo que `combo_id` es el identificador del combo
         // });
         // return view('cart.index', ['productItems' => $productItems, 'groupedCartItems' => $groupedCartItems]);
-        return view('cart.index', ['productItems' => $productItems, 'cartItems' => $cartItems]);
+        return view('cart.index', ['combos' => $combos, 'items' => $items, 'cartTotal' => $cartTotal]);
     }
 
     /**

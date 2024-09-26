@@ -27,6 +27,11 @@ class CartManager
             $this->databaseCart = $this->user->cart;
         }
     }
+    public static function checkIfCartExists($user)
+    {
+        $cart = CartModel::where('user_id', $user->id)->first();
+        return !is_null($cart);
+    }
     /**
      * Retrieves the contents of the user's cart from the database.
      *
@@ -37,6 +42,15 @@ class CartManager
     public function getCartContents()
     {
         return is_null($this->databaseCart->contents) ? collect() : collect(json_decode($this->databaseCart->contents));
+    }
+    /**
+     * Get the total amount of the cart from the database.
+     *
+     * @return int The total amount of the cart.
+     */
+    public function getCartTotal()
+    {
+        return $this->databaseCart->total;
     }
     /**
      * Updates the shopping cart with the provided contents.
