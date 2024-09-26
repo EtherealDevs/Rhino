@@ -68,7 +68,7 @@ class DeliveryForm extends Component
             $this->cities = City::where('province_id', $user->address->province->id)->get()->sortBy('name');
             $this->province = $user->address->province->name;
             $this->city = $user->address->city_id;
-            $this->fill($user->address->only('name', 'last_name','number_phone' , 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
+            $this->fill($user->address->only('name', 'last_name','phone_number' , 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
         }
     }
 
@@ -77,7 +77,7 @@ class DeliveryForm extends Component
         return [
             'name' => 'required|string',
             'last_name' => 'required|string',
-            'number_phone' => 'required|string',
+            'phone_number' => 'required|string',
             'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode],
             'province' => 'required',
             'city' => 'required',
@@ -120,7 +120,7 @@ class DeliveryForm extends Component
     // Nuevo método para rellenar el formulario con datos del cliente
     public function fillFormWithUserData()
     {
-        $this->fill($this->user->only('name', 'last_name', 'number_phone', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
+        $this->fill($this->user->only('name', 'last_name', 'phone_number', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
         
         if ($this->user->address) {
             $this->zip_code = $this->user->address->zipCode->code;

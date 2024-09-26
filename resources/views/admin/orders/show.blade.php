@@ -10,7 +10,7 @@
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">Información del Usuario</h2>
                 <p class="text-lg text-gray-600"><strong class="font-medium">Nombre:</strong> {{ $order->user->name }}</p>
                 <p class="text-lg text-gray-600"><strong class="font-medium">Email:</strong> {{ $order->user->email }}</p>
-                <p class="text-lg text-gray-600"><strong class="font-medium">Teléfono:</strong> {{ $order->number_phone }}
+                <p class="text-lg text-gray-600"><strong class="font-medium">Teléfono:</strong> {{ $order->user->phone_number }}
                 </p>
             </div>
 
@@ -118,7 +118,7 @@
                         </a>
 
                         <!-- Botón de contacto por WhatsApp -->
-                        <a href="https://wa.me/{{ $order->user->number_phone }}?text=Hola%20{{ $order->user->name }},%20te%20contacto%20en%20relación%20al%20pedido%20#{{ $order->id }}."
+                        <a href="https://wa.me/{{ $order->user->phone_number }}?text=Hola%20{{ $order->user->name }},%20te%20contacto%20en%20relación%20al%20pedido%20#{{ $order->id }}."
                             class="flex items-center justify-center gap-3 mb-4 text-white bg-green-500 hover:bg-green-600 rounded-full px-4 py-3 transition-all">
                             <div class="bg-white p-2 rounded-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500" width="24" height="24"

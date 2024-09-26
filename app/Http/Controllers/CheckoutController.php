@@ -54,12 +54,12 @@ class CheckoutController extends Controller
 
         $client = new PreferenceClient();
         $preference = $client->create([
-        "items"=> $items,
-        "back_urls" => [
-            "success" => "{$appUrl}/",
-            "failure" => "{$appUrl}/payment_failure",
-            "pending" => "{$appUrl}/payment_pending"
-        ]
+            "items" => $items,
+            "back_urls" => [
+                "success" => "{$appUrl}/",
+                "failure" => "{$appUrl}/payment_failure",
+                "pending" => "{$appUrl}/payment_pending"
+            ]
         ]);
 
         return view('checkout.payment', ['cart' => $cart, 'pref' => $preference]);
@@ -92,8 +92,9 @@ class CheckoutController extends Controller
             'department' => $validatedFields['department'],
             'street1' => $validatedFields['street1'],
             'street2' => $validatedFields['street2'],
-            'observation' => $validatedFields['observation'],
+            'observation' => $validatedFields['observation'] ?? null,   
         ];
+
         $address = Address::updateOrCreate(
             ['user_id' => $request->user_id],
             $fields
