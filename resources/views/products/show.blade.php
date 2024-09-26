@@ -40,7 +40,7 @@
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-3xl font-bold">{{$item->product->name}}</h2>
+                    <h2 class="text-3xl font-josefin font-bold">{{$item->product->name}}</h2>
                     <span class="text-xl text-yellow-500">
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($i <= floor($averageRating))
@@ -59,17 +59,17 @@
                         @php
                             $price = number_format($item->sale_price(), 2, ',', ' ');
                         @endphp
-                        <span class="text-2xl font-semibold text-gray-700">${{$price}}</span>
+                        <span class="text-2xl font-semibold font-josefin text-gray-700">${{$price}}</span>
                         <span class="text-lg line-through font-bold text-gray-500">${{number_format($item->price(), 2, ',', ' ')}}</span>
                     @else
-                        <span class="text-2xl font-semibold text-gray-700">${{number_format($item->price(), 2, ',', ' ')}}</span>
+                        <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price(), 2, ',', ' ')}}</span>
                     @endif
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-700 mb-2">Color:</label>
+                    <label class="block text-gray-700 font-semibold font-josefin mb-2">Color:</label>
                     <div class="flex space-x-2">
                         <div class="grid grid-cols-1 grid-rows-2 justify-items-center">
-                            <p>{{$item->color->name}}</p>
+                            <p class="text-blue-800 font-bold font-josefin">{{$item->color->name}}</p>
                             <button style="background-color: {{$item->color->color}}" class="w-8 h-8 rounded-full outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
                         </div>
                         @foreach ($item->product->items->where('id', '!=', $item->id) as $variation)
@@ -91,7 +91,7 @@
                 </script>
 
                 <div class="mb-4" id="size-container">
-                    <label class="block text-gray-700 mb-2">Talle:</label>
+                    <label class="block text-gray-700 font-semibold font-josefin mb-2">Talle:</label>
                     <select x-data id="size-selector" onchange="sizeOptionChanged()">
                         <option value="" selected x-on:changed-size-option-0.window="$dispatch('change-livewire-component', { stock: null })">Seleccionar...</option>
                         @php
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="block text-gray-700 mb-2">Cantidad:</label>
+                    <label class="block text-gray-700 font-semibold font-josefin mb-2">Cantidad:</label>
                     <div class="flex items-center space-x-2">
                         @livewire('counter')
                     </div>
@@ -116,7 +116,7 @@
 
                 <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('products.addToCart', ['product' => $item->product, 'productItem' => $item])}}">
                     @csrf
-                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">Agregar al carrito</button>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 font-josefin rounded-lg hover:bg-blue-500">Agregar al carrito</button>
                     <input name="amount" id="counterInput" type="hidden">
                     <input name="size" id="sizeInput" type="hidden">
                 </form>
@@ -126,20 +126,20 @@
                     <div class="flex space-x-4 border-b-2 mb-4">
                         <button @click="activeTab = 'description'"
                             :class="{ 'border-blue-500 text-blue-500': activeTab === 'description' }"
-                            class="py-2 px-4 text-[14px] xl:text-lg border-b-2">Descripción</button>
+                            class="py-2 px-4 text-[14px] xl:text-lg font-medium font-josefin border-b-2">Descripción</button>
                         <button @click="activeTab = 'size'"
                             :class="{ 'border-blue-500 text-blue-500': activeTab === 'size' }"
-                            class="py-2 px-4 text-[14px] xl:text-lg border-b-2">Tamaños y Medidas</button>
+                            class="py-2 px-4 text-[14px] xl:text-lg font-medium font-josefin border-b-2">Tamaños y Medidas</button>
                         <button @click="activeTab = 'reviews'"
                             :class="{ 'border-blue-500 text-blue-500': activeTab === 'reviews' }"
-                            class="py-2 px-4 text-[14px] xl:text-lg border-b-2">Reseñas y Calificaciones</button>
+                            class="py-2 px-4 text-[14px] xl:text-lg font-medium font-josefin border-b-2">Reseñas y Calificaciones</button>
                     </div>
                     <div x-show="activeTab === 'description'">
-                        <h3 class="text-2xl font-bold mb-4">Descripción</h3>
+                        <h3 class="text-2xl font-bold font-josefin mb-4">Descripción</h3>
                         <p class="text-gray-700">{{$item->product->description}}</p>
                     </div>
                     <div x-show="activeTab === 'size'">
-                        <h3 class="text-2xl font-bold mb-4">Tamaños y Medidas</h3>
+                        <h3 class="text-2xl font-bold font-josefin mb-4">Tamaños y Medidas</h3>
                         <!-- component -->
                         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -166,7 +166,7 @@
                         </main>
                     </div>
                     <div x-show="activeTab === 'reviews'">
-                        <h3 class="text-2xl font-bold mb-4">Reseñas y Calificaciones</h3>
+                        <h3 class="text-2xl font-bold font-josefin mb-4">Reseñas y Calificaciones</h3>
 <div class="flex justify-center items-center h-full">
     <div class="max-w-[720px] mx-auto">
         @foreach($reviews as $review)
@@ -213,7 +213,7 @@
     </div>
      <!-- Recommended Products Section -->
      <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
-        <h3 class="text-2xl font-bold mb-4">Productos Recomendados</h3>
+        <h3 class="text-2xl font-bold font-josefin mb-4">Productos Recomendados</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($item->category()->products()->where('id', '!=', $item->product_id)->with('items')->take(4)->get() as $relatedProduct)
                 @php

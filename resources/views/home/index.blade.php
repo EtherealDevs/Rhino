@@ -142,7 +142,7 @@
                 <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
-                            <p class="text-4xl pb-8 italic font-bold mr-6 text-white">
+                            <p class="text-4xl pb-8 italic font-bold font-josefin mr-6 text-white">
                                 Nuevos Ingresos
                             </p>
                         </div>
@@ -189,12 +189,12 @@
                 <!-- Capa de superposición oscura -->
                 <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl mb-8">
                     <div class="flex justify-center">
-                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold text-blue-100 tracking-wide">
+                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-blue-100 tracking-wide">
                             ¡No Dejes Pasar Nuestras Ofertas Exclusivas!
                         </p>
                     </div>
                     <div class="flex justify-start p-4 mb-12">
-                        <p class="text-center mt-6 text-xl mx-8   py-2 px-4 rounded-full shadow-lg">
+                        <p class="text-center mt-6 text-xl mx-8 font-josefin  py-2 px-4 rounded-full shadow-lg">
                             Disponibles por tiempo limitado. No dejes pasar esta oportunidad de ahorrar y disfrutar de la
                             mejor calidad al mejor precio.
                         </p>

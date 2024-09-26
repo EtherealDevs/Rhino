@@ -3,7 +3,7 @@
         {{-- Navbar --}}
         <div class="w-full grid grid-cols-8 justify-between p-14">
             <div class="mx-auto col-span-8 relative">
-                <h2 class="w-12 border-b-2 text-2xl font-extrabold italic border-gray-500">Colección</h2>
+                <h2 class="w-12 border-b-2 text-2xl font-extrabold font-josefin italic border-gray-500">Colección</h2>
                 <div class="grid grid-cols-4 mt-3 relative">
                     @foreach ($categories as $category)
                         @if (is_null($category->parent_id))
@@ -45,11 +45,11 @@
                     class="sticky top-16 xl:top-[80px] h-[80vh] overflow-y-auto md:h-screen bg-white md:bg-white/50 rounded-lg shadow-xl p-4 space-y-10">
                     <form action="{{ route('products.filter') }}" method="GET">
                         <!-- Contenido del formulario de categorías -->
-                        <h2 class="font-bold text-xl text-center">Categorías</h2>
+                        <h2 class="font-bold text-xl font-josefin text-center">Categorías</h2>
                         <div class="flex flex-col">
                             @foreach ($categories as $category)
                                 <div>
-                                    <label class="flex items-center space-x-2">
+                                    <label class="flex font-josefin items-center space-x-2">
                                         <input type="checkbox" name="categories[]" value="{{ $category->id }}"
                                             class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
                                             @if (in_array($category->id, request('categories', []))) checked @endif>
@@ -63,7 +63,7 @@
                                     <div class="ml-4">
                                         @foreach ($category->children as $child)
                                             <div>
-                                                <label class="flex items-center space-x-2">
+                                                <label class="flex font-josefin items-center space-x-2">
                                                     <input type="checkbox" name="categories[]"
                                                         value="{{ $child->id }}"
                                                         class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
@@ -81,11 +81,11 @@
                         </div>
 
                         <!-- Resto del contenido del formulario -->
-                        <h2 class="font-bold text-xl text-center mt-10">Talles</h2>
+                        <h2 class="font-bold text-xl font-josefin text-center mt-10">Talles</h2>
                         <div class="flex flex-col">
                             @foreach ($sizes as $size)
                                 <div>
-                                    <label class="flex items-center space-x-2">
+                                    <label class="flex font-josefin items-center space-x-2">
                                         <input type="checkbox" name="sizes[]" value="{{ $size->id }}"
                                             class="form-checkbox text-blue-600 transition duration-150 ease-in-out"
                                             @if (in_array($size->id, request('sizes', []))) checked @endif>
@@ -99,7 +99,7 @@
                         </div>
 
                         <!-- Rango de precio -->
-                        <h2 class="font-bold text-xl text-center mt-10">Precio</h2>
+                        <h2 class="font-bold text-xl font-josefin text-center mt-10">Precio</h2>
                         <div class="flex flex-col space-y-4">
                             <div x-data="range()" x-init="mintrigger();
                             maxtrigger()" class="relative max-w-xl w-full">
@@ -131,7 +131,7 @@
 
                             <!-- Botón de filtrar -->
                             <button type="submit"
-                                class="mt-5 text-base text-center border font-medium text-white py-2 px-2 bg-blue-800 border-blue-800 hover:text-base rounded-md transition duration-150 ease-in-out">
+                                class="mt-5 text-base text-center border font-josefin font-medium text-white py-2 px-2 bg-blue-800 border-blue-800 hover:text-base rounded-md transition duration-150 ease-in-out">
                                 <span>Filtrar</span>
                             </button>
                         </div>

@@ -1,7 +1,7 @@
 <div id="modalBanner" class="hidden">
     <div id="modalContent"
         class="max-w-screen-lg mx-auto fixed z-50 bg-white inset-x-5 p-5 bottom-5 lg:bottom-10 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between">
-        
+
         @auth
             <div class="w-full">
                 ¡Bienvenido! Explora nuestras promociones y disfruta de descuentos especiales en nuestros productos.
@@ -36,18 +36,29 @@
 </div>
 
 <script>
-    // Función para abrir el modal después de 500ms
-    setTimeout(() => {
-        const modal = document.getElementById('modalBanner');
-        modal.classList.remove('hidden');
-        modal.classList.add('block');
-    }, 500);
+    // Verificar si el modal fue cerrado recientemente
+    const closeModalTimestamp = localStorage.getItem('modalClosedAt');
+    const currentTime = Date.now();
+    const twoHours = 7200000; //2 horas
+
+    // Si fue cerrado en el último minuto, agregar la clase hidden
+    if (closeModalTimestamp && (currentTime - closeModalTimestamp < oneMinute)) {
+        document.getElementById('modalBanner').classList.add('hidden');
+    } else {
+        // Función para abrir el modal después de 500ms
+        setTimeout(() => {
+            const modal = document.getElementById('modalBanner');
+            modal.classList.remove('hidden');
+            modal.classList.add('block');
+        }, 1000);
+    }
 
     // Cerrar el modal al hacer click en cualquier botón de cerrar
     const closeButtons = document.querySelectorAll('#closeModalButton');
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
             document.getElementById('modalBanner').classList.add('hidden');
+            localStorage.setItem('modalClosedAt', Date.now()); // Guardar el tiempo de cierre
         });
     });
 
@@ -55,6 +66,7 @@
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             document.getElementById('modalBanner').classList.add('hidden');
+            localStorage.setItem('modalClosedAt', Date.now()); // Guardar el tiempo de cierre
         }
     });
 </script>

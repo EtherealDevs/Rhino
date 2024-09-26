@@ -9,12 +9,14 @@
                 <div class="flex items-center">
                     <div class="hidden md:block">
                         <div class="flex items-baseline space-x-4">
-                            <a href="/" class="nav-item text-gray-800 font-black px-3 py-2 text-sm"
+                            <a href="/" class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2"
                                 aria-current="page">Inicio</a>
                             <a href="/products"
-                                class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Productos</a>
-                            <a href="/about" class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Nosotros</a>
-                            <a href="/contact" class="nav-item text-gray-800 font-black px-3 py-2 text-sm">Contacto</a>
+                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Productos</a>
+                            <a href="/about"
+                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Nosotros</a>
+                            <a href="/contact"
+                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Contacto</a>
                         </div>
                     </div>
                     <div class="flex-shrink-0 flex bg-white lg:py-6 lg:rounded-full lg:ml-36">
@@ -37,9 +39,8 @@
                                             fill="red" />
                                     </svg>
                                 </button>
-                                <div x-show="open"
-                                x-on:click.away="open = false"
-                                class="fixed top-14 right-0 h-full w-1/4 bg-white shadow-lg rounded-lg p-4 overflow-y-auto">
+                                <div x-show="open" x-on:click.away="open = false"
+                                    class="fixed top-14 right-0 h-full w-1/4 bg-white shadow-lg rounded-lg p-4 overflow-y-auto">
                                     <div class="flex justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Mis Intereses</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
@@ -130,7 +131,7 @@
                                 </button>
                                 <div x-show="open" x-on:click.away="open = false"
                                     class="fixed top-14 right-0 h-full w-1/4 bg-white shadow-lg rounded-lg p-4">
-                                    <div class="flex justify-between items-center border-b pb-2 mb-2">
+                                    <div class="flex fixed justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Carrito</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -349,12 +350,17 @@
         }
 
         .nav-item {
-            position: relative;
+            color: inherit;
+            /* Color inicial */
+            transition: color 0.3s ease, transform 0.3s ease;
+            /* Transiciones para color y escala */
         }
 
         .nav-item:hover {
-            color: blue;
-            /* Cambiar el color del texto al hacer hover si se desea */
+            color: black;
+            /* Cambiar el color del texto al hacer hover */
+            transform: scale(1.05);
+            /* Aumentar ligeramente el tamaño */
         }
     </style>
     <script>
