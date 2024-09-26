@@ -20,14 +20,18 @@
         {{-- Main content with sidebar and products --}}
         <div class="justify-between md:flex relative">
             {{-- Sidebar --}}
-            <div class="w-2/3 left-2 md:w-1/4 md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-40 md:z-0 sticky top-28" x-data="{ open: window.innerWidth >= 768 }"
-                x-init="$watch('open', value => { if (window.innerWidth >= 768) open = false })">
+            <div class="w-2/3 left-2 md:w-1/4 md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-40 md:z-0 sticky top-28"
+                x-data="{ open: window.innerWidth >= 768 }" x-init="$watch('open', value => { if (window.innerWidth >= 768) open = false })">
 
                 <!-- Botón de cerrar solo visible en pantallas móviles -->
                 <button x-on:click="open = !open" class="block md:hidden p-2 mb-4 ml-6 rounded-full bg-white shadow-xl"
                     type="button">
                     <!-- Icono cuando está cerrado -->
-                    <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M.75 3h14.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1 0-1.5M3 7.75A.75.75 0 0 1 3.75 7h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 3 7.75m3 4a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75"/></svg>
+                    <svg x-show="!open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" width="1em"
+                        height="1em" viewBox="0 0 16 16">
+                        <path fill="currentColor"
+                            d="M.75 3h14.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1 0-1.5M3 7.75A.75.75 0 0 1 3.75 7h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 3 7.75m3 4a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75" />
+                    </svg>
                     <!-- Icono cuando está abierto -->
                     <svg x-show="open" class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -44,7 +48,6 @@
                         <h2 class="font-bold text-xl text-center">Categorías</h2>
                         <div class="flex flex-col">
                             @foreach ($categories as $category)
-                            @if($category->parentCategory && is_null($category->parentCategory->parent_id))
                                 <div>
                                     <label class="flex items-center space-x-2">
                                         <input type="checkbox" name="categories[]" value="{{ $category->id }}"
@@ -74,7 +77,6 @@
                                         @endforeach
                                     </div>
                                 @endif
-                            @endif
                             @endforeach
                         </div>
 
