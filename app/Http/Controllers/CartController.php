@@ -68,11 +68,16 @@ class CartController extends Controller
      */
     public function addToCart(Request $request)
     {
+        $request->validate([
+            'size' => 'required'
+        ]);
         // Decode the item and size from the request parameters
         $decodedItem = json_decode($request->item);
         $size = json_decode($request->size);
+        if (is_null($size)) {
+            $size = $request->size;
+        }
         $quantity = $request->quantity;
-        
         // Retrieve the product item from the database
         $item = ProductItem::where('id', $decodedItem->id)->first();
         

@@ -19,7 +19,6 @@ class CartItem extends Component
     public $images;
     public function mount($cartItemId, $cartItem)
     {
-        // dd($this, $item, $item->id);
         $this->cartItemId = $cartItemId;
         $this->productItem = ProductItem::where('id', $cartItem->item_id)->first();
         $this->cartItem = $this->productItem;

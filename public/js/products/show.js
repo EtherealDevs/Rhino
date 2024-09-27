@@ -27,6 +27,9 @@ function populateProductSubmitForm(event, sizes)
     sizes.forEach(element => {
         if (element.name == sizeInput.value)
             {
+                console.log(`Size selected: ${element.name}`);
+                console.log(element);
+                console.log(sizeInput.value);
                 sizeExists = true;
                 selectedSize = element;
                 return;

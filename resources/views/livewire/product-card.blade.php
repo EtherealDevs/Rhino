@@ -29,7 +29,6 @@
                 </svg>
             </button>
 
-
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
                 <input type="hidden" name="item" value="{{ $item }}">

@@ -70,6 +70,10 @@ class ProductItem extends Model
             $size_id = Size::where('name', $size)->first()->getKey();
             return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
         }
+        else if (is_numeric($size)) {
+            $size_id = Size::where('id', $size)->first()->id;
+            return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
+        }
         return $this->sizes()->wherePivot('size_id', $size->id)->first()->pivot;
     }
     public function images() : MorphMany

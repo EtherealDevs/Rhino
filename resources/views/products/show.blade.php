@@ -114,10 +114,12 @@
                     </div>
                 </div>
 
-                <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('products.addToCart', ['product' => $item->product, 'productItem' => $item])}}">
+
+                <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('cart.addItem')}}">
                     @csrf
                     <button type="submit" class="w-full bg-blue-600 text-white py-2 font-josefin rounded-lg hover:bg-blue-500">Agregar al carrito</button>
-                    <input name="amount" id="counterInput" type="hidden">
+                    <input name="item" id="productIdInput" type="hidden" value="{!! $item !!}">
+                    <input name="quantity" id="counterInput" type="hidden">
                     <input name="size" id="sizeInput" type="hidden">
                 </form>
 
