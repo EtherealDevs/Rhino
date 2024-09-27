@@ -32,6 +32,10 @@ class CartManager
         $cart = CartModel::where('user_id', $user->id)->first();
         return !is_null($cart);
     }
+    public function countItems()
+    {
+        return $this->getCartContents()->sum('quantity');
+    }
     /**
      * Retrieves the contents of the user's cart from the database.
      *

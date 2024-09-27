@@ -33,14 +33,13 @@
                         </ul>
                     @endif
                 </div>
-                {{number_format($cartTotal / 100, 2, ',', '.')}}
 
             </div>
         </div>
 
         <div
             class="col-span-12 lg:col-span-5 lg:h-screen flex lg:sticky left-0 top-16 lg:space-y-10 items-center lg:content-center">
-            {{-- @livewire('shipping-cost') --}}
+            @livewire('shipping-cost', ['cartTotal' => $cartTotal])
         </div>
 
         <script>

@@ -72,15 +72,15 @@ class CartController extends Controller
         $decodedItem = json_decode($request->item);
         $size = json_decode($request->size);
         $quantity = $request->quantity;
-
+        
         // Retrieve the product item from the database
         $item = ProductItem::where('id', $decodedItem->id)->first();
-
+        
         // If the product item is not found, throw an exception
         if (!$item) {
             throw new Exception('Product item not found');
         }
-
+        
         // Create a new cart item
         $cartItem = new CartItem($item, $size);
 

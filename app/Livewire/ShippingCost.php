@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 use App\Http\Cart\CartManager;
+use App\Http\Cart\SessionCartManager;
 use App\Http\Controllers\DeliveryServiceController;
 use App\Models\Cart;
 use App\Models\ProductItem;
@@ -20,6 +21,9 @@ use Livewire\Attributes\Validate;
 
 class ShippingCost extends Component
 {
+    protected $cartManager;
+    protected $cartContents;
+
     public $user;
     #[Validate]
     public $zip_code;
@@ -37,6 +41,7 @@ class ShippingCost extends Component
     public $productItems;
     public $cartItems;
 
+    public $itemCount;
 
     public $city;
     public $sendPrice=0;
@@ -57,6 +62,15 @@ class ShippingCost extends Component
 
     public function mount(User $user)
     {
+        if (Auth::check()) 
+        {
+            $this->cartManager = new CartManager();
+        }
+        else 
+        {
+            $this->cartManager = new SessionCartManager();
+        }
+        $this->cartItems = $this->cartManager->getCartContents();
 
         $this->fill(
             $user
@@ -71,21 +85,18 @@ class ShippingCost extends Component
             );
         }
         $this->productItems = ProductItem::all();
-        if (Auth::check()) {
-            $cartModel = Cart::where('user_id', Auth::user()->id)->first();
-            $this->cartItems = CartManager::getCartContents($cartModel);
-        } else {
-            $this->cartItems = CartManager::getCartContents();
-        }
-        if(isset($this->cartItems)){
+        
+        if($this->cartItems->isNotEmpty()){
             foreach ($this->cartItems as $item) {
-                $itemAmount = $item['amount'];
-                $discount = $item['item']->product->sale->sale->discount ?? $item['item']->product->combo->combo->discount ??0;
-                $price = $item['item']->price();
+                $itemModel = ProductItem::find($item->item_id);
+                $itemQuantity = $item->quantity;
+                $discount = $itemModel->product->sale->sale->discount ?? 0;
+                $price = $itemModel->price();
                 $priceDiscount = ($price * $discount) / 100;
-                $this->total += ($price - $priceDiscount) * $itemAmount;
-                $this->volume += $item['item']->product->volume;
-                $this->weigth += $item['item']->product->weigth;
+                $this->total += ($price - $priceDiscount) * $itemQuantity;
+                $this->volume += $itemModel->product->volume;
+                $this->weigth += $itemModel->product->weigth;
+                $this->itemCount = $this->cartManager->countItems();
             }
         }
     }

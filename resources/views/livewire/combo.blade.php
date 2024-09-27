@@ -35,26 +35,24 @@
 @endphp --}}
 
 {{-- Card --}}
+
+ 
+{{-- Card --}}
 <div class="max-w-7xl mx-auto">
     <div
         class="custom-card bg-white rounded-xl shadow-xl transition-transform pb-2 lg:pb-3 duration-300 hover:scale-105">
 
         {{-- Grid de Imagenes --}}
-        <div class="grid grid-cols-5 lg:grid-cols-5 p-2 lg:p-4">
-            <div class="relative col-span-2 md:col-span-2 lg:col-span-2 flex justify-center">
-                @if ($image != null)
-                    <img src="{{ url(Storage::url('images/product/' . $image->first()->url)) }}"
-                        class="w-full h-auto object-cover rounded-2xl" />
-                @endif
-            </div>
-            <div class="col-span-1 md:col-span-1 flex flex-col justify-center items-center text-center">
-                <div class="">
-                    <div class="text-black text-xl font-bold rounded-2xl px-2 py-2 ">
-                        {{-- ${{ $priceDiscount }} --}}
-                    </div>
-                    <div class="line-through text-slate-400 text-xl font-bold rounded-2xl px-2 py-2">
-                        {{-- ${{ $price }} --}}
-                    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 p-4 lg:p-4 gap-4">
+            <div class="relative col-span-1 sm:col-span-2 lg:col-span-2 flex justify-center items-center">
+                <img src="{{ url(Storage::url('images/product/' . $image2->first()->url)) }}"
+                    class="w-full h-auto object-cover rounded-2xl" />
+        
+                <div class="absolute top-4 left-4 flex space-x-2">
+                    <button
+                        class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-sm font-bold hover:bg-white hover:text-green-700 transition-colors">
+                        {{ $discount }}%
+                    </button>
                 </div>
             </div>
             <div class="col-span-1 flex flex-col justify-center items-center text-center space-y-2">
@@ -107,12 +105,11 @@
                     @endif
                 @endforeach
             </div>
-
             {{-- Add to cart --}}
             <div class="flex justify-center bg-black h-18 rounded-b-xl p-3 text-white">
                 <form method="POST" action="{{ route('cart.addCombo') }}">
                     @csrf
-                    <input type="hidden" name="comboId" value="{{ $combo_items->first()->combo_id }}">
+                    <input type="hidden" name="comboId" value="{{ $combo_items->first()->id }}">
                     <input type="hidden" name="sizes" value="{{ json_encode($combo_items->first()->combo->getItemsSizesByMinimumStockValue()) }}">
 
                     <button href="" class="w-full flex justify-center">

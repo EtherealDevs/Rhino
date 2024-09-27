@@ -9,7 +9,9 @@ class CartCombo extends Component
 {
     public $cartItemId;
     public $comboItems;
+    public $comboContents;
     public $itemSizes;
+    public $itemQuantities;
     public $subtotal;
     public $combo;
     public $quantity;
@@ -21,6 +23,7 @@ class CartCombo extends Component
         {
             $itemSizes[$item->item_id] = $item->size;
         }
+        $this->comboContents = $cartCombo->contents;
         $this->quantity = $cartCombo->quantity;
         $this->itemSizes = $itemSizes;
         $this->cartItemId = $cartComboId;

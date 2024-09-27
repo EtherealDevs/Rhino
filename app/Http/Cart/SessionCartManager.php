@@ -25,6 +25,11 @@ class SessionCartManager
     {
         return !is_null(session(self::CART_NAME));
     }
+    public function countItems()
+    {
+        $contents = $this->getCartContents();
+        return $contents->sum('quantity');
+    }
     /**
      * Retrieves the contents of the shopping cart from the session.
      *

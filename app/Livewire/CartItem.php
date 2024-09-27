@@ -33,7 +33,7 @@ class CartItem extends Component
     {
         $discount = $this->cartItem['discount'] ?? 0;
         $price = $this->productItem->price(); // Ajusta esto según cómo obtienes el precio
-        $total = $price;
+        $total = $price * $this->quantity;
         return view('livewire.cart-item',compact('discount', 'price','total'));
     }
 }
