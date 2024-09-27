@@ -19,7 +19,7 @@
 
         {{-- Main content with sidebar and products --}}
         <div class="justify-between md:flex relative">
-            <div class="xl:w-1/4 2xl:w-[310px]">
+            <div class="xl:w-1/4 2xl:w-[310px] left-2 md:mt-10 xl:mb-4 xl:mt-6 z-40 md:z-0 sticky top-28">
                 @livewire('sidebar', ['categories' => $categories, 'sizes' => $sizes])
             </div>
 
