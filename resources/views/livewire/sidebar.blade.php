@@ -1,5 +1,5 @@
 {{-- Sidebar --}}
-<div class="w-2/3 left-2 md:w-1/4 md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-40 md:z-0 sticky top-28"
+<div class="w-2/3 left-2 md:w-1/4 xl:w-[271px] md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-40 md:z-0 sticky top-28"
 x-data="{ open: window.innerWidth >= 768 }" x-init="$watch('open', value => { if (window.innerWidth >= 768) open = false })">
 
     <!-- Botón de cerrar solo visible en pantallas móviles -->

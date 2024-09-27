@@ -19,12 +19,13 @@
 
         {{-- Main content with sidebar and products --}}
         <div class="justify-between md:flex relative">
-            @livewire('sidebar', ['categories' => $categories,'sizes'=>$sizes])
+            <div class="xl:w-1/4 2xl:w-[310px] left-2 md:mt-10 xl:mb-4 xl:mt-6 z-40 md:z-0 sticky top-28">
+                @livewire('sidebar', ['categories' => $categories, 'sizes' => $sizes])
+            </div>
 
             {{-- Content (Productos) --}}
-            <div class="col-span-5 ml-0 z-10 mb-8">
-                <div
-                    class="bg-center bg-contain bg-[url(/public/img/new.png)] lg:rounded-3xl">
+            <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8">
+                <div class="bg-center bg-contain w-[420px] xl:w-[1100px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
                     <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                         <div class="flex flex-col lg:flex-row lg:items-center ">
                             <!-- Contenido de texto -->
@@ -79,8 +80,8 @@
                                     data-carousel-prev>
                                     <span
                                         class="inline-flex justify-center items-center w-10 h-10 rounded-full sm:w-10 sm:h-10 bg-white/100 text-black hover:bg-white/70 group-focus:ring-4 group-focus:ring-black">
-                                        <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M15 19l-7-7 7-7"></path>
@@ -93,8 +94,8 @@
                                     data-carousel-next>
                                     <span
                                         class="inline-flex justify-center items-center w-10 h-10 rounded-full sm:w-10 sm:h-10 bg-white/100 text-transparent font-bold  hover:bg-white/70 group-focus:ring-4 group-focus:ring-black">
-                                        <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M9 5l7 7-7 7"></path>
@@ -108,9 +109,9 @@
                     </div>
                 </div>
 
-                <div class="xl:ml-[18px] 2xl:ml-0 flex w-full justify-center lg:justify-end">
+                <div class="xl:ml-[1px] xl:mt-4 2xl:ml-0 flex w-full justify-center lg:justify-end">
                     <div
-                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-12 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
                         @foreach ($products as $product)
                             @if ($product->items->first())
                                 @php
