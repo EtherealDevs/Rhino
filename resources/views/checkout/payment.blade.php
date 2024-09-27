@@ -140,5 +140,18 @@
         function confirmExit() {
             window.paymentBrickController.unmount()
         }
-    </script>
+        document.addEventListener('paymentComplete', (event) => 
+        {
+          console.log(event.detail.id);
+          fetch(`/payment/status/${event.detail.id}`, {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrf,
+                  },
+                })
+          
+        }
+      )
+      </script>
 @endsection

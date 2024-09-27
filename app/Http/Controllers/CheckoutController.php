@@ -106,8 +106,21 @@ class CheckoutController extends Controller
         return redirect()->route('checkout.payment');
     }
 
-    public function processPayment(Request $request)
-    {
+/**
+ * Processes a payment using MercadoPago API.
+ *
+ * @param Request $request The request object containing payment details.
+ *
+ * @return array The payment response from MercadoPago API.
+ *
+ * @throws MPApiException If there is an error processing the payment.
+ */
+public function processPayment(Request $request)
+{
+    MercadoPagoConfig::setAccessToken(config('app.mp_access_token_test'));
+
+    $client = new PaymentClient();
+
         MercadoPagoConfig::setAccessToken(config('app.mp_access_token_test'));
 
         $client = new PaymentClient();
@@ -127,13 +140,18 @@ class CheckoutController extends Controller
                     "number" => $request->payer['identification']['number']
                 ],
             ],
-            ]);
-        } catch (MPApiException $e) {
-            dd($e);
-        }
-        $array = json_decode(json_encode($payment), true);
-        // $implode = implode("", $array);
-        return $array;
+        ]);
+    } catch (MPApiException $e) {
+        dd($e);
+    }
+
+    $array = json_decode(json_encode($payment), true);
+    // $implode = implode("", $array);
+    return $array;
+    }
+    public function paymentStatus($id)
+    {
+        return view('checkout.payment_status', ['payment' => $id]);
     }
     public function paymentStatus(Request $request)
     {
