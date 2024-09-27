@@ -14,12 +14,11 @@
             <div class="mt-8 max-w-screen-xl mx-auto grid grid-cols-2 gap-2 lg:grid-cols-4 justify-center ">
                 {{-- Se debera agregar el id id="product-{{ $product->id }}" en el segundo div  --}}
                 @foreach ($combo->items as $combo_item)
-                @dd($combo_item->item->product->items->first())
                     @php
                         $product = $combo_item->item->product;
                         $productItem = $combo_item->item->product->items->first();
                         $item = $combo_item->item;
-                        $total += $combo_item->product->items->first()->price();
+                        $total += $combo_item->item->product->items->first()->price();
                     @endphp
                     @livewire('show-combo',['item'=>$item])
                 @endforeach
