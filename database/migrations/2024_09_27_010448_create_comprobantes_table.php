@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comprobantes', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
             $table->timestamps();
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->int('dni');
-            $table->string('url');
+            $table->integer('dni'); 
+            $table->string('url'); 
+            $table->unsignedBigInteger('order_id'); 
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade'); // Clave foránea
         });
     }
 
