@@ -81,3 +81,9 @@ Route::get('/ventas', [OrderController::class, 'ventas'])
 
 Route::resource('productitems', ProductItemController::class)
     ->names('admin.productitems');
+
+// Para mostrar el formulario (GET)
+Route::get('/admin/transfer-info', [MyStoreController::class, 'create'])->name('transfer-info.create');
+
+// Para procesar el formulario (POST)
+Route::post('/admin/transfer-info/store', [MyStoreController::class, 'store'])->name('transfer-info.store');

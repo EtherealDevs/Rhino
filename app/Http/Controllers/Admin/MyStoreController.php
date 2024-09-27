@@ -9,7 +9,9 @@ use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\TransferInfo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class MyStoreController extends Controller
 {
@@ -70,6 +72,8 @@ class MyStoreController extends Controller
         // Calcular la ganancia más alta para el cálculo de porcentaje
         $highestEarning = $earningsByProduct->isEmpty() ? 1 : $earningsByProduct->max('total_earnings');
 
+        $transferInfo = TransferInfo::first();
+
         return view('admin.mystore.index', compact(
             'salesLast30Days',
             'salesLast6Months',
@@ -80,7 +84,33 @@ class MyStoreController extends Controller
             'earningsByProduct',
             'highestEarning',
             'loggedUsers',
-            'categories'
+            'categories',
+            'transferInfo'
         ));
     }
+
+    public function store(Request $request)
+{
+    // Validar los datos
+    $validated = $request->validate([
+        'alias' => 'required|string|max:255',
+        'cbu' => 'required|string|max:22', // CBU tiene 22 caracteres
+        'holder_name' => 'required|string|max:255',
+    ]);
+
+    // Buscar la información de transferencia existente
+    $transferInfo = TransferInfo::first();
+
+    if ($transferInfo) {
+        // Si existe, actualiza la información
+        $transferInfo->update($validated);
+    } else {
+        // Si no existe, crea una nueva entrada
+        TransferInfo::create($validated);
+    }
+
+    // Redirigir o mostrar mensaje de éxito
+    return redirect()->back()->with('success', 'Información de transferencia guardada con éxito.');
+}
+
 }

@@ -130,9 +130,11 @@
                         <!-- Información de transferencia -->
                         <div x-show="paymentMethod === 'transferencia'" class="mt-4 bg-gray-200 p-4 rounded">
                             <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
-                            <p><strong>Alias:</strong> tu.alias</p>
-                            <p><strong>CBU:</strong> 1234567890123456789012</p>
-                            <p><strong>Nombre:</strong> Tu Nombre</p>
+                            <p><strong>Alias:</strong> {{ $alias }}</p>
+                            <p><strong>CBU:</strong> {{ $cbu }}</p>
+                            <p><strong>Nombre:</strong> {{ $holder_name }}</p>
+
+
                             <div x-data="{ file: null }">
                                 <!-- Input de archivo oculto -->
                                 <input type="file" x-ref="fileInput" @change="file = $event.target.files[0]"
