@@ -1,6 +1,86 @@
+{{-- <li class="py-3 mb-2 mt-6 sm:py-4 bg-white rounded-lg shadow-md">
+    @foreach ($comboItems as $comboItem)
+    <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <div class="flex-shrink-0 mx-auto sm:mx-0 sm:flex sm:justify-center">
+            <img class="w-14 h-14 rounded-full" src="/storage/images/product/{{ $comboItem['comboItem']->images[0]->url }}"
+                alt="Product image">
+        </div>
+        <div class="flex-1 sm:flex sm:justify-between sm:items-center w-full sm:text-center">
+            <div class="sm:w-1/3 flex flex-col sm:items-center">
+                <p
+                    class="text-3xl flex left-1/2 justify-center sm:text-2xl font-josefin font-bold text-gray-900 truncate">
+                    {{$comboItem['comboItem']->product->name}}
+                </p>
+                <div class="flex gap-2 mt-2 justify-center">
+                    <div class="flex justify-center bg-[#26ca60] text-white text-sm font-bold rounded-xl px-2 py-1">
+                        <p>${{number_format($comboItem['comboItem']->price(),0, ',', '.')}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
+                <p class="font-josefin font-bold text-gray-900">Talle</p>
+                <p class="font-josefin font-bold">{{$comboItem['size']}}</p>
+            </div>
+            <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
+                <p class="font-josefin font-bold text-gray-900">Cantidad</p>
+                <p class="font-josefin font-bold">{{$comboItem['amount']}}</p>
+            </div>
+            <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
+                <p class="font-josefin font-bold text-gray-900">Total</p>
+                <p class="text-base font-semibold text-green-500">
+                    ${{number_format($comboItem['comboItem']->price(),0, ',', '.') * $comboItem['amount']}}</p>
+            </div>
+            <form method="POST" action="{{ route('cart.removeItem', ['comboItem' => $comboItem['id']]) }}"
+                class="mt-4 sm:mt-0 sm:w-auto text-center">
+                @csrf
+                @method('delete')
+                <input value="{{ $comboItem['size'] }}" type="hidden" name="size">
+                <button type="submit" class="text-3xl text-gray-400 font-encode font-extrabold hover:text-red-500">
+                    x
+                </button>
+            </form>
+        </div>
+    </div>
+    @endforeach
+    <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <div class="flex-shrink-0 mx-auto sm:mx-0 sm:flex sm:justify-center">
+            <img class="w-14 h-14 rounded-full" src="/storage/images/product/{{ $comboItem['comboItem']->images[0]->url }}"
+                alt="Product image">
+        </div>
+        <div class="flex-1 sm:flex sm:justify-between sm:items-center w-full sm:text-center">
+            <div class="sm:w-1/3 flex flex-col sm:items-center">
+                <div class="flex gap-2 mt-2 justify-center">
+                        <div class="flex justify-center bg-[#df2929] text-white text-sm font-bold rounded-xl px-2 py-1">
+                            <p>{{ number_format($discount, 0, ',', '.') }}%</p>
+                        </div>
+                </div>
+            </div>
+            <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
+                <p class="font-josefin font-bold text-gray-900">Talle</p>
+                <p class="font-josefin font-bold">2</p>
+            </div>
+            <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
+                <p class="font-josefin font-bold text-gray-900">Cantidad</p>
+                <p class="font-josefin font-bold">2</p>
+            </div>
+            <div class="sm:w-1/6 text-center mt-4 sm:mt-0">
+                <p class="font-josefin font-bold text-gray-900">Total</p>
+                <p class="text-base font-semibold text-green-500">
+                    ${{ number_format($total, 0, ',', '.')}}</p>
+            </div>
+            <form method="POST" action="{{ route('cart.removeItem', ['comboItem' => $comboItem['id']]) }}"
+                class="mt-4 sm:mt-0 sm:w-auto text-center">
+                @csrf
+                @method('delete')
+                <input value="{{ $comboItem['size'] }}" type="hidden" name="size">
+                <button type="submit" class="text-3xl text-gray-400 font-encode font-extrabold hover:text-red-500">
+                    x
+                </button>
+            </form>
+        </div>
+    </div>
+</li> --}}
 <!-- component -->
-<script src="//unpkg.com/alpinejs" defer></script>
-
 <div class="mx-auto w-full" x-data="{ isOpen: false }">
     <a @click.prevent="isOpen = !isOpen" class="flex justify-center items-center">
         <div
@@ -8,13 +88,13 @@
             <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
                 <!-- Imagenes -->
                 <div class="col-span-2 flex space-x-2">
-                    @if (count($items)>1)
+                    @if (count($comboItems)>1)
 
                         @for ($i = 0; $i < 2; $i++)
                             <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
                                 <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
                                     class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-                                    src="{{ url(Storage::url('images/product/' . $items[$i]['item']->images->first()->url)) }}"
+                                    src="{{ url(Storage::url('images/product/' . $comboItems[$i]->item->images->first()->url)) }}"
                                     alt="Imagen Producto" />
 
                                 <!-- Tooltip -->
@@ -26,17 +106,17 @@
                                     x-transition:leave-start="opacity-100 transform translate-y-0"
                                     x-transition:leave-end="opacity-0 transform translate-y-2">
                                     <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
-                                        {{ $items[$i]['item']->product->name }}
+                                        {{ $comboItems[$i]->item->product->name }}
                                     </div>
                                 </div>
                             </div>
                         @endfor
                     @else
-                        @for ($i = 0; $i < count($items); $i++)
+                        @for ($i = 0; $i < count($comboItems); $i++)
                             <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
                                 <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
                                     class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-                                    src="{{ url(Storage::url('images/product/' . $items[$i]['item']->images->first()->url)) }}"
+                                    src="{{ url(Storage::url('images/product/' . $comboItems[$i]->item->images->first()->url)) }}"
                                     alt="Imagen Producto" />
 
                                 <!-- Tooltip -->
@@ -48,7 +128,7 @@
                                     x-transition:leave-start="opacity-100 transform translate-y-0"
                                     x-transition:leave-end="opacity-0 transform translate-y-2">
                                     <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
-                                        {{ $items[$i]['item']->product->name }}
+                                        {{ $comboItems[$i]->item->product->name }}
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +139,7 @@
                 <!-- Precio / Descuento -->
                 <div class="col-span-1 flex flex-col items-center justify-center">
                     <div class="text-xl line-through text-gray-500 font-extrabold">
-                        ${{ number_format($subtotal, 0, ',', '.') }}
+                        ${{ number_format($subtotal / 100, 2, ',', '.') }}
                     </div>
                     <span class="text-xs rounded bg-green-600 px-2 py-1 font-bold text-white">
                         {{ number_format($discount, 0, ',', '.') }}% OFF
@@ -70,7 +150,7 @@
                 <div class="col-span-1 lg:col-span-3 flex flex-col items-center justify-center">
                     <div class="text-sm text-slate-900">Total con Descuento</div>
                     <div class="text-xl font-extrabold text-green-500">
-                        ${{ number_format($total, 0, ',', '.') }}
+                        ${{ number_format($total / 100, 2, ',', '.') }}
                     </div>
                 </div>
 
@@ -84,37 +164,31 @@
 
             <!-- Dropdown -->
             <div x-show="isOpen" @click.away="isOpen = false" class="transition p-6 mt-0">
-                @foreach ($items as $item)
+                @foreach ($comboItems as $comboItem)
                     <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
                         <img class="w-14 h-14 rounded-full"
-                            src="/storage/images/product/{{ $item['item']->images[0]->url }}" alt="Product image">
+                            src="/storage/images/product/{{ $comboItem->item->images[0]->url }}" alt="Product image">
 
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center w-full">
+                        <div class="grid grid-cols-3 sm:grid-cols-3 sm:justify-between sm:items-center w-full">
                             <!-- Nombre y Precio -->
                             <div class="text-center sm:text-left">
-                                <p class="text-2xl font-bold">{{ $item['item']->product->name }}</p>
-                                <p class="text-sm font-bold bg-[#26ca60] text-white rounded-xl px-2 py-1 mt-2">
-                                    ${{ number_format($item['item']->price(), 0, ',', '.') }}
-                                </p>
+                                <p class="text-2xl font-bold">{{ $comboItem->item->product->name }}</p>
+                                <span class="text-sm font-bold w-auto bg-[#26ca60] text-white rounded-xl px-2 py-1 mt-2">
+                                    ${{ number_format($comboItem->item->price() / 100, 2, ',', '.') }}
+                                </span>
                             </div>
 
                             <!-- Talle -->
                             <div class="text-center">
                                 <p class="font-bold">Talle</p>
-                                <p>{{ $item['size'] }}</p>
-                            </div>
-
-                            <!-- Cantidad -->
-                            <div class="text-center">
-                                <p class="font-bold">Cantidad</p>
-                                <p>{{ $item['amount'] }}</p>
+                                <p>{{ $itemSizes[$comboItem->item->id] }}</p>
                             </div>
 
                             <!-- Total -->
                             <div class="text-center">
                                 <p class="font-bold">Total</p>
                                 <p class="text-green-500 font-semibold">
-                                    ${{ number_format($item['item']->price(), 0, ',', '.') * $item['amount'] }}
+                                    ${{ number_format(($comboItem->item->price()* $quantity) / 100, 2, ',', '.')  }}
                                 </p>
                             </div>
                         </div>

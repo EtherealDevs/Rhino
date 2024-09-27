@@ -17,7 +17,7 @@ return new class extends Migration
 
             // Hacemos que las claves foráneas sean nullable
             $table->foreignId('combo_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('product_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('item_id')->nullable()->constrained('product_items')->onDelete('set null');
         });
     }
 

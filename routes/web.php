@@ -120,6 +120,40 @@ Route::get('/successfullyPaid', function () {
 
 Route::get('/calcular-envio', [DeliveryServiceController::class , 'obtenerTarifas']);
 
+Route::get('/category/{category]', [ProductController::class, 'show'])->name('products.category');
+
+Route::resource('/combos', ComboController::class)->names('combos');
+// Route::get('/combos/show', [ComboController::class, 'show'])->name('combos.show');
+
+
+// Ruta para mostrar todos los pedidos
+Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+Route::get('promos', [PromoController::class, 'index'])->name('promos.index');
+
+// Ruta para mostrar un pedido específico
+Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+
+Route::get('/test', [TestController::class, 'index'])->name('test');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/cart/envio', [CartController::class, 'envio'])->name('cart.envio');
+Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.addItem');
+Route::post('/cart/{cartItemId}', [CartController::class, 'updateFromCart'])->name('cart.updateItem');
+Route::post('/cartCombo', [CartController::class, 'addComboToCart'])->name('cart.addCombo');
+Route::delete('/cart/{cartItemId}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
+Route::delete('/cart', [CartController::class, 'dropCart'])->name('cart.dropCart');
+
+Route::get('/products/show', function () {
+    return view('products.show');
+});
+
+Route::get('/auth/redirect/facebook', [AuthController::class, 'redirectFacebook'])->name('auth.redirect.facebook');
+Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook'])->name('auth.callback.facebook');
+
+Route::get('/auth/redirect/google', [AuthController::class, 'redirectGoogle'])->name('auth.redirect.google');
+Route::get('/auth/callback/google', [AuthController::class, 'callbackGoogle'])->name('auth.callback.google');
 
 /* Rutas de ADMIN */
 // Route::get('/admin', function () {

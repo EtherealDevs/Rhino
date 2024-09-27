@@ -130,7 +130,7 @@
                         <li class="font-josefin font-bold text-lg text-[#A3B7FF]">Productos: <span
                                 class="text-white text-lg">
                                 @isset($cartItems)
-                                    {{ count(session('cart')) }}
+                                    {{ $itemCount }}
                                 @endisset
                             </span></li>
                         <li  class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de

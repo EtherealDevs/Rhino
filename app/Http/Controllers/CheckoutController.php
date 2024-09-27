@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProductItemService;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\City;
@@ -18,6 +19,11 @@ use MercadoPago\MercadoPagoConfig;
 
 class CheckoutController extends Controller
 {
+    private $productItemService;
+    public function __construct()
+    {
+        $this->productItemService = new ProductItemService();
+    }
     public function showCheckoutDeliveryPage()
     {
         $user = User::where('id', auth()->user()->id)->with('address')->first();
@@ -30,21 +36,22 @@ class CheckoutController extends Controller
 
         $user = User::where('id', auth()->user()->id)->with('address')->first();
         $cart = Cart::where('user_id', $user->id)->first();
-
+        
         $cartContents = json_decode($cart->contents, true);
         $cart->contents = $cartContents;
         $items = [];
         foreach ($cart->contents as $item) {
             $sizeModel = Size::where('name', $item['size'])->first();
-            $itemModel = $sizeModel->items()->wherePivot('size_id', $sizeModel->id)->wherePivot('product_item_id', $item['item']['id'])->first();
+            $itemModel = ProductItem::where('id', $item['item_id'])->first();
+            $itemVariation = $this->productItemService->getItemVariation($itemModel, $sizeModel->name);
             $newItem = [
-                'id' => $itemModel->pivot->id,
+                'id' => $itemVariation->id,
                 'title' => $itemModel->product->name,
                 'category_id' => 'fashion',
                 "currency_id" => "ARS",
                 "picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
                 "description" => "Nombre: '{$itemModel->product->name}'. Color: '{$itemModel->color->name}'. Talle: '{$item['size']}'",
-                "quantity" => $item['amount'],
+                "quantity" => $item['quantity'],
                 "unit_price" => $itemModel->price() / 100
             ];
             array_push($items, $newItem);
