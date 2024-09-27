@@ -17,7 +17,7 @@ class ProductItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'original_price' => $this->faker->randomNumber(5),
+            'original_price' => $this->faker->randomNumber(4),
         ];
     }
 }
