@@ -25,15 +25,16 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Livewire\RatingStars;
 use App\Livewire\ShippingCost;
+use App\Http\Controllers\ComprobanteController;
 
 /* Rutas Normales */
+
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/contact', function () {
     return view('contact.index');
 });
 
-/* Formulario de Contacto */
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 Route::get('/about', function () {
@@ -43,6 +44,9 @@ Route::get('/about', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}/{productItem}', [ProductController::class, 'show'])->name('products.show');
 Route::post('products/{product}/{productItem}', [ProductController::class, 'addToCart'])->name('products.addToCart');
+Route::get('/products/show', function () {
+    return view('products.show');
+});
 
 Route::get('promos', [PromoController::class, 'index'])->name('promos.index');
 
@@ -55,22 +59,14 @@ Route::resource('/combos', ComboController::class)->names('combos');
 // Ruta para mostrar todos los pedidos
 Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 
-Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
-
-// Ruta para mostrar un pedido específico
 Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
-
-Route::get('/test', [TestController::class, 'index'])->name('test');
-
-
-Route::get('/products/show', function () {
-    return view('products.show');
-});
-
-Route::get('/products-api', [ProductController::class, 'api']);
+Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
 Route::post('/submit-review', [RatingStars::class, 'submitReview'])
     ->middleware('auth');
+Route::get('/products-api', [ProductController::class, 'api']);
+
+Route::get('/test', [TestController::class, 'index'])->name('test');
 
 
 /* Autenticacion */
@@ -94,8 +90,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
 
-
-
 /* Carrito Envios y Pago */
 Route::get('/enviowa', [WhapController::class, 'envio']);
 
@@ -114,11 +108,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/process_payment', [CheckoutController::class, 'processPayment'])->name('checkout.processPayment');
 });
 
+/* Ruta para almacenar los comprobantes */
+Route::post('/comprobantes/{order}', [ComprobanteController::class, 'store'])->name('comprobantes.store');
+
 Route::get('/successfullyPaid', function () {
     return view('payments.successfullyPaid');
 });
 
-Route::get('/calcular-envio', [DeliveryServiceController::class , 'obtenerTarifas']);
+Route::get('/calcular-envio', [DeliveryServiceController::class, 'obtenerTarifas']);
 
 Route::get('/category/{category]', [ProductController::class, 'show'])->name('products.category');
 
@@ -154,18 +151,3 @@ Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook'
 
 Route::get('/auth/redirect/google', [AuthController::class, 'redirectGoogle'])->name('auth.redirect.google');
 Route::get('/auth/callback/google', [AuthController::class, 'callbackGoogle'])->name('auth.callback.google');
-
-/* Rutas de ADMIN */
-// Route::get('/admin', function () {
-//     return view('admin.index');
-// });
-
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/', function () {
-//         return view('home.index');
-//     })->name('dashboard');
-// });

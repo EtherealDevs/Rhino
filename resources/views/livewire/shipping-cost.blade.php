@@ -121,7 +121,8 @@
                         <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual sera el metodo de pago?</h2>
 
                         <div class="grid grid-cols-1 gap-4">
-                            <label for="payment_method" class="block mb-2 text-lg font-medium">Seleccionemoslo aqui 👇🏼</label>
+                            <label for="payment_method" class="block mb-2 text-lg font-medium">Seleccionemoslo aqui
+                                👇🏼</label>
                             <select id="payment_method" x-model="paymentMethod"
                                 class="w-full rounded-lg bg-gray-100 text-gray-700 border border-gray-300 h-10 px-4">
                                 <option value="mercado_pago">Mercado Pago</option>
@@ -136,73 +137,27 @@
                             <p><strong>CBU:</strong> {{ $cbu }}</p>
                             <p><strong>Nombre:</strong> {{ $holder_name }}</p>
 
-
                             <div x-data="fileUpload()" x-init="init()">
                                 <!-- Input de archivo oculto -->
                                 <input type="file" x-ref="fileInput" @change="handleFileUpload" class="hidden" />
-                            
+
                                 <!-- Botón para agregar comprobante de pago -->
                                 <button @click="$refs.fileInput.click()"
                                     class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
                                     Agregar Comprobante de Pago
                                 </button>
-                            
+
                                 <!-- Mostrar el nombre del archivo seleccionado -->
                                 <div x-show="file" class="mt-2 text-gray-700">
                                     Comprobante seleccionado: <span x-text="file.name"></span>
                                 </div>
-                            
+
                                 <!-- Botón para subir el comprobante -->
                                 <button x-show="file" @click="submitForm()"
                                     class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
                                     Subir Comprobante
                                 </button>
                             </div>
-                            
-                            <script>
-                                function fileUpload() {
-                                    return {
-                                        file: null,
-                            
-                                        init() {
-                                            console.log('Alpine.js inicializado');
-                                        },
-                            
-                                        handleFileUpload(event) {
-                                            this.file = event.target.files[0];
-                                        },
-                            
-                                        submitForm() {
-                                            if (!this.file) {
-                                                alert("Por favor selecciona un archivo");
-                                                return;
-                                            }
-                            
-                                            // Crear un objeto FormData para enviar el archivo
-                                            const formData = new FormData();
-                                            formData.append('comprobante', this.file);
-                            
-                                            // Aquí puedes usar fetch o axios para enviar el archivo al servidor
-                                            fetch('/ruta-al-servidor', {
-                                                method: 'POST',
-                                                body: formData,
-                                                headers: {
-                                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                                }
-                                            })
-                                            .then(response => response.json())
-                                            .then(data => {
-                                                alert('Comprobante subido exitosamente');
-                                            })
-                                            .catch(error => {
-                                                alert('Hubo un error al subir el comprobante');
-                                                console.error(error);
-                                            });
-                                        }
-                                    }
-                                }
-                            </script>
-                            
                         </div>
 
 
@@ -216,25 +171,30 @@
                     </div>
 
                     <!-- Paso 3: Confirmación -->
-                    <div x-show="step === 3 || step === 4" class="col-span-2 gap-4 bg-white p-6 rounded-2xl lg:mt-0 mt-6 flex flex-col items-start">
+                    <div x-show="step === 3 || step === 4"
+                        class="col-span-2 gap-4 bg-white p-6 rounded-2xl lg:mt-0 mt-6 flex flex-col items-start">
                         <!-- Información para el envío -->
                         <div class="w-full">
-                            <h2 class="text-2xl font-bold text-gray-800 mb-4">🎉 ¡Muy bien! Rellena tus datos para el envío 📦</h2>
-                            <p class="text-gray-600 mb-6">Asegúrate de que la información ingresada sea correcta para procesar tu pedido rápidamente. ✍️</p>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">🎉 ¡Muy bien! Rellena tus datos para el
+                                envío 📦</h2>
+                            <p class="text-gray-600 mb-6">Asegúrate de que la información ingresada sea correcta para
+                                procesar tu pedido rápidamente. ✍️</p>
                         </div>
-                    
+
                         <!-- Botón para realizar la compra -->
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 shadow-lg mt-auto">
+                        <button
+                            class="w-full bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 shadow-lg mt-auto">
                             <a :href="paymentMethod === 'transferencia' ? '/products' : '{{ route('checkout.delivery') }}'"
-                               class="flex items-center justify-center">
+                                class="flex items-center justify-center">
                                 <p class="text-white text-lg font-semibold font-josefin">
-                                    <span x-text="paymentMethod === 'transferencia' ? '💳 Comprar con Transferencia' : '🛒 Comprar'"></span>
+                                    <span
+                                        x-text="paymentMethod === 'transferencia' ? '💳 Rellenar datos' : '🛒 Rellenar datos'"></span>
                                 </p>
                             </a>
                         </button>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
@@ -287,6 +247,57 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let orderId = '{{ $orderId }}'; // Suponiendo que $orderId esté disponible en Blade
+    </script>
+    <script>
+        function fileUpload() {
+            return {
+                file: null,
+                init() {
+                    this.file = null;
+                },
+                handleFileUpload(event) {
+                    this.file = event.target.files[0]; // Asignar el archivo seleccionado a la variable
+                    console.log(this.file); // Verificar si el archivo se selecciona correctamente
+                },
+                async submitForm() {
+                    if (!this.file) {
+                        alert('Por favor selecciona un comprobante.');
+                        return;
+                    }
+
+                    // Crear el FormData
+                    let formData = new FormData();
+                    formData.append('comprobante', this.file);
+                    formData.append('dni', '12345678'); // Reemplazar con el DNI correcto
+
+                    // Enviar el archivo mediante fetch
+                    try {
+                        let response = await fetch(`/comprobantes/${orderId}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                            body: formData
+                        });
+
+                        let result = await response.json();
+
+                        if (response.ok) {
+                            alert(result.message); // Mensaje de éxito
+                        } else {
+                            alert('Error al subir el comprobante: ' + result.error);
+                        }
+                    } catch (error) {
+                        alert('Error en la solicitud: ' + error);
+                    }
+
+                }
+            }
+        }
+    </script>
 
     <script>
         function shippingForm() {
