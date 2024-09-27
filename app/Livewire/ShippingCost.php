@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Http\Cart\CartCombo;
+use App\Http\Cart\CartItem;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -85,21 +87,36 @@ class ShippingCost extends Component
             );
         }
         $this->productItems = ProductItem::all();
-        
         if($this->cartItems->isNotEmpty()){
             foreach ($this->cartItems as $item) {
-                $itemModel = ProductItem::find($item->item_id);
-                $itemQuantity = $item->quantity;
-                $discount = $itemModel->product->sale->sale->discount ?? 0;
-                $price = $itemModel->price();
-                $priceDiscount = ($price * $discount) / 100;
-                $this->total += ($price - $priceDiscount) * $itemQuantity;
-                $this->volume += $itemModel->product->volume;
-                $this->weigth += $itemModel->product->weigth;
-                $this->itemCount = $this->cartManager->countItems();
+                if ($item->type == CartItem::DEFAULT_TYPE) {
+                    $itemModel = ProductItem::find($item->item_id);
+                    $itemQuantity = $item->quantity;
+                    $discount = $itemModel->product->sale->sale->discount ?? 0;
+                    $price = $itemModel->price();
+                    $priceDiscount = ($price * $discount) / 100;
+                    $this->total += ($price - $priceDiscount) * $itemQuantity;
+                    $this->volume += $itemModel->product->volume;
+                    $this->weigth += $itemModel->product->weigth;
+                    $this->itemCount = $this->cartManager->countItems();
+                }
+                else if ($item->type == CartCombo::DEFAULT_TYPE)
+                {
+                    foreach ($item->contents as $cartItem) {
+                        $itemModel = ProductItem::find($cartItem->item_id);
+                        $itemQuantity = $item->quantity;
+                        $discount = $itemModel->product->sale->sale->discount ?? 0;
+                        $price = $itemModel->price();
+                        $priceDiscount = ($price * $discount) / 100;
+                        $this->total += ($price - $priceDiscount) * $itemQuantity;
+                        $this->volume += $itemModel->product->volume;
+                        $this->weigth += $itemModel->product->weigth;
+                        $this->itemCount = $this->cartManager->countItems();
+                }
             }
         }
     }
+}
 
     public function rules()
     {
