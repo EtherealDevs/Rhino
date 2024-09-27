@@ -25,7 +25,7 @@
 
             {{-- Content (Productos) --}}
             <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8">
-                <div class="bg-center bg-contain w-[1100px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
+                <div class="bg-center bg-contain w-[420px] xl:w-[1100px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
                     <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                         <div class="flex flex-col lg:flex-row lg:items-center ">
                             <!-- Contenido de texto -->
