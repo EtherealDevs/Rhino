@@ -126,13 +126,13 @@
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
                                     <input type="radio" id="mercado_pago" name="paymentMethod" x-model="paymentMethod" value="mercado_pago" />
-                                    <label for="mercado_pago">Mercado Pago</label>
+                                    <label class="text-white" for="mercado_pago">Mercado Pago</label>
                                 </div>
 
                                 <!-- Radio Button Transferencia -->
                                 <div class="radio-item">
                                     <input type="radio" id="transferencia" name="paymentMethod" x-model="paymentMethod" value="transferencia" />
-                                    <label for="transferencia">Transferencia</label>
+                                    <label class="text-white" for="transferencia">Transferencia</label>
                                 </div>
                             </div>
                         </div>
@@ -300,22 +300,6 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300;400;700&display=swap");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-a {
-    text-decoration: none;
-}
-ul {
-    list-style-type: none;
-}
-body {
-    font-family: "Averia Serif Libre", cursive;
-    background-color: rgb(19, 18, 21);
-    color: #ffffff;
-}
 
 .radio-section {
     display: flex;
