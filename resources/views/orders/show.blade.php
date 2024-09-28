@@ -4,24 +4,61 @@
     <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg">
         <h1 class="text-3xl font-semibold text-gray-800 mb-4">Detalle del Pedido #{{ $order->id }}</h1>
 
-        <div class="mb-6">
-            <p class="text-lg text-gray-600"><strong class="font-medium">Usuario:</strong> {{ $order->user->name }}</p>
-            <p class="text-sm font-medium text-gray-900 truncate">
-                <div class="inline-flex items-center justify-center text-xs font-semibold uppercase w-24 xl:w-40 h-6 mb-3 sm:mb-0 rounded-full
-                    @if ($order->orderStatus->id == 5)
-                        text-red-500 bg-red-100
-                    @elseif ($order->orderStatus->id == 1)
-                        text-yellow-600 bg-yellow-300
-                    @else
-                        text-emerald-600 bg-emerald-100
-                    @endif
-                ">
-                    {{ $order->orderStatus->name }}
-                </div>
-            </p>
+        <div class="mb-6 grid grid-cols-2">
+            <div>
+                <p class="text-lg text-gray-600"><strong class="font-medium">Usuario:</strong> {{ $order->user->name }}</p>
+                <p class="text-sm font-medium text-gray-900 truncate">
+                    <div class="inline-flex items-center justify-center text-xs font-semibold uppercase w-24 xl:w-40 h-6 mb-3 sm:mb-0 rounded-full
+                        @if ($order->orderStatus->id == 5)
+                            text-red-500 bg-red-100
+                        @elseif ($order->orderStatus->id == 1)
+                            text-yellow-600 bg-yellow-300
+                        @else
+                            text-emerald-600 bg-emerald-100
+                        @endif
+                    ">
+                        {{ $order->orderStatus->name }}
+                    </div>
+                </p>
+                <p class="text-lg text-gray-600"><strong class="font-medium">Total:</strong> ${{ number_format($order->total, 2) }}</p>
+                <p class="text-lg text-gray-600"><strong class="font-medium">Fecha de Creación:</strong> {{ $order->created_at->format('d-m-Y H:i') }}</p>
+            </div>
 
-            <p class="text-lg text-gray-600"><strong class="font-medium">Total:</strong> ${{ number_format($order->total, 2) }}</p>
-            <p class="text-lg text-gray-600"><strong class="font-medium">Fecha de Creación:</strong> {{ $order->created_at->format('d-m-Y H:i') }}</p>
+            @if($order->paymentMethod->id == 5)
+            <div class="flex justify-center">
+
+                <div  class="mt-4 bg-gray-200 p-4 rounded">
+                    <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
+                    <p><strong>Alias:</strong> {{ $alias }}</p>
+                    <p><strong>CBU:</strong> {{ $cbu }}</p>
+                    <p><strong>Nombre:</strong> {{ $holder_name }}</p>
+
+                    <div x-data="fileUpload()" x-init="init()">
+                        <form action="{{route('comprobantes.store')}}" method="post" enctype="multipart/form-data">
+                            <!-- Input de archivo oculto -->
+                            <input type="file" x-ref="fileInput" @change="handleFileUpload" class="hidden" accept="image/*,*.pdf" />
+                            <input type="number" id="order_id" name="order_id" value="{{$order->id}}" class="hidden">
+                            <input type="number" id="dni" name="dni" placeholder="dni que figura en le comprobante">
+
+                            <!-- Botón para agregar comprobante de pago -->
+                            <button @click="$refs.fileInput.click()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
+                                Agregar Comprobante de Pago
+                            </button>
+
+                            <!-- Mostrar el nombre del archivo seleccionado -->
+                            <div x-show="file" class="mt-2 text-gray-700">
+                                Comprobante seleccionado: <span x-text="file.name"></span>
+                            </div>
+
+                            <!-- Botón para subir el comprobante -->
+                            <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
+                                Subir Comprobante
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
         <h3 class="text-2xl font-semibold text-gray-800 mb-4">Detalles de Productos</h3>
         <ul class="space-y-4">
@@ -52,5 +89,19 @@
                 </a>
             </div>
         </div>
+        <script>
+            function fileUpload() {
+                return {
+                    file: null,
+                    init() {
+                        this.file = null;
+                    },
+                    handleFileUpload(event) {
+                        this.file = event.target.files[0]; // Asignar el archivo seleccionado a la variable
+                        console.log(this.file); // Verificar si el archivo se selecciona correctamente
+                    }
+                }
+            }
+        </script>
     </div>
 @endsection

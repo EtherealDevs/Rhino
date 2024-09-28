@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\ZipCode;
 use Livewire\Attributes\Validate;
+use App\Models\TransferInfo;
 
 class ShippingCost extends Component
 {
@@ -32,7 +33,7 @@ class ShippingCost extends Component
 
     #[Validate]
     public $province;
-    public $total=0;
+    public $total = 0;
 
     public $selectedProvince = null;
     public $selectedCity = null;
@@ -46,15 +47,20 @@ class ShippingCost extends Component
     public $itemCount;
 
     public $city;
-    public $sendPrice=0;
+    public $sendPrice = 0;
     #[Validate]
     public $address;
     // ShippingCost.php
+
+    public $alias;
+    public $cbu;
+    public $holder_name;
+
     public function updatedSendPrice($house)
     {
-        $code = Province::where('name',$this->province)->first();
+        $code = Province::where('name', $this->province)->first();
         $code = ModelsZipCode::where('province_id', $code->id)->first();
-        $params= ['operativa'=>64665,'peso'=>1,'volumen'=>1,'cP'=>$this->zip_code,'cPDes'=>$code->code,'cantidad'=>1,'valor'=>$this->total];
+        $params = ['operativa' => 64665, 'peso' => 1, 'volumen' => 1, 'cP' => $this->zip_code, 'cPDes' => $code->code, 'cantidad' => 1, 'valor' => $this->total];
         $price = DeliveryServiceController::obtenerTarifas($params);
         $this->sendPrice = $price;
         $this->total += $this->sendPrice;
@@ -64,15 +70,20 @@ class ShippingCost extends Component
 
     public function mount(User $user)
     {
-        if (Auth::check()) 
-        {
+        if (Auth::check()) {
             $this->cartManager = new CartManager();
-        }
-        else 
-        {
+        } else {
             $this->cartManager = new SessionCartManager();
         }
         $this->cartItems = $this->cartManager->getCartContents();
+
+        $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo
+
+        if ($transferInfo) {
+            $this->alias = $transferInfo->alias; // Suponiendo que 'alias' existe
+            $this->cbu = $transferInfo->cbu; // Suponiendo que 'cbu' existe
+            $this->holder_name = $transferInfo->holder_name; // Suponiendo que 'name' existe
+        }
 
         $this->fill(
             $user
@@ -87,7 +98,7 @@ class ShippingCost extends Component
             );
         }
         $this->productItems = ProductItem::all();
-        if($this->cartItems->isNotEmpty()){
+        if ($this->cartItems->isNotEmpty()) {
             foreach ($this->cartItems as $item) {
                 if ($item->type == CartItem::DEFAULT_TYPE) {
                     $itemModel = ProductItem::find($item->item_id);
@@ -99,9 +110,7 @@ class ShippingCost extends Component
                     $this->volume += $itemModel->product->volume;
                     $this->weigth += $itemModel->product->weigth;
                     $this->itemCount = $this->cartManager->countItems();
-                }
-                else if ($item->type == CartCombo::DEFAULT_TYPE)
-                {
+                } else if ($item->type == CartCombo::DEFAULT_TYPE) {
                     foreach ($item->contents as $cartItem) {
                         $itemModel = ProductItem::find($cartItem->item_id);
                         $itemQuantity = $item->quantity;
@@ -112,11 +121,11 @@ class ShippingCost extends Component
                         $this->volume += $itemModel->product->volume;
                         $this->weigth += $itemModel->product->weigth;
                         $this->itemCount = $this->cartManager->countItems();
+                    }
                 }
             }
         }
     }
-}
 
     public function rules()
     {
@@ -138,7 +147,6 @@ class ShippingCost extends Component
         $this->selectedCity = null; // Reset city selection when province changes
         $this->city = null; // Reset city when province changes
         $this->cities = City::where('province_id', $zipCodeModel->province->id)->get()->sortBy('name');
-
     }
     public function updatedSelectedProvince($provinceName)
     {
@@ -150,14 +158,15 @@ class ShippingCost extends Component
 
     }
 
-    public function updatedSucursal(){
+
+    public function updatedSucursal()
+    {
         $this->updatedSendPrice(false);
     }
     public function updatedCity($cityId)
     {
         $this->city = $cityId;
         $this->updatedSendPrice(true);
-
     }
 
     public function render()

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\TransferInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,7 @@ class OrderController extends Controller
             ->where('user_id', $user->id)
             ->get();
 
+
         return view('orders.index', compact('orders'));
     }
 
@@ -30,8 +32,15 @@ class OrderController extends Controller
         $order = Order::with('details.productItem', 'orderStatus')
             ->where('user_id', $user->id)
             ->findOrFail($id);
+        $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo
 
-        return view('orders.show', compact('order'));
+        if ($transferInfo) {
+            $alias = $transferInfo->alias; // Suponiendo que 'alias' existe
+            $cbu = $transferInfo->cbu; // Suponiendo que 'cbu' existe
+            $holder_name = $transferInfo->holder_name; // Suponiendo que 'name' existe
+        }
+
+        return view('orders.show', compact('order', 'alias', 'cbu', 'holder_name' ));
     }
 }
 
