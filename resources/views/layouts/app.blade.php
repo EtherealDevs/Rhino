@@ -62,7 +62,7 @@
     @livewire('navigation')
     <div class="min-h-screen">
 
-        @livewire('rating-stars')
+        {{-- @livewire('rating-stars') --}}
         <!-- Page Content -->
         <main>
             @yield('content')
