@@ -131,10 +131,6 @@ public function processPayment(Request $request)
 
     $client = new PaymentClient();
 
-        MercadoPagoConfig::setAccessToken(config('app.mp_access_token_test'));
-
-        $client = new PaymentClient();
-
         try
         {
             $payment = $client->create([
@@ -162,9 +158,5 @@ public function processPayment(Request $request)
     public function paymentStatus($id)
     {
         return view('checkout.payment_status', ['payment' => $id]);
-    }
-    public function paymentStatus(Request $request)
-    {
-        dd($request);
     }
 }
