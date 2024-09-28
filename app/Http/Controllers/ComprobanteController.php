@@ -21,7 +21,7 @@ class ComprobanteController extends Controller
             $comprobante->url = $url;
             $comprobante->order_id = $request->input('order_id');
             $comprobante->save();
-            return redirect()->route('home');
+            return redirect()->route('oder.index');
         }
     }
 
