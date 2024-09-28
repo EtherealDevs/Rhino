@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 /* Ruta para almacenar los comprobantes */
-Route::post('/comprobantes/{order}', [ComprobanteController::class, 'store'])->name('comprobantes.store');
+Route::post('/comprobantes/{order}', [ComprobanteController::class, 'uploadProof'])->name('comprobantes.store');
 
 Route::get('/successfullyPaid', function () {
     return view('payments.successfullyPaid');

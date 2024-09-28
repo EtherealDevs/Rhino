@@ -118,17 +118,17 @@
                     <!-- Paso 2: Selección del método de pago -->
                     <div x-show="step === 2" class="w-full h-auto m-auto shadow-lg flex flex-col p-8 rounded-xl bg-white">
                         <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago?</h2>
-                    
+
                         <div class="radio-section">
                             <div class="radio-list">
                                 <h1>Seleccionemoslo aquí 👇🏼</h1>
-                                
+
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
                                     <input type="radio" id="mercado_pago" name="paymentMethod" x-model="paymentMethod" value="mercado_pago" />
                                     <label for="mercado_pago">Mercado Pago</label>
                                 </div>
-                    
+
                                 <!-- Radio Button Transferencia -->
                                 <div class="radio-item">
                                     <input type="radio" id="transferencia" name="paymentMethod" x-model="paymentMethod" value="transferencia" />
@@ -136,42 +136,42 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                         <!-- Información para Transferencia -->
                         <div x-show="paymentMethod === 'transferencia'" class="mt-4 bg-gray-200 p-4 rounded">
                             <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
                             <p><strong>Alias:</strong> {{ $alias }}</p>
                             <p><strong>CBU:</strong> {{ $cbu }}</p>
                             <p><strong>Nombre:</strong> {{ $holder_name }}</p>
-                    
+
                             <div x-data="fileUpload()" x-init="init()">
                                 <!-- Input de archivo oculto -->
                                 <input type="file" x-ref="fileInput" @change="handleFileUpload" class="hidden" />
-                    
+
                                 <!-- Botón para agregar comprobante de pago -->
                                 <button @click="$refs.fileInput.click()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
                                     Agregar Comprobante de Pago
                                 </button>
-                    
+
                                 <!-- Mostrar el nombre del archivo seleccionado -->
                                 <div x-show="file" class="mt-2 text-gray-700">
                                     Comprobante seleccionado: <span x-text="file.name"></span>
                                 </div>
-                    
+
                                 <!-- Botón para subir el comprobante -->
                                 <button x-show="file" @click="submitForm()" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
                                     Subir Comprobante
                                 </button>
                             </div>
                         </div>
-                    
+
                         <!-- Botón para avanzar sin necesidad de comprobante -->
                         <button @click="step = 3" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
                             <p class="font-josefin text-lg text-white font-bold py-1 px-4">Continuar</p>
                         </button>
                     </div>
-                    
-                    
+
+
 
 
                     <!-- Paso 3: Confirmación -->
@@ -252,53 +252,7 @@
         </div>
     </div>
 
-    <script>
-        function fileUpload() {
-            return {
-                file: null,
-                init() {
-                    this.file = null;
-                },
-                handleFileUpload(event) {
-                    this.file = event.target.files[0]; // Asignar el archivo seleccionado a la variable
-                    console.log(this.file); // Verificar si el archivo se selecciona correctamente
-                },
-                async submitForm() {
-                    if (!this.file) {
-                        alert('Por favor selecciona un comprobante.');
-                        return;
-                    }
 
-                    // Crear el FormData
-                    let formData = new FormData();
-                    formData.append('comprobante', this.file);
-                    formData.append('dni', '12345678'); // Reemplazar con el DNI correcto
-
-                    // Enviar el archivo mediante fetch
-                    try {
-                        let response = await fetch(`/comprobantes/${orderId}`, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            },
-                            body: formData
-                        });
-
-                        let result = await response.json();
-
-                        if (response.ok) {
-                            alert(result.message); // Mensaje de éxito
-                        } else {
-                            alert('Error al subir el comprobante: ' + result.error);
-                        }
-                    } catch (error) {
-                        alert('Error en la solicitud: ' + error);
-                    }
-
-                }
-            }
-        }
-    </script>
 
     <script>
         function shippingForm() {
