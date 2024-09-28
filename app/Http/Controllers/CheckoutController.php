@@ -32,6 +32,7 @@ class CheckoutController extends Controller
         $user = User::where('id', auth()->user()->id)->with('address')->first();
         return view('checkout.delivery', ['user' => $user]);
     }
+    
     public function showCheckoutPaymentPage()
     {
         MercadoPagoConfig::setAccessToken(config('app.mp_access_token_test'));
