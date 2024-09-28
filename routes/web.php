@@ -131,7 +131,6 @@ Route::get('promos', [PromoController::class, 'index'])->name('promos.index');
 // Ruta para mostrar un pedido específico
 Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
-
 Route::get('/test', [TestController::class, 'index'])->name('test');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');

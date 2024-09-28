@@ -116,59 +116,63 @@
 
 
                     <!-- Paso 2: Selección del método de pago -->
-                    <div x-show="step === 2"
-                        class="w-full h-auto m-auto shadow-lg flex flex-col p-8 rounded-xl bg-white">
-                        <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual sera el metodo de pago?</h2>
-
-                        <div class="grid grid-cols-1 gap-4">
-                            <label for="payment_method" class="block mb-2 text-lg font-medium">Seleccionemoslo aqui
-                                👇🏼</label>
-                            <select id="payment_method" x-model="paymentMethod"
-                                class="w-full rounded-lg bg-gray-100 text-gray-700 border border-gray-300 h-10 px-4">
-                                <option value="mercado_pago">Mercado Pago</option>
-                                <option value="transferencia">Transferencia</option>
-                            </select>
+                    <div x-show="step === 2" class="w-full h-auto m-auto shadow-lg flex flex-col p-8 rounded-xl bg-white">
+                        <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago?</h2>
+                    
+                        <div class="radio-section">
+                            <div class="radio-list">
+                                <h1>Seleccionemoslo aquí 👇🏼</h1>
+                                
+                                <!-- Radio Button Mercado Pago -->
+                                <div class="radio-item">
+                                    <input type="radio" id="mercado_pago" name="paymentMethod" x-model="paymentMethod" value="mercado_pago" />
+                                    <label for="mercado_pago">Mercado Pago</label>
+                                </div>
+                    
+                                <!-- Radio Button Transferencia -->
+                                <div class="radio-item">
+                                    <input type="radio" id="transferencia" name="paymentMethod" x-model="paymentMethod" value="transferencia" />
+                                    <label for="transferencia">Transferencia</label>
+                                </div>
+                            </div>
                         </div>
-
+                    
                         <!-- Información para Transferencia -->
                         <div x-show="paymentMethod === 'transferencia'" class="mt-4 bg-gray-200 p-4 rounded">
                             <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
                             <p><strong>Alias:</strong> {{ $alias }}</p>
                             <p><strong>CBU:</strong> {{ $cbu }}</p>
                             <p><strong>Nombre:</strong> {{ $holder_name }}</p>
-
+                    
                             <div x-data="fileUpload()" x-init="init()">
                                 <!-- Input de archivo oculto -->
                                 <input type="file" x-ref="fileInput" @change="handleFileUpload" class="hidden" />
-
+                    
                                 <!-- Botón para agregar comprobante de pago -->
-                                <button @click="$refs.fileInput.click()"
-                                    class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
+                                <button @click="$refs.fileInput.click()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
                                     Agregar Comprobante de Pago
                                 </button>
-
+                    
                                 <!-- Mostrar el nombre del archivo seleccionado -->
                                 <div x-show="file" class="mt-2 text-gray-700">
                                     Comprobante seleccionado: <span x-text="file.name"></span>
                                 </div>
-
+                    
                                 <!-- Botón para subir el comprobante -->
-                                <button x-show="file" @click="submitForm()"
-                                    class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
+                                <button x-show="file" @click="submitForm()" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
                                     Subir Comprobante
                                 </button>
                             </div>
                         </div>
-
-
-                        <button
-                            @click="paymentMethod === 'transferencia' && !file ? alert('Por favor selecciona un comprobante') : step = 3"
-                            class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
-                            <p class="font-josefin text-lg text-white font-bold py-1 px-4">
-                                Continuar
-                            </p>
+                    
+                        <!-- Botón para avanzar sin necesidad de comprobante -->
+                        <button @click="step = 3" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
+                            <p class="font-josefin text-lg text-white font-bold py-1 px-4">Continuar</p>
                         </button>
                     </div>
+                    
+                    
+
 
                     <!-- Paso 3: Confirmación -->
                     <div x-show="step === 3 || step === 4"
@@ -248,9 +252,6 @@
         </div>
     </div>
 
-    <script>
-        let orderId = '{{ $orderId }}'; // Suponiendo que $orderId esté disponible en Blade
-    </script>
     <script>
         function fileUpload() {
             return {
@@ -342,5 +343,89 @@
             }
         }
     </script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300;400;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style-type: none;
+}
+body {
+    font-family: "Averia Serif Libre", cursive;
+    background-color: rgb(19, 18, 21);
+    color: #ffffff;
+}
+
+.radio-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto; /* Cambiado para que se ajuste al contenido */
+    margin-bottom: 20px; /* Espaciado entre el título y los botones de radio */
+}
+h1 {
+    margin-bottom: 20px;
+}
+.radio-item [type="radio"] {
+    display: none;
+}
+.radio-item + .radio-item {
+    margin-top: 15px;
+}
+.radio-item label {
+    display: block;
+    padding: 20px 60px;
+    background: #1d1d42;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 400;
+    min-width: 250px;
+    white-space: nowrap;
+    position: relative;
+    transition: 0.4s ease-in-out 0s;
+}
+.radio-item label:after,
+.radio-item label:before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+}
+.radio-item label:after {
+    height: 19px;
+    width: 19px;
+    border: 2px solid #524eee;
+    left: 19px;
+    top: calc(50% - 12px);
+}
+.radio-item label:before {
+    background: #524eee;
+    height: 20px;
+    width: 20px;
+    left: 21px;
+    top: calc(50% - 5px);
+    transform: scale(5);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s ease-in-out 0s;
+}
+.radio-item [type="radio"]:checked ~ label {
+    border-color: #524eee;
+}
+.radio-item [type="radio"]:checked ~ label::before {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+    </style>
 
 </div>
