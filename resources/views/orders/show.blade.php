@@ -26,30 +26,42 @@
 
             @if($order->paymentMethod->id)
             <div class="flex justify-center">
-
-                <div  class="mt-4 bg-gray-200 p-4 rounded">
-                    <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
-                    <p><strong>Alias:</strong> </p>
-                    <p><strong>CBU:</strong> </p>
-                    <p><strong>Nombre:</strong> </p>
-
-                    <div >
-                        <form action="{{route('comprobante.store')}}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <!-- Input de archivo oculto -->
-                            <input type="file" id="file" name="file" accept="image/*,*.pdf" />
-                            <input type="number" id="order_id" name="order_id" value="{{$order->id}}" class="hidden">
-                            <input type="number" id="dni" name="dni" placeholder="dni que figura en le comprobante">
-
-
-
-                            <!-- Botón para subir el comprobante -->
-                            <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
-                                Subir Comprobante
-                            </button>
-                        </form>
+                @if ($order->comprobante)
+                    <div  class="mt-4 bg-gray-200 p-4 rounded">
+                        <img src="{{ asset('storage/'.$order->comprobante->url) }}" alt="
+                        Comprobante de pago del pedido #{{ $order->id }}" class="w-64 h
+                        -48 object-cover rounded">
+                         @if ($order->orderStatus->id == 1 || $order->orderStatus->id ==2)
+                         <p>Pago: {{$order->orderStatus->name}}</p>
+                        @else
+                            <button>ver mi pedido</button>
+                        @endif
                     </div>
-                </div>
+                @else
+                    <div  class="mt-4 bg-gray-200 p-4 rounded">
+                        <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
+                        <p><strong>Alias:</strong> </p>
+                        <p><strong>CBU:</strong> </p>
+                        <p><strong>Nombre:</strong> </p>
+
+                        <div >
+                            <form action="{{route('comprobante.store')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <!-- Input de archivo oculto -->
+                                <input type="file" id="file" name="file" accept="image/*,*.pdf" />
+                                <input type="number" id="order_id" name="order_id" value="{{$order->id}}" class="hidden">
+                                <input type="number" id="dni" name="dni" placeholder="dni que figura en le comprobante">
+
+
+
+                                <!-- Botón para subir el comprobante -->
+                                <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
+                                    Subir Comprobante
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
             @endif
         </div>
