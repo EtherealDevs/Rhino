@@ -11,27 +11,18 @@ use Illuminate\Support\Facades\Auth;
 class ComprobanteController extends Controller
 {
 
-    public function uploadProof(Request $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'comprobante' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'dni' => 'required|integer'
-        ]);
-
-        if ($request->hasFile('comprobante')) {
-            $filePath = $request->file('comprobante')->store('comprobantes');
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $url=Storage::put('comprobante', $file);
             $comprobante = new Comprobante();
             $comprobante->dni = $request->input('dni');
-            $comprobante->url = $filePath; // Guarda la URL del archivo
+            $comprobante->url = $url;
             $comprobante->order_id = $request->input('order_id');
-            // $comprobante->status = 'pending';
             $comprobante->save();
-
-
-            return response()->json(['message' => 'Comprobante subido con éxito, a la espera de asignar la orden', 'comprobante' => $comprobante]);
+            return redirect()->route('oder.index');
         }
-
-        return response()->json(['error' => 'No se pudo subir el comprobante'], 500);
     }
 
 

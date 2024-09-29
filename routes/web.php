@@ -29,7 +29,7 @@ use App\Http\Controllers\ComprobanteController;
 
 /* Rutas Normales */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/contact', function () {
     return view('contact.index');
@@ -64,7 +64,7 @@ Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show')
 Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
 Route::post('/submit-review', [RatingStars::class, 'submitReview'])
     ->middleware('auth');
-Route::get('/products-api', [ProductController::class, 'api']);
+// Route::get('/products-api', [ProductController::class, 'api']);
 
 Route::get('/test', [TestController::class, 'index'])->name('test');
 
@@ -110,7 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 /* Ruta para almacenar los comprobantes */
-Route::post('/comprobantes/{order}', [ComprobanteController::class, 'uploadProof'])->name('comprobantes.store');
+Route::post('/comprobante', [ComprobanteController::class, 'store'])->name('comprobante.store');
 
 Route::get('/successfullyPaid', function () {
     return view('payments.successfullyPaid');

@@ -24,39 +24,44 @@
                 <p class="text-lg text-gray-600"><strong class="font-medium">Fecha de Creación:</strong> {{ $order->created_at->format('d-m-Y H:i') }}</p>
             </div>
 
-            @if($order->paymentMethod->id == 5)
+            @if($order->paymentMethod->id)
             <div class="flex justify-center">
-
-                <div  class="mt-4 bg-gray-200 p-4 rounded">
-                    <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
-                    <p><strong>Alias:</strong> {{ $alias }}</p>
-                    <p><strong>CBU:</strong> {{ $cbu }}</p>
-                    <p><strong>Nombre:</strong> {{ $holder_name }}</p>
-
-                    <div x-data="fileUpload()" x-init="init()">
-                        <form action="{{route('comprobantes.store')}}" method="post" enctype="multipart/form-data">
-                            <!-- Input de archivo oculto -->
-                            <input type="file" x-ref="fileInput" @change="handleFileUpload" class="hidden" accept="image/*,*.pdf" />
-                            <input type="number" id="order_id" name="order_id" value="{{$order->id}}" class="hidden">
-                            <input type="number" id="dni" name="dni" placeholder="dni que figura en le comprobante">
-
-                            <!-- Botón para agregar comprobante de pago -->
-                            <button @click="$refs.fileInput.click()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
-                                Agregar Comprobante de Pago
-                            </button>
-
-                            <!-- Mostrar el nombre del archivo seleccionado -->
-                            <div x-show="file" class="mt-2 text-gray-700">
-                                Comprobante seleccionado: <span x-text="file.name"></span>
-                            </div>
-
-                            <!-- Botón para subir el comprobante -->
-                            <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
-                                Subir Comprobante
-                            </button>
-                        </form>
+                @if ($order->comprobante)
+                    <div  class="mt-4 bg-gray-200 p-4 rounded">
+                        <img src="{{ asset('storage/'.$order->comprobante->url) }}" alt="
+                        Comprobante de pago del pedido #{{ $order->id }}" class="w-64 h
+                        -48 object-cover rounded">
+                         @if ($order->orderStatus->id == 1 || $order->orderStatus->id ==2)
+                         <p>Pago: {{$order->orderStatus->name}}</p>
+                        @else
+                            <button>ver mi pedido</button>
+                        @endif
                     </div>
-                </div>
+                @else
+                    <div  class="mt-4 bg-gray-200 p-4 rounded">
+                        <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
+                        <p><strong>Alias:</strong> </p>
+                        <p><strong>CBU:</strong> </p>
+                        <p><strong>Nombre:</strong> </p>
+
+                        <div >
+                            <form action="{{route('comprobante.store')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <!-- Input de archivo oculto -->
+                                <input type="file" id="file" name="file" accept="image/*,*.pdf" />
+                                <input type="number" id="order_id" name="order_id" value="{{$order->id}}" class="hidden">
+                                <input type="number" id="dni" name="dni" placeholder="dni que figura en le comprobante">
+
+
+
+                                <!-- Botón para subir el comprobante -->
+                                <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
+                                    Subir Comprobante
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
             @endif
         </div>
@@ -89,19 +94,5 @@
                 </a>
             </div>
         </div>
-        <script>
-            function fileUpload() {
-                return {
-                    file: null,
-                    init() {
-                        this.file = null;
-                    },
-                    handleFileUpload(event) {
-                        this.file = event.target.files[0]; // Asignar el archivo seleccionado a la variable
-                        console.log(this.file); // Verificar si el archivo se selecciona correctamente
-                    }
-                }
-            }
-        </script>
     </div>
 @endsection

@@ -32,15 +32,15 @@ class OrderController extends Controller
         $order = Order::with('details.productItem', 'orderStatus')
             ->where('user_id', $user->id)
             ->findOrFail($id);
-        $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo
+        // $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo
 
-        if ($transferInfo) {
-            $alias = $transferInfo->alias; // Suponiendo que 'alias' existe
-            $cbu = $transferInfo->cbu; // Suponiendo que 'cbu' existe
-            $holder_name = $transferInfo->holder_name; // Suponiendo que 'name' existe
-        }
+        // if ($transferInfo) {
+        //     $alias = $transferInfo->alias; // Suponiendo que 'alias' existe
+        //     $cbu = $transferInfo->cbu; // Suponiendo que 'cbu' existe
+        //     $holder_name = $transferInfo->holder_name; // Suponiendo que 'name' existe
+        // }
 
-        return view('orders.show', compact('order', 'alias', 'cbu', 'holder_name' ));
+        return view('orders.show', compact('order'));
     }
 }
 
