@@ -232,7 +232,7 @@
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
                     @isset($cartItems)
                         <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">
-                            ${{ number_format($total, 2, ',', '.') }}</p>
+                            ${{ number_format(($total / 100) + $sendPrice, 2, ',', '.') }}</p>
                     @else
                         <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">NO DATA</p>
                     @endisset

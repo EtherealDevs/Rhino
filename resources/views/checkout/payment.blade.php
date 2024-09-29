@@ -5,24 +5,26 @@
     <script>
         const mp = new MercadoPago('TEST-72c541f1-18d2-4c49-9f44-d95167a37771');
         const bricksBuilder = mp.bricks();
+
+        var total = {{ $total }};
         var cart = {!! json_encode($cart) !!};
+        var shippingCosts = {{ $shippingCosts }};
+        var cartItems = {!! json_encode($cartItems) !!};
         var colors = {!! json_encode($colors) !!};
         var address = {!! json_encode($address) !!}
-        console.log(colors);
-        console.log(address);
-        console.log(address.province.name);
-        console.log(address.city.name);
-        console.log(address.zip_code.code);
         var contents = [];
         var prefId = "{{ $pref->id }}";
         var csrf = "{{ csrf_token() }}";
 
-        for (const element of cart.contents) {
+        const totalAmount = (cart.total / 100) + shippingCosts;
+        const formattedAmount = parseFloat(totalAmount).toFixed(2);
+
+        for (const element of cartItems) {
             var item = {
-                units: element.amount,
-                value: element.item.sale_price ? element.item.sale_price / 100 : element.item.original_price / 100,
-                name: element.item.product.name,
-                imageURL: element.item.images[0].url
+                units: element.units,
+                value: element.value,
+                name: element.name,
+                imageURL: element.imageURL
             }
             contents.push(item);
         }
@@ -39,13 +41,13 @@
                     /*
                      "amount" es el monto total a pagar por todos los medios de pago con excepción de la Cuenta de Mercado Pago y Cuotas sin tarjeta de crédito, las cuales tienen su valor de procesamiento determinado en el backend a través del "preferenceId"
                     */
-                    amount: cart.total / 100,
+                    amount: total,
                     items: {
                         totalItemsAmount: cart.total / 100,
                         itemsList: contents
                     },
                     shipping: { // opcional
-                        costs: 5, // opcional
+                        costs: shippingCosts, // opcional
                         shippingMode: "<SHIPPING_MODE>",
                         description: "<SHIPPING_DESCRIPTION>", // opcional
                         receiverAddress: {
@@ -92,25 +94,26 @@
                                 .then((response) => response.json())
                                 .then((response) => {
                                     console.log(response);
-                                    var payment;
-                                    console.log(payment);
-                                    var payment = response;
-                                    console.log(payment);
                                     // recibir el resultado del pago
                                     resolve();
-                                }).then((payment) => {
-                                    console.log(payment);
-                                    fetch("/payment/status", {
-                                        method: "POST",
-                                        headers: {
-                                            "Content-Type": "application/json",
-                                            "X-CSRF-TOKEN": csrf,
-                                        },
-                                        body: JSON.stringify(payment),
-                                    })
+                                    // Unmount the Payment Brick before navigating away
+                                    if (window.paymentBrickController) {
+                                        window.paymentBrickController.unmount();
+                                    }
+
+                                    // Redirect based on the payment result
+                                    if (response.status === "approved") {
+                                        window.location.href = "/payment/status/" + response.id
+                                    } else {
+                                        window.location.href = "/payment-failed";
+                                    }
                                 })
                                 .catch((error) => {
                                     // manejar la respuesta de error al intentar crear el pago
+                                    // Unmount the Payment Brick in case of an error
+                                    if (window.paymentBrickController) {
+                                        window.paymentBrickController.unmount();
+                                    }
                                     console.log(error);
                                     reject();
                                 });

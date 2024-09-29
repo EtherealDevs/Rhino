@@ -20,7 +20,7 @@ class DeliveryForm extends Component
     public $last_name;
 
     #[Validate]
-    public $number_phone;
+    public $phone_number;
 
     #[Validate]
     public $zip_code;

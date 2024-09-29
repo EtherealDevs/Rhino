@@ -97,13 +97,14 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/envio', [CartController::class, 'envio'])->name('cart.envio');
 Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.addItem');
 Route::post('/cartCombo', [CartController::class, 'addComboToCart'])->name('cart.addCombo');
-Route::delete('/cart/{item}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
+Route::delete('/cart/{cartItemId}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
 Route::delete('/cart', [CartController::class, 'dropCart'])->name('cart.dropCart');
 
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkout/delivery', [CheckoutController::class, 'showCheckoutDeliveryPage'])->name('checkout.delivery');
     Route::get('/checkout/payment', [CheckoutController::class, 'showCheckoutPaymentPage'])->name('checkout.payment');
+    Route::get('/payment/status/{id}', [CheckoutController::class, 'showPaymentStatusPage'])->name('checkout.payment.status');
     Route::post('checkout/delivery', [CheckoutController::class, 'validateAddressAndSaveToDatabase'])->name('checkout.delivery.address');
     Route::post('/process_payment', [CheckoutController::class, 'processPayment'])->name('checkout.processPayment');
 });

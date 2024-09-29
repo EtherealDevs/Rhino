@@ -40,7 +40,7 @@ class ShippingCost extends Component
     public $sucursal = null;
     public $cities = [];
     public $volume;
-    public $weigth;
+    public $weight;
     public $productItems;
     public $cartItems;
 
@@ -60,10 +60,9 @@ class ShippingCost extends Component
     {
         $code = Province::where('name', $this->province)->first();
         $code = ModelsZipCode::where('province_id', $code->id)->first();
-        $params = ['operativa' => 64665, 'peso' => 1, 'volumen' => 1, 'cP' => $this->zip_code, 'cPDes' => $code->code, 'cantidad' => 1, 'valor' => $this->total];
+        $params = ['operativa' => 64665, 'peso' => $this->weight, 'volumen' => $this->volume, 'cP' => 3400, 'cPDes' => $code->code, 'cantidad' => 1, 'valor' => $this->total / 100];
         $price = DeliveryServiceController::obtenerTarifas($params);
         $this->sendPrice = $price;
-        $this->total += $this->sendPrice;
     }
 
 
@@ -76,6 +75,7 @@ class ShippingCost extends Component
             $this->cartManager = new SessionCartManager();
         }
         $this->cartItems = $this->cartManager->getCartContents();
+        $this->total = $this->cartManager->getCartTotal();
 
         $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo
 
@@ -99,6 +99,7 @@ class ShippingCost extends Component
         }
         $this->productItems = ProductItem::all();
         if ($this->cartItems->isNotEmpty()) {
+            $itemCount = 0;
             foreach ($this->cartItems as $item) {
                 if ($item->type == CartItem::DEFAULT_TYPE) {
                     $itemModel = ProductItem::find($item->item_id);
@@ -106,10 +107,9 @@ class ShippingCost extends Component
                     $discount = $itemModel->product->sale->sale->discount ?? 0;
                     $price = $itemModel->price();
                     $priceDiscount = ($price * $discount) / 100;
-                    $this->total += ($price - $priceDiscount) * $itemQuantity;
                     $this->volume += $itemModel->product->volume;
-                    $this->weigth += $itemModel->product->weigth;
-                    $this->itemCount = $this->cartManager->countItems();
+                    $this->weight += $itemModel->product->weight;
+                    $itemCount += $itemQuantity;
                 } else if ($item->type == CartCombo::DEFAULT_TYPE) {
                     foreach ($item->contents as $cartItem) {
                         $itemModel = ProductItem::find($cartItem->item_id);
@@ -117,13 +117,13 @@ class ShippingCost extends Component
                         $discount = $itemModel->product->sale->sale->discount ?? 0;
                         $price = $itemModel->price();
                         $priceDiscount = ($price * $discount) / 100;
-                        $this->total += ($price - $priceDiscount) * $itemQuantity;
                         $this->volume += $itemModel->product->volume;
-                        $this->weigth += $itemModel->product->weigth;
-                        $this->itemCount = $this->cartManager->countItems();
+                        $this->weight += $itemModel->product->weight;
+                        $itemCount += $itemQuantity;
                     }
                 }
             }
+            $this->itemCount = $itemCount;
         }
     }
 

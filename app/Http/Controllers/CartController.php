@@ -17,6 +17,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use SimpleXMLElement;
 
 class CartController extends Controller
@@ -102,7 +104,9 @@ class CartController extends Controller
     }
     public function removeFromCart(Request $request)
     {
-
+        $request->validate([
+            'cartItemId' =>'required|string|alpha_num'
+        ]);
         $this->cartManager->removeItem($request->cartItemId);
         // $size = $request->size;
         // // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
@@ -125,10 +129,10 @@ class CartController extends Controller
     }
     public function updateFromCart(Request $request)
     {
-        // $request->validate([
-        //     'mode' => 'required|in:subtract,add,update',
-        //     'cartItemId' => 'required|numeric'
-        // ]);
+        $modes = ['add', 'subtract', 'update'];
+        $request->validate([
+            'mode' => ['required', Rule::in($modes)]
+        ]);
 
         $cartItemId = $request->cartItemId;
         //add, subtract, update
@@ -138,8 +142,18 @@ class CartController extends Controller
     }
     public function addComboToCart(Request $request)
     {
+        $comboIds = Combo::getAllComboIds();
+        $sizesToValidate = ['sizes' => json_decode($request->sizes, true)];
+        $availableSizes = Size::getSizesNames();
+        $rules = [
+            'sizes.*' => Rule::in($availableSizes),
+        ];
+        $validator = Validator::make($sizesToValidate, $rules);
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
         $request->validate([
-            'comboId' =>'required|numeric'
+            'comboId' => ['required', 'numeric', Rule::in($comboIds)]
         ]);
         $combo = Combo::where('id', $request->comboId)->first();
         $sizes = json_decode($request->sizes, true);

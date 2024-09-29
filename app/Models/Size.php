@@ -16,6 +16,10 @@ class Size extends Model
     {
         return $this->belongsToMany(ProductItem::class, 'products_sizes')->using(ProductSize::class)->withPivot('stock', 'id');
     }
+    public static function getSizesNames()
+    {
+        return Size::all()->pluck('name', 'id')->toArray();
+    }
 
 
 

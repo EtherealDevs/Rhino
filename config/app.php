@@ -125,5 +125,7 @@ return [
 
     'mp_access_token' => env('MERCADOPAGO_ACCESS_TOKEN'),
     'mp_access_token_test' => env('MERCADOPAGO_ACCESS_TOKEN_TEST'),
+    
+    'images_directory' => env('IMAGES_DIRECTORY'),
 
 ];

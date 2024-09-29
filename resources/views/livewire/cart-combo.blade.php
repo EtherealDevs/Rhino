@@ -147,10 +147,19 @@
                 </div>
 
                 <!-- Total OFF -->
-                <div class="col-span-1 lg:col-span-3 flex flex-col items-center justify-center">
+                <div class="col-span-1 lg:col-span-2 flex flex-col items-center justify-center">
                     <div class="text-sm text-slate-900">Total con Descuento</div>
                     <div class="text-xl font-extrabold text-green-500">
                         ${{ number_format($total / 100, 2, ',', '.') }}
+                    </div>
+                </div>
+                <!-- Cantidad -->
+                <div class="col-span-1 lg:col-span-1 flex flex-col items-center justify-center">
+                    <div class="text-sm text-slate-900">Cantidad</div>
+                    <div class="text-xl font-extrabold text-green-500">
+                    
+                        {{ $quantity }}
+                    
                     </div>
                 </div>
 
@@ -188,7 +197,7 @@
                             <div class="text-center">
                                 <p class="font-bold">Total</p>
                                 <p class="text-green-500 font-semibold">
-                                    ${{ number_format(($comboItem->item->price()* $quantity) / 100, 2, ',', '.')  }}
+                                    ${{ number_format(($comboItem->item->price() * $quantity) / 100, 2, ',', '.')  }}
                                 </p>
                             </div>
                         </div>
@@ -198,4 +207,20 @@
             </div>
         </div>
     </a>
+    <form method="POST" action="{{route('cart.updateItem', ['cartItemId' => $cartItemId])}}" class="inline">
+        @csrf
+        @method('post')
+        <input value="subtract" type="hidden" name="mode">
+        <button type="submit">
+            -
+        </button>
+    </form>
+    <form method="POST" action="{{route('cart.updateItem', ['cartItemId' => $cartItemId])}}" class="inline">
+        @csrf
+        @method('post')
+        <input value="add" type="hidden" name="mode">
+        <button type="submit">
+            +
+        </button>
+    </form>
 </div>

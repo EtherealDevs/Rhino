@@ -57,4 +57,8 @@ class Combo extends Model
         }
         return $sizesByMinStockValue;
     }
+    public static function getAllComboIds()
+    {
+        return Combo::all()->pluck('id');
+    }
 }

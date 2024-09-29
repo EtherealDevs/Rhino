@@ -47,6 +47,6 @@
 
         function confirmExit() {
             window.paymentBrickController.unmount()
-        } <
-        />
-    @endsection
+        }
+    </script>
+@endsection
