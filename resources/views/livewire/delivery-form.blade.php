@@ -11,12 +11,13 @@
     </div>
     <div
         class="relative min-h-screen flex items-center justify-center bg-center py-12 px-4 sm:px-6 lg:px-8 bg-transparent">
-        <div class="absolute inset-x-0 -top-40 z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+        <div class="absolute inset-x-0 -top-40 z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true">
             <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#0051ff] to-[#bb94b7] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                 style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
             </div>
         </div>
-        
+
         <div class="absolute bg-transparent inset-0 z-0"></div>
         <div class="max-w-md w-full space-y-8 p-10 bg-transparent rounded-xl shadow-lg z-30">
             <form method="POST" action="{{ route('checkout.delivery.address') }}" class="space-y-4">
@@ -142,6 +143,9 @@
             </div>
         </div>
 
+        <div>
+            @livewire('shipping-cost')
+        </div>
 
     </div>
     <!-- JavaScript para manejar el modal y rellenar los datos -->
@@ -156,19 +160,20 @@
 
             // Si elige "Sí", rellenar los campos
             autoFillYes.addEventListener('click', function() {
-                document.querySelector('input[name="name"]').value = "{{ $user->name }}";
-                document.querySelector('input[name="last_name"]').value = "{{ $user->last_name }}";
-                document.querySelector('input[name="phone_number"]').value = "{{ $user->phone_number }}";
-                document.querySelector('input[name="zip_code"]').value = "{{ $user->zip_code }}";
-                document.querySelector('input[name="province"]').value = "{{ $user->province }}";
-                document.querySelector('select[name="city"]').value = "{{ $user->city_id }}";
-                document.querySelector('input[name="address"]').value = "{{ $user->address }}";
-                document.querySelector('input[name="street"]').value = "{{ $user->street }}";
-                document.querySelector('input[name="number"]').value = "{{ $user->number }}";
-                document.querySelector('input[name="department"]').value = "{{ $user->department }}";
+                document.querySelector('input[name="name"]').value = "{{ $user->address->name }}";
+                document.querySelector('input[name="last_name"]').value = "{{ $user->address->last_name }}";
+                document.querySelector('input[name="phone_number"]').value = "{{ $user->address->phone_number }}";
+                document.querySelector('input[name="zip_code"]').value = "{{ $user->address->zip_code }}";
+                document.querySelector('select[name="city"]').value = "{{ $user->address->city_id }}";
+                document.querySelector('input[name="address"]').value = "{{ $user->address->address }}";
+                document.querySelector('input[name="street"]').value = "{{ $user->address->street }}";
+                document.querySelector('input[name="number"]').value = "{{ $user->address->number }}";
+                document.querySelector('input[name="department"]').value =
+                    "{{ $user->address->department }}";
 
                 autoFillModal.classList.add('hidden'); // Cerrar el modal
             });
+
 
             // Si elige "No", cerrar el modal
             autoFillNo.addEventListener('click', function() {

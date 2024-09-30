@@ -116,7 +116,8 @@
 
 
                     <!-- Paso 2: Selección del método de pago -->
-                    <div x-show="step === 2" class="w-full h-auto m-auto shadow-lg flex flex-col p-8 rounded-xl bg-white">
+                    <div x-show="step === 2"
+                        class="w-full h-auto m-auto shadow-lg flex flex-col p-8 rounded-xl bg-white">
                         <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago?</h2>
 
                         <div class="radio-section">
@@ -125,13 +126,15 @@
 
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
-                                    <input type="radio" id="mercado_pago" name="paymentMethod" x-model="paymentMethod" value="mercado_pago" />
+                                    <input type="radio" id="mercado_pago" name="paymentMethod" x-model="paymentMethod"
+                                        value="mercado_pago" />
                                     <label class="text-white" for="mercado_pago">Mercado Pago</label>
                                 </div>
 
                                 <!-- Radio Button Transferencia -->
                                 <div class="radio-item">
-                                    <input type="radio" id="transferencia" name="paymentMethod" x-model="paymentMethod" value="transferencia" />
+                                    <input type="radio" id="transferencia" name="paymentMethod"
+                                        x-model="paymentMethod" value="transferencia" />
                                     <label class="text-white" for="transferencia">Transferencia</label>
                                 </div>
                             </div>
@@ -149,7 +152,8 @@
                                 <input type="file" x-ref="fileInput" @change="handleFileUpload" class="hidden" />
 
                                 <!-- Botón para agregar comprobante de pago -->
-                                <button @click="$refs.fileInput.click()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
+                                <button @click="$refs.fileInput.click()"
+                                    class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
                                     Agregar Comprobante de Pago
                                 </button>
 
@@ -159,14 +163,16 @@
                                 </div>
 
                                 <!-- Botón para subir el comprobante -->
-                                <button x-show="file" @click="submitForm()" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
+                                <button x-show="file" @click="submitForm()"
+                                    class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
                                     Subir Comprobante
                                 </button>
                             </div>
                         </div>
 
                         <!-- Botón para avanzar sin necesidad de comprobante -->
-                        <button @click="step = 3" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
+                        <button @click="step = 3"
+                            class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
                             <p class="font-josefin text-lg text-white font-bold py-1 px-4">Continuar</p>
                         </button>
                     </div>
@@ -177,12 +183,54 @@
                     <!-- Paso 3: Confirmación -->
                     <div x-show="step === 3 || step === 4"
                         class="col-span-2 gap-4 bg-white p-6 rounded-2xl lg:mt-0 mt-6 flex flex-col items-start">
-                        <!-- Información para el envío -->
+                        <!-- Información seleccionada -->
                         <div class="w-full">
-                            <h2 class="text-2xl font-bold text-gray-800 mb-4">🎉 ¡Muy bien! Rellena tus datos para el
-                                envío 📦</h2>
-                            <p class="text-gray-600 mb-6">Asegúrate de que la información ingresada sea correcta para
-                                procesar tu pedido rápidamente. ✍️</p>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">🎉 ¡Resumen de tu selección!</h2>
+
+                            <!-- Resumen del método de envío -->
+                            <div class="mb-4">
+                                <h3 class="text-lg font-semibold text-gray-700">Método de Envío:</h3>
+                                <p class="text-gray-600"
+                                    x-text="selected === 'domicilio' ? 'Envío a Domicilio' : 'Envío a Sucursal'"></p>
+
+                                <!-- Mostrar detalles del envío a domicilio -->
+                                <div x-show="selected === 'domicilio'" class="mt-2">
+                                    <p class="text-gray-600"><strong>Provincia:</strong> <span
+                                            x-text="province"></span></p>
+                                    <p class="text-gray-600"><strong>Localidad:</strong> <span x-text="city"></span>
+                                    </p>
+                                    <p class="text-gray-600"><strong>Código Postal:</strong> <span
+                                            x-text="zip_code"></span></p>
+                                </div>
+
+                                <!-- Mostrar detalles del envío a sucursal -->
+                                <div x-show="selected === 'sucursal'" class="mt-2">
+                                    <p class="text-gray-600"><strong>Sucursal Seleccionada:</strong> <span
+                                            x-text="sucursal"></span></p>
+                                    <p class="text-gray-600"><strong>Código Postal:</strong> <span
+                                            x-text="zip_code"></span></p>
+                                </div>
+                            </div>
+
+                            <!-- Resumen del método de pago -->
+                            <div class="mb-4">
+                                <h3 class="text-lg font-semibold text-gray-700">Método de Pago:</h3>
+                                <p class="text-gray-600"
+                                    x-text="paymentMethod === 'mercado_pago' ? 'Mercado Pago' : 'Transferencia'"></p>
+
+                                <!-- Mostrar detalles de la transferencia -->
+                                <div x-show="paymentMethod === 'transferencia'" class="mt-2">
+                                    <p class="text-gray-600"><strong>Alias:</strong> {{ $alias }}</p>
+                                    <p class="text-gray-600"><strong>CBU:</strong> {{ $cbu }}</p>
+                                    <p class="text-gray-600"><strong>Nombre:</strong> {{ $holder_name }}</p>
+
+                                    <!-- Comprobante de pago -->
+                                    <div x-show="file" class="mt-2">
+                                        <p class="text-gray-600">Comprobante de pago: <span x-text="file.name"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Botón para realizar la compra -->
@@ -192,13 +240,11 @@
                                 class="flex items-center justify-center">
                                 <p class="text-white text-lg font-semibold font-josefin">
                                     <span
-                                        x-text="paymentMethod === 'transferencia' ? '💳 Rellenar datos' : '🛒 Rellenar datos'"></span>
+                                        x-text="paymentMethod === 'transferencia' ? '💳 Confirmar y pagar con transferencia' : '🛒 Confirmar y pagar con Mercado Pago'"></span>
                                 </p>
                             </a>
                         </button>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -253,8 +299,52 @@
     </div>
 
 
-
     <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('checkoutForm', () => ({
+                step: 1,
+                selected: 'domicilio',
+                paymentMethod: 'mercado_pago',
+                zip_code: '',
+                province: '',
+                city: '',
+                sucursal: '',
+                file: null,
+
+                init() {
+                    // Restaurar datos del localStorage si existen
+                    const storedData = JSON.parse(localStorage.getItem('checkoutForm'));
+                    if (storedData) {
+                        this.step = storedData.step || this
+                            .step; // Mantener el valor predeterminado si es null
+                        this.selected = storedData.selected || this.selected;
+                        this.paymentMethod = storedData.paymentMethod || this.paymentMethod;
+                        this.zip_code = storedData.zip_code || this.zip_code;
+                        this.province = storedData.province || this.province;
+                        this.city = storedData.city || this.city;
+                        this.sucursal = storedData.sucursal || this.sucursal;
+                    }
+                },
+
+                saveToLocalStorage() {
+                    const data = {
+                        step: this.step,
+                        selected: this.selected,
+                        paymentMethod: this.paymentMethod,
+                        zip_code: this.zip_code,
+                        province: this.province,
+                        city: this.city,
+                        sucursal: this.sucursal,
+                    };
+                    localStorage.setItem('checkoutForm', JSON.stringify(data));
+                },
+
+                handleStepChange() {
+                    this.saveToLocalStorage(); // Guarda los datos en localStorage cuando cambie de paso
+                }
+            }));
+        });
+
         function shippingForm() {
             return {
                 selected: 'domicilio',
@@ -263,8 +353,8 @@
                 ciudad: '',
                 direccion: '',
                 codigoPostal: '3400',
-                codigoPostalDestino: document.querySelector('input[name='
-                    zip_code ']').value,
+                codigoPostalDestino: document.querySelector('input[name="zip_code"]')
+                    .value, // Asegúrate de que este input existe
                 sucursal: '',
                 costoEnvio: null,
 
@@ -273,7 +363,7 @@
                     params.append('cpOrigen', this.codigoPostal);
                     params.append('cpDestino', this.codigoPostalDestino || this.codigoPostal);
                     params.append('provinciaOrigen', this.provinciaOrigen);
-                    params.append('provinciaDestino', this.provinciaOrigen);
+                    params.append('provinciaDestino', this.provinciaDestino); // Corrige esta línea
                     params.append('peso', 5); // Puedes ajustar el peso según tus necesidades
 
                     try {
@@ -281,8 +371,8 @@
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
-                                'x-rapidapi-host: correo-argentino1.p.rapidapi.com',
-                                'x-rapidapi-key: a9bb5c690fmsh972c811eb4e482dp11ea44jsna844bc397594'
+                                'x-rapidapi-host': 'correo-argentino1.p.rapidapi.com', // Corrige esta línea
+                                'x-rapidapi-key': 'a9bb5c690fmsh972c811eb4e482dp11ea44jsna844bc397594'
                             },
                             body: params.toString()
                         });
@@ -297,73 +387,84 @@
             }
         }
     </script>
+
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300;400;700&display=swap");
 
 
-.radio-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto; /* Cambiado para que se ajuste al contenido */
-    margin-bottom: 20px; /* Espaciado entre el título y los botones de radio */
-}
-h1 {
-    margin-bottom: 20px;
-}
-.radio-item [type="radio"] {
-    display: none;
-}
-.radio-item + .radio-item {
-    margin-top: 15px;
-}
-.radio-item label {
-    display: block;
-    padding: 20px 60px;
-    background: #1d1d42;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 400;
-    min-width: 250px;
-    white-space: nowrap;
-    position: relative;
-    transition: 0.4s ease-in-out 0s;
-}
-.radio-item label:after,
-.radio-item label:before {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-}
-.radio-item label:after {
-    height: 19px;
-    width: 19px;
-    border: 2px solid #524eee;
-    left: 19px;
-    top: calc(50% - 12px);
-}
-.radio-item label:before {
-    background: #524eee;
-    height: 20px;
-    width: 20px;
-    left: 21px;
-    top: calc(50% - 5px);
-    transform: scale(5);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.4s ease-in-out 0s;
-}
-.radio-item [type="radio"]:checked ~ label {
-    border-color: #524eee;
-}
-.radio-item [type="radio"]:checked ~ label::before {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-}
+        .radio-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            /* Cambiado para que se ajuste al contenido */
+            margin-bottom: 20px;
+            /* Espaciado entre el título y los botones de radio */
+        }
 
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .radio-item [type="radio"] {
+            display: none;
+        }
+
+        .radio-item+.radio-item {
+            margin-top: 15px;
+        }
+
+        .radio-item label {
+            display: block;
+            padding: 20px 60px;
+            background: #1d1d42;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 400;
+            min-width: 250px;
+            white-space: nowrap;
+            position: relative;
+            transition: 0.4s ease-in-out 0s;
+        }
+
+        .radio-item label:after,
+        .radio-item label:before {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .radio-item label:after {
+            height: 19px;
+            width: 19px;
+            border: 2px solid #524eee;
+            left: 19px;
+            top: calc(50% - 12px);
+        }
+
+        .radio-item label:before {
+            background: #524eee;
+            height: 20px;
+            width: 20px;
+            left: 21px;
+            top: calc(50% - 5px);
+            transform: scale(5);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s ease-in-out 0s;
+        }
+
+        .radio-item [type="radio"]:checked~label {
+            border-color: #524eee;
+        }
+
+        .radio-item [type="radio"]:checked~label::before {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
     </style>
 
 </div>

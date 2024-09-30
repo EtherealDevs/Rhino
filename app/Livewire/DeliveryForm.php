@@ -61,16 +61,29 @@ class DeliveryForm extends Component
     public function mount(User $user)
     {
         $this->user = $user;
-        
-        $this->fill($user);
+
         if ($user->address != null) {
+            $this->fill([
+                'name' => $user->address->name,
+                'last_name' => $user->address->last_name,
+                'phone_number' => $user->address->phone_number,
+                'zip_code' => $user->address->zip_code,
+                'address' => $user->address->address,
+                'street' => $user->address->street,
+                'number' => $user->address->number,
+                'department' => $user->address->department,
+                'street1' => $user->address->street1,
+                'street2' => $user->address->street2,
+                'observation' => $user->address->observation,
+            ]);
+
             $this->zip_code = $user->address->zipCode->code;
-            $this->cities = City::where('province_id', $user->address->province->id)->get()->sortBy('name');
             $this->province = $user->address->province->name;
             $this->city = $user->address->city_id;
-            $this->fill($user->address->only('name', 'last_name','phone_number' , 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
+            $this->cities = City::where('province_id', $user->address->province_id)->get()->sortBy('name');
         }
     }
+
 
     public function rules()
     {
@@ -121,7 +134,7 @@ class DeliveryForm extends Component
     public function fillFormWithUserData()
     {
         $this->fill($this->user->only('name', 'last_name', 'phone_number', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
-        
+
         if ($this->user->address) {
             $this->zip_code = $this->user->address->zipCode->code;
             $this->province = $this->user->address->province->name;
