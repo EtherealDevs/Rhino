@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 class OrderDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_id', 'product_item_id', 'amount', 'price'];
+    protected $fillable = ['order_id', 'variation_id', 'amount', 'price'];
 
     /**
      * Get the order that owns the OrderDetail.
@@ -23,8 +25,15 @@ class OrderDetail extends Model
     /**
      * Get the product item associated with the OrderDetail.
      */
-    public function productItem(): BelongsTo
+    public function productItem()
     {
-        return $this->belongsTo(ProductItem::class, 'product_item_id');
+        $variation = DB::table('products_sizes')->find($this->variation_id);
+        $item = ProductItem::find($variation->product_item_id);
+        return $item;
+    }
+    public function itemVariation()
+    {
+        $variation = DB::table('products_sizes')->find($this->variation_id);
+        return $variation;
     }
 }

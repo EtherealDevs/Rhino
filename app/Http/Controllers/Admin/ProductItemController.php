@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
+use App\Models\ProductSize;
 use App\Models\ProductsSize;
 use App\Models\Size;
 use Illuminate\Http\Request;
@@ -43,11 +44,7 @@ class ProductItemController extends Controller
             'sale_price' => $request->sale_price,
         ]);
 
-        ProductsSize::create([
-            'product_item_id' => $product_item->id,
-            'size_id' => $request->size_id,
-            'stock' => $request->stock,
-        ]);
+        $product_item->sizes()->attach($request->size_id, ['stock' => $request->stock]);
 
         // Verifica si se han subido imágenes
         if ($request->hasFile('images')) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductsSize;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
@@ -24,7 +25,7 @@ class StockController extends Controller
     }
 
     public function store(Request $request){
-        $product_size= ProductsSize::where('product_item_id',$request->product_id)->where('size_id',$request->size_id)->first();
+        $product_size= DB::table('products_sizes')->where('product_item_id',$request->product_id)->where('size_id',$request->size_id)->first();
         $product_size->update([
             'stock' => $request->stock,
         ]);

@@ -3,10 +3,12 @@
 @section('content')
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script>
-        const mp = new MercadoPago('TEST-72c541f1-18d2-4c49-9f44-d95167a37771');
+        const clientToken = "{!! $clientToken !!}";
+        const mp = new MercadoPago(clientToken);
         const bricksBuilder = mp.bricks();
 
         var total = {{ $total }};
+        var cartTotal = {{ $cartTotal }};
         var cart = {!! json_encode($cart) !!};
         var shippingCosts = {{ $shippingCosts }};
         var cartItems = {!! json_encode($cartItems) !!};
@@ -15,9 +17,6 @@
         var contents = [];
         var prefId = "{{ $pref->id }}";
         var csrf = "{{ csrf_token() }}";
-
-        const totalAmount = (cart.total / 100) + shippingCosts;
-        const formattedAmount = parseFloat(totalAmount).toFixed(2);
 
         for (const element of cartItems) {
             var item = {
@@ -28,7 +27,6 @@
             }
             contents.push(item);
         }
-        console.log(contents);
     </script>
 
 
@@ -43,7 +41,7 @@
                     */
                     amount: total,
                     items: {
-                        totalItemsAmount: cart.total / 100,
+                        totalItemsAmount: cartTotal,
                         itemsList: contents
                     },
                     shipping: { // opcional
@@ -102,11 +100,7 @@
                                     }
 
                                     // Redirect based on the payment result
-                                    if (response.status === "approved") {
-                                        window.location.href = "/payment/status/" + response.id
-                                    } else {
-                                        window.location.href = "/payment-failed";
-                                    }
+                                    window.location.href = "/payment/status/" + response.id + "?" + "address_id={{$address->id}}" + "?delivery_id={{$delivery_service_id}}";
                                 })
                                 .catch((error) => {
                                     // manejar la respuesta de error al intentar crear el pago
@@ -116,6 +110,7 @@
                                     }
                                     console.log(error);
                                     reject();
+                                    window.location.href = "/checkout/payment/";
                                 });
                         });
                     },
@@ -138,23 +133,23 @@
         renderPaymentBrick(bricksBuilder);
     </script>
     <script type="text/javascript">
-        window.onbeforeunload = confirmExit;
+    window.onbeforeunload = confirmExit;
 
-        function confirmExit() {
-            window.paymentBrickController.unmount()
-        }
-        document.addEventListener('paymentComplete', (event) => 
-        {
-          console.log(event.detail.id);
-          fetch(`/payment/status/${event.detail.id}`, {
-                  method: "GET",
-                  headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": csrf,
-                  },
-                })
-          
-        }
-      )
+function confirmExit() {
+    window.paymentBrickController.unmount()
+}
+document.addEventListener('paymentComplete', (event) => 
+{
+  console.log(event.detail.id);
+  fetch(`/payment/status/${event.detail.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": csrf,
+          },
+        })
+  
+}
+)
       </script>
 @endsection

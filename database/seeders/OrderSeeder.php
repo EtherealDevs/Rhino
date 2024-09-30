@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-
+use App\Models\DeliveryService;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\OrderStatus;
 use App\Models\PaymentMethod;
 use App\Models\ProductItem;
 use App\Models\User;
@@ -19,101 +20,31 @@ class OrderSeeder extends Seeder
 {
     public function run()
     {
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 9; $i++) {
+            $user = User::inRandomOrder()->first();
             $order = Order::create([
-                'user_id' => User::all()->random(1)->first()->id,
-                'payment_method_id' => PaymentMethod::all()->random(1)->first()->id,
+                'user_id' => $user->id,
+                'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
                 'total' => null,
-                'delivery_service_id' => null,
-                'delivery_price' => null,
-                'address_id' => null,
-                'order_status_id' => 1, // Asigna un valor predeterminado
+                'delivery_service_id' => DeliveryService::inRandomOrder()->first()->id,
+                'delivery_price' => rand(1000, 10000),
+                'address_id' => $user->addresses->random()->id,
+                'order_status_id' => OrderStatus::inRandomOrder()->first()->id, // Asigna un valor predeterminado
             ]);
 
-            $item = ProductItem::all()->random(1)->first();
-            $orderDetail = OrderDetail::create([
-                'order_id' => $order->id,
-                'product_item_id' => $item->id,
-                'amount' => rand(1, 5),
-                'price' => $item->price()
-            ]);
-
-            $order->update([
-                'total' => $orderDetail->amount * $orderDetail->price,
-            ]);
+            $items = ProductItem::inRandomOrder()->limit(rand(1, 4))->get();
+            $subTotal = 0;
+            foreach ($items as $key => $value) {
+                $orderDetail = OrderDetail::create([
+                    'order_id' => $order->id,
+                    'variation_id' => $value->getItemPivotModel(rand(1, 2))->id,
+                    'amount' => rand(1, 3),
+                    'price' => $value->price()
+                ]);
+                $subTotal += $orderDetail->price * $orderDetail->amount;
+            }
+            $order->total = $subTotal;
+            $order->save();
         }
-
-        for ($i = 0; $i < 3; $i++) {
-            $order = Order::create([
-                'user_id' => User::all()->random(1)->first()->id,
-                'payment_method_id' => PaymentMethod::all()->random(1)->first()->id,
-                'total' => null,
-                'delivery_service_id' => null,
-                'delivery_price' => null,
-                'address_id' => null,
-                'order_status_id' => 1, // Asigna un valor predeterminado
-            ]);
-
-            $item = ProductItem::all()->random(1)->first();
-            $orderDetail = OrderDetail::create([
-                'order_id' => $order->id,
-                'product_item_id' => $item->id,
-                'amount' => rand(1, 5),
-                'price' => $item->price()
-            ]);
-
-            $order->update([
-                'total' => $orderDetail->amount * $orderDetail->price,
-            ]);
-        }
-
-        for ($i = 0; $i < 3; $i++) {
-            $order = Order::create([
-                'user_id' => User::all()->random(1)->first()->id,
-                'payment_method_id' => PaymentMethod::all()->random(1)->first()->id,
-                'total' => null,
-                'delivery_service_id' => null,
-                'delivery_price' => null,
-                'address_id' => null,
-                'order_status_id' => 1, // Asigna un valor predeterminado
-            ]);
-
-            $item = ProductItem::all()->random(1)->first();
-            $orderDetail = OrderDetail::create([
-                'order_id' => $order->id,
-                'product_item_id' => $item->id,
-                'amount' => rand(1, 5),
-                'price' => $item->price()
-            ]);
-
-            $order->update([
-                'total' => $orderDetail->amount * $orderDetail->price,
-            ]);
-        }
-
-        for ($i = 0; $i < 3; $i++) {
-            $order = Order::create([
-                'user_id' => User::all()->random(1)->first()->id,
-                'payment_method_id' => PaymentMethod::all()->random(1)->first()->id,
-                'total' => null,
-                'delivery_service_id' => null,
-                'delivery_price' => null,
-                'address_id' => null,
-                'order_status_id' => 1, // Asigna un valor predeterminado
-            ]);
-
-            $item = ProductItem::all()->random(1)->first();
-            $orderDetail = OrderDetail::create([
-                'order_id' => $order->id,
-                'product_item_id' => $item->id,
-                'amount' => rand(1, 5),
-                'price' => $item->price()
-            ]);
-
-            $order->update([
-                'total' => $orderDetail->amount * $orderDetail->price,
-            ]);
-        }
-    }
 }
-
+}

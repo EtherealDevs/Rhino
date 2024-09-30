@@ -125,7 +125,11 @@ return [
 
     'mp_access_token' => env('MERCADOPAGO_ACCESS_TOKEN'),
     'mp_access_token_test' => env('MERCADOPAGO_ACCESS_TOKEN_TEST'),
-    
+    'mp_client_token_test' => env('MERCADOPAGO_CLIENT_TOKEN_TEST'),
+
     'images_directory' => env('IMAGES_DIRECTORY'),
+    'delivery_service' => [
+        'origin_zipcode' => env('DELIVERY_SERVICE_ORIGIN_ZIPCODE')
+    ]
 
 ];

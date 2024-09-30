@@ -18,8 +18,8 @@ class ShippingService
         $cartContents = $cartManager->getCartContents();
         $total = 0;
         $itemCount = 0;
-        $volume = 0;
-        $weight = 0;
+        $volume = (float) 0;
+        $weight = (float) 0;
         $cartItems = $cartContents;
         if ($cartItems->isNotEmpty()) {
             $itemCount = 0;
@@ -52,7 +52,7 @@ class ShippingService
 
         $province = Province::where('id', $address->province->id)->first();
         $code = ZipCode::where('province_id', $province->id)->first();
-        $params = ['operativa' => 64665, 'peso' => $weight, 'volumen' => $volume, 'cP' => 3400, 'cPDes' => 1200, 'cantidad' => 1, 'valor' => $total / 100];
+        $params = ['operativa' => 64665, 'peso' => $weight, 'volumen' => $volume, 'cP' => (int) config('app.delivery_service.origin_zipcode'), 'cPDes' => 1200, 'cantidad' => 1, 'valor' => (int) ($total / 100)];
         $price = DeliveryServiceController::obtenerTarifas($params);
         return (float) $price;
     }

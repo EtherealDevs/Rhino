@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\ProductsSize;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -26,7 +27,7 @@ class AdminController extends Controller
             ->sum('total');
 
         $deliveredOrdersCount = Order::where('order_status_id', 4)->count();
-        $totalStock = ProductsSize::sum('stock');
+        $totalStock = DB::table('products_sizes')->sum('stock');
 
         return view('admin.index', compact('user', 'pendingOrders', 'totalGanancias', 'pendingOrdersCount', 'deliveredOrdersCount', 'totalStock'));
     }
