@@ -1,14 +1,5 @@
 <div>
-    <div id="autoFillModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-lg font-bold">¿Quieres rellenar con tus datos?</h2>
-            <p class="text-gray-600">Podemos rellenar los campos con la información que ya tenemos guardada.</p>
-            <div class="mt-4 flex justify-end space-x-4">
-                <button id="autoFillNo" class="bg-red-400 text-white px-4 py-2 rounded-lg">No</button>
-                <button id="autoFillYes" class="bg-green-400 text-white px-4 py-2 rounded-lg">Sí</button>
-            </div>
-        </div>
-    </div>
+
     <div
         class="relative min-h-screen flex items-center justify-center bg-center py-12 px-4 sm:px-6 lg:px-8 bg-transparent">
         <div class="absolute inset-x-0 -top-40 z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -20,6 +11,16 @@
 
         <div class="absolute bg-transparent inset-0 z-0"></div>
         <div class="max-w-md w-full space-y-8 p-10 bg-transparent rounded-xl shadow-lg z-30">
+            <div id="autoFillModal" class="flex items-center justify-center z-50 hidden">
+                <div class="bg-transparent ring-1 ring-slate-50 h-full p-6 rounded-lg shadow-lg">
+                    <h2 class="text-lg font-bold">¿Quieres rellenar con tus datos?</h2>
+                    <p class="text-gray-600">Podemos rellenar los campos con la información que ya tenemos guardada.</p>
+                    <div class="mt-4 flex justify-end space-x-4">
+                        <button id="autoFillNo" class="bg-blue-600 text-white px-4 py-2 rounded-full">Rellenar nueva info</button>
+                        <button id="autoFillYes" class="bg-blue-600 text-white px-4 py-2 rounded-full">Sí</button>
+                    </div>
+                </div>
+            </div>
             <form method="POST" action="{{ route('checkout.delivery.address') }}" class="space-y-4">
                 @method('POST')
                 @csrf
@@ -144,7 +145,7 @@
         </div>
 
         <div>
-            @livewire('shipping-cost')
+            @livewire('resume')
         </div>
 
     </div>

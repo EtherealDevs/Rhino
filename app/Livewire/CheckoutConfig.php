@@ -1,28 +1,27 @@
 <?php
 
+
 namespace App\Livewire;
 
-use App\Http\Cart\CartCombo;
-use App\Http\Cart\CartItem;
 use Livewire\Component;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
-use App\Http\Cart\CartManager;
-use App\Http\Cart\SessionCartManager;
-use App\Http\Controllers\DeliveryServiceController;
-use App\Models\Cart;
-use App\Models\ProductItem;
-use Illuminate\Support\Facades\Auth;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\ZipCode;
 use Livewire\Attributes\Validate;
+use App\Http\Controllers\DeliveryServiceController;
 use App\Models\TransferInfo;
+use App\Models\ProductItem;
+use App\Http\Cart\CartManager;
+use App\Http\Cart\SessionCartManager;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Cart\CartCombo;
+use App\Http\Cart\CartItem;
+use App\Models\Cart;
 
-class ShippingCost extends Component
+class CheckoutConfig extends Component
 {
     protected $cartManager;
     protected $cartContents;
@@ -39,22 +38,52 @@ class ShippingCost extends Component
     public $selectedCity = null;
     public $sucursal = null;
     public $cities = [];
-    public $volume;
-    public $weight;
+    public $city;
+    public $itemCount;
     public $productItems;
     public $cartItems;
 
-    public $itemCount;
-
-    public $city;
+    public $volume;
+    public $weight;
     public $sendPrice = 0;
     #[Validate]
     public $address;
-    // ShippingCost.php
 
     public $alias;
     public $cbu;
     public $holder_name;
+
+
+    public function rules()
+    {
+        return [
+            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode],
+            'province' => 'required',
+            'city' => 'required',
+            'address' => 'required|string',
+        ];
+    }
+
+    public function updatedSelectedProvince($provinceName)
+    {
+        $provinceId = Province::where('name', '=', $provinceName);
+        $this->province = $provinceId;
+        $this->cities = City::where('province_id', $provinceId)->get()->sortBy('name');
+        $this->selectedCity = null; // Reset city selection when province changes
+        $this->city = null; // Reset city when province changes
+    }
+
+    public function updatedZipCode($zipCode)
+    {
+        $this->validate([
+            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode]
+        ]);
+        $zipCodeModel = ModelsZipCode::where('code', '=', $zipCode)->first();
+        $this->province = $zipCodeModel->province->name;
+        $this->selectedCity = null; // Reset city selection when province changes
+        $this->city = null; // Reset city when province changes
+        $this->cities = City::where('province_id', $zipCodeModel->province->id)->get()->sortBy('name');
+    }
 
     public function updatedSendPrice($house)
     {
@@ -63,9 +92,20 @@ class ShippingCost extends Component
         $params = ['operativa' => 64665, 'peso' => $this->weight, 'volumen' => $this->volume, 'cP' => 3400, 'cPDes' => $code->code, 'cantidad' => 1, 'valor' => $this->total / 100];
         $price = DeliveryServiceController::obtenerTarifas($params);
         $this->sendPrice = $price;
+
+        $this->dispatch('sendPriceUpdated', $this->sendPrice);
     }
 
+    public function updatedSucursal()
+    {
+        $this->updatedSendPrice(false);
+    }
 
+    public function updatedCity($cityId)
+    {
+        $this->city = $cityId;
+        $this->updatedSendPrice(true);
+    }
 
     public function mount(User $user)
     {
@@ -77,17 +117,7 @@ class ShippingCost extends Component
         $this->cartItems = $this->cartManager->getCartContents();
         $this->total = $this->cartManager->getCartTotal();
 
-        $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo
-
-        if ($transferInfo) {
-            $this->alias = $transferInfo->alias; // Suponiendo que 'alias' existe
-            $this->cbu = $transferInfo->cbu; // Suponiendo que 'cbu' existe
-            $this->holder_name = $transferInfo->holder_name; // Suponiendo que 'name' existe
-        }
-
-        $this->fill(
-            $user
-        );
+        $this->fill($user);
         if ($user->address != null) {
             $this->zip_code = $user->address->zipCode->code;
             $this->cities = City::where('province_id', $user->address->province->id)->get()->sortBy('name');
@@ -97,6 +127,7 @@ class ShippingCost extends Component
                 $user->address->only('name', 'last_name', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'),
             );
         }
+        $this->productItems = ProductItem::all();
         $this->productItems = ProductItem::all();
         if ($this->cartItems->isNotEmpty()) {
             $itemCount = 0;
@@ -127,51 +158,8 @@ class ShippingCost extends Component
         }
     }
 
-    public function rules()
-    {
-        return [
-            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode],
-            'province' => 'required',
-            'city' => 'required',
-            'address' => 'required|string',
-        ];
-    }
-
-    public function updatedZipCode($zipCode)
-    {
-        $this->validate([
-            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode]
-        ]);
-        $zipCodeModel = ModelsZipCode::where('code', '=', $zipCode)->first();
-        $this->province = $zipCodeModel->province->name;
-        $this->selectedCity = null; // Reset city selection when province changes
-        $this->city = null; // Reset city when province changes
-        $this->cities = City::where('province_id', $zipCodeModel->province->id)->get()->sortBy('name');
-    }
-    public function updatedSelectedProvince($provinceName)
-    {
-        $provinceId = Province::where('name', '=', $provinceName);
-        $this->province = $provinceId;
-        $this->cities = City::where('province_id', $provinceId)->get()->sortBy('name');
-        $this->selectedCity = null; // Reset city selection when province changes
-        $this->city = null; // Reset city when province changes
-
-    }
-
-
-    public function updatedSucursal()
-    {
-        $this->updatedSendPrice(false);
-    }
-    public function updatedCity($cityId)
-    {
-        $this->city = $cityId;
-        $this->updatedSendPrice(true);
-    }
-
     public function render()
     {
-
-        return view('livewire.shipping-cost');
+        return view('livewire.checkout-config');
     }
 }

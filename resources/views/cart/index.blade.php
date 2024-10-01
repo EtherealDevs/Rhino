@@ -4,7 +4,19 @@
         <div class="col-span-12 lg:col-span-7 bg-transparent py-10 px-6 sm:px-8 lg:px-12 items-center">
             <div class="p-4 bg-transparent rounded-lg items-center sm:p-8">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold font-josefin text-4xl sm:text-xl lg:text-5xl">Mi Carrito</h3>
+                    <div class="">
+                        <h3 class="font-bold font-josefin text-4xl sm:text-xl lg:text-5xl">Mi Carrito</h3>
+                    </div>
+
+                    <div class="">
+                        <form method="POST" action="{{ route('cart.dropCart') }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="w-full sm:w-auto bg-[#f84e4e] rounded-lg mt-2 sm:mt-0">
+                                <p class="font-josefin text-lg text-white font-bold py-1 px-4">Eliminar Lista</p>
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="flow-root">
                     @session('failure')
@@ -39,7 +51,7 @@
 
         <div
             class="col-span-12 lg:col-span-5 lg:h-screen flex lg:sticky left-0 top-16 lg:space-y-10 items-center lg:content-center">
-            @livewire('shipping-cost', ['cartTotal' => $cartTotal])
+            @livewire('checkout-config', ['cartTotal' => $cartTotal])
         </div>
 
         <script>

@@ -48,6 +48,7 @@
                                             wire:model.blur="zip_code"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
                                     </div>
+
                                     <div class="col-span-1">
                                         <label for="province" class="text-xs font-semibold py-2">Provincia</label>
                                         <input name="province" type="text" readonly wire:model.live="province"
@@ -83,6 +84,14 @@
                                             </div>
                                         @enderror
                                     </div>
+
+                                    <!-- Mostrar el precio de envío -->
+                                    <div class="col-span-2">
+                                        <label class="text-xs font-semibold py-2">Precio de Envío</label>
+                                        <input type="text" readonly value="{{ $sendPrice }}"
+                                            class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -143,9 +152,9 @@
                         <!-- Información para Transferencia -->
                         <div x-show="paymentMethod === 'transferencia'" class="mt-4 bg-gray-200 p-4 rounded">
                             <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
-                            <p><strong>Alias:</strong> {{ $alias }}</p>
+                            {{-- <p><strong>Alias:</strong> {{ $alias }}</p>
                             <p><strong>CBU:</strong> {{ $cbu }}</p>
-                            <p><strong>Nombre:</strong> {{ $holder_name }}</p>
+                            <p><strong>Nombre:</strong> {{ $holder_name }}</p> --}}
 
                             <div x-data="fileUpload()" x-init="init()">
                                 <!-- Input de archivo oculto -->
@@ -176,9 +185,6 @@
                             <p class="font-josefin text-lg text-white font-bold py-1 px-4">Continuar</p>
                         </button>
                     </div>
-
-
-
 
                     <!-- Paso 3: Confirmación -->
                     <div x-show="step === 3 || step === 4"
@@ -218,7 +224,7 @@
                                 <p class="text-gray-600"
                                     x-text="paymentMethod === 'mercado_pago' ? 'Mercado Pago' : 'Transferencia'"></p>
 
-                                <!-- Mostrar detalles de la transferencia -->
+                                {{-- <!-- Mostrar detalles de la transferencia -->
                                 <div x-show="paymentMethod === 'transferencia'" class="mt-2">
                                     <p class="text-gray-600"><strong>Alias:</strong> {{ $alias }}</p>
                                     <p class="text-gray-600"><strong>CBU:</strong> {{ $cbu }}</p>
@@ -229,7 +235,7 @@
                                         <p class="text-gray-600">Comprobante de pago: <span x-text="file.name"></span>
                                         </p>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -251,51 +257,8 @@
 
     </div>
 
-    <div
-        class="mt-0 lg:mt-12 translate-x-0 translate-y-0 lg:translate-x-2 lg:translate-y-2 rounded-none lg:rounded-3xl bg-slate-900/30 w-full lg:w-11/12">
-        <div
-            class="rounded-none lg:rounded-3xl lg:-translate-x-2 lg:-translate-y-2 bg-gradient-to-b via-[#2E3366] from-[#273053] to-[#343678]">
-            <div class="grid lg:grid-cols-6 grid-cols-1 p-6">
-                <div class="col-span-2">
-                    <ul class="items-center">
-                        <li class="font-josefin font-bold text-lg text-[#A3B7FF]">Productos: <span
-                                class="text-white text-lg">
-                                @isset($cartItems)
-                                    {{ $itemCount }}
-                                @endisset
-                            </span></li>
-                        <li class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de
-                            Envío: <span class="text-white text-lg">
-                                @if ($sendPrice)
-                                    ${{ number_format($sendPrice, 2, ',', '.') }}
-                                @endif
-                            </span></li>
-
-                    </ul>
-                </div>
-                <div class="col-span-2 grid grid-rows-2 ml-2">
-
-                    <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
-                    @isset($cartItems)
-                        <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">
-                            ${{ number_format(($total / 100) + $sendPrice, 2, ',', '.') }}</p>
-                    @else
-                        <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">NO DATA</p>
-                    @endisset
-                </div>
-
-                <div class="col-span-2">
-                    <form method="POST" action="{{ route('cart.dropCart') }}">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="w-full sm:w-auto bg-[#f84e4e] rounded-lg mt-2 sm:mt-0">
-                            <p class="font-josefin text-lg text-white font-bold py-1 px-4">Eliminar Lista</p>
-                        </button>
-                    </form>
-                </div>
-
-            </div>
-        </div>
+    <div>
+        @livewire('resume', ['sendPrice' => $sendPrice])
     </div>
 
 
