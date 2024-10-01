@@ -9,9 +9,13 @@ use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\ZipCode;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
+use App\Models\Address;
+use Illuminate\Support\Facades\Auth;
 
 class DeliveryForm extends Component
 {
+    public $addresses;
+    public $selectedAddressId;
     public $user;
     #[Validate]
     public $name;
@@ -61,6 +65,11 @@ class DeliveryForm extends Component
     public function mount(User $user)
     {
         $this->user = $user;
+          // Obtener las direcciones del usuario autenticado
+          $this->addresses = Address::where('user_id', Auth::id())->get();
+
+          // Inicialmente, no seleccionamos ninguna dirección
+          $this->selectedAddressId = null;
 
         if ($user->address != null) {
             $this->fill([
@@ -153,6 +162,7 @@ class DeliveryForm extends Component
     {
         return view('livewire.delivery-form', [
             'showConfirmationModal' => $this->showConfirmationModal,
+            'addresses' => $this->addresses,
         ]);
     }
 }
