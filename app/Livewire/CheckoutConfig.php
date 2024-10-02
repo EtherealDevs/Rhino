@@ -25,6 +25,7 @@ class CheckoutConfig extends Component
 {
     protected $cartManager;
     protected $cartContents;
+    public $house=0;
 
     public $user;
     #[Validate]
@@ -52,6 +53,7 @@ class CheckoutConfig extends Component
     public $alias;
     public $cbu;
     public $holder_name;
+    public $sucursales;
 
 
     public function rules()
@@ -83,9 +85,10 @@ class CheckoutConfig extends Component
         $this->selectedCity = null; // Reset city selection when province changes
         $this->city = null; // Reset city when province changes
         $this->cities = City::where('province_id', $zipCodeModel->province->id)->get()->sortBy('name');
+        $this->sucursales=DeliveryServiceController::obtenerSucursales($zipCode);
     }
 
-    public function updatedSendPrice($house)
+    public function updatedSendPrice()
     {
         $code = Province::where('name', $this->province)->first();
         $code = ModelsZipCode::where('province_id', $code->id)->first();

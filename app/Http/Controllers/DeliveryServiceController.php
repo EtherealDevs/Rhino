@@ -39,4 +39,21 @@ class DeliveryServiceController extends Controller
 
         return $response->throw();
     }
+
+    public static function obtenerSucursales($cp){
+        $response = Http::get("http://webservice.oca.com.ar/epak_tracking/Oep_TrackEPak.asmx/GetCentrosImposicionConServiciosByCP", [
+            'CodigoPostal' => $cp,
+        ]);
+
+        if($response->successful()){
+            $body = $response->body();
+            $sucursales = simplexml_load_string($body);
+            $sucursales = json_encode($sucursales, JSON_FORCE_OBJECT);
+            $sucursales = json_decode($sucursales, true);
+
+            return $sucursales;
+        }
+        return $response->throw();
+
+    }
 }

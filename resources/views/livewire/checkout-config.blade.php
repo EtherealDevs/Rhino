@@ -1,5 +1,4 @@
 <div class="flex flex-col w-full lg:block justify-center place-content-center bg-transparent">
-
     <div class="place-content-center w-full lg:w-11/12 translate-x-0 translate-y-0 lg:translate-x-2 lg:translate-y-2 rounded-none lg:rounded-3xl bg-slate-900/30"
         id="cart">
         <div class="rounded-none lg:rounded-3xl w-full bg-gradient-to-b from-[#343678] to-[#273053]">
@@ -19,28 +18,28 @@
                         <div class="relative w-full mt-4 mb-2 rounded-md border h-22 p-1 bg-gray-200">
                             <div class="relative w-full h-full flex items-center">
                                 <!-- Botón Envío a Domicilio -->
-                                <div @click="selected = 'domicilio'" class="flex-grow cursor-pointer text-center">
+                                <div @click="selected = 'domicilio'"  class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'domicilio', 'text-gray-500': selected !== 'domicilio' }"
-                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold">
+                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',1)">
                                         Envío a Domicilio 🏠
                                     </button>
                                 </div>
 
                                 <!-- Botón Envío a Sucursal -->
-                                <div @click="selected = 'sucursal'" class="flex-grow cursor-pointer text-center">
+                                <div @click="selected = 'sucursal'"  class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'sucursal', 'text-gray-500': selected !== 'sucursal' }"
-                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold">
+                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',2)">
                                         Envío a Sucursal
                                     </button>
                                 </div>
 
                                 <!-- Botón Retiro yo -->
-                                <div @click="selected = 'retiro'" class="flex-grow cursor-pointer text-center">
+                                <div @click="selected = 'retiro'"  class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'retiro', 'text-gray-500': selected !== 'retiro' }"
-                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold">
+                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',3)">
                                         Retiro en Tienda 🏪
                                     </button>
                                 </div>
@@ -125,9 +124,11 @@
                                         <select id="sucursal" name="sucursal" wire:model.live="sucursal"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
                                             <option value="">Selecciona una sucursal</option>
-                                            <option value="sucursal_d">Sucursal D</option>
-                                            <option value="sucursal_e">Sucursal E</option>
-                                            <option value="sucursal_f">Sucursal F</option>
+                                            @isset($sucursales)
+                                            @foreach ($sucursales['Centro'] as $sucursal)
+                                            <option value="">{{$sucursal['Sucursal']}}</option>
+                                            @endforeach
+                                            @endisset
                                         </select>
                                         @error('sucursal')
                                             <div class="mt-2 text-red-500 text-xs">
