@@ -9,21 +9,25 @@
                     integrity="sha512-6m6AtgVSg7JzStQBuIpqoVuGPVSAK5Sp/ti6ySu6AjRDa1pX8mIl1TwP9QmKXU+4Mhq/73SzOk6mbNvyj9MPzQ=="
                     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-                <div class="w-full max-w-md flex flex-col mx-auto text-center" x-data="{ step: 1, selected: 'domicilio', paymentMethod: 'mercado_pago', file: null }">
+                <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]" x-data="{ step: 1, selected: 'domicilio', paymentMethod: 'mercado_pago', file: null }">
 
                     <!-- Paso 1: Selección del método de envío -->
-                    <div x-show="step === 1" class="w-full h-auto m-auto shadow-lg flex flex-col p-8 rounded-xl bg-white">
-                        <h2 class="text-[#2E3366] text-3xl font-bold mb-6">Vamos a Cotizar el envio 📦</h2>
+                    <div x-show="step === 1" class="w-full h-auto m-auto flex flex-col p-8">
+                        <h2 class="text-[#2E3366] text-3xl font-bold mb-6">Vamos a Cotizar el envío 📦</h2>
+
                         <!-- Botones para seleccionar envío -->
-                        <div class="relative w-full mt-4 mb-2 rounded-md border h-10 p-1 bg-gray-200">
+                        <div class="relative w-full mt-4 mb-2 rounded-md border h-22 p-1 bg-gray-200">
                             <div class="relative w-full h-full flex items-center">
+                                <!-- Botón Envío a Domicilio -->
                                 <div @click="selected = 'domicilio'" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'domicilio', 'text-gray-500': selected !== 'domicilio' }"
                                         class="w-full rounded-lg text-sm py-2 px-4 font-bold">
-                                        Envío a Domicilio
+                                        Envío a Domicilio 🏠
                                     </button>
                                 </div>
+
+                                <!-- Botón Envío a Sucursal -->
                                 <div @click="selected = 'sucursal'" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'sucursal', 'text-gray-500': selected !== 'sucursal' }"
@@ -31,24 +35,41 @@
                                         Envío a Sucursal
                                     </button>
                                 </div>
+
+                                <!-- Botón Retiro yo -->
+                                <div @click="selected = 'retiro'" class="flex-grow cursor-pointer text-center">
+                                    <button
+                                        :class="{ 'text-blue-600 font-semibold': selected === 'retiro', 'text-gray-500': selected !== 'retiro' }"
+                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold">
+                                        Retiro en Tienda 🏪
+                                    </button>
+                                </div>
                             </div>
+
                             <!-- Indicador de selección -->
                             <span
-                                :class="{ 'left-1/2 -ml-1': selected === 'sucursal', 'left-1': selected === 'domicilio' }"
-                                x-text="selected === 'domicilio' ? 'Envío a Domicilio' : 'Envío a Sucursal'"
-                                class="bg-white shadow text-sm flex items-center justify-center w-1/2 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute text-blue-700 font-semibold"></span>
+                                :class="{
+                                    'left-1/3 -ml-1': selected === 'sucursal',
+                                    'left-2/3 -ml-1': selected === 'retiro',
+                                    'left-1': selected === 'domicilio'
+                                }"
+                                x-text="selected === 'domicilio' ? 'Envío a Domicilio 🏠' : selected === 'sucursal' ? 'Envío a Sucursal' : 'Retiro en Tienda 🏪'"
+                                class="bg-white shadow text-sm flex items-center justify-center w-1/3 rounded h-3/4 transition-all duration-150 ease-linear top-[8px] absolute text-blue-700 font-semibold"></span>
                         </div>
 
-                        <!-- Formulario de envío según selección -->
-                        <div x-show="selected === 'domicilio'" class="mt-4">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="mb-4 col-span-1 sm:col-span-2 grid grid-cols-2 grid-rows-2">
+                        <!-- Contenido dinamico -->
+                        <div class="h-[200px] p-2">
+                            <!-- Envío a Domicilio -->
+                            <div x-show="selected === 'domicilio'" class="mt-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Código Postal -->
                                     <div class="col-span-2">
                                         <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
                                             wire:model.blur="zip_code"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
                                     </div>
 
+                                    <!-- Provincia -->
                                     <div class="col-span-1">
                                         <label for="province" class="text-xs font-semibold py-2">Provincia</label>
                                         <input name="province" type="text" readonly wire:model.live="province"
@@ -60,22 +81,17 @@
                                         @enderror
                                     </div>
 
+                                    <!-- Localidad -->
                                     <div class="mb-4 col-span-1">
                                         <label for="city"
                                             class="text-xs font-semibold text-gray-600 py-2">Localidad</label>
                                         <select name="city" wire:model.live="city"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
                                             <option value="" selected>
-                                                @if ($selectedProvince == 1)
-                                                    Seleccioná un barrio...
-                                                @else
-                                                    Seleccioná una localidad...
-                                                @endif
+                                                Selecciona una localidad...
                                             </option>
                                             @foreach ($cities as $city)
-                                                <option value="{{ $city->id }}">
-                                                    {{ $city->name }}
-                                                </option>
+                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('city')
@@ -85,36 +101,51 @@
                                         @enderror
                                     </div>
 
-                                    <!-- Mostrar el precio de envío -->
-                                    <div class="col-span-2">
+                                    <!-- Precio de Envío -->
+                                    {{-- <div class="col-span-2">
                                         <label class="text-xs font-semibold py-2">Precio de Envío</label>
                                         <input type="text" readonly value="{{ $sendPrice }}"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
+                                    </div> --}}
+                                </div>
+                            </div>
+
+                            <!-- Envío a Sucursal -->
+                            <div x-show="selected === 'sucursal'" class="mt-4 mb-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Código Postal -->
+                                    <div>
+                                        <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
+                                            wire:model.blur="zip_code"
+                                            class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
                                     </div>
-
+                                    <!-- Sucursal -->
+                                    <div class="col-span-1">
+                                        <label for="sucursal" class="text-xs font-semibold py-2">Sucursal</label>
+                                        <select id="sucursal" name="sucursal" wire:model.live="sucursal"
+                                            class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
+                                            <option value="">Selecciona una sucursal</option>
+                                            <option value="sucursal_d">Sucursal D</option>
+                                            <option value="sucursal_e">Sucursal E</option>
+                                            <option value="sucursal_f">Sucursal F</option>
+                                        </select>
+                                        @error('sucursal')
+                                            <div class="mt-2 text-red-500 text-xs">
+                                                <span class="error">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div x-show="selected === 'sucursal'" class="mt-4">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
-                                        wire:model.blur="zip_code"
-                                        class="w-full rounded-full px-2 py-2 bg-black/30 placeholder-gray-300 text-gray-100" />
-                                </div>
-                                <div>
-                                    <label for="sucursal"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sucursal</label>
-                                    <select id="sucursal" name="sucursal" wire:model.live="sucursal"
-                                        class="w-full rounded-full px-2 py-2 bg-black/30 placeholder-gray-300 text-gray-100">
-                                        <option>Sucursal D</option>
-                                        <option>Sucursal E</option>
-                                        <option>Sucursal F</option>
-                                    </select>
-                                </div>
+
+                            <!-- Retiro yo -->
+                            <div x-show="selected === 'retiro'" class="mt-4 mb-4">
+                                <p class="text-gray-700 text-md">Puedes retirar tu pedido directamente de nuestro local sin
+                                    costo adicional.</p>
                             </div>
                         </div>
 
+                        <!-- Botón para continuar al siguiente paso -->
                         <button @click="step = 2"
                             class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
                             <p class="font-josefin text-lg text-white font-bold py-1 px-4">
@@ -126,8 +157,8 @@
 
                     <!-- Paso 2: Selección del método de pago -->
                     <div x-show="step === 2"
-                        class="w-full h-auto m-auto shadow-lg flex flex-col p-8 rounded-xl bg-white">
-                        <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago?</h2>
+                        class="w-full h-auto m-auto flex flex-col p-8">
+                        <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago? 💰</h2>
 
                         <div class="radio-section">
                             <div class="radio-list">
@@ -150,34 +181,7 @@
                         </div>
 
                         <!-- Información para Transferencia -->
-                        <div x-show="paymentMethod === 'transferencia'" class="mt-4 bg-gray-200 p-4 rounded">
-                            <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
-                            {{-- <p><strong>Alias:</strong> {{ $alias }}</p>
-                            <p><strong>CBU:</strong> {{ $cbu }}</p>
-                            <p><strong>Nombre:</strong> {{ $holder_name }}</p> --}}
 
-                            <div x-data="fileUpload()" x-init="init()">
-                                <!-- Input de archivo oculto -->
-                                <input type="file" x-ref="fileInput" @change="handleFileUpload" class="hidden" />
-
-                                <!-- Botón para agregar comprobante de pago -->
-                                <button @click="$refs.fileInput.click()"
-                                    class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-200">
-                                    Agregar Comprobante de Pago
-                                </button>
-
-                                <!-- Mostrar el nombre del archivo seleccionado -->
-                                <div x-show="file" class="mt-2 text-gray-700">
-                                    Comprobante seleccionado: <span x-text="file.name"></span>
-                                </div>
-
-                                <!-- Botón para subir el comprobante -->
-                                <button x-show="file" @click="submitForm()"
-                                    class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
-                                    Subir Comprobante
-                                </button>
-                            </div>
-                        </div>
 
                         <!-- Botón para avanzar sin necesidad de comprobante -->
                         <button @click="step = 3"
@@ -188,7 +192,7 @@
 
                     <!-- Paso 3: Confirmación -->
                     <div x-show="step === 3 || step === 4"
-                        class="col-span-2 gap-4 bg-white p-6 rounded-2xl lg:mt-0 mt-6 flex flex-col items-start">
+                        class="col-span-2 gap-4 p-6 justify-center items-center lg:mt-0 mt-6 flex flex-col">
                         <!-- Información seleccionada -->
                         <div class="w-full">
                             <h2 class="text-2xl font-bold text-gray-800 mb-4">🎉 ¡Resumen de tu selección!</h2>
@@ -197,7 +201,7 @@
                             <div class="mb-4">
                                 <h3 class="text-lg font-semibold text-gray-700">Método de Envío:</h3>
                                 <p class="text-gray-600"
-                                    x-text="selected === 'domicilio' ? 'Envío a Domicilio' : 'Envío a Sucursal'"></p>
+                                    x-text="selected === 'domicilio' ? 'Envío a Domicilio' : 'Envío a Sucursal': 'Retiro en Tienda"></p>
 
                                 <!-- Mostrar detalles del envío a domicilio -->
                                 <div x-show="selected === 'domicilio'" class="mt-2">
@@ -223,30 +227,17 @@
                                 <h3 class="text-lg font-semibold text-gray-700">Método de Pago:</h3>
                                 <p class="text-gray-600"
                                     x-text="paymentMethod === 'mercado_pago' ? 'Mercado Pago' : 'Transferencia'"></p>
-
-                                {{-- <!-- Mostrar detalles de la transferencia -->
-                                <div x-show="paymentMethod === 'transferencia'" class="mt-2">
-                                    <p class="text-gray-600"><strong>Alias:</strong> {{ $alias }}</p>
-                                    <p class="text-gray-600"><strong>CBU:</strong> {{ $cbu }}</p>
-                                    <p class="text-gray-600"><strong>Nombre:</strong> {{ $holder_name }}</p>
-
-                                    <!-- Comprobante de pago -->
-                                    <div x-show="file" class="mt-2">
-                                        <p class="text-gray-600">Comprobante de pago: <span x-text="file.name"></span>
-                                        </p>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
 
                         <!-- Botón para realizar la compra -->
                         <button
-                            class="w-full bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 shadow-lg mt-auto">
+                            class="w-full bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 shadow-lg mt-auto bottom-4">
                             <a :href="paymentMethod === 'transferencia' ? '/products' : '{{ route('checkout.delivery') }}'"
                                 class="flex items-center justify-center">
                                 <p class="text-white text-lg font-semibold font-josefin">
                                     <span
-                                        x-text="paymentMethod === 'transferencia' ? '💳 Confirmar y pagar con transferencia' : '🛒 Confirmar y pagar con Mercado Pago'"></span>
+                                        x-text="paymentMethod === 'transferencia' ? 'Rellenemos Informacion de Envio' : '🛒 Confirmar y pagar con Mercado Pago'"></span>
                                 </p>
                             </a>
                         </button>
