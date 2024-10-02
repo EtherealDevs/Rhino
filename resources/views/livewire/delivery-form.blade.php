@@ -195,39 +195,27 @@
     <!-- JavaScript para manejar el modal y rellenar los datos -->
     <script>
         // Función para ocultar el modal
-        function hideModal() {
-            const modal = document.getElementById('autoFillModal');
-            modal.style.display = 'none'; // Oculta el modal
-        }
-
-        // Detectar cuándo se selecciona una dirección
         document.querySelectorAll('input[name="options"]').forEach((radio) => {
             radio.addEventListener('change', function() {
-                hideModal();
+                // Obtener los datos de la dirección desde el radio seleccionado
+                const addressData = JSON.parse(this.getAttribute('data-address'));
+
+                // Asignar los valores de la dirección a los campos del formulario
+                document.querySelector('input[name="name"]').value = addressData.name;
+                document.querySelector('input[name="last_name"]').value = addressData.last_name;
+                document.querySelector('input[name="phone_number"]').value = addressData.phone_number;
+                document.querySelector('input[name="zip_code"]').value = addressData.zip_code.code;
+                document.querySelector('input[name="province"]').value = addressData.province.name;
+                document.querySelector('select[name="city"]').value = addressData.city.id;
+                document.querySelector('input[name="address"]').value = addressData.address;
+                document.querySelector('input[name="street"]').value = addressData.street;
+                document.querySelector('input[name="number"]').value = addressData.number;
+                document.querySelector('input[name="department"]').value = addressData.department || '';
+                document.querySelector('input[name="street1"]').value = addressData.street1 || '';
+                document.querySelector('input[name="street2"]').value = addressData.street2 || '';
+                document.querySelector('textarea[name="observation"]').value = addressData.observation ||
+                '';
             });
         });
-
-        function fillForm() {
-            // Obtiene la dirección seleccionada
-            const selectedAddress = document.querySelector('input[name="options"]:checked').dataset.address;
-            if (!selectedAddress) return;
-
-            const address = JSON.parse(selectedAddress);
-
-            // Completa los campos del formulario
-            document.querySelector('input[name="name"]').value = address.name;
-            document.querySelector('input[name="last_name"]').value = address.last_name;
-            document.querySelector('input[name="phone_number"]').value = address.phone_number;
-            document.querySelector('input[name="address"]').value = address.address;
-            document.querySelector('input[name="number"]').value = address.number;
-            document.querySelector('input[name="zip_code"]').value = address.zipCode.code;
-            document.querySelector('input[name="province"]').value = address.province.name;
-            document.querySelector('select[name="city"]').value = address.city.id;
-
-            // Oculta el modal después de autocompletar
-            document.getElementById('autoFillModal').classList.add('hidden');
-
-            hideModal();
-        }
     </script>
 </div>
