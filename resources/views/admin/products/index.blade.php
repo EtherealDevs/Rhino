@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                     @foreach ($products as $product)
-                        @livewire('admin.products', ['product' => $product])
+                        @livewire('admin.products', ['id' => $product->id])
                     @endforeach
                 </tbody>
             </table>

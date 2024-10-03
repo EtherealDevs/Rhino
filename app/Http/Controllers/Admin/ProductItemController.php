@@ -12,6 +12,7 @@ use App\Models\ProductSize;
 use App\Models\ProductsSize;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductItemController extends Controller
@@ -73,7 +74,7 @@ class ProductItemController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit( $product) {
-        $productSize = ProductsSize::where('id',$product)->first();
+        $productSize = DB::table('products_sizes')->where('id',$product)->first();
         $productItem = ProductItem::where('id',$productSize->product_item_id)->first();
         $stock= $productSize->stock;
         $size = Size::where('id',$productSize->size_id)->first();

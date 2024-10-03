@@ -8,9 +8,10 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
-use App\Models\ProductsSize;
+use App\Models\ProductSize;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -20,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=ProductsSize::all();
+        $products= DB::table('products_sizes')->get();
         return view('admin.products.index',compact('products'));
     }
 
@@ -63,7 +64,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductsSize $product, Size $size)
+    public function edit( $product, Size $size)
     {
     }
 
