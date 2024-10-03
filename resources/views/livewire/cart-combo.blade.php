@@ -110,117 +110,129 @@
                                     </div>
                                 </div>
                             </div>
-                        @endfor
-                    @else
-                        @for ($i = 0; $i < count($comboItems); $i++)
-                            <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
-                                <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
-                                    class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-                                    src="{{ url(Storage::url('images/product/' . $comboItems[$i]->item->images->first()->url)) }}"
-                                    alt="Imagen Producto" />
+                        </div>
+                    @endfor
+                @else
+                    @for ($i = 0; $i < count($comboItems); $i++)
+                        <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
+                            <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
+                                class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
+                                src="{{ url(Storage::url('images/product/' . $comboItems[$i]->item->images->first()->url)) }}"
+                                alt="Imagen Producto" />
 
-                                <!-- Tooltip -->
-                                <div class="absolute z-50 left-14 -top-2" x-show="tooltip"
-                                    x-transition:enter="transition ease-out duration-150"
-                                    x-transition:enter-start="opacity-0 transform translate-y-2"
-                                    x-transition:enter-end="opacity-100 transform translate-y-0"
-                                    x-transition:leave="transition ease-in duration-150"
-                                    x-transition:leave-start="opacity-100 transform translate-y-0"
-                                    x-transition:leave-end="opacity-0 transform translate-y-2">
-                                    <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
-                                        {{ $comboItems[$i]->item->product->name }}
-                                    </div>
+                            <!-- Tooltip -->
+                            <div class="absolute z-50 left-14 -top-2" x-show="tooltip"
+                                x-transition:enter="transition ease-out duration-150"
+                                x-transition:enter-start="opacity-0 transform translate-y-2"
+                                x-transition:enter-end="opacity-100 transform translate-y-0"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 transform translate-y-0"
+                                x-transition:leave-end="opacity-0 transform translate-y-2">
+                                <div class="rounded-lg bg-blue-200 p-2 text-sm font-bold text-slate-700">
+                                    {{ $comboItems[$i]->item->product->name }}
                                 </div>
                             </div>
-                        @endfor
-                    @endif
-                </div>
+                        </div>
+                    @endfor
+                @endif
+            </div>
 
-                <!-- Precio / Descuento -->
-                <div class="col-span-1 flex flex-col items-center justify-center">
-                    <div class="text-xl line-through text-gray-500 font-extrabold">
-                        ${{ number_format($subtotal / 100, 2, ',', '.') }}
-                    </div>
-                    <span class="text-xs rounded bg-green-600 px-2 py-1 font-bold text-white">
-                        {{ number_format($discount, 0, ',', '.') }}% OFF
-                    </span>
-                </div>
+            <div class="col-span-2 w-full flex justify-start">
+                <a @click.prevent="isOpen = !isOpen" class="flex py-2 text-sm text-blue-500 justify-center items-center">
+                    Ver detalle <span class="font-bold">→</span>
+                </a>
+            </div>
 
-                <!-- Total OFF -->
-                <div class="col-span-1 lg:col-span-2 flex flex-col items-center justify-center">
-                    <div class="text-sm text-slate-900">Total con Descuento</div>
-                    <div class="text-xl font-extrabold text-green-500">
-                        ${{ number_format($total / 100, 2, ',', '.') }}
-                    </div>
+            <!-- Precio / Descuento -->
+            <div class="col-span-1 flex flex-col items-center justify-center">
+                <div class="text-xl line-through text-gray-500 font-extrabold">
+                    ${{ number_format($subtotal / 100, 2, ',', '.') }}
                 </div>
-                <!-- Cantidad -->
-                <div class="col-span-1 lg:col-span-1 flex flex-col items-center justify-center">
-                    <div class="text-sm text-slate-900">Cantidad</div>
+                <span class="text-xs rounded bg-green-600 px-2 py-1 font-bold text-white">
+                    {{ number_format($discount, 0, ',', '.') }}% OFF
+                </span>
+            </div>
+
+            <!-- Cantidad -->
+            <div class="col-span-1 flex flex-col items-center justify-center">
+                <div class="font-semibold text-gray-600">Cantidad</div>
+                <div class="w-1/2 gap-4 flex">
+                    <form method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}"
+                        class="inline">
+                        @csrf
+                        @method('post')
+                        <input value="subtract" type="hidden" name="mode">
+                        <button type="submit">
+                            -
+                        </button>
+                    </form>
                     <div class="text-xl font-extrabold text-green-500">
-                    
+
                         {{ $quantity }}
-                    
+
                     </div>
+                    <form method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}"
+                        class="inline">
+                        @csrf
+                        @method('post')
+                        <input value="add" type="hidden" name="mode">
+                        <button type="submit">
+                            +
+                        </button>
+                    </form>
                 </div>
 
-                <!-- Eliminar -->
-                <div class="col-span-1 flex items-center justify-end">
-                    <button type="submit" class="text-gray-400 hover:text-red-500 text-xl font-bold">
-                        &times;
-                    </button>
+            </div>
+
+            <!-- Total OFF -->
+            <div class="col-span-1 flex flex-col items-center justify-center">
+                <div class="font-semibold text-gray-600">Total</div>
+                <div class="text-xl font-extrabold text-green-500">
+                    ${{ number_format($total / 100, 2, ',', '.') }}
                 </div>
             </div>
 
-            <!-- Dropdown -->
-            <div x-show="isOpen" @click.away="isOpen = false" class="transition p-6 mt-0">
-                @foreach ($comboItems as $comboItem)
-                    <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
-                        <img class="w-14 h-14 rounded-full"
-                            src="/storage/images/product/{{ $comboItem->item->images[0]->url }}" alt="Product image">
-
-                        <div class="grid grid-cols-3 sm:grid-cols-3 sm:justify-between sm:items-center w-full">
-                            <!-- Nombre y Precio -->
-                            <div class="text-center sm:text-left">
-                                <p class="text-2xl font-bold">{{ $comboItem->item->product->name }}</p>
-                                <span class="text-sm font-bold w-auto bg-[#26ca60] text-white rounded-xl px-2 py-1 mt-2">
-                                    ${{ number_format($comboItem->item->price() / 100, 2, ',', '.') }}
-                                </span>
-                            </div>
-
-                            <!-- Talle -->
-                            <div class="text-center">
-                                <p class="font-bold">Talle</p>
-                                <p>{{ $itemSizes[$comboItem->item->id] }}</p>
-                            </div>
-
-                            <!-- Total -->
-                            <div class="text-center">
-                                <p class="font-bold">Total</p>
-                                <p class="text-green-500 font-semibold">
-                                    ${{ number_format(($comboItem->item->price() * $quantity) / 100, 2, ',', '.')  }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="border-gray-200 my-4">
-                @endforeach
+            <!-- Eliminar -->
+            <div class="col-span-1 flex items-center justify-end">
+                <button type="submit" class="text-gray-400 hover:text-red-500 text-xl font-bold">
+                    &times;
+                </button>
             </div>
         </div>
-    </a>
-    <form method="POST" action="{{route('cart.updateItem', ['cartItemId' => $cartItemId])}}" class="inline">
-        @csrf
-        @method('post')
-        <input value="subtract" type="hidden" name="mode">
-        <button type="submit">
-            -
-        </button>
-    </form>
-    <form method="POST" action="{{route('cart.updateItem', ['cartItemId' => $cartItemId])}}" class="inline">
-        @csrf
-        @method('post')
-        <input value="add" type="hidden" name="mode">
-        <button type="submit">
-            +
-        </button>
-    </form>
+
+        <!-- Dropdown -->
+        <div x-show="isOpen" @click.away="isOpen = false" class="transition p-6 mt-0">
+            @foreach ($comboItems as $comboItem)
+                <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+                    <img class="w-14 h-14 rounded-full"
+                        src="/storage/images/product/{{ $comboItem->item->images[0]->url }}" alt="Product image">
+
+                    <div class="grid grid-cols-3 sm:grid-cols-3 sm:justify-between sm:items-center w-full">
+                        <!-- Nombre y Precio -->
+                        <div class="text-center sm:text-left">
+                            <p class="text-2xl font-bold">{{ $comboItem->item->product->name }}</p>
+                            <span class="text-sm font-bold w-auto bg-[#26ca60] text-white rounded-xl px-2 py-1 mt-2">
+                                ${{ number_format($comboItem->item->price() / 100, 2, ',', '.') }}
+                            </span>
+                        </div>
+
+                        <!-- Talle -->
+                        <div class="text-center">
+                            <p class="font-bold">Talle</p>
+                            <p>{{ $itemSizes[$comboItem->item->id] }}</p>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="text-center">
+                            <p class="font-bold">Total</p>
+                            <p class="text-green-500 font-semibold">
+                                ${{ number_format(($comboItem->item->price() * $quantity) / 100, 2, ',', '.') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="border-gray-200 my-4">
+            @endforeach
+        </div>
+    </div>
 </div>
