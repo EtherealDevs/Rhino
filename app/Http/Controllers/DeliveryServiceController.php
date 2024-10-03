@@ -46,12 +46,37 @@ class DeliveryServiceController extends Controller
         ]);
 
         if($response->successful()){
+            // $body = $response->body();
+            // $sucursales = simplexml_load_string($body);
+            // $sucursales = json_encode($sucursales, JSON_FORCE_OBJECT);
+            // $sucursales = json_decode($sucursales, true);
+
+            // return $sucursales;
             $body = $response->body();
             $sucursales = simplexml_load_string($body);
-            $sucursales = json_encode($sucursales, JSON_FORCE_OBJECT);
-            $sucursales = json_decode($sucursales, true);
+            $sucursales = json_decode(json_encode($sucursales), true);
 
-            return $sucursales;
+            // Filtramos las sucursales que tengan el servicio "Entrega de paquetes"
+            $sucursalesEntrega = collect($sucursales['Centro'])->filter(function($sucursal) {
+                if (isset($sucursal['Servicios']['Servicio'])) {
+                    $servicios = $sucursal['Servicios']['Servicio'];
+
+                    // Si solo hay un servicio, convertirlo en array para evitar errores
+                    if (!is_array($servicios)) {
+                        $servicios = [$servicios];
+                    }
+
+                    // Recorremos los servicios y verificamos si hay "Entrega de paquetes"
+                    foreach ($servicios as $servicio) {
+                        if (isset($servicio['ServicioDesc']) && $servicio['ServicioDesc'] === "Entrega de paquetes") {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            });
+
+            return $sucursalesEntrega->values();
         }
         return $response->throw();
 

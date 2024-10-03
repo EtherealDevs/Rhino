@@ -125,7 +125,8 @@
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
                                             <option value="">Selecciona una sucursal</option>
                                             @isset($sucursales)
-                                            @foreach ($sucursales['Centro'] as $sucursal)
+                                            @foreach ($sucursales as $sucursal)
+
                                             <option value="">{{$sucursal['Sucursal']}}</option>
                                             @endforeach
                                             @endisset
