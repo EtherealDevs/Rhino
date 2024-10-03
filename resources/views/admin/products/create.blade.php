@@ -430,7 +430,7 @@
                             <div>
                                 <label for="weigth"
                                     class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
-                                <input type="number" name="weigth" id="weigth"
+                                <input type="number" name="weight" id="weight"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                                     placeholder="Type product weigth" required>
                             </div>

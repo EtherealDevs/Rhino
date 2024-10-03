@@ -49,6 +49,8 @@ class ProductController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
+            'volume' => $request->volume,
+            'weight' =>$request->weight
         ]);
         return redirect()->back();
     }
@@ -80,7 +82,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
             'volume' => $request->volume,
-            'weigth' =>$request->weigth
+            'weight' =>$request->weight
         ]);
         return redirect()->back();
     }

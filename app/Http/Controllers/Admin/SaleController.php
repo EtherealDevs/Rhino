@@ -55,7 +55,7 @@ public function store(Request $request)
 
     // Manejo de la carga de imágenes
     if ($request->file('image')) {
-        $url = Storage::put('sales', $request->file('image'));
+        $url = Storage::put('images/sales', $request->file('image'));
         $sale->images()->create([
             'url' => $url
         ]);
