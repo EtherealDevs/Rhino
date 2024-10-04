@@ -27,7 +27,6 @@ use App\Livewire\RatingStars;
 use App\Livewire\ShippingCost;
 use App\Http\Controllers\ComprobanteController;
 
-<<<<<<< HEAD
 /* Route::get('/', function () {
     $productItem = ProductItem::first();
     $combos = Combo::all();
@@ -48,9 +47,6 @@ Route::get('/', function () {
 });
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
-=======
-/* Rutas Normales */
->>>>>>> test
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
