@@ -3,7 +3,7 @@
     <div class=" p-6">
         <div class="p-6 mt-24 bg-white rounded-xl overflow-scroll">
 
-            <div class="flex justify-between w-full mb-5">
+            <div class="flex justify-between w-full mb-5 overflow-none">
                 <div class="justify-start">
                     <h2 class="font-josefin font-bold italic text-2xl">
                         Productos
@@ -66,10 +66,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products as $product)
+                    @forelse ($products as $product)
                         @livewire('admin.products', ['id' => $product->id])
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="100%" class="text-center py-12 p-4">
+                                No tienes productos almacenados.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
+
             </table>
         </div>
     </div>
