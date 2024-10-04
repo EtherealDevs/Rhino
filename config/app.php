@@ -82,7 +82,7 @@ return [
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
-    'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
+    'faker_locale' => env('APP_FAKER_LOCALE', 'es_PE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -122,5 +122,15 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    'mp_access_token' => env('MERCADOPAGO_ACCESS_TOKEN'),
+    'mp_access_token_test' => env('MERCADOPAGO_ACCESS_TOKEN_TEST'),
+    'mp_client_token_test' => env('MERCADOPAGO_CLIENT_TOKEN_TEST'),
+
+    'images_directory' => env('IMAGES_DIRECTORY'),
+    'product_images_directory' => env('PRODUCT_IMAGES_DIRECTORY'),
+    'delivery_service' => [
+        'origin_zipcode' => env('DELIVERY_SERVICE_ORIGIN_ZIPCODE')
+    ]
 
 ];

@@ -31,7 +31,7 @@ class SizeController extends Controller
     public function store(Request $request)
     {
         Size::create([
-            'size'=> $request->size,
+            'name'=> $request->size,
             'sort_number'=>$request->sort_number
         ]);
         return redirect()->back();
@@ -59,7 +59,7 @@ class SizeController extends Controller
     public function update(Request $request, Size $size)
     {
         $size->update([
-            'size'=> $request->size,
+            'name'=> $request->size,
             'sort_number'=>$request->sort_number
         ]);
         return redirect()->back();

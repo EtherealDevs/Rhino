@@ -14,28 +14,44 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
-    protected $fillable = ['name', 'slug', 'description', 'category_id', 'brand_id'];
+    protected $fillable = ['name', 'slug', 'description', 'category_id', 'brand_id','volume','weight'];
 
-    public function tags() : BelongsToMany
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }
-    public function brand() {
+    public function brand()
+    {
         return $this->belongsTo(Brand::class);
     }
 
-    public function category() : BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function sale() : HasOne
+    public function sale(): HasOne
     {
         return $this->hasOne(SaleProduct::class);
     }
 
-    public function items() : HasMany
+    public function combo(): HasOne
+    {
+        return $this->hasOne(Combo_items::class);
+    }
+
+    public function items(): HasMany
     {
         return $this->hasMany(ProductItem::class);
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Reviews::class);
     }
 }

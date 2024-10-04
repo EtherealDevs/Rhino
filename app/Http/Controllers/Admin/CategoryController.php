@@ -24,7 +24,11 @@ class CategoryController extends Controller
     public function create()
     {
         $categories= Category::all();
-        return view('admin.categories.create',compact('categories'));
+        $id=null;
+        if(isset($_GET['id'])){
+            $id=$_GET['id'];
+        }
+        return view('admin.categories.create',compact('categories','id'));
     }
 
     /**

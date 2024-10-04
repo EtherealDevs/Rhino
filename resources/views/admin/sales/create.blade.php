@@ -1,40 +1,40 @@
 @extends('layouts.admin')
 @section('content')
-<style>
-    .-z-1 {
-        z-index: -1;
-    }
+    <style>
+        .-z-1 {
+            z-index: -1;
+        }
 
-    .origin-0 {
-        transform-origin: 0%;
-    }
+        .origin-0 {
+            transform-origin: 0%;
+        }
 
-    input:focus~label,
-    input:not(:placeholder-shown)~label,
-    textarea:focus~label,
-    textarea:not(:placeholder-shown)~label,
-    select:focus~label,
-    select:not([value='']):valid~label {
-        /* @apply transform; scale-75; -translate-y-6; */
-        --tw-translate-x: 0;
-        --tw-translate-y: 0;
-        --tw-rotate: 0;
-        --tw-skew-x: 0;
-        --tw-skew-y: 0;
-        transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-        --tw-scale-x: 0.75;
-        --tw-scale-y: 0.75;
-        --tw-translate-y: -1.5rem;
-    }
+        input:focus~label,
+        input:not(:placeholder-shown)~label,
+        textarea:focus~label,
+        textarea:not(:placeholder-shown)~label,
+        select:focus~label,
+        select:not([value='']):valid~label {
+            /* @apply transform; scale-75; -translate-y-6; */
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+            --tw-scale-x: 0.75;
+            --tw-scale-y: 0.75;
+            --tw-translate-y: -1.5rem;
+        }
 
-    input:focus~label,
-    select:focus~label {
-        /* @apply text-black; left-0; */
-        --tw-text-opacity: 1;
-        color: rgba(0, 0, 0, var(--tw-text-opacity));
-        left: 0px;
-    }
-</style>
+        input:focus~label,
+        select:focus~label {
+            /* @apply text-black; left-0; */
+            --tw-text-opacity: 1;
+            color: rgba(0, 0, 0, var(--tw-text-opacity));
+            left: 0px;
+        }
+    </style>
     <div class="p-6">
         <div class="pt-16  ">
             <div class="p-6 rounded-xl bg-white">
@@ -51,22 +51,33 @@
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="date" name="start_date" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="start_date" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    <label for="start_date"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de inicio
+                                    </label>
+                                    @error('start_date')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="date" name="end_date" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="end_date" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    <label for="end_date"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de
+                                        Finalizacion</label>
+                                    @error('end_date')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
                                     <input type="text" name="title" placeholder=" " required
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="title" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    <label for="title"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
+                                    @error('title')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
@@ -74,28 +85,38 @@
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                     <label for="description"
                                         class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
-                                    <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    @error('description')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="relative z-1 w-full mb-5">
-                                    <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select ww-full" name="products[]">
-                                      <option value="">Seleccionar Products</option>
-                                      @foreach ($categories as $category)
-                                          <optgroup label="{{$category->name}}">
-                                              @foreach ($category->products as $product )
-                                                  <option value="{{$product->id}}">{{$product->name}}</option>
-                                              @endforeach
-                                          </optgroup>
-                                      @endforeach
+                                    <select data-placeholder="Begin typing a name to filter..." multiple
+                                        class="chosen-select ww-full" name="products[]">
+                                        <option value="">Seleccionar Products</option>
+                                        @foreach ($categories as $category)
+                                            <optgroup label="{{ $category->name }}">
+                                                @error('products')
+                                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                @enderror
+                                                @foreach ($category->products as $product)
+                                                    @if ($product->sale == null)
+                                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
                                     </select>
-                            </div>
-                            <div class="relative z-0 w-full mb-5">
-                                <input type="number" name="discount" placeholder=" " required
-                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                <label for="discount"
-                                    class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
-                            </div>
+                                </div>
+                                <div class="relative z-0 w-full mb-5">
+                                    <input type="number" name="discount" placeholder=" " required
+                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                    <label for="discount"
+                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
+                                    @error('discount')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="mb-8">
 
                                     <label for="file"
@@ -124,11 +145,11 @@
                     </div>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
-                    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+                    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
                     <script>
                         'use strict'
                         $(".chosen-select").chosen({
-                             no_results_text: "Oops, nothing found!"
+                            no_results_text: "Oops, nothing found!"
                         })
                         document.getElementById('button').addEventListener('click', toggleError)
                         const errMessages = document.querySelectorAll('#error')
@@ -150,10 +171,31 @@
                             })
                         }
                     </script>
+                    <script>
+                        document.getElementById('button').addEventListener('click', function(event) {
+                            const inputs = document.querySelectorAll('input[required], textarea[required]');
+                            let isValid = true;
+
+                            inputs.forEach((input) => {
+                                const errorMessage = input.nextElementSibling;
+
+                                if (input.value.trim() === '') {
+                                    errorMessage.classList.remove('hidden'); // Muestra el mensaje de error
+                                    input.classList.add('border-red-600'); // Resalta el borde
+                                    isValid = false;
+                                } else {
+                                    errorMessage.classList.add('hidden'); // Oculta el mensaje de error
+                                    input.classList.remove('border-red-600'); // Quita el resaltado del borde
+                                }
+                            });
+
+                            if (!isValid) {
+                                event.preventDefault(); // Evita que el formulario se envíe si hay errores
+                            }
+                        });
+                    </script>
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection

@@ -59,28 +59,41 @@
   
 /* #loader {
     width: 50px;
-    aspect-ratio: 1;
+    height: 50px;
     border-radius: 50%;
-    background: radial-gradient(farthest-side, #ffffff 94%, #0000) top/8px 8px
-            no-repeat,
-        conic-gradient(#0000 30%, #f5f9ff);
-    -webkit-mask: radial-gradient(
-        farthest-side,
-        #0000 calc(100% - 8px),
-        #000 0
-    );
-    animation: l13 1s infinite linear;
-}
-@keyframes l13 {
+    background: radial-gradient(circle, #ffffff 50%, #0000 51%);
+    border: 5px solid #f5f9ff;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
     100% {
-        transform: rotate(1turn);
+      transform: rotate(360deg);
     }
+<<<<<<< HEAD
 } */
+=======
+  }
+  
+
+#polygon {
+    height: 450px;
+    width: 954px;
+}
+>>>>>>> test2
 
 #map {
     height: 340px;
     width: 800px;
-    border-radius: 25px
+    border-radius: 25px;
+}
+
+@media only screen and (max-width: 1344px) {
+    #polygon {
+        height: 590px;
+        width: 100px;
+    }
 }
 
 /* Media Query para pantallas con un ancho máximo de 600px (dispositivos móviles) */
@@ -88,9 +101,10 @@
     #map {
         height: 340px;
         width: 200px;
-        border-radius: 25px
+        border-radius: 25px;
     }
 }
+<<<<<<< HEAD
 
 #polygon {
     height: 390px;
@@ -110,3 +124,7 @@
     width: 1100px;
     }
 }
+=======
+
+
+>>>>>>> test2
