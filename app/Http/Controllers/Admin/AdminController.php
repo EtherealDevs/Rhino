@@ -14,6 +14,7 @@ class AdminController extends Controller
 {
     public function index()
     {
+        dd($this);
         $user = Auth::user();
         // Obtener los pedidos pendientes
         $pendingOrders = Order::where('order_status_id', 1)->get();
