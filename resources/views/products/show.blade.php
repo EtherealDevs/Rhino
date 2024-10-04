@@ -115,7 +115,7 @@
                 <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('cart.addItem')}}">
                     @csrf
                     <button type="submit" class="w-full bg-blue-600 text-white py-2 font-josefin rounded-lg hover:bg-blue-500">Agregar al carrito</button>
-                    <input name="item" id="productIdInput" type="hidden" value="{!! $item !!}">
+                    <input name="item" id="productIdInput" type="hidden" value="{{ $item->id }}">
                     <input name="quantity" id="counterInput" type="hidden">
                     <input name="size" id="sizeInput" type="hidden">
                 </form>
@@ -172,7 +172,7 @@
         <div class="relative mb-6 flex items-start gap-4 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <img
                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80"
-                alt="{{ $review->user->name }}" 
+                alt="{{ $review->user->name }}"
                 class="h-16 w-16 rounded-full object-cover border-2 border-gray-300" />
             <div class="flex flex-col w-full">
                 <div class="flex items-center justify-between">
@@ -200,15 +200,15 @@
             </p>
         </div>
     @endforeach
-    
-    
+
+
 </div>
                     </div>
                 </div>
             </div>
         </div>
 
-       
+
     </div>
      <!-- Recommended Products Section -->
      <div class="mt-6 bg-white rounded-lg shadow-lg p-6">

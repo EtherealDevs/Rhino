@@ -67,17 +67,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orders as $order)
+                    @forelse ($orders as $order)
                         <tr>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <div class="flex items-center gap-3">
                                     <div class="flex flex-col">
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            #{{ $order->id }}</p>
+                                            #{{ $order->id }}
+                                        </p>
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                            {{ $order->created_at->format('d-m-Y') }}</p>
+                                            {{ $order->created_at->format('d-m-Y') }}
+                                        </p>
                                     </div>
                                 </div>
                             </td>
@@ -86,10 +88,12 @@
                                     <div class="flex flex-col">
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{ $order->user->name }}</p>
+                                            {{ $order->user->name }}
+                                        </p>
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                            {{ $order->user->email }}</p>
+                                            {{ $order->user->email }}
+                                        </p>
                                     </div>
                                 </div>
                             </td>
@@ -107,13 +111,14 @@
                                 <p class="block font-josefin text-lg leading-normal text-green-600 font-semibold">
                                     <span class="font-bold text-green-700">$ </span>{{ number_format($order->total, 2) }}
                                 </p>
-                            </td>                            
+                            </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="relative">
-                                        <select name="order_status_id" class="form-select mt-1 block w-full p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
+                                        <select name="order_status_id"
+                                            class="form-select mt-1 block w-full p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
                                             @foreach ($orderStatuses as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $status->id == $order->order_status_id ? 'selected' : '' }}>
@@ -121,25 +126,37 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <button type="submit" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-blue-500 text-white rounded-lg px-3 py-1 text-xs font-semibold shadow hover:bg-blue-600 transition">
+                                        <button type="submit"
+                                            class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-blue-500 text-white rounded-lg px-3 py-1 text-xs font-semibold shadow hover:bg-blue-600 transition">
                                             Actualizar
                                         </button>
                                     </div>
                                 </form>
                             </td>
-                            
                             <td class="p-4">
-                                <button class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs "
+                                <button class="relative align-middle font-sans font-medium w-7 h-10 rounded-lg text-xs"
                                     type="button">
                                     <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                         <a href="{{ route('admin.orders.show', $order->id) }}"
-                                            class="text-blue-600 hover:underline">Ver detalles</a>
+                                            class="text-blue-600 hover:underline">
+                                            Ver detalles
+                                        </a>
                                     </span>
                                 </button>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="p-4 text-center">
+                                <p
+                                    class="block antialiased py-12 font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                    No hay pedidos disponibles
+                                </p>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
+
             </table>
         </div>
     </div>

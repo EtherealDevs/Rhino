@@ -50,10 +50,10 @@
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-10 gap-2">
                                         <div class="col-span-9">
-                                            <select name="product_id" id=""
+                                            <select name="product_id" id="" required
                                                 onclick="this.setAttribute('value', this.value);"
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                                <option value="null">No tiene padre</option>
+                                                <option value="">No tiene padre</option>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                                                 @endforeach
@@ -61,6 +61,9 @@
                                             <label for="select"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar
                                                 el producto</label>
+                                            @error('product_id')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="flex place-content-center">
                                             <button data-modal-target="crud-modal-product"
@@ -91,8 +94,9 @@
                                             <label for="sale_price"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio de
                                                 venta</label>
-                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es
-                                                requerido</span>
+                                            @error('sale_price')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div>
@@ -100,8 +104,9 @@
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                             <label for="stock"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
-                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es
-                                                requerido</span>
+                                            @error('stock')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -420,20 +425,18 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                                 placeholder="Type product description" required>
                         </div>
-                            <div>
-                                <label for="volume"
-                                    class="block mb-2 text-sm font-medium text-gray-900">Volumen</label>
-                                <input type="number" name="volume" id="volume"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                    placeholder="Type product volume" required>
-                            </div>
-                            <div>
-                                <label for="weigth"
-                                    class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
-                                <input type="number" name="weigth" id="weigth"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                    placeholder="Type product weigth" required>
-                            </div>
+                        <div>
+                            <label for="volume" class="block mb-2 text-sm font-medium text-gray-900">Volumen</label>
+                            <input type="number" name="volume" id="volume"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                                placeholder="Type product volume" required>
+                        </div>
+                        <div>
+                            <label for="weigth" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
+                            <input type="number" name="weight" id="weight"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                                placeholder="Type product weigth" required>
+                        </div>
                         <div class="col-span-2 grid grid-cols-5">
                             <div class="col-span-4">
                                 <select name="category_id" id=""
