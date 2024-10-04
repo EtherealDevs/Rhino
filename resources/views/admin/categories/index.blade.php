@@ -42,6 +42,13 @@
                                     Descripcion
                                 </p>
                             </th>
+                            <th colspan="3"
+                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                                <p
+                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-center gap-2 font-normal leading-none opacity-70">
+                                    Acciones
+                                </p>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +79,11 @@
                                         </p>
                                     </div>
                                 </td>
-                                <td class="p-4 border-b border-blue-gray-50">
+                                <td class="p-4 border-b border-blue-gray-50 space-x-4 ">
+                                        <a class="text-center" href={{route('admin.categories.create',['id'=>$category->id])}} >
+                                            <span>crear</span>
+                                            <span>subcategoria</span>
+                                        </a>
                                     <div class="inline-flex items-center rounded-md shadow-sm">
                                         <a href="{{ route('admin.categories.edit', $category) }}">
                                             <button
