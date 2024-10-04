@@ -2,7 +2,7 @@
 @section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
+            {{ __('Perfil') }}
         </h2>
     </x-slot>
 
@@ -13,6 +13,11 @@
 
                 <x-section-border />
             @endif
+
+            <div>
+                @livewire('profile.update-adress-user')
+                <x-section-border />
+            </div>
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                 <div class="mt-10 sm:mt-0">

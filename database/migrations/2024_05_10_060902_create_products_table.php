@@ -18,8 +18,11 @@ return new class extends Migration
             $table->string('slug');
             $table->longText('description')->nullable();
 
-            $table->foreignId('category_id')->constrained();
-            $table->foreignId('brand_id')->constrained();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+
+            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
+            $table->integer('volume');
+            $table->integer('weight');
 
             $table->timestamps();
         });

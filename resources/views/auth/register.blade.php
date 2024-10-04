@@ -38,24 +38,46 @@
                                 <x-label for="name" value="{{ __('Nombre') }}" />
                                 <x-input id="name" class="block mt-1 w-full" type="text" name="name"
                                     :value="old('name')" required autofocus autocomplete="name" />
+
+                                @error('name')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
+                            <div>
+                                <x-label for="last_name" value="{{ __('Apellido') }}" />
+                                <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name"
+                                    :value="old('last_name')" required autofocus autocomplete="last_name" />
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="email" value="{{ __('Email') }}" />
                                 <x-input id="email" class="block mt-1 w-full" type="email" name="email"
                                     :value="old('email')" required autocomplete="username" />
+
+                                @error('email')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="password" value="{{ __('Contraseña') }}" />
                                 <x-input id="password" class="block mt-1 w-full" type="password" name="password"
                                     required autocomplete="new-password" />
+
+                                @error('password')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="password_confirmation" value="{{ __('Confirmar Contraseña') }}" />
                                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
                                     name="password_confirmation" required autocomplete="new-password" />
+
+                                @error('password_confirmation')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())

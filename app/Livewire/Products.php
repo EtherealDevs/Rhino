@@ -4,17 +4,23 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Combo;
 use App\Models\ProductItem;
 use App\Models\Size;
 use Livewire\Component;
+use Illuminate\Http\Request;
 
 class Products extends Component
 {
-    public function render()
+    public $search;
+    public $filter =[""];
+    public function render(Request $request)
     {
-   $sizes = Size::all();
+        $sizes = Size::all();
         $categories = Category::all();
         $products = Product::all();
-        return view('livewire.products', compact('products', 'categories', 'sizes'));
+        $combos = Combo::all();
+        return view('livewire.products', compact('products', 'categories', 'sizes', 'combos'));
     }
+
 }

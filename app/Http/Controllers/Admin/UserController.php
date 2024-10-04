@@ -6,13 +6,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
 class UserController extends Controller
 {
-
     public function index(User $users)
     {
         $users = User::all();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -48,8 +50,14 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $request->validate([
+            'roles' => 'array|exists:roles,id',
+        ]);
+
         $user->roles()->sync($request->roles);
-        return redirect()->route('admin.users.edit', $user)->with('info', 'Se asigno el role correctamente');
+
+        return redirect()->route('admin.users.edit', $user)
+            ->with('info', 'Roles actualizados correctamente');
     }
 
     public function destroy(User $user)

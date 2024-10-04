@@ -50,7 +50,31 @@ class ProductItem extends Model
     }
     public function sizes() : BelongsToMany
     {
-        return $this->belongsToMany(Size::class, 'products_sizes')->withPivot('stock');
+        return $this->belongsToMany(Size::class, 'products_sizes')->using(ProductSize::class)->withPivot('id', 'stock');
+    }
+    public function getTotalStock()
+    {
+        $total = 0;
+        foreach ($this->sizes as $key => $size) {
+            $total += $size->pivot->stock;
+        }
+        return $total;
+    }
+    public function getMinStock()
+    {
+        return $this->sizes->pluck('pivot.stock')->min();
+    }
+    public function getItemPivotModel($size)
+    {
+        if (is_string($size)) {
+            $size_id = Size::where('name', $size)->first()->getKey();
+            return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
+        }
+        else if (is_numeric($size)) {
+            $size_id = Size::where('id', $size)->first()->id;
+            return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
+        }
+        return $this->sizes()->wherePivot('size_id', $size->id)->first()->pivot;
     }
     public function images() : MorphMany
     {
@@ -66,5 +90,9 @@ class ProductItem extends Model
         $discount = $this->product->sale->sale->discount;
         $price= $this->price() - ($this->price() * ($discount/100));
         return $price ;
+    }
+    public function combo() : HasOne
+    {
+        return $this->hasOne(Combo_items::class);
     }
 }

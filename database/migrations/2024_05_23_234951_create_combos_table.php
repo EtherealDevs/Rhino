@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('combos', function (Blueprint $table) {
             $table->id();
-            $table->string('items');
             $table->integer('discount');
             $table->timestamps();
         });
