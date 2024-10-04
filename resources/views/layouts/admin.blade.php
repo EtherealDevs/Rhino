@@ -20,8 +20,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
     <title>Panel de Administracion</title>
-
-    @notifyCss
+{{--
+    @notifyCss --}}
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -106,9 +106,9 @@
 
     @include('notify::components.notify')
     @notifyJs --}}
-
+{{--
     <x-notify::notify />
-    @notifyJs
+    @notifyJs --}}
 </body>
 
 
