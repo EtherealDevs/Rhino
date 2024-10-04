@@ -36,11 +36,25 @@
             <div class="w-max">
                 <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
                     {{ $stock }}</p>
-                <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                    style="opacity: 1;">
-                    <span class="">En Stock</span>
-                </div>
+
+                @if ($stock == 0)
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-600 py-1 px-2 text-xs rounded-md"
+                        style="opacity: 1;">
+                        <span class="">Sin Stock</span>
+                    </div>
+                @elseif($stock <= 6)
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-yellow-500/20 text-yellow-600 py-1 px-2 text-xs rounded-md"
+                        style="opacity: 1;">
+                        <span class="">Con poco Stock</span>
+                    </div>
+                @else
+                    <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
+                        style="opacity: 1;">
+                        <span class="">En Stock</span>
+                    </div>
+                @endif
             </div>
+
         </td>
         <td class="p-4">
         <td class="p-4 border-b border-blue-gray-50">

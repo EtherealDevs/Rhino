@@ -28,6 +28,25 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function rules()
+    {
+        return [
+            'name' => 'required|string',
+            'last_name' => 'required|string',
+            'phone_number' => 'required|string',
+            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode],
+            'province' => 'required',
+            'city' => 'required',
+            'address' => 'required|string',
+            'street' => 'required|string',
+            'number' => 'string|nullable',
+            'department' => 'string|nullable',
+            'street1' => 'string|nullable',
+            'street2' => 'string|nullable',
+            'observation' => 'string|nullable',
+        ];
+    }
+
     public function create()
     {
         $colors= Color::all();

@@ -26,9 +26,11 @@ Route::resource('categories', CategoryController::class)
     ->names('admin.categories')
     ->middleware(['can:admin.categories.index', 'can:admin.categories.show', 'can:admin.categories.edit', 'can:admin.categories.create']);
 
+Route::resource('subcategories', CategoryController::class)
+    ->names('admin.subcategories');
+
 Route::resource('notifications', NotificationController::class)
-    ->names('admin.notifications')
-    ->middleware(['can:admin.notifications.index', 'can:admin.notifications.show', 'can:admin.notifications.edit', 'can:admin.notifications.create']);
+    ->names('admin.notifications');
 
 Route::resource('products', ProductController::class)
     ->names('admin.products')
