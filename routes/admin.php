@@ -80,7 +80,8 @@ Route::get('/ventas', [OrderController::class, 'ventas'])
     ->middleware(['can:admin.ventas.index', 'can:admin.ventas.show', 'can:admin.ventas.edit', 'can:admin.ventas.create']);
 
 Route::resource('productitems', ProductItemController::class)
-    ->names('admin.productitems');
+    ->names('admin.productitems')
+    ->middleware(['can:admin.productitems.index', 'can:admin.productitems.show', 'can:admin.productitems.edit', 'can:admin.productitems.create']);
 
 // Para mostrar el formulario (GET)
 Route::get('/admin/transfer-info', [MyStoreController::class, 'create'])->name('transfer-info.create');
