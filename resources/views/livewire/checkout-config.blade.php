@@ -4,11 +4,9 @@
         <div class="rounded-none lg:rounded-3xl w-full bg-gradient-to-b from-[#343678] to-[#273053]">
             <div
                 class="flex flex-col w-full rounded-lg shadow-lg px-4 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-20 justify-between">
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.js"
-                    integrity="sha512-6m6AtgVSg7JzStQBuIpqoVuGPVSAK5Sp/ti6ySu6AjRDa1pX8mIl1TwP9QmKXU+4Mhq/73SzOk6mbNvyj9MPzQ=="
-                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                
 
-                <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]" x-data="{ step: 1, selected: 'domicilio', paymentMethod: 'mercado_pago', file: null }">
+                <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]" x-data="{ step: 1, selected: 'domicilio', paymentMethod: 'mercado_pago', file: null, changeSelection(selection) { this.selected = selection; Livewire.dispatch('selectionChanged', { selection: this.selected }) } }">
 
                     <!-- Paso 1: Selección del método de envío -->
                     <div x-show="step === 1" class="w-full h-auto m-auto flex flex-col p-8">
@@ -18,7 +16,7 @@
                         <div class="relative w-full mt-4 mb-2 rounded-md border h-22 p-1 bg-gray-200">
                             <div class="relative w-full h-full flex items-center">
                                 <!-- Botón Envío a Domicilio -->
-                                <div @click="selected = 'domicilio'"  class="flex-grow cursor-pointer text-center">
+                                <div @click="changeSelection('domicilio')" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'domicilio', 'text-gray-500': selected !== 'domicilio' }"
                                         class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',1)">
@@ -27,7 +25,7 @@
                                 </div>
 
                                 <!-- Botón Envío a Sucursal -->
-                                <div @click="selected = 'sucursal'"  class="flex-grow cursor-pointer text-center">
+                                <div @click="changeSelection('sucursal')" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'sucursal', 'text-gray-500': selected !== 'sucursal' }"
                                         class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',2)">
@@ -36,7 +34,7 @@
                                 </div>
 
                                 <!-- Botón Retiro yo -->
-                                <div @click="selected = 'retiro'"  class="flex-grow cursor-pointer text-center">
+                                <div @click="changeSelection('retiro')" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'retiro', 'text-gray-500': selected !== 'retiro' }"
                                         class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',3)">
@@ -89,8 +87,8 @@
                                             <option value="" selected>
                                                 Selecciona una localidad...
                                             </option>
-                                            @foreach ($cities as $city)
-                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            @foreach ($cities as $city2)
+                                                <option value="{{ $city2->id }}">{{ $city2->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('city')
@@ -127,7 +125,7 @@
                                             @isset($sucursales)
                                             @foreach ($sucursales as $sucursal)
 
-                                            <option value="">{{$sucursal['Sucursal']}}</option>
+                                            <option value="{{$sucursal['IdCentroImposicion']}}">{{$sucursal['Sucursal']}}</option>
                                             @endforeach
                                             @endisset
                                         </select>
@@ -148,7 +146,12 @@
                         </div>
 
                         <!-- Botón para continuar al siguiente paso -->
-                        <button @click="step = 2"
+                        <button @click="async () => {
+                            const canProceed = await $wire.canGoToNextStep();
+                            if (canProceed) {
+                                step = 2;
+                            }
+                        }"
                             class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
                             <p class="font-josefin text-lg text-white font-bold py-1 px-4">
                                 Continuar
@@ -249,9 +252,8 @@
         </div>
 
     </div>
-
     <div>
-        @livewire('resume', ['sendPrice' => $sendPrice])
+        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city])
     </div>
 
 

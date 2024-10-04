@@ -9,13 +9,17 @@
                     </div>
 
                     <div class="">
-                        <form method="POST" action="{{ route('cart.dropCart') }}">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="w-full sm:w-auto bg-[#f84e4e] rounded-lg mt-2 sm:mt-0">
-                                <p class="font-josefin text-lg text-white font-bold py-1 px-4">Eliminar Lista</p>
-                            </button>
-                        </form>
+                        @if ($combos !== null && $items !== null)
+                            @if ($combos->isNotEmpty() || $items->isNotEmpty())
+                                <form method="POST" action="{{ route('cart.dropCart') }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="w-full sm:w-auto bg-[#f84e4e] rounded-lg mt-2 sm:mt-0">
+                                        <p class="font-josefin text-lg text-white font-bold py-1 px-4">Eliminar Lista</p>
+                                    </button>
+                                </form>
+                            @endif
+                        @endif
                     </div>
                 </div>
                 <div class="flow-root">
@@ -49,10 +53,14 @@
             </div>
         </div>
 
-        <div
-            class="col-span-12 lg:col-span-5 lg:h-screen flex lg:sticky left-0 top-16 lg:space-y-10 items-center lg:content-center">
-            @livewire('checkout-config', ['cartTotal' => $cartTotal])
-        </div>
+        @if ($combos !== null && $items !== null)
+            @if ($combos->isNotEmpty() || $items->isNotEmpty())
+                <div
+                    class="col-span-12 lg:col-span-5 lg:h-screen flex lg:sticky left-0 top-16 lg:space-y-10 items-center lg:content-center">
+                    @livewire('checkout-config')
+                </div>
+            @endif
+        @endif
 
         <script>
             document.getElementById('domicilioButton').addEventListener('click', function() {

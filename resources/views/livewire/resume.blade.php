@@ -6,11 +6,7 @@
             <div class="col-span-2">
                 <ul class="items-center">
                     <li class="font-josefin font-bold text-lg text-[#A3B7FF]">Productos: <span class="text-white text-lg">
-                            @isset($cartItems)
-                                {{ $itemCount ?? 0 }} <!-- Asegúrate de mostrar 0 si itemCount es null -->
-                            @else
-                                0
-                            @endisset
+                            {{ $itemCount ?? 0 }} <!-- Asegúrate de mostrar 0 si itemCount es null -->
                         </span></li>
                     <li class="font-josefin font-bold text-lg text-[#A3B7FF]">Costo de Envío: <span
                             class="text-white text-lg">
@@ -24,14 +20,14 @@
             </div>
             <div class="col-span-2 grid grid-rows-2 ml-2">
                 <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
-                @isset($cartItems)
+                @if($total != 0)
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">
                         ${{ number_format($total / 100 + ($sendPrice ?? 0), 2, ',', '.') }}
                         <!-- Usar 0 si sendPrice es null -->
                     </p>
                 @else
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">NO DATA</p>
-                @endisset
+                @endif
             </div>
 
 

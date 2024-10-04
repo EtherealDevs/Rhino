@@ -105,6 +105,7 @@ class CheckoutController extends Controller
     }
     public function validateAddressAndSaveToDatabase(Request $request)
     {
+        dd($request);
         $validator = new AddressValidator;
         $addressService = new AddressService();
         $validatedFields = $validator->validateRequest($request);

@@ -45,7 +45,7 @@
         {{-- Grid de Imagenes --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 p-4 lg:p-4 gap-4">
             <div class="relative col-span-1 sm:col-span-2 lg:col-span-2 flex justify-center items-center">
-                <img src="{{ url(Storage::url('images/product/' . $image2->first()->url)) }}"
+                <img src="{{ url(Storage::url(config('app.product_images_directory') . $image2->first()->url)) }}"
                     class="w-full h-auto object-cover rounded-2xl" />
         
                 <div class="absolute top-4 left-4 flex space-x-2">
@@ -73,7 +73,7 @@
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button
                         class="rounded-full px-3 py-2 bg-[#26ca60] font-josefin text-white text-sm font-bold hover:bg-white hover:text-green-700 transition-colors">
-                        ${{ number_format($price, 2, ',', ' ') }}
+                        ${{ number_format($price / 100, 2, ',', ' ') }}
                     </button>
                 </div>
             </div>

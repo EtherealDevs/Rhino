@@ -17,7 +17,7 @@
                                 @foreach ($item->images as $image)
                                     <li class="glide__slide">
                                         <img class="w-full h-64 lg:h-96 object-cover"
-                                        src="/storage/images/product/{{$image->url}}"
+                                        src="{{config('app.product_images_directory') . $image->url}}"
                                             alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$item->color->name}}">
                                     </li>
                                 @endforeach
@@ -56,13 +56,10 @@
 
                 <div class="mb-4">
                     @if ($item->product->sale)
-                        @php
-                            $price = number_format($item->sale_price(), 2, ',', ' ');
-                        @endphp
                         <span class="text-2xl font-semibold font-josefin text-gray-700">${{$price}}</span>
-                        <span class="text-lg line-through font-bold text-gray-500">${{number_format($item->price(), 2, ',', ' ')}}</span>
+                        <span class="text-lg line-through font-bold text-gray-500">${{number_format($item->price() / 100, 2, ',', ' ')}}</span>
                     @else
-                        <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price(), 2, ',', ' ')}}</span>
+                        <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price() / 100, 2, ',', ' ')}}</span>
                     @endif
                 </div>
                 <div class="mb-4">
@@ -226,7 +223,7 @@
                     <img class="w-full h-48 object-cover rounded-t-lg" src="/storage/images/product/{{$relatedItem->images->first()->url}}"
                         alt="Producto 1">
                     <h4 class="text-lg font-semibold mt-2">{{$relatedProduct->name}}</h4>
-                    <p class="text-gray-700">${{$relatedItem->price()}}</p>
+                    <p class="text-gray-700">${{number_format($relatedItem->price() / 100, 2, ',', ',')}}</p>
                 </a>
             </div>
             @endforeach

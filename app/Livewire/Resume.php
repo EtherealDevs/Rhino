@@ -3,50 +3,31 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 
-use App\Http\Cart\CartCombo;
-use App\Http\Cart\CartItem;
-use App\Http\Cart\CartManager;
-use App\Http\Cart\SessionCartManager;
-use App\Http\Controllers\DeliveryServiceController;
-use App\Models\Cart;
-use App\Models\ProductItem;
-use Illuminate\Support\Facades\Auth;
-use App\Models\City;
-use App\Models\Province;
-use App\Models\User;
-use App\Models\ZipCode as ModelsZipCode;
+use App\Http\Validators\AddressValidator;
+use App\Rules\Province;
 use App\Rules\ZipCode;
 use Livewire\Attributes\Validate;
-use App\Models\TransferInfo;
+use App\Services\CartService;
+use App\Services\ShippingService;
 
 class Resume extends Component
 {
-    protected $cartManager;
-    protected $cartContents;
-
-    public $user;
     #[Validate]
     public $zip_code;
 
     #[Validate]
     public $province;
+
     public $total = 0;
 
-    public $selectedProvince = null;
-    public $selectedCity = null;
     public $sucursal = null;
     public $cities = [];
-    public $volume;
-    public $weight;
-    public $productItems;
-    public $cartItems;
 
     public $itemCount;
 
     public $city;
-    #[Validate]
-    public $address;
 
     // ShippingCost.php
     public $alias;
@@ -55,7 +36,7 @@ class Resume extends Component
 
     public $sendPrice;
 
-    protected $listeners = ['sendPriceUpdated' => 'updateSendPrice'];
+    // protected $listeners = ['sendPriceUpdated' => 'updateSendPrice', 'updateZipCode'];
 
     public function updateSendPrice($newPrice)
     {
@@ -63,70 +44,60 @@ class Resume extends Component
     }
 
 
-    public function mount(User $user)
+    public function mount($zip_code, $province = null, $city = null)
     {
-        // Configuración del administrador de carrito
-        $this->cartManager = Auth::check() ? new CartManager() : new SessionCartManager();
-
-        $this->cartItems = $this->cartManager->getCartContents();
-        $this->total = $this->cartManager->getCartTotal();
-
-        $this->fill($user);
-
         // Carga de dirección de usuario
-        if ($user->address != null) {
-            $this->zip_code = $user->address->zipCode->code;
-            $this->cities = City::where('province_id', $user->address->province->id)->get()->sortBy('name');
-            $this->province = $user->address->province->name;
-            $this->city = $user->address->city_id;
-            $this->fill($user->address->only('name', 'last_name', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
+        $addressValidator = new AddressValidator();
+
+        if ($province != null) {
+            $this->province = $province;
+        };
+        if ($city != null) {
+            $this->city = $city;
         }
 
-        $this->productItems = ProductItem::all();
+        $this->zip_code = $zip_code;
+
         $this->calculateCartItems();
+        if ($this->zip_code != null) {
+            $this->zip_code = $addressValidator->validateZipCode($zip_code);
+            $this->calculateSendPrice();
+        }
+    }
+    public function rules()
+    {
+
+        return [
+            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode],
+            'province' => ['required', new Province],
+            'city' => 'required|numeric',
+        ];
+    }
+
+    #[On('updatedCity')]
+    public function updateZipCode($zip_code, $province, $city)
+    {
+        $this->zip_code = $zip_code;
+        $this->province = $province;
+        $this->city = $city;
+        $this->validate();
+        $this->calculateSendPrice();
     }
 
     protected function calculateCartItems()
     {
-        if ($this->cartItems->isNotEmpty()) {
-            $itemCount = 0;
-            foreach ($this->cartItems as $item) {
-                if ($item->type == CartItem::DEFAULT_TYPE) {
-                    $itemModel = ProductItem::find($item->item_id);
-                    $itemQuantity = $item->quantity;
-                    $this->volume += $itemModel->product->volume;
-                    $this->weight += $itemModel->product->weight;
-                    $itemCount += $itemQuantity;
-                } elseif ($item->type == CartCombo::DEFAULT_TYPE) {
-                    foreach ($item->contents as $cartItem) {
-                        $itemModel = ProductItem::find($cartItem->item_id);
-                        $itemQuantity = $item->quantity;
-                        $this->volume += $itemModel->product->volume;
-                        $this->weight += $itemModel->product->weight;
-                        $itemCount += $itemQuantity;
-                    }
-                }
-            }
-            $this->itemCount = $itemCount;
-        }
+        $cartService = new CartService();
+        $props = $cartService->getCartItemsProperties();
+        $this->total = $props['total'] ?? 0;
+        $this->itemCount = $props['count'] ?? 0;
     }
 
-    /* protected function calculateSendPrice()
+    protected function calculateSendPrice()
     {
-        $code = Province::where('name', $this->province)->first();
-        $code = ModelsZipCode::where('province_id', $code->id)->first();
-        $params = [
-            'operativa' => 64665,
-            'peso' => $this->weight,
-            'volumen' => $this->volume,
-            'cP' => 3400,
-            'cPDes' => $code->code,
-            'cantidad' => 1,
-            'valor' => $this->total / 100
-        ];
-        $price = DeliveryServiceController::obtenerTarifas($params);
+        $shippingService = new ShippingService();
+        $price = $shippingService->getShippingCosts($this->zip_code);
         $this->sendPrice = $price;
-    } */
+    }
 
     public function render()
     {

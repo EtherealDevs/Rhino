@@ -128,6 +128,7 @@ return [
     'mp_client_token_test' => env('MERCADOPAGO_CLIENT_TOKEN_TEST'),
 
     'images_directory' => env('IMAGES_DIRECTORY'),
+    'product_images_directory' => env('PRODUCT_IMAGES_DIRECTORY'),
     'delivery_service' => [
         'origin_zipcode' => env('DELIVERY_SERVICE_ORIGIN_ZIPCODE')
     ]

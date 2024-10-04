@@ -33,6 +33,17 @@ class AddressValidator extends FacadesValidator
         ]);
         return $validatedFields;
     }
+    public function validateZipCode(string|int $zipCode)
+    {
+        $validator = FacadesValidator::make(['zip_code' => $zipCode], [
+            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode]
+        ]);
+        if ($validator->passes()) {
+            return $zipCode;
+        } else {
+            return $validator->errors()->first('zip_code');
+        }
+    }
 }
 
 ?>

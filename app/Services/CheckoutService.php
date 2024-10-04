@@ -36,7 +36,7 @@ class CheckoutService
                 $sizeModel = Size::where('name', $item['size'])->first();
                 $itemModel = ProductItem::where('id', $item['item_id'])->first();
                 $itemVariation = $this->productItemService->getItemVariation($itemModel, $sizeModel->name);
-                $imageUrl = config('app.images_directory') . $itemModel->images[0]->url;
+                $imageUrl = config('app.product_images_directory') . $itemModel->images[0]->url;
                 $newItem = [
                     'id' => $itemVariation->id,
                     'title' => $itemModel->product->name,
@@ -51,7 +51,7 @@ class CheckoutService
                     'units' => $item['quantity'],
                     'value' => $itemModel->price() / 100,
                     'name' => $itemModel->product->name,
-                    'imageURL' => config('app.images_directory') . $itemModel->images[0]->url
+                    'imageURL' => $imageUrl . $itemModel->images[0]->url
                 ];
                 array_push($items, $newItem);
                 array_push($cartItems, $cartItem);
@@ -60,7 +60,7 @@ class CheckoutService
                     $sizeModel = Size::where('name', $value['size'])->first();
                     $itemModel = ProductItem::where('id', $value['item_id'])->first();
                     $itemVariation = $this->productItemService->getItemVariation($itemModel, $sizeModel->name);
-                    $imageUrl = config('app.images_directory') . $itemModel->images[0]->url;
+                    $imageUrl = config('app.product_images_directory') . $itemModel->images[0]->url;
                     $newItem = [
                         'id' => $itemVariation->id,
                         'title' => $itemModel->product->name,
@@ -75,7 +75,7 @@ class CheckoutService
                         'units' => $item['quantity'],
                         'value' => $itemModel->price() / 100,
                         'name' => $itemModel->product->name,
-                        'imageURL' => config('app.images_directory') . $itemModel->images[0]->url
+                        'imageURL' => $imageUrl . $itemModel->images[0]->url
                     ];
                     array_push($items, $newItem);
                     array_push($cartItems, $cartItem);

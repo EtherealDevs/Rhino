@@ -104,9 +104,13 @@ class CartController extends Controller
     }
     public function removeFromCart(Request $request)
     {
-        $request->validate([
+        
+        $validator = Validator::make(['cartItemId' => $request->cartItemId], [
             'cartItemId' =>'required|string|alpha_num'
         ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
         $this->cartManager->removeItem($request->cartItemId);
         // $size = $request->size;
         // // $item = ProductItem::where('id', json_decode($request->item)->id)->first();

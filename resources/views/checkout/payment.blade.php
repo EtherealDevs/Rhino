@@ -100,7 +100,7 @@
                                     }
 
                                     // Redirect based on the payment result
-                                    window.location.href = "/payment/status/" + response.id + "?" + "address_id={{$address->id}}" + "?delivery_id={{$delivery_service_id}}";
+                                    window.location.href = "/payment/status/" + response.id + "?" + "address_id={{$address->id}}" + "?delivery_price=" + shippingCosts;
                                 })
                                 .catch((error) => {
                                     // manejar la respuesta de error al intentar crear el pago

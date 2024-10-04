@@ -1,11 +1,13 @@
 <?php
 namespace App\Services;
 
+use App\Http\Validators\AddressValidator;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\ZipCode;
+use Exception;
 
 class AddressService
 {
@@ -44,6 +46,27 @@ class AddressService
             $fields
         );
     
+        return $address;
+    }
+    public function getAddressFromZipCode($zipCode)
+    {
+        $addressValidator = new AddressValidator();
+        $zipCode = $addressValidator->validateZipCode($zipCode);
+
+        // Validate the existence of the zip code in the database
+        $zipCodeModel = ZipCode::where('code', $zipCode)->first();
+        if (!$zipCodeModel) {
+            throw new Exception('Zip code not found');
+        }
+
+        // Validate the existence of the province and city associated with the zip code
+        $provinceModel = Province::where('id', $zipCodeModel->province->id)->first();
+        if (!$provinceModel) {
+            throw new Exception('Invalid zip code or associated province not found');
+        }
+        
+        // Fetch the address record from the database based on the zip code
+        $address = Address::where('zip_code_id', $zipCodeModel->id)->first();
         return $address;
     }
 }

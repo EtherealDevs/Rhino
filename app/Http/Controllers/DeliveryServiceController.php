@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Validators\AddressValidator;
 use Illuminate\Http\Request;
 use App\Services\OcaService;
 use Illuminate\Support\Facades\Http;
@@ -40,7 +41,17 @@ class DeliveryServiceController extends Controller
         return $response->throw();
     }
 
+    /**
+     * Obtiene las sucursales de OCA que tienen el servicio de entrega de paquetes para un código postal dado.
+     *
+     * @param string|int $cp Código postal para el cual se buscarán las sucursales.
+     * @return array|Illuminate\Http\Client\Response Un array con las sucursales que tienen el servicio de entrega,
+     * o una respuesta de excepción en caso de error.
+     */
     public static function obtenerSucursales($cp){
+        $addressValidator = new AddressValidator();
+        $cp = $addressValidator->validateZipCode($cp);
+        $cp = (int) $cp;
         $response = Http::get("http://webservice.oca.com.ar/epak_tracking/Oep_TrackEPak.asmx/GetCentrosImposicionConServiciosByCP", [
             'CodigoPostal' => $cp,
         ]);
@@ -79,6 +90,5 @@ class DeliveryServiceController extends Controller
             return $sucursalesEntrega->values();
         }
         return $response->throw();
-
     }
 }

@@ -76,6 +76,7 @@ class ProductItemController extends Controller
     public function edit( $product) {
         $productSize = DB::table('products_sizes')->where('id',$product)->first();
         $productItem = ProductItem::where('id',$productSize->product_item_id)->first();
+        $variationModel = $productItem->getItemPivotModel();
         $stock= $productSize->stock;
         $size = Size::where('id',$productSize->size_id)->first();
         $colors= Color::all();

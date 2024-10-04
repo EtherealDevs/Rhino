@@ -31,7 +31,7 @@ class SaveCartFromSessionIntoDatabase
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Check if a session cart exists before attempting to transfer it
+        // Check if a session cart exists before attempting to transfer it to the database
         $sessionCartExists = SessionCartManager::checkIfCartExists();
         
         if ($sessionCartExists) {

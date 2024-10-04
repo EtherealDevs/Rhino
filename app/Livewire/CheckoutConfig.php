@@ -3,29 +3,28 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\DeliveryServiceController;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 use App\Models\City;
 use App\Models\Province;
-use App\Models\User;
 use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\ZipCode;
 use Livewire\Attributes\Validate;
-use App\Http\Controllers\DeliveryServiceController;
-use App\Models\TransferInfo;
-use App\Models\ProductItem;
-use App\Http\Cart\CartManager;
-use App\Http\Cart\SessionCartManager;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Cart\CartCombo;
-use App\Http\Cart\CartItem;
-use App\Models\Cart;
+use App\Http\Validators\AddressValidator;
+use App\Rules\Sucursales;
+use App\Services\CartService;
+use App\Services\ShippingService;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CheckoutConfig extends Component
 {
-    protected $cartManager;
-    protected $cartContents;
     public $house=0;
+    public $addressModels;
+    public $addressModel;
 
     public $user;
     #[Validate]
@@ -40,21 +39,23 @@ class CheckoutConfig extends Component
     public $sucursal = null;
     public $cities = [];
     public $city;
-    public $itemCount;
-    public $productItems;
-    public $cartItems;
 
-    public $volume;
-    public $weight;
-    public $sendPrice = 0;
+    // Selected method of delivery (domicilio, retiro sucursal, retiro en tienda)
     #[Validate]
-    public $address;
+    public $selectedMethod;
+
+    public $sendPrice = 0;
 
     public $alias;
     public $cbu;
     public $holder_name;
     public $sucursales;
+    public $sucursalesIds;
 
+    public function mount()
+    {
+        $this->selectedMethod = 'domicilio';
+    }
 
     public function rules()
     {
@@ -62,8 +63,37 @@ class CheckoutConfig extends Component
             'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode],
             'province' => 'required',
             'city' => 'required',
-            'address' => 'required|string',
+            'sucursal' => [Rule::in($this->sucursalesIds)],
+            'selectedMethod' => ['string','alpha', Rule::in(['domicilio', 'sucursal', 'retiro'])]
         ];
+    }
+    public function canGoToNextStep()
+    {
+        switch ($this->selectedMethod) {
+            case 'domicilio':
+                $this->validateOnly('zip_code');
+                $this->validateOnly('province');
+                $this->validateOnly('city');
+                return true;
+                break;
+            case 'sucursal':
+                $this->validateOnly('zip_code');
+                $this->validateOnly('sucursal');
+                return true;
+                break;
+            case'retiro':
+                return true;
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+    #[On('selectionChanged')] 
+    public function setSelected($selection)
+    {
+        $this->selectedMethod = $selection;
+        $this->validateOnly('selectedMethod');
     }
 
     public function updatedSelectedProvince($provinceName)
@@ -77,92 +107,37 @@ class CheckoutConfig extends Component
 
     public function updatedZipCode($zipCode)
     {
-        $this->validate([
-            'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode]
-        ]);
-        $zipCodeModel = ModelsZipCode::where('code', '=', $zipCode)->first();
+        $this->validateOnly('zip_code');
+        $addressValidator = new AddressValidator();
+        $shippingService = new ShippingService();
+        $addressValidator->validateZipCode($zipCode);
+
+        $zipCodeModel = ModelsZipCode::where('code', '=', $zipCode)->first()->load('province', 'province.cities');
         $this->province = $zipCodeModel->province->name;
         $this->selectedCity = null; // Reset city selection when province changes
         $this->city = null; // Reset city when province changes
-        $this->cities = City::where('province_id', $zipCodeModel->province->id)->get()->sortBy('name');
-        $this->sucursales=DeliveryServiceController::obtenerSucursales($zipCode);
+        $this->cities = $zipCodeModel->province->cities->sortBy('name');
+        $this->sucursales = $shippingService->getSucursales($zipCode);
+        $this->sucursalesIds = [];
+        foreach ($this->sucursales as $sucursal) {
+            $this->sucursalesIds[] = $sucursal['IdCentroImposicion'];
+        }
+
     }
 
-    public function updatedSendPrice()
-    {
-        $code = Province::where('name', $this->province)->first();
-        $code = ModelsZipCode::where('province_id', $code->id)->first();
-        $params = ['operativa' => 64665, 'peso' => $this->weight, 'volumen' => $this->volume, 'cP' => 3400, 'cPDes' => $code->code, 'cantidad' => 1, 'valor' => $this->total / 100];
-        $price = DeliveryServiceController::obtenerTarifas($params);
-        $this->sendPrice = $price;
-
-        $this->dispatch('sendPriceUpdated', $this->sendPrice);
-    }
-
-    public function updatedSucursal()
-    {
-        $this->updatedSendPrice(false);
-    }
+    // public function updatedSucursal()
+    // {
+    //     $this->updatedSendPrice(false);
+    // }
 
     public function updatedCity($cityId)
     {
+        $this->dispatch('updatedCity', zip_code: $this->zip_code, province: $this->province, city: $this->city)->to(Resume::class);
         $this->city = $cityId;
-        $this->updatedSendPrice(true);
-    }
-
-    public function mount(User $user)
-    {
-        if (Auth::check()) {
-            $this->cartManager = new CartManager();
-        } else {
-            $this->cartManager = new SessionCartManager();
-        }
-        $this->cartItems = $this->cartManager->getCartContents();
-        $this->total = $this->cartManager->getCartTotal();
-
-        $this->fill($user);
-        if ($user->address != null) {
-            $this->zip_code = $user->address->zipCode->code;
-            $this->cities = City::where('province_id', $user->address->province->id)->get()->sortBy('name');
-            $this->province = $user->address->province->name;
-            $this->city = $user->address->city_id;
-            $this->fill(
-                $user->address->only('name', 'last_name', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'),
-            );
-        }
-        $this->productItems = ProductItem::all();
-        $this->productItems = ProductItem::all();
-        if ($this->cartItems->isNotEmpty()) {
-            $itemCount = 0;
-            foreach ($this->cartItems as $item) {
-                if ($item->type == CartItem::DEFAULT_TYPE) {
-                    $itemModel = ProductItem::find($item->item_id);
-                    $itemQuantity = $item->quantity;
-                    $discount = $itemModel->product->sale->sale->discount ?? 0;
-                    $price = $itemModel->price();
-                    $priceDiscount = ($price * $discount) / 100;
-                    $this->volume += $itemModel->product->volume;
-                    $this->weight += $itemModel->product->weight;
-                    $itemCount += $itemQuantity;
-                } else if ($item->type == CartCombo::DEFAULT_TYPE) {
-                    foreach ($item->contents as $cartItem) {
-                        $itemModel = ProductItem::find($cartItem->item_id);
-                        $itemQuantity = $item->quantity;
-                        $discount = $itemModel->product->sale->sale->discount ?? 0;
-                        $price = $itemModel->price();
-                        $priceDiscount = ($price * $discount) / 100;
-                        $this->volume += $itemModel->product->volume;
-                        $this->weight += $itemModel->product->weight;
-                        $itemCount += $itemQuantity;
-                    }
-                }
-            }
-            $this->itemCount = $itemCount;
-        }
     }
 
     public function render()
     {
-        return view('livewire.checkout-config');
+        return view('livewire.checkout-config', ['zip_code' => $this->zip_code]);
     }
 }
