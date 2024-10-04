@@ -59,7 +59,7 @@
         </a>
     </div> --}}
 
-    @livewire('navigation')
+    {{-- @livewire('navigation') --}}
     <div class="min-h-screen">
 
         {{-- @livewire('rating-stars') --}}
@@ -69,10 +69,10 @@
         </main>
 
         <div class="z-40">
-            @livewire('banner')
+            {{-- @livewire('banner') --}}
         </div>
 
-        @livewire('footer')
+        {{-- @livewire('footer') --}}
     </div>
 
     @stack('modals')
