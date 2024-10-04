@@ -1,15 +1,19 @@
 {
-  "public/img/modelo1.jpg": {
-    "file": "assets/modelo1-DjPYmDIV.jpg",
-    "src": "public/img/modelo1.jpg"
+  "public/img/contact.png": {
+    "file": "assets/contact-QKgZdF7W.png",
+    "src": "public/img/contact.png"
+  },
+  "public/img/new.png": {
+    "file": "assets/new-CHRaMmtc.png",
+    "src": "public/img/new.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CozboQ3c.css",
+    "file": "assets/app-Dcflaw2J.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-C1-XIpUa.js",
+    "file": "assets/app-C9in3yVv.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
