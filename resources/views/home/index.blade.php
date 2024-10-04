@@ -146,22 +146,6 @@
                                 Nuevos Ingresos
                             </p>
                         </div>
-<<<<<<< HEAD
-                    </div>
-                    <div class="justify-center z-20 lg:block hidden">
-                        <svg id="polygon" viewBox="0 0 954 387" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M477 387L-8.27764e-06 -1.49012e-05H954L477 387Z" fill="url(#paint0_linear_241_3678)" />
-                            <defs>
-                                <linearGradient id="paint0_linear_241_3678" x1="-0.00012207" y1="193.5" x2="954"
-                                    y2="193.5" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0.577943" />
-                                    <stop offset="1" stop-color="#434343" stop-opacity="0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-=======
->>>>>>> test
 
                         <div class="mt-4 flex justify-end pr-6"> <!-- Añadir "flex justify-end pr-6" aquí -->
                             <button

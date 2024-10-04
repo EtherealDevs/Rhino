@@ -17,13 +17,8 @@
                         <a class="hover:opacity-75" href>Pantalones</a>
                         <a class="hover:opacity-75" href>Camisas</a>
                         <a class="hover:opacity-75" href>Zapatillas</a>
-<<<<<<< HEAD
-                        <a href="/terms" class="hover:opacity-75" href>Terminos Y Condiciones</a>
-                        <a href="/privacy" class="hover:opacity-75" href>Politica de Privacidad</a>
-=======
 
                         <a href="/eliminacion-datos" class="hover:opacity-75" href>Eliminacion Datos</a>
->>>>>>> test
                     </nav>
                 </div>
                 <div>

@@ -48,7 +48,7 @@ Route::get('/', function () {
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/contact', function () {
     return view('contact.index');
