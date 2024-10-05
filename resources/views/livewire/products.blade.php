@@ -25,6 +25,8 @@
 
             {{-- Content (Productos) --}}
             <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8">
+                @if ($combos->isNotEmpty())
+
                 <div class="bg-center bg-contain w-[420px] xl:w-[1100px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
                     <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                         <div class="flex flex-col lg:flex-row lg:items-center ">
@@ -108,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-
+                @endif
                 <div class="xl:ml-[1px] xl:mt-4 2xl:ml-0 flex w-full justify-center lg:justify-end">
                     <div
                         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">

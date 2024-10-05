@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="p-6 pt-20">
+    <div class="p-6 pt-20 z-50">
         <style>
             #loaderadmin {
                 width: 60px;

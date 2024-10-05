@@ -35,7 +35,7 @@ class OrderController extends Controller
 
         $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
 
-        return view('admin.ventas.index', compact('orders', 'orderStatuses', 'totalGanancias'));
+        return view('admin.ventas.index', compact('ventas', 'orderStatuses', 'totalGanancias'));
     }
 
     public function updateStatus(Request $request, Order $order)

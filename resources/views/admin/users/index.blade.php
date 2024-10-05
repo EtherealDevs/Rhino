@@ -2,7 +2,7 @@
 
 @section('content')
     <script src="//unpkg.com/alpinejs" defer></script>
-    <div class="p-6">
+    <div class="p-6 z-40">
         <div class="p-6 mt-24 bg-white rounded-xl overflow-scroll">
             <div class="flex justify-between w-full mb-5">
                 <div class="justify-start">

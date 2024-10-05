@@ -118,22 +118,28 @@
                                     @enderror
                                 </div>
                                 <div class="mb-8">
-
-                                    <label for="file"
-                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
-                                        <div>
+                                    <label for="image" class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
+                                        <div class="w-full">
+                                            <!-- Texto descriptivo -->
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
-                                                Puedes Arrastrar archivos aqui
+                                                Selecciona una o más imágenes aquí 👇🏼
                                             </span>
-                                            <span class="mb-2 block text-base font-medium text-[#6B7280]">
-                                                o
-                                            </span>
-                                            <span
-                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                                <input type="file" name="image" accept="image/*" id="image" />
+                                            <!-- Botón para seleccionar archivos -->
+                                            <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                                <input class="hidden" type="file" name="images[]" accept="image/*" id="image" multiple onchange="previewImages(event)" />
+                                                <!-- SVG y texto dentro del label -->
+                                                <div class="flex items-center justify-center space-x-2 cursor-pointer">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" class="text-gray-500">
+                                                        <path fill="currentColor" d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z"></path>
+                                                    </svg>
+                                                    <span>Subir imágenes</span>
+                                                </div>
                                             </span>
                                         </div>
                                     </label>
+
+                                    <!-- Contenedor para la vista previa de las imágenes -->
+                                    <div id="preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
                                 </div>
 
                                 <button id="button" type="submit"
@@ -143,6 +149,80 @@
                             </form>
                         </div>
                     </div>
+                    <script>
+                        function previewImages(event) {
+                            const files = event.target.files;
+                            const previewContainer = document.getElementById('preview-container');
+                            previewContainer.innerHTML = ''; // Limpiar previas anteriores
+
+                            Array.from(files).forEach((file, index) => {
+                                const reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    // Contenedor de la imagen y el botón de eliminar
+                                    const imageWrapper = document.createElement('div');
+                                    imageWrapper.classList.add('relative', 'w-full', 'h-auto');
+
+                                    // Crear imagen
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
+
+                                    // Crear botón para eliminar la imagen
+                                    const removeButton = document.createElement('button');
+                                    removeButton.innerHTML = 'Eliminar';
+                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white', 'px-2', 'py-1', 'rounded');
+                                    removeButton.onclick = () => removeImage(index);
+
+                                    // Agregar imagen y botón al contenedor
+                                    imageWrapper.appendChild(img);
+                                    imageWrapper.appendChild(removeButton);
+
+                                    // Añadir contenedor al preview-container
+                                    previewContainer.appendChild(imageWrapper);
+                                };
+
+                                reader.readAsDataURL(file);
+                            });
+                        }
+
+                        function removeImage(index) {
+                            const previewContainer = document.getElementById('preview-container');
+                            previewContainer.children[index].remove(); // Remueve el div correspondiente a la imagen
+                        }
+                    </script>
+
+                    <script>
+                        'use strict'
+
+                        document.getElementById('button').addEventListener('click', toggleError)
+                        const errMessages = document.querySelectorAll('#error')
+
+                        // function price_sale(){
+                        //     const original_price = document.getElementById('original_price').value
+                        //     const sale_price = document.getElementById('sale_price').value
+                        //     if(sale_price===null){
+                        //         sale_price = original_price
+                        //     }
+                        // }
+
+                        function toggleError() {
+                            // Show error message
+                            errMessages.forEach((el) => {
+                                el.classList.toggle('hidden')
+                            })
+
+                            // Highlight input and label with red
+                            const allBorders = document.querySelectorAll('.border-gray-200')
+                            const allTexts = document.querySelectorAll('.text-gray-500')
+                            allBorders.forEach((el) => {
+                                el.classList.toggle('border-red-600')
+                            })
+                            allTexts.forEach((el) => {
+                                el.classList.toggle('text-red-600')
+                            })
+                        }
+                    </script>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
                     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />

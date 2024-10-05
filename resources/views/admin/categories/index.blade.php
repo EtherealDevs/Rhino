@@ -80,10 +80,12 @@
                                     </div>
                                 </td>
                                 <td class="p-4 border-b border-blue-gray-50 space-x-4 ">
-                                        <a class="text-center" href={{route('admin.categories.create',['id'=>$category->id])}} >
-                                            <span>crear</span>
-                                            <span>subcategoria</span>
-                                        </a>
+                                    <a href={{route('admin.categories.create', ['id' => $category->id])}}
+                                        class="block px-2 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-all duration-300 ease-in-out transform hover:scale-105">
+                                         <span class="block text-lg">Crear</span>
+                                         <span class="block text-sm">Subcategoría</span>
+                                     </a>
+
                                     <div class="inline-flex items-center rounded-md shadow-sm">
                                         <a href="{{ route('admin.categories.edit', $category) }}">
                                             <button
