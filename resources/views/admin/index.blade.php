@@ -190,9 +190,6 @@
                 {{-- HEADER --}}
                 <div class="grid grid-cols-2 lg:grid-cols-4 p-1 justify-center">
                     <div class="col-span-2 ml-2 mb-3">
-                        <div class="text-sm font-bold bg-black/20 p-1 w-8/12 px-5 rounded-lg text-white uppercase">
-                            <i class="ri-calendar-2-line"></i> {{ $formattedDate }}
-                        </div>
 
                         <div class="justify-center">
                             <h2 class="text-[#FFF1F1] font-encode font-bold text-2xl leading-8  italic">Bienvenido
@@ -202,6 +199,10 @@
                                     {{ $user->name }}
                                 </span>
                             </h3>
+                        </div>
+
+                        <div class="text-sm font-bold bg-black/20 p-1 w-full lg:w-8/12 px-5 rounded-lg text-white uppercase">
+                            <i class="ri-calendar-2-line"></i> {{ $formattedDate }}
                         </div>
                     </div>
                     <div
@@ -235,7 +236,7 @@
             </div>
 
             <div
-                class="bg-white row-span-2 w-full lg:row-span-3 rounded-xl border border-gray-000 p-6 shadow-md shadow-black/5">
+                class="bg-white col-span-2 lg:col-span-1 row-span-2 w-full lg:row-span-3 rounded-xl border border-gray-000 p-6 shadow-md shadow-black/5">
                 <div class="flex justify-between gap-3 pb-2">
                     <div class="justify-start">
                         <h2 class="font-bold text-xl mb-2 font-encode"> <i
@@ -297,7 +298,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 col-span-2 h-5/6 gap-6">
+            <div class="grid grid-cols-2 mt-6 lg:mt-0 lg:grid-cols-4 md:grid-cols-2 col-span-2 h-5/6 gap-6">
                 <div class="p-2 bg-white rounded-xl">
                     <p class="font-blinker block font-medium text-md text-center p-4">
                         <span class="font-bold text-4xl">
@@ -366,7 +367,7 @@
                         </h2>
 
                         <a href="{{ route('admin.orders.index') }}"
-                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-lg shadow-md transition duration-300">
                             Ver Todos los Pedidos
                         </a>
                     </div>

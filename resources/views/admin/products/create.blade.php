@@ -78,8 +78,8 @@
 
                                 <div class="relative z-0 w-full mb-5">
 
-                                    <div class="grid grid-cols-3 gap-4">
-                                        <div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="relative">
                                             <input type="number" name="original_price" id="original_price" placeholder=" "
                                                 required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
@@ -88,23 +88,22 @@
                                             <span class="text-sm text-red-600 hidden" id="error">Este Campo es
                                                 requerido</span>
                                         </div>
-                                        <div>
+                                        <div class="relative">
+                                            <input type="number" name="stock" placeholder=" " required
+                                                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                            <label for="stock"
+                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
+                                            @error('stock')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="relative col-span-2">
                                             <input type="number" name="sale_price" id="sale_price" placeholder=" "
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                             <label for="sale_price"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio de
                                                 venta</label>
                                             @error('sale_price')
-                                                <span class="text-red-500 text-sm">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div>
-                                            <input type="number" name="stock" placeholder=" " required
-                                                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                            <label for="stock"
-                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
-                                            @error('stock')
                                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
