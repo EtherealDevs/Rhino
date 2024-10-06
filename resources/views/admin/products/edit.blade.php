@@ -46,7 +46,7 @@
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action={{ route('admin.productitems.update', $productItem) }} method="POST"
+                            <form action={{ route('admin.productitems.update', $productItem->id) }} method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')

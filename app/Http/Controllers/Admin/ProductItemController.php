@@ -76,9 +76,9 @@ class ProductItemController extends Controller
     public function edit( $product) {
         $productSize = DB::table('products_sizes')->where('id',$product)->first();
         $productItem = ProductItem::where('id',$productSize->product_item_id)->first();
-        $variationModel = $productItem->getItemPivotModel();
-        $stock= $productSize->stock;
         $size = Size::where('id',$productSize->size_id)->first();
+        $variationModel = $productItem->getItemPivotModel($size);
+        $stock= $variationModel->stock;
         $colors= Color::all();
         $products= Product::all();
         $brands=Brand::all();
@@ -89,15 +89,15 @@ class ProductItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductItem $productItem)
+    public function update(Request $request, $productItem)
     {
-
-        $productItem->first()->update([
+        $productItem=ProductItem::find($productItem);
+        $productItem->update([
             'product_id' => $request->product_id,
             'original_price' => $request->original_price,
             'sale_price' => $request->sale_price,
         ]);
-        $productItem->first()->sizes()->where('size_id', $request->size_id)->update([
+        $productItem->sizes()->wherePivot('size_id', $request->size_id)->first()->pivot->update([
             'stock' => $request->stock,
             ]);
 
@@ -111,11 +111,11 @@ class ProductItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductItem $product_item)
+    public function destroy($productSize)
     {
-        Storage::delete($product_item->images->first()->url);
-        $product_item->images()->delete();
-        $product_item->delete();
+        $productSize= DB::table('products_sizes')->where('id',$productSize)->first();
+        $product_item=ProductItem::find($productSize->product_item_id);
+        $product_item->sizes()->wherePivot('size_id', $productSize->size_id)->first()->pivot->delete();
         return redirect()->route('admin.products.index');
     }
 }
