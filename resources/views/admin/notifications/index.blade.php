@@ -233,5 +233,4 @@
         </div>
 
     </div>
-    <!-- component -->
 @endsection
