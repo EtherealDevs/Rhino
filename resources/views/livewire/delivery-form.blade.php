@@ -10,13 +10,15 @@
         <div class="lg:grid lg:grid-cols-3 w-full lg:w-3/4">
 
             {{-- Formulario --}}
-            <div class="max-w-xl col-span-1 lg:col-span-2 h-full space-y-8 w-full p-10 bg-transparent rounded-xl shadow-lg z-40">
+            <div
+                class="max-w-xl col-span-1 lg:col-span-2 h-full space-y-8 w-full p-10 bg-transparent rounded-xl shadow-lg z-40">
                 <div class="h-full">
                     <div class="">
                         <div id="autoFillModal" class="lg:hidden sm:block flex items-center justify-center z-50">
                             <div class="bg-transparent h-full">
                                 <h2 class="text-lg font-bold">Selecciona una dirección almacenada</h2>
-                                <p class="text-gray-600">Selecciona una de tus direcciones guardadas para autocompletar el
+                                <p class="text-gray-600">Selecciona una de tus direcciones guardadas para autocompletar
+                                    el
                                     formulario.</p>
                                 <div class="mt-4">
                                     <div class="max-w-md mx-auto space-y-6">
@@ -195,8 +197,8 @@
                                         <div class="relative">
                                             <input wire:model.live="selectedAddressId" type="radio"
                                                 name="selectedAddressId" id="option{{ $address->id }}"
-                                                value="{{ $address->id }}" data-address='@json($address)'
-                                                class="hidden peer">
+                                                value="{{ $address->id }}"
+                                                data-address='@json($address)' class="hidden peer">
                                             <label for="option{{ $address->id }}"
                                                 class="inline-flex items-center justify-between w-full p-3 bg-transparent border-2 rounded-lg cursor-pointer group border-neutral-200/70 text-neutral-600 peer-checked:border-blue-400 peer-checked:text-neutral-900 peer-checked:bg-blue-200/50 hover:text-neutral-900 hover:border-neutral-300">
                                                 <div class="flex items-center space-x-3">
@@ -241,148 +243,15 @@
                     </div>
                 </div>
 
-                <div class="">
-                    {{-- Formulario de envio --}}
-                    <form wire:submit="save" method="POST" action="{{ route('checkout.delivery.address') }}" class="space-y-4">
-                        @method('POST')
-                        @csrf
-                        <input type="hidden" name="user_id" value="{{ $user->id }}">
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <x-checkout.text-input name="name" label="Nombre" wire:model.blur="name"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-
-                            <x-checkout.text-input name="last_name" label="Apellido" wire:model.blur="last_name"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-
-                            <div class="w-full max-w-sm min-w-[200px] mt-4 sm:col-span-2">
-                                <label class="block mb-1 text-sm text-gray-800">Número de Teléfono</label>
-                                <div class="relative mt-2">
-                                    <div class="absolute top-2 left-0 flex items-center pl-3">
-                                        <button type="button" id="dropdownButton"
-                                            class="h-full text-sm flex justify-center items-center bg-transparent text-gray-700 focus:outline-none">
-                                            <span id="dropdownSpan">+54</span>
-                                            <!-- Cambia el código de país según sea necesario -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="h-4 w-4 ml-1">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                            </svg>
-                                        </button>
-                                        <div class="h-6 border-l border-gray-200 ml-2"></div>
-                                    </div>
-                                    <input maxlength="11"
-                                        class="w-full h-10 pl-20 bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-400 shadow-sm focus:shadow-md"
-                                        type="text" id="formattedPhone" placeholder="3794-895167"
-                                        oninput="formatPhone(this)" wire:model.blur="formattedNumber"
-                                        value="{{ $formattedNumber }}" />
-
-                                    <!-- Hidden input to store unformatted number and bind with Livewire -->
-                                    <input type="hidden" name="phone_number" id="unformattedPhone"
-                                        wire:model.live="phone_number" value="{{$phone_number}}" />
-                                    {{-- <input type="text" name="phone_number" wire:model.blur="phone_number"
-                                        
-                                        wire:change="formattedNumber" placeholder="3794-895167" />
-                                    <input type="hidden" name=""> --}}
-                                </div>
-                                @error('phone_number')
-                                    <div class="mt-2 text-red-500 text-xs">
-                                        <span class="error">{{ $message }}</span>
-                                    </div>
-                                @enderror
-                            </div>
-
-
-                            <div class="mb-4 col-span-1 sm:col-span-2 grid grid-cols-2 grid-rows-2">
-                                <div class="col-span-2">
-                                    <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
-                                        wire:model.blur="zip_code"
-                                        class="appearance-none  block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-                                </div>
-                                <div class="col-span-1">
-                                    <label for="province"
-                                        class="text-xs font-semibold text-gray-600 py-2">Provincia</label>
-                                    <input name="province" type="text" readonly wire:model.live="province"
-                                        class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
-                                    @error('province')
-                                        <div class="mt-2 text-red-500 text-xs">
-                                            <span class="error">{{ $message }}</span>
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-4 col-span-1">
-                                    <label for="city"
-                                        class="text-xs font-semibold text-gray-600 py-2">Localidad</label>
-                                    <select name="city" wire:model.live="city"
-                                        class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
-                                        <option selected value="">
-                                            @if ($selectedProvince == 1)
-                                                Seleccioná un barrio...
-                                            @else
-                                                Seleccioná una localidad...
-                                            @endif
-                                        </option>
-                                        @foreach ($cities as $city2)
-                                            @php
-                                                $value = $city2->id;
-                                            @endphp
-                                            <option @if ($value == $city) selected @endif
-                                                value="{{ $city2->id }}">
-                                                {{ $city2->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('city')
-                                        <div class="mt-2 text-red-500 text-xs">
-                                            <span class="error">{{ $message }}</span>
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <x-checkout.text-input name="address" label="Dirección" wire:model="address"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-
-                            <x-checkout.text-input name="street" label="Calle" wire:model="street"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-
-                            <x-checkout.text-input name="number" label="Altura (Número)" wire:model="number"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-
-                            <x-checkout.text-input name="department" label="Piso/Departamento (Opcional)"
-                                wire:model="department"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-                        </div>
-
-                        <hr class="mt-4 mb-4">
-                        <p class="text-sm font-semibold text-gray-600">Entre calles (Opcional)</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <x-checkout.text-input name="street1" label="Calle 1" wire:model="street1"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-
-                            <x-checkout.text-input name="street2" label="Calle 2" wire:model="street2"
-                                class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
-                        </div>
-
-                        <x-checkout.textbox-input name="observation" label="Indicaciones opcionales"
-                            wire:model="observation"
-                            class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-28 px-4 py-2" />
-
-                        <button type="submit"
-                            class="w-full py-3 mt-6 bg-green-400 text-white rounded-lg hover:bg-green-500 shadow-lg">
-                            Continuar con la compra.
-                        </button>
-                    </form>
+                {{-- Resumen de la compra sumada al envio --}}
+                <div class="w-full z-40 bottom-2">
+                    <div class="justify-center">
+                        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city])
+                    </div>
                 </div>
             </div>
 
-            {{-- Resumen de la compra sumada al envio --}}
-            <div class="w-full z-40 bottom-2">
-                <div class="justify-center">
-                    @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city])
-                </div>
-            </div>
+
         </div>
 
         <div class="absolute inset-x-0 top-[calc(100%-13rem)] z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
