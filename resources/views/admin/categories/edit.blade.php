@@ -91,25 +91,6 @@
                                 <span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
                             </div>
 
-                            <div class="mb-8">
-                                <label for="file"
-                                    class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
-                                    <div>
-                                        <span class="mb-2 block text-xl font-semibold text-[#07074D]">
-                                            Puedes Arrastrar archivos aqui
-                                        </span>
-                                        <span class="mb-2 block text-base font-medium text-[#6B7280]">
-                                            o
-                                        </span>
-                                        <span
-                                            class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                            <input type="file" name="image" accept="image/*" id="image" />
-                                        </span>
-                                        <img src={{ Storage::url($category->image->url) }} alt="">
-                                    </div>
-                                </label>
-                            </div>
-
                             <button id="button" type="submit"
                                 class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
                                 Guardar
