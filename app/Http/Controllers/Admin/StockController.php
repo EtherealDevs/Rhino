@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\ProductsSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Notifications\StockNotify; // Importa la notificación
+use App\Notifications\StockNotify;
 use App\Models\User;
 
 class StockController extends Controller
@@ -28,13 +28,17 @@ class StockController extends Controller
 
     public function store(Request $request)
     {
-        // Obtenemos el registro del tamaño del producto que se va a actualizar
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'size_id' => 'required|exists:sizes,id',
+            'stock' => 'required|integer|min:0',
+        ]);
+
         $product_size = DB::table('products_sizes')
             ->where('product_item_id', $request->product_id)
             ->where('size_id', $request->size_id)
             ->first();
 
-        // Actualizamos el stock
         DB::table('products_sizes')
             ->where('product_item_id', $request->product_id)
             ->where('size_id', $request->size_id)
@@ -42,19 +46,28 @@ class StockController extends Controller
                 'stock' => $request->stock,
             ]);
 
-        // Verificamos si el stock está por debajo del umbral
         if ($request->stock <= 5) {
-            // Obtenemos al administrador (o puedes obtener múltiples administradores)
-            $admin = User::where('role', 'admin')->first();
-
-            // Encontramos el producto para la notificación
-            $product = Product::find($request->product_id);
-
-            // Notificamos al administrador
-            $admin->notify(new StockNotify($product));
+            $this->notifyLowStock($request);
         }
 
-        // Redirigimos a la lista de productos en stock
         return redirect()->route('admin.stock.index');
+    }
+
+    /**
+     *
+     *
+     * @param Request $request
+     */
+    protected function notifyLowStock(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        $admin = User::role('admin')->first();
+
+        if ($product) {
+            if ($admin) {
+
+                $admin->notify(new StockNotify($product, $request));
+            }
+        }
     }
 }
