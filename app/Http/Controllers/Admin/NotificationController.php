@@ -4,14 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
     public function index()
     {
-        $user=Auth::user();
-        $notifications=$user->notifications;
-        return view('admin.notifications.index',compact('notifications'));
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Obtener todas las notificaciones del usuario
+        $notifications = $user->notifications;
+
+        // Obtener la cantidad de notificaciones no leídas
+        $unreadNotificationsCount = $user->unreadNotifications->count();
+
+        // Pasar las notificaciones y el conteo a la vista
+        return view('admin.notifications.index', compact('notifications', 'unreadNotificationsCount'));
     }
 }

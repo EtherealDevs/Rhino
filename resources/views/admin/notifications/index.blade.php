@@ -10,13 +10,16 @@
             </div>
 
             <div class="justify-end col-span-1">
-                <div class="bg-blue-300 rounded-full w- p-2">
-                    <p class="font-bold text-blue-800 text-xl font-josefin">
-                        24
-                    </p>
+                <div class="w-1/12">
+                    <div class="bg-blue-300 rounded-full p-2">
+                        <p class="font-bold text-blue-800 text-xl font-josefin">
+                            {{ $unreadNotificationsCount }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+
 
         <div class="p-6 mx-6 static">
             <section class="relative flex flex-col justify-center overflow-hidden antialiased">
@@ -98,13 +101,21 @@
                                                 <div class="text-slate-500 ml-14">
                                                     <span
                                                         class="text-slate-900 font-bold">{{ $notify->data['name'] }}</span>
-                                                    is low on stock!
+                                                    Está con poco Stock
                                                 </div>
                                             </div>
                                             <!-- Contenido Stock Bajo -->
                                             <div
-                                                class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">
-                                                Only {{ $notify->data['stock'] }} units left.
+                                                class="bg-white flex p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">
+                                                <p class="">
+                                                    Solo quedan {{ $notify->data['stock'] }} unidades disponibles.
+                                                </p>
+                                                <div class="justify-end">
+                                                    <a href="{{ route('admin.productitems.edit', $notify->data['product_id']) }}"
+                                                        class="text-blue-800 font-bold py-2 px-4">
+                                                        Agregar Stock
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     @endif
