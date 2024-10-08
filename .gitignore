@@ -1,14 +1,13 @@
 /public/hot
 /public/storage
+/node_modules
+/vendor
 /storage/*.key
 .env
 .env.backup
 .env.production
 /.idea
 /.vscode
-/vendor
-/node_modules
 
 !/vendor/fakerphp/faker/src/Faker/Provider/Image.php
-/node_modules
-/node_modules
+
