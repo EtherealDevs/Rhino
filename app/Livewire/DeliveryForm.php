@@ -14,6 +14,7 @@ use App\Rules\ZipCode;
 use App\Models\Address;
 use App\Rules\Province as RulesProvince;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class DeliveryForm extends Component
 {
@@ -71,9 +72,17 @@ class DeliveryForm extends Component
     // Nueva propiedad para manejar la visibilidad del modal
     public $showConfirmationModal = false;
 
-    public function mount(User $user)
+    public $sucursales;
+    public $sucursalesIds;
+    public $sucursal = null;
+    public $sucursalArray = null;
+
+    #[Validate]
+    public $selectedMethod;
+
+    public function mount(User $user, $zip_code = null, $province = null, $city = null)
     {
-        $this->dispatch('testingEvent', testData: 'testing')->to(Resume::class);
+        $this->selectedMethod = 'domicilio';
         $this->zipCodeModels = ModelsZipCode::all();
         $this->provinceModels = Province::all();
         $this->cityModels = City::all();
@@ -85,6 +94,15 @@ class DeliveryForm extends Component
           $this->selectedAddressId = $this->addressModels->first()->id;
           $this->addressModel = $this->addressModels->where('id', $this->selectedAddressId)->first();
           $this->updatedSelectedAddressId($this->selectedAddressId);
+        // if ($zip_code != null) {
+        //     $this->zip_code = $zip_code;
+        //     $this->updatedZipCode($this->zip_code);
+        // }
+        // if ($city != null) {
+        //     $this->city = $city;
+        //     $this->updatedCity($this->city);
+        // }
+        
     }
 
 
@@ -104,12 +122,8 @@ class DeliveryForm extends Component
             'department' => 'string|nullable',
             'street1' => 'string|nullable',
             'street2' => 'string|nullable',
-            'observation' => 'string|nullable',
+            'observation' => 'string|nullable'
         ];
-    }
-    public function save()
-    {
-        dd($this);
     }
     public function formatPhoneNumber()
     {

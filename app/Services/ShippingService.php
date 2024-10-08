@@ -28,30 +28,28 @@ class ShippingService
         $this->addressValidator = new AddressValidator();
     }
     /**
-     * Get the shipping costs for a delivery to specified address.
+     * Get the shipping costs for a delivery to specified addressOrZipCode.
      *
-     * @param Address|string|int $address Either an address model or a zip code to be used to find the address model.
-     * @param int|string $cpDest The destination zip code of the delivery.
+     * @param Address|string|int $addressOrZipCode Either an address model or a zip code.
+     * @param int $operativa The operation code.
      *
      * @return float $price The calculated shipping price.
      *
      * @throws Exception If any required data is missing, failed validation, or if the associated models cannot be found.
      */
-    public function getShippingCosts(Address|string|int $address)
+    public function getShippingCosts(Address|string|int $addressOrZipCode, int $operativa)
     {
-        if ($address instanceof Address) {
+        if ($addressOrZipCode instanceof Address) {
             try {
-                $zipCode = $this->addressValidator->validateZipCode($address->zipCode->code);
+                $zipCode = $this->addressValidator->validateZipCode($addressOrZipCode->zipCode->code);
                 $cpDest = (int) $zipCode;
             } catch (\Throwable $th) {
                 throw $th;
             }
-        }
-        else if (is_string($address) || is_int($address))
-        {
+        } else if (is_string($addressOrZipCode) || is_int($addressOrZipCode)) {
             try {
-                $zipCode = $this->addressValidator->validateZipCode($address);
-                $address = $this->addressService->getAddressFromZipCode($zipCode);
+                $zipCode = $this->addressValidator->validateZipCode($addressOrZipCode);
+                $addressOrZipCode = $this->addressService->getAddressFromZipCode($zipCode);
                 $cpDest = (int) $zipCode;
             } catch (\Throwable $th) {
                 throw $th;
@@ -61,14 +59,23 @@ class ShippingService
         $weight = $props['weight'] ?? 0;
         $volume = $props['volume'] ?? 0;
         $total = $props['total'] ?? 0;
-        $params = ['operativa' => 94584, 'peso' => $weight, 'volumen' => $volume, 'cP' => (int) config('app.delivery_service.origin_zipcode'), 'cPDes' => $cpDest, 'cantidad' => 1, 'valor' => (int) ($total / 100)];
+        $params = ['operativa' => $operativa, 'peso' => $weight, 'volumen' => $volume, 'cP' => (int) config('app.delivery_service.origin_zipcode'), 'cPDes' => $cpDest, 'cantidad' => 1, 'valor' => (int) ($total / 100)];
         $price = DeliveryServiceController::obtenerTarifas($params);
         return (float) $price;
     }
-    public function getSucursales($zipCode) 
+    public function getSucursales($zipCode)
     {
         $zipCode = $this->addressValidator->validateZipCode($zipCode);
         $zipCode = (int) $zipCode;
         return DeliveryServiceController::obtenerSucursales($zipCode);
+    }
+    public function getSucursalesIds($zipCode)
+    {
+        $sucursales = $this->getSucursales($zipCode);
+        $sucursalesIds = [];
+        foreach ($sucursales as $sucursal) {
+            array_push($sucursales, $sucursal['IdCentroImposicion']);
+        }
+        return $sucursalesIds;
     }
 }

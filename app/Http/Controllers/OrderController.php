@@ -29,7 +29,7 @@ class OrderController extends Controller
         $user = Auth::user();
 
         // Asegurarse de que el pedido pertenece al usuario logueado
-        $order = Order::with('details.productItem', 'orderStatus')
+        $order = Order::with('details', 'orderStatus')
             ->where('user_id', $user->id)
             ->findOrFail($id);
         // $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo

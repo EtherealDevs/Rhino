@@ -20,7 +20,7 @@
                         {{ $order->orderStatus->name }}
                     </div>
                 </p>
-                <p class="text-lg text-gray-600"><strong class="font-medium">Total:</strong> ${{ number_format($order->total, 2) }}</p>
+                <p class="text-lg text-gray-600"><strong class="font-medium">Total:</strong> ${{ number_format($order->total / 100, 2, ',', '.') }}</p>
                 <p class="text-lg text-gray-600"><strong class="font-medium">Fecha de Creación:</strong> {{ $order->created_at->format('d-m-Y H:i') }}</p>
             </div>
 
@@ -70,9 +70,9 @@
             @foreach($order->details as $detail)
                 <li class="flex items-center justify-between bg-gray-100 p-4 rounded-lg">
                     <div class="flex items-center space-x-4">
-                        <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border transform hover:scale-125" src="{{url(Storage::url('images/product/'.$detail->productItem->images->first()->url))}}" alt="">
+                        <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border transform hover:scale-125" src="{{url(Storage::url('images/product/'.$detail->productItem()->images->first()->url))}}" alt="">
                         <div>
-                            <p class="text-lg font-medium text-gray-700">{{ $detail->productItem->product->name }}</p>
+                            <p class="text-lg font-medium text-gray-700">{{ $detail->productItem()->product->name }}</p>
                             <p class="text-sm text-gray-500">Cantidad: {{ $detail->amount }}</p>
                         </div>
                     </div>

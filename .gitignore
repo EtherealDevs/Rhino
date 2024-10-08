@@ -10,3 +10,5 @@
 /node_modules
 
 !/vendor/fakerphp/faker/src/Faker/Provider/Image.php
+/node_modules
+/node_modules

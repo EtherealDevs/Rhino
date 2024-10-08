@@ -236,9 +236,9 @@
                         </div>
 
                         <!-- Botón para realizar la compra -->
-                        <button
+                        <button wire:click="save"
                             class="w-full bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 shadow-lg mt-auto bottom-4">
-                            <a :href="paymentMethod === 'transferencia' ? '/products' : '{{ route('checkout.delivery') }}'"
+                            <a :href=""
                                 class="flex items-center justify-center">
                                 <p class="text-white text-lg font-semibold font-josefin">
                                     <span
@@ -253,7 +253,7 @@
 
     </div>
     <div>
-        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city])
+        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'selectedMethod' => $selectedMethod])
     </div>
 
 

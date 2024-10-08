@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 
 use App\Http\Validators\AddressValidator;
+use App\Models\Province as ModelsProvince;
+use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\Province;
 use App\Rules\ZipCode;
 use Livewire\Attributes\Validate;
@@ -35,16 +37,25 @@ class Resume extends Component
     public $holder_name;
 
     public $sendPrice;
+    public $selectedMethod;
 
-    // protected $listeners = ['sendPriceUpdated' => 'updateSendPrice', 'updateZipCode'];
+    protected $listeners = ['selectionChanged' => 'selectionChanged', 'updatedCity' => 'updateZipCode', 'updateZipCode' => 'updateZipCode', 'updatedSucursal' => 'calculateSendPrice', 'resetPrice' => 'resetPrice'];
 
     public function updateSendPrice($newPrice)
     {
         $this->sendPrice = $newPrice;
     }
+    public function resetPrice()
+    {
+        $this->zip_code = null;
+        $this->province = null;
+        $this->city = null;
+        $this->sucursal = null;
+        $this->sendPrice = null;
+    }
 
 
-    public function mount($zip_code, $province = null, $city = null)
+    public function mount($zip_code, $province = null, $city = null, $selectedMethod = null)
     {
         // Carga de dirección de usuario
         $addressValidator = new AddressValidator();
@@ -55,9 +66,11 @@ class Resume extends Component
         if ($city != null) {
             $this->city = $city;
         }
+        if ($selectedMethod != null) {
+            $this->selectedMethod = $selectedMethod;
+        }
 
         $this->zip_code = $zip_code;
-
         $this->calculateCartItems();
         if ($this->zip_code != null) {
             $this->zip_code = $addressValidator->validateZipCode($zip_code);
@@ -66,22 +79,35 @@ class Resume extends Component
     }
     public function rules()
     {
-
         return [
             'zip_code' => ['required', 'numeric', 'digits:4', new ZipCode],
             'province' => ['required', new Province],
             'city' => 'required|numeric',
         ];
     }
-
-    #[On('updatedCity')]
-    public function updateZipCode($zip_code, $province, $city)
+    #[On('selectionChanged')]
+    public function selectionChanged($selection)
     {
-        $this->zip_code = $zip_code;
-        $this->province = $province;
-        $this->city = $city;
-        $this->validate();
-        $this->calculateSendPrice();
+        $this->selectedMethod = $selection;
+    }
+
+    #[On('updatedCity', 'updateZipCode')]
+    public function updateZipCode($zip_code, $province = null, $city = null)
+    {
+        switch ($this->selectedMethod) {
+            case 'domicilio':
+                if ($zip_code != null && $province != null && $city != null) {
+                $this->zip_code = $zip_code;
+                $this->province = $province;
+                $this->city = $city;
+                $this->validate();
+                $this->calculateSendPrice();
+                }
+                break;
+            case 'sucursal':
+                $this->zip_code = $zip_code;
+                break;
+        }
     }
 
     protected function calculateCartItems()
@@ -91,11 +117,21 @@ class Resume extends Component
         $this->total = $props['total'] ?? 0;
         $this->itemCount = $props['count'] ?? 0;
     }
-
-    protected function calculateSendPrice()
+    #[On('updatedSucursal')]
+    public function calculateSendPrice()
     {
         $shippingService = new ShippingService();
-        $price = $shippingService->getShippingCosts($this->zip_code);
+        $codigo = null;
+        switch ($this->selectedMethod) {
+            case 'domicilio':
+                $codigo = config('app.delivery_service.sucursal_a_puerta');
+                break;
+            case 'sucursal':
+                $codigo = config('app.delivery_service.sucursal_a_sucursal');
+        }
+        $codigo = (int) $codigo;
+        $new_zip_code = ModelsZipCode::where('code', $this->zip_code)->first();
+        $price = $shippingService->getShippingCosts($new_zip_code->code, $codigo);
         $this->sendPrice = $price;
     }
 

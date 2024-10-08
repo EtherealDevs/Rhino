@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
+class ComposerStaticInitab94ad70e4d610ad68ba3b89b52960c2
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -458,8 +458,8 @@ class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -831,6 +831,7 @@ class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
         'App\\Actions\\Fortify\\UpdateUserPassword' => __DIR__ . '/../..' . '/app/Actions/Fortify/UpdateUserPassword.php',
         'App\\Actions\\Fortify\\UpdateUserProfileInformation' => __DIR__ . '/../..' . '/app/Actions/Fortify/UpdateUserProfileInformation.php',
         'App\\Actions\\Jetstream\\DeleteUser' => __DIR__ . '/../..' . '/app/Actions/Jetstream/DeleteUser.php',
+        'App\\Console\\Commands\\VerificarStockBajo' => __DIR__ . '/../..' . '/app/Console/Commands/VerificarStockBajo.php',
         'App\\Http\\Cart\\CartCombo' => __DIR__ . '/../..' . '/app/Http/Cart/CartCombo.php',
         'App\\Http\\Cart\\CartItem' => __DIR__ . '/../..' . '/app/Http/Cart/CartItem.php',
         'App\\Http\\Cart\\CartManager' => __DIR__ . '/../..' . '/app/Http/Cart/CartManager.php',
@@ -879,6 +880,7 @@ class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
         'App\\Http\\Middleware\\SaveCartFromSessionIntoDatabase' => __DIR__ . '/../..' . '/app/Http/Middleware/SaveCartFromSessionIntoDatabase.php',
         'App\\Http\\Middleware\\SecurityMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/SecurityMiddleware.php',
         'App\\Http\\Validators\\AddressValidator' => __DIR__ . '/../..' . '/app/Http/Validators/AddressValidator.php',
+        'App\\Http\\Validators\\CartValidator' => __DIR__ . '/../..' . '/app/Http/Validators/CartValidator.php',
         'App\\Http\\Validators\\PaymentValidator' => __DIR__ . '/../..' . '/app/Http/Validators/PaymentValidator.php',
         'App\\Livewire\\AdminPanel' => __DIR__ . '/../..' . '/app/Livewire/AdminPanel.php',
         'App\\Livewire\\Admin\\AdminPanel' => __DIR__ . '/../..' . '/app/Livewire/Admin/AdminPanel.php',
@@ -892,6 +894,7 @@ class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
         'App\\Livewire\\DeliveryForm' => __DIR__ . '/../..' . '/app/Livewire/DeliveryForm.php',
         'App\\Livewire\\Footer' => __DIR__ . '/../..' . '/app/Livewire/Footer.php',
         'App\\Livewire\\Navigation' => __DIR__ . '/../..' . '/app/Livewire/Navigation.php',
+        'App\\Livewire\\Notify' => __DIR__ . '/../..' . '/app/Livewire/Notify.php',
         'App\\Livewire\\ProductCard' => __DIR__ . '/../..' . '/app/Livewire/ProductCard.php',
         'App\\Livewire\\Products' => __DIR__ . '/../..' . '/app/Livewire/Products.php',
         'App\\Livewire\\Profile\\UpdateAdressUser' => __DIR__ . '/../..' . '/app/Livewire/Profile/UpdateAdressUser.php',
@@ -930,6 +933,7 @@ class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
         'App\\Models\\ZipCode' => __DIR__ . '/../..' . '/app/Models/ZipCode.php',
         'App\\Models\\qweqwe' => __DIR__ . '/../..' . '/app/Models/qweqwe.php',
         'App\\Notifications\\OrderNotification' => __DIR__ . '/../..' . '/app/Notifications/OrderNotification.php',
+        'App\\Notifications\\StockNotify' => __DIR__ . '/../..' . '/app/Notifications/StockNotify.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\FirebaseServiceProvider' => __DIR__ . '/../..' . '/app/Providers/FirebaseServiceProvider.php',
         'App\\Providers\\FortifyServiceProvider' => __DIR__ . '/../..' . '/app/Providers/FortifyServiceProvider.php',
@@ -940,6 +944,7 @@ class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
         'App\\Services\\AddressService' => __DIR__ . '/../..' . '/app/Services/AddressService.php',
         'App\\Services\\CartService' => __DIR__ . '/../..' . '/app/Services/CartService.php',
         'App\\Services\\CheckoutService' => __DIR__ . '/../..' . '/app/Services/CheckoutService.php',
+        'App\\Services\\OrderDetailService' => __DIR__ . '/../..' . '/app/Services/OrderDetailService.php',
         'App\\Services\\OrderService' => __DIR__ . '/../..' . '/app/Services/OrderService.php',
         'App\\Services\\ProductItemService' => __DIR__ . '/../..' . '/app/Services/ProductItemService.php',
         'App\\Services\\ShippingService' => __DIR__ . '/../..' . '/app/Services/ShippingService.php',
@@ -9565,9 +9570,9 @@ class ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd0997e1d7ac3edb823c0fb2dbca48004::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitab94ad70e4d610ad68ba3b89b52960c2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitab94ad70e4d610ad68ba3b89b52960c2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitab94ad70e4d610ad68ba3b89b52960c2::$classMap;
 
         }, null, ClassLoader::class);
     }

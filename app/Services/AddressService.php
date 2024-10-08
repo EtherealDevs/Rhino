@@ -27,7 +27,7 @@ class AddressService
         $fields = [
             'name' => $data['name'],
             'last_name' => $data['last_name'],
-            'phone_number' => $data['last_name'],
+            'phone_number' => $data['phone_number'],
             'zip_code_id' => ZipCode::where('code', '=', $data['zip_code'])->first()->id,
             'province_id' => Province::where('name', $data['province'])->first()->id,
             'city_id' => City::where('id', $data['city'])->first()->id,

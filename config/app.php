@@ -130,7 +130,9 @@ return [
     'images_directory' => env('IMAGES_DIRECTORY'),
     'product_images_directory' => env('PRODUCT_IMAGES_DIRECTORY'),
     'delivery_service' => [
-        'origin_zipcode' => env('DELIVERY_SERVICE_ORIGIN_ZIPCODE')
+        'origin_zipcode' => env('DELIVERY_SERVICE_ORIGIN_ZIPCODE'),
+        'sucursal_a_puerta' => env('SUCURSAL_A_PUERTA'), 
+        'sucursal_a_sucursal' => env('SUCURSAL_A_SUCURSAL'),
     ]
 
 ];

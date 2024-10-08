@@ -37,6 +37,7 @@ class CheckoutConfig extends Component
     public $selectedProvince = null;
     public $selectedCity = null;
     public $sucursal = null;
+    public $sucursalArray = null;
     public $cities = [];
     public $city;
 
@@ -55,6 +56,31 @@ class CheckoutConfig extends Component
     public function mount()
     {
         $this->selectedMethod = 'domicilio';
+    }
+    public function save()
+    {
+        switch ($this->selectedMethod) {
+            case 'domicilio':
+                $this->validateOnly('zip_code');
+                $this->validateOnly('province');
+                $this->validateOnly('city');
+                $this->redirectRoute('checkout.delivery', ['selectedMethod' => 'domicilio', 'zip_code' => $this->zip_code, 'province' => $this->province, 'city' => $this->city]);
+                break;
+                case 'sucursal':
+                    $this->validateOnly('zip_code');
+                    $this->validateOnly('sucursal');
+                    foreach ($this->sucursales as $sucursal) {
+                        if ($sucursal['IdCentroImposicion'] == $this->sucursal) {
+                            $this->sucursalArray = $sucursal;
+                            break;
+                        }
+                    }
+                    $this->redirectRoute('checkout.payment', ['selectedMethod' => 'sucursal', 'sucursal' => $this->sucursalArray]);
+                break;
+            case'retiro':
+                $this->redirectRote('checkout.payment', ['selectedMethod' => 'reitro']);
+                break;
+        }
     }
 
     public function rules()
@@ -92,8 +118,17 @@ class CheckoutConfig extends Component
     #[On('selectionChanged')] 
     public function setSelected($selection)
     {
+        
         $this->selectedMethod = $selection;
         $this->validateOnly('selectedMethod');
+        $this->zip_code = null;
+        $this->province = null;
+        $this->city = null;
+        $this->sucursal = null;
+        $this->sucursalArray= null;
+        $this->sucursales = null;
+        $this->sucursalesIds = null;
+        $this->dispatch('resetPrice');
     }
 
     public function updatedSelectedProvince($provinceName)
@@ -108,6 +143,7 @@ class CheckoutConfig extends Component
     public function updatedZipCode($zipCode)
     {
         $this->validateOnly('zip_code');
+        $this->dispatch('updateZipCode', zip_code : $zipCode);
         $addressValidator = new AddressValidator();
         $shippingService = new ShippingService();
         $addressValidator->validateZipCode($zipCode);
@@ -125,10 +161,11 @@ class CheckoutConfig extends Component
 
     }
 
-    // public function updatedSucursal()
-    // {
-    //     $this->updatedSendPrice(false);
-    // }
+    public function updatedSucursal()
+    {
+        
+        $this->dispatch('updatedSucursal', [])->to(Resume::class);
+    }
 
     public function updatedCity($cityId)
     {

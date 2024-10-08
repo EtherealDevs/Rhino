@@ -131,7 +131,8 @@ Route::delete('/cart', [CartController::class, 'dropCart'])->name('cart.dropCart
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkout/delivery', [CheckoutController::class, 'showCheckoutDeliveryPage'])->name('checkout.delivery');
     Route::get('/checkout/payment', [CheckoutController::class, 'showCheckoutPaymentPage'])->name('checkout.payment');
-    Route::get('/payment/status/{id}', [CheckoutController::class, 'handlePayment'])->name('checkout.payment.handle');
+    Route::post('/payment/handle', [CheckoutController::class, 'handlePayment'])->name('checkout.handlePayment');
+    // Route::get('/payment/status/{id}', [CheckoutController::class, 'handlePayment'])->name('checkout.payment.handle');
     Route::post('checkout/delivery', [CheckoutController::class, 'validateAddressAndSaveToDatabase'])->name('checkout.delivery.address');
     Route::post('/process_payment', [CheckoutController::class, 'processPayment'])->name('checkout.processPayment');
 });

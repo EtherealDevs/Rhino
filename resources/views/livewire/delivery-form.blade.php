@@ -14,56 +14,13 @@
                 class="max-w-xl col-span-1 lg:col-span-2 h-full space-y-8 w-full p-10 bg-transparent rounded-xl shadow-lg z-40">
                 <div class="h-full">
                     <div class="">
-                        <div id="autoFillModal" class="lg:hidden sm:block flex items-center justify-center z-50">
-                            <div class="bg-transparent h-full">
-                                <h2 class="text-lg font-bold">Selecciona una dirección almacenada</h2>
-                                <p class="text-gray-600">Selecciona una de tus direcciones guardadas para autocompletar
-                                    el
-                                    formulario.</p>
-                                <div class="mt-4">
-                                    <div class="max-w-md mx-auto space-y-6">
-                                        <div class="space-y-4">
-                                            @foreach ($addresses as $address)
-                                                <div class="relative">
-                                                    <input type="radio" name="options" id="option{{ $address->id }}"
-                                                        value="{{ $address->id }}"
-                                                        data-address='@json($address)' class="hidden peer">
-                                                    <label for="option{{ $address->id }}"
-                                                        class="inline-flex items-center justify-between w-full p-3 bg-transparent border-2 rounded-lg cursor-pointer group border-neutral-200/70 text-neutral-600 peer-checked:border-blue-400 peer-checked:text-neutral-900 peer-checked:bg-blue-200/50 hover:text-neutral-900 hover:border-neutral-300">
-                                                        <div class="flex items-center space-x-3">
-                                                            <!-- Reducir el tamaño del SVG -->
-                                                            <svg class="w-8 h-auto" xmlns="http://www.w3.org/2000/svg"
-                                                                width="1em" height="1em" viewBox="0 0 24 24">
-                                                                <path fill="currentColor"
-                                                                    d="M12 21.02q-3.525-3.118-5.31-5.815q-1.786-2.697-1.786-4.909q0-3.173 2.066-5.234Q9.037 3 12 3q.617 0 1.213.093t1.143.293L9.5 8.268V12.5h4.233l4.894-4.894q.225.63.347 1.292t.122 1.398q0 2.212-1.785 4.909q-1.786 2.697-5.311 5.814m-.115-10.903v-.87l5.277-5.277l.869.87l-5.277 5.276zm6.846-5.978l-.87-.869l.547-.546q.16-.16.363-.189q.204-.028.344.112l.239.238q.14.141.111.345t-.188.363z" />
-                                                            </svg>
-                                                            <div class="flex flex-col justify-start">
-                                                                <!-- Reducir el tamaño de texto -->
-                                                                <div class="w-full text-base font-semibold">
-                                                                    {{ $address->name }} {{ $address->last_name }}
-                                                                </div>
-                                                                <div class="w-full text-sm opacity-60">
-                                                                    {{ $address->address }}, {{ $address->number }}<br>
-                                                                    {{ $address->city->name }},
-                                                                    {{ $address->province->name }}<br>
-                                                                    {{ $address->zipCode->code }}<br>
-                                                                    Tel: {{ $address->phone_number }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         {{-- Formulario de envio --}}
                         <form method="POST" action="{{ route('checkout.delivery.address') }}" class="space-y-4">
                             @method('POST')
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $user->id }}">
+                            <input type="hidden" name="selectedMethod" value="domicilio">
+                            <input type="hidden" name="address_id" value="{{$selectedAddressId}}">
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <x-checkout.text-input name="name" label="Nombre" wire:model.blur="name"
@@ -76,7 +33,7 @@
                                     <label class="block mb-1 text-sm text-gray-800">Número de Teléfono</label>
                                     <div class="relative mt-2">
                                         <div class="absolute top-2 left-0 flex items-center pl-3">
-                                            <button id="dropdownButton"
+                                            <button type="button" id="dropdownButton"
                                                 class="h-full text-sm flex justify-center items-center bg-transparent text-gray-700 focus:outline-none">
                                                 <span id="dropdownSpan">+54</span>
                                                 <!-- Cambia el código de país según sea necesario -->
@@ -89,9 +46,15 @@
                                             </button>
                                             <div class="h-6 border-l border-gray-200 ml-2"></div>
                                         </div>
-                                        <input type="text" name="phone_number" wire:model.blur="phone_number"
-                                            class="w-full h-10 pl-20 bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-400 shadow-sm focus:shadow-md"
-                                            placeholder="324-456-2323" />
+                                    <input maxlength="11"
+                                        class="w-full h-10 pl-20 bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-400 shadow-sm focus:shadow-md"
+                                        type="text" id="formattedPhone" placeholder="3794-895167"
+                                        oninput="formatPhone(this)" wire:model.blur="formattedNumber"
+                                        value="{{ $formattedNumber }}" />
+
+                                    <!-- Hidden input to store unformatted number and bind with Livewire -->
+                                    <input type="hidden" name="phone_number" id="unformattedPhone"
+                                        wire:model.live="phone_number" value="{{$phone_number}}" />
                                     </div>
                                     @error('phone_number')
                                         <div class="mt-2 text-red-500 text-xs">
@@ -131,10 +94,13 @@
                                                     Seleccioná una localidad...
                                                 @endif
                                             </option>
-                                            @foreach ($cities as $city)
-                                                <option value="{{ $city->id }}">
-                                                    {{ $city->name }}
-                                                </option>
+                                            @foreach ($cities as $city2)
+                                            @php
+                                                $value = $city2->id;
+                                            @endphp
+                                            <option @if ($value == $city) selected @endif
+                                                value="{{ $city2->id }}">
+                                                {{ $city2->name }}
                                             @endforeach
                                         </select>
                                         @error('city')
@@ -246,7 +212,7 @@
                 {{-- Resumen de la compra sumada al envio --}}
                 <div class="w-full z-40 bottom-2">
                     <div class="justify-center">
-                        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city])
+                        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'selectedMethod' => $selectedMethod])
                     </div>
                 </div>
             </div>

@@ -281,7 +281,8 @@ class CartManager
                 }
                 break;
             case 'update':
-                // $this->updateItemQuantity($cartItemId, $quantity);
+                $itemInCart->quantity = $quantity;
+                $success = true;
                 break;
         }
 
@@ -333,7 +334,8 @@ class CartManager
                 }
                 break;
             case 'update':
-                // $this->updateItemQuantity($cartItemId, $quantity);
+                $itemInCart->quantity = $quantity;
+                $success = true;
                 break;
             }
             if ($success)
