@@ -46,60 +46,51 @@
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action={{ route('admin.productitems.update', $productItem->id) }} method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('admin.productitems.update', $productItem->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <input type="text" class="hidden" value="{{$size->id}}" name="size_id">
+                                <input type="text" class="hidden" value="{{ $size->id }}" name="size_id">
+
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-10 gap-2">
                                         <div class="col-span-9">
-                                            <select name="product_id" id=""
-                                                onclick="this.setAttribute('value', this.value);"
+                                            <select name="product_id" required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
                                                 <option value="null"></option>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}" @selected($product->id == $productItem->product->id)>
-                                                        {{ $product->name }}</option>
+                                                        {{ $product->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            <label for="select"
-                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar
-                                                el producto</label>
+                                            <label for="product_id" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el producto</label>
+                                            @error('product_id')
+                                                <span class="text-sm text-red-600">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-
-                                    <div class="grid grid-cols-3 gap-4">
+                                    <div class="grid grid-cols-2 gap-4">
                                         <div>
                                             <input type="number" name="original_price" id="original_price" placeholder=""
                                                 value="{{ old('original_price', $productItem->original_price) }}" required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                            <label for="original_price"
-                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
-                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es
-                                                requerido</span>
-                                        </div>
-                                        <div>
-                                            <input type="number" name="sale_price" id="sale_price" placeholder=""
-                                                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                            <label for="sale_price"
-                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio de
-                                                venta</label>
-                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es
-                                                requerido</span>
+                                            <label for="original_price" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
+                                            @error('original_price')
+                                                <span class="text-sm text-red-600">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div>
                                             <input type="number" name="stock" placeholder=""
                                                 value="{{ old('stock', $stock) }}" required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                            <label for="stock"
-                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
-                                            <span class="text-sm text-red-600 hidden" id="error">Este Campo es
-                                                requerido</span>
+                                            <label for="stock" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
+                                            @error('stock')
+                                                <span class="text-sm text-red-600">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -108,21 +99,17 @@
                                     <div class="grid grid-cols-2">
                                         @foreach ($productItem->images as $image)
                                             <div>
-                                                <img src="{{ url(Storage::url('images/product/' . $image->url)) }}"
-                                                    alt="">
+                                                <img src="{{ url(Storage::url('images/product/' . $image->url)) }}" alt="">
                                             </div>
                                         @endforeach
                                     </div>
-                                    <label for="file"
-                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+                                    <label for="file" class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
                                         <div>
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
                                                 Selecciona una o más imágenes aquí 👇🏼
                                             </span>
-                                            <span
-                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                                <input type="file" name="images[]" accept="image/*" id="image"
-                                                    multiple />
+                                            <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                                <input type="file" name="images[]" accept="image/*" id="image" multiple />
                                             </span>
                                         </div>
                                     </label>
@@ -135,6 +122,8 @@
                             </form>
                         </div>
                     </div>
+
+
 
                     <script>
                         'use strict'
