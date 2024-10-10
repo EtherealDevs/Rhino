@@ -45,96 +45,78 @@
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action={{ route('admin.sales.update', $sale) }} method="POST"
-                                enctype="multipart/form-data">
+                            <form action={{ route('admin.sales.update', $sale) }} method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="date" name="start_date" placeholder="{{ $sale->start_date }}"
+                                    <input type="date" name="start_date" value="{{ old('start_date', $sale->start_date) }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="start_date"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de
-                                        Inicio</label>
+                                    <label for="start_date" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de Inicio</label>
                                     @error('start_date')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="date" name="end_date" placeholder="{{ $sale->end_date }}"
+                                    <input type="date" name="end_date" value="{{ old('end_date', $sale->end_date) }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="end_date"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de
-                                        Finalizacion</label>
+                                    <label for="end_date" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Fecha de Finalización</label>
                                     @error('end_date')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="text" name="title" placeholder="{{ $sale->title }}"
+                                    <input type="text" name="title" value="{{ old('title', $sale->title) }}"
                                         class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="title"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Titulo</label>
+                                    <label for="title" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Título</label>
                                     @error('title')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-                                    <input type="textarea" name="description" placeholder="{{ $sale->description }}"
-                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="description"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
+                                    <textarea name="description" class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">{{ old('description', $sale->description) }}</textarea>
+                                    <label for="description" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripción</label>
                                     @error('description')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 <div class="relative z-1 w-full mb-5">
-                                    <select data-placeholder="Begin typing a name to filter..." multiple
-                                        class="chosen-select w-full" name="products[]">
-                                        <option value="">Seleccionar Products</option>
+                                    <select data-placeholder="Seleccionar Productos" multiple class="chosen-select w-full" name="products[]">
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
-                                                @error('products')
-                                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                                @enderror
                                                 @foreach ($category->products as $product)
-                                                    @foreach ($sale->products as $item)
-                                                        @if ($item->product_id == $product->id)
-                                                            <option value="{{ $product->id }}" selected="selected">
-                                                                {{ $product->name }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                    <option value="{{ $product->id }}">{{ $product->name }}
+                                                    <option value="{{ $product->id }}"
+                                                        {{ in_array($product->id, $sale->products->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                        {{ $product->name }}
                                                     </option>
                                                 @endforeach
                                             </optgroup>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="relative z-0 w-full mb-5">
-                                    <input type="number" name="discount" placeholder="{{ $sale->discount }}"
-                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                    <label for="discount"
-                                        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
-                                    @error('disscount')
+                                    @error('products')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-8">
 
-                                    <label for="file"
-                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+                                <div class="relative z-0 w-full mb-5">
+                                    <input type="number" name="discount" value="{{ old('discount', $sale->discount) }}"
+                                        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                    <label for="discount" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descuento</label>
+                                    @error('discount')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-8">
+                                    <label for="file" class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
                                         <div>
-                                            <span class="mb-2 block text-xl font-semibold text-[#07074D]">
-                                                Puedes Arrastrar archivos aqui
-                                            </span>
-                                            <span class="mb-2 block text-base font-medium text-[#6B7280]">
-                                                o
-                                            </span>
-                                            <span
-                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                            <span class="mb-2 block text-xl font-semibold text-[#07074D]">Puedes Arrastrar archivos aquí</span>
+                                            <span class="mb-2 block text-base font-medium text-[#6B7280]">o</span>
+                                            <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
                                                 <input type="file" name="image" accept="image/*" id="image" />
                                             </span>
                                         </div>
