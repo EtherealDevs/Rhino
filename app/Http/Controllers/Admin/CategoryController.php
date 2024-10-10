@@ -13,22 +13,25 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $categories= Category::all();
-        return view('admin.categories.index',compact('categories'));
-    }
+{
+    // Eager load de las relaciones parentCategory y subCategories
+    $categories = Category::with('parentCategory', 'subCategories')->get();
+    return view('admin.categories.index', compact('categories'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $categories= Category::all();
-        $id=null;
-        if(isset($_GET['id'])){
-            $id=$_GET['id'];
+        $categories = Category::all();
+        $id = null;
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
         }
-        return view('admin.categories.create',compact('categories','id'));
+        return view('admin.categories.create', compact('categories', 'id'));
     }
 
     /**
@@ -36,14 +39,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category=Category::create(
+        $category = Category::create(
             [
-                'name'=>$request->name,
-                'slug'=>$request->slug,
-                'description'=>$request->description,
-                'parent_id'=>$request->parent_id,
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'description' => $request->description,
+                'parent_id' => $request->parent_id,
             ]
-            );
+        );
         return redirect()->route('admin.categories.index');
     }
 
@@ -60,9 +63,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $parent=Category::where('id',$category->parent_id)->first();
-        $categories= Category::all();
-        return view('admin.categories.edit',compact('category','categories','parent'));
+        $parent = Category::where('id', $category->parent_id)->first();
+        $categories = Category::all();
+        return view('admin.categories.edit', compact('category', 'categories', 'parent'));
     }
 
     /**
@@ -73,12 +76,12 @@ class CategoryController extends Controller
 
         $category->update(
             [
-                'name'=>$request->name,
-                'slug'=>$request->slug,
-                'description'=>$request->description,
-                'parent_id'=>$request->parent_id,
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'description' => $request->description,
+                'parent_id' => $request->parent_id,
             ]
-            );
+        );
         return redirect()->route('admin.categories.index');
     }
 
