@@ -57,12 +57,7 @@ class DeliveryServiceController extends Controller
         ]);
 
         if($response->successful()){
-            // $body = $response->body();
-            // $sucursales = simplexml_load_string($body);
-            // $sucursales = json_encode($sucursales, JSON_FORCE_OBJECT);
-            // $sucursales = json_decode($sucursales, true);
 
-            // return $sucursales;
             $body = $response->body();
             $sucursales = simplexml_load_string($body);
             $sucursales = json_decode(json_encode($sucursales), true);
@@ -91,4 +86,60 @@ class DeliveryServiceController extends Controller
         }
         return $response->throw();
     }
+
+    public function track($sendNum)
+    {
+        // URL de la API de OCA
+        $url = "http://webservice.oca.com.ar/epak_tracking/Oep_TrackEPak.asmx/Tracking_Pieza_ConIdEstado";
+
+        // Realizar la solicitud GET a la API
+        $response = Http::get($url, [
+            'NumeroEnvio' => $sendNum,
+        ]);
+
+
+        // Verificar si la solicitud fue exitosa
+        if ($response->successful()) {
+            // Obtener el contenido de la respuesta XML
+            $xmlContent = $response->body();
+
+            // Eliminar los namespaces del XML usando expresiones regulares
+            $xmlContent = preg_replace('/\s+xmlns[^=]*="[^"]*"/i', '', $xmlContent);
+
+            // Eliminar todos los prefijos de las etiquetas (ejemplo: msdata:, xs:, diffgr:)
+            $xmlContent = preg_replace('/(<\/?)(\w+):([^>]+)/', '$1$3', $xmlContent);
+
+            // Eliminar atributos específicos que causan errores (como msdata:IsDataSet)
+            $xmlContent = preg_replace('/\s+msdata:[^=]+="[^"]*"/i', '', $xmlContent);
+
+            // Eliminar atributos específicos que causan errores (como msdata:IsDataSet, diffgr:id, etc.)
+            $xmlContent = preg_replace('/\s+(msdata|diffgr):[^=]+="[^"]*"/i', '', $xmlContent);
+
+
+            // Cargar el XML en un objeto SimpleXMLElement
+            $xml = simplexml_load_string($xmlContent, "SimpleXMLElement", LIBXML_NOCDATA);
+
+            // Verificar si la carga del XML fue exitosa
+            if ($xml === false) {
+                return response()->json(['error' => 'Error al procesar el XML'], 500);
+            }
+
+            // Convertir el objeto XML a JSON para manejarlo más fácilmente
+            $json = json_encode($xml);
+            $array = json_decode($json, true);
+
+
+            // Acceder a los datos específicos dentro del array
+            if (isset($array['diffgram']['NewDataSet']['Table'])) {
+                $trackingDetails = $array['diffgram']['NewDataSet']['Table'];
+                return $trackingDetails;
+            } else {
+                return response()->json(['message' => 'No se encontraron datos de seguimiento para este número de envío.']);
+            }
+        } else {
+            // En caso de que la solicitud a la API falle
+            return response()->json(['error' => 'Error en la solicitud a la API de OCA'], $response->status());
+        }
+    }
+
 }
