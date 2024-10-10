@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="pt-20 px-10">
+    <div class="pt-20 px-6">
         <div class="p-6 bg-white rounded-xl ">
 
             <div class="flex justify-between w-full mb-5">
