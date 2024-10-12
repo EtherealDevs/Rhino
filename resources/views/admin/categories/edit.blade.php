@@ -48,49 +48,66 @@
             <div class="mt-6">
                 <div class="px-12 mt-12">
                     <div class="mx-auto">
-                        <form action={{ route('admin.categories.update', $category) }} method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('admin.categories.update', $category) }}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
+
+                            <!-- Nombre de Categoria -->
                             <div class="relative z-0 w-full mb-5">
-                                <input type="text" name="name" value={{ $category->name }}
+                                <input type="text" name="name" value="{{ old('name', $category->name) }}" required
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                <label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Nombre
-                                    de Categoria</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                <label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Nombre de Categoria</label>
+
+                                <!-- Error message for name -->
+                                @error('name')
+                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                @enderror
                             </div>
 
+                            <!-- Slug Amigable -->
                             <div class="relative z-0 w-full mb-5">
-                                <input type="text" name="slug" value={{ $category->slug }}
+                                <input type="text" name="slug" value="{{ old('slug', $category->slug) }}" required
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                <label for="slug" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Slug
-                                    Amigable</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                <label for="slug" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Slug Amigable</label>
+
+                                <!-- Error message for slug -->
+                                @error('slug')
+                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                @enderror
                             </div>
 
+                            <!-- Descripcion -->
                             <div class="relative z-0 w-full mb-5">
-                                <input type="textarea" name="description" value={{ $category->description }}
-                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                <label for="description"
-                                    class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                <textarea name="description" required
+                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">{{ old('description', $category->description) }}</textarea>
+                                <label for="description" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripción</label>
+
+                                <!-- Error message for description -->
+                                @error('description')
+                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                @enderror
                             </div>
 
+                            <!-- Seleccionar el padre -->
                             <div class="relative z-0 w-full mb-5">
-                                <select value={{ $category->parent_id }} name="parent_id" id="" name="parent_id"
-                                    id="" onclick="this.setAttribute('value', this.value);"
+                                <select name="parent_id" required
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="">Seleccionar una categoría</option>
+                                    @foreach ($categories as $cat)
+                                        <option value="{{ $cat->id }}" {{ $category->parent_id == $cat->id ? 'selected' : '' }}>
+                                            {{ $cat->name }}
+                                        </option>
                                     @endforeach
                                 </select>
-                                </select>
-                                <label for="parent_id"
-                                    class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el
-                                    padre</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
+                                <label for="parent_id" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el padre</label>
+
+                                <!-- Error message for parent_id -->
+                                @error('parent_id')
+                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                @enderror
                             </div>
 
+                            <!-- Botón de Guardar -->
                             <button id="button" type="submit"
                                 class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
                                 Guardar
@@ -98,6 +115,7 @@
                         </form>
                     </div>
                 </div>
+
 
                 <script>
                     'use strict'

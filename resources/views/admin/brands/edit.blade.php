@@ -48,26 +48,40 @@
             <div class="mt-6">
                 <div class="px-12 mt-12">
                     <div class="mx-auto">
-                        <form action={{ route('admin.brands.update', $brand) }} method="POST"
+                        <form action="{{ route('admin.brands.update', $brand) }}" method="POST"
                             enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
+
+                            <!-- Campo Nombre -->
                             <div class="relative z-0 w-full mb-5">
-                                <input type="text" name="name" value={{ $brand->name }}
-                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                <label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Nombre
+                                <input type="text" name="name" required value="{{ old('name', $brand->name) }}"
+                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200
+                                    @error('name') border-red-600 @enderror" />
+                                <label for="name"
+                                    class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500
+                                    @error('name') text-red-600 @enderror">Nombre
                                     de Marca</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                @error('name')
+                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                @enderror
                             </div>
 
+                            <!-- Campo Descripción -->
                             <div class="relative z-0 w-full mb-5">
-                                <input type="textarea" name="description" value={{ $brand->description }}
-                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                <input type="textarea" required name="description"
+                                    value="{{ old('description', $brand->description) }}"
+                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200
+                                    @error('description') border-red-600 @enderror" />
                                 <label for="description"
-                                    class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Este Campo es requerido</span>
+                                    class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500
+                                    @error('description') text-red-600 @enderror">Descripción</label>
+                                @error('description')
+                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                @enderror
                             </div>
 
+                            <!-- Botón Guardar -->
                             <button id="button" type="submit"
                                 class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
                                 Guardar
@@ -75,6 +89,7 @@
                         </form>
                     </div>
                 </div>
+
 
                 <script>
                     'use strict'
