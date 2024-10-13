@@ -30,10 +30,10 @@ class OrderService
         $shippingCosts = (int) ($shippingCosts * 100);
         $total = (int) ($mpOrder->transaction_amount * 100);
         
-        $payment_methods = PaymentMethod::all();
+        $payment_methods = ['credit_card' => 4, 'debit_card' => 3];
         $order = Order::create([
             'user_id' => $user->id,
-            'payment_method_id' => $payment_methods->firstWhere('name', '=', $mpOrder->payment_type_id)->id,
+            'payment_method_id' => $payment_methods[$mpOrder->payment_method->type],
             'total' => $total,
             'delivery_service_id' => DeliveryService::where('name', 'oca')->first()->id,
             'delivery_price' => $shippingCosts,

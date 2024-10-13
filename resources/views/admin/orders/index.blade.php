@@ -102,14 +102,14 @@
                                     @foreach ($order->details as $detail)
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{ $detail->productItem->name }} - {{ $detail->amount }} x {{ $detail->price }}
+                                            {{ $detail->productItem()->name }} - {{ $detail->amount }} x {{ number_format($detail->price / 100, 2, ',', '.') }}
                                         </p>
                                     @endforeach
                                 </div>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <p class="block font-josefin text-lg leading-normal text-green-600 font-semibold">
-                                    <span class="font-bold text-green-700">$ </span>{{ number_format($order->total, 2) }}
+                                    <span class="font-bold text-green-700">$ </span>{{ number_format($order->total / 100, 2, ',', '.') }}
                                 </p>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">

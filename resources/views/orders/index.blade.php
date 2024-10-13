@@ -50,9 +50,9 @@
                                             <div class="flex-shrink-0">
                                                 <td class="py-3 px-6 text-center">
                                                     <div class="flex items-center justify-center">
-                                                        @foreach ($order->details as $item)
+                                                        @foreach ($order->details as $detail)
                                                             <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border transform hover:scale-125"
-                                                                src="{{ url(Storage::url('images/product/' . $item->productItem->images->first()->url)) }}" />
+                                                                src="{{ url(Storage::url('images/product/' . $detail->productItem()->images->first()->url )) }}" />
                                                         @endforeach
                                                     </div>
                                                     <time
@@ -62,7 +62,7 @@
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-medium text-gray-900 truncate">
                                                     @foreach ($order->details as $detail)
-                                                        <p>{{ $detail->productItem->product->name }}</p>
+                                                        <p>{{ $detail->productItem()->product->name }}</p>
                                                     @endforeach
                                                 </p>
                                             </div>

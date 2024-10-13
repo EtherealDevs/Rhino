@@ -15,7 +15,7 @@ class OrderController extends Controller
         $user = Auth::user();
 
         // Obtener solo los pedidos que pertenecen al usuario logueado
-        $orders = Order::with('details.productItem', 'orderStatus')
+        $orders = Order::with('details', 'orderStatus')
             ->where('user_id', $user->id)
             ->get();
 

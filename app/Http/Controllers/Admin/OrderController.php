@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function index()
     {
         // Filtrar los pedidos con order_status_id igual a 1
-        $orders = Order::with('user', 'details.productItem', 'orderStatus')
+        $orders = Order::with('user', 'details', 'orderStatus')
             ->get();
 
         $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
