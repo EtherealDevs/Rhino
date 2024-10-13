@@ -10,12 +10,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+
 
 class ProductItem extends Model
 {
 
     use HasFactory;
+    use SoftDeletes;
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['product_id', 'original_price', 'sale_price', 'color_id'];
 
