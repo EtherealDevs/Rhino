@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Notifications\OrderNotification;
 use App\Http\Cart\CartItem;
 use App\Http\Cart\SessionCartManager;
+use App\Http\Validators\CartValidator;
 use App\Models\Size;
 use Exception;
 use Illuminate\Http\Request;
@@ -52,6 +53,17 @@ class CartController extends Controller
             return $item->type == CartCombo::DEFAULT_TYPE;
         });
         $cartTotal = $this->cartManager->getCarttotal();
+
+        if (Auth::user() != null) {
+            $cartValidator = new CartValidator(Auth::user()->cart);
+            $failedValidation = $cartValidator->validateCart();
+            if ($failedValidation) {
+                    // Set session flash message
+                    session()->flash('cartError', 'Se eliminaron del carrito algunos productos que ya no estaban disponibles.');
+            }
+        }
+        
+
             // $cartItems = CartManager::getCartContents();
         // $groupedCartItems = $cartItems->groupBy(function($item) {
         //     return $item['item']->product->combo->combo->id ?? null; // Asumiendo que `combo_id` es el identificador del combo

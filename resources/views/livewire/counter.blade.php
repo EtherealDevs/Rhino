@@ -8,7 +8,8 @@
 
     @else
 
-    <button wire:click="decrement" class="w-10 h-10 border rounded-lg focus:outline-none">-</button>
+    <button wire:loading.attr="disabled"
+    wire:click="decrement" class="w-10 h-10 border rounded-lg focus:outline-none">-</button>
 
     <span id="counter" class="text-lg">{{$count}}</span>
 

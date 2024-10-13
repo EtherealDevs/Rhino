@@ -146,7 +146,9 @@ class CartManager
     {
         $contents = $this->getCartContents();
         $item = (object)
-        [   'item_id' => $cartItem->item_id,
+        [   
+            'id' => $cartItem->id,
+            'item_id' => $cartItem->item_id,
             'variation_id' => $cartItem->variation_id,
             'type' => $cartItem->type,
             'quantity' => $cartItem->quantity,
@@ -225,6 +227,7 @@ class CartManager
         $contents = $this->getCartContents();
         $cartCombo = (object)
         [
+            'id' => $combo->id,
             'combo_id' => $combo->combo_id,
             'type' => $combo->type,
             'contents' => $combo->contents,

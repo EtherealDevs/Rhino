@@ -177,6 +177,7 @@ class SessionCartManager
         $contents = $this->getCartContents();
         $item = (object)
         [
+            'id' => $cartItem->id,
             'item_id' => $cartItem->item_id,
             'variation_id' => $cartItem->variation_id,
             'type' => $cartItem->type,
@@ -229,6 +230,7 @@ class SessionCartManager
         $contents = $this->getCartContents();
         $cartCombo = (object)
         [
+            'id' => $combo->id,
             'combo_id' => $combo->combo_id,
             'type' => $combo->type,
             'contents' => $combo->contents,

@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Combo;
 use App\Models\DeliveryService;
 use App\Models\Order;
+use App\Models\PaymentMethod;
 use App\Models\ProductItem;
 use App\Models\User;
 use MercadoPago\Resources\Payment;
@@ -16,7 +17,9 @@ class OrderService
      * Create an order based on a MercadoPago order.
      *
      * @param \MercadoPago\Resources\Payment $mpOrder The MercadoPago order.
-     * @param int|string $size The size of the item. Can be an integer (size ID) or a string (size name).
+     * @param \App\Models\User $user The user model.
+     * @param \App\Models\Address $address The address model.
+     * @param float $shippingCosts The price of the shipping services' delivery.
      * @return \Illuminate\Database\Eloquent\Model|object|null The pivot table record for the item variation.
      */
     public function createDeliveryOrder(Payment $mpOrder, User $user, Address $address, float $shippingCosts)
@@ -27,10 +30,10 @@ class OrderService
         $shippingCosts = (int) ($shippingCosts * 100);
         $total = (int) ($mpOrder->transaction_amount * 100);
         
-        $payment_methods = ['debit_card' => ['id' => 3], 'credit_card' => ['id' =>4]];
+        $payment_methods = PaymentMethod::all();
         $order = Order::create([
             'user_id' => $user->id,
-            'payment_method_id' => $payment_methods[$mpOrder->payment_type_id]['id'],
+            'payment_method_id' => $payment_methods->firstWhere('name', '=', $mpOrder->payment_type_id)->id,
             'total' => $total,
             'delivery_service_id' => DeliveryService::where('name', 'oca')->first()->id,
             'delivery_price' => $shippingCosts,
