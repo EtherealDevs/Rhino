@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '93f49c77ca5a94f0d2d0a69da057d1e4dde7f2d5',
+        'reference' => '885998000629f7a58c3da6aa4844ddebe979f87f',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -35,7 +35,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../barryvdh/laravel-debugbar',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'beste/clock' => array(
             'pretty_version' => '3.0.0',
@@ -595,7 +595,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '93f49c77ca5a94f0d2d0a69da057d1e4dde7f2d5',
+            'reference' => '885998000629f7a58c3da6aa4844ddebe979f87f',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -743,7 +743,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../maximebf/debugbar',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'mckenziearts/laravel-notify' => array(
             'pretty_version' => 'v2.5',
