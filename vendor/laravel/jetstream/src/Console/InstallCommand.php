@@ -802,6 +802,10 @@ EOF;
      */
     protected function phpBinary()
     {
+        if (function_exists('Illuminate\Support\php_binary')) {
+            return \Illuminate\Support\php_binary();
+        }
+
         return (new PhpExecutableFinder())->find(false) ?: 'php';
     }
 
