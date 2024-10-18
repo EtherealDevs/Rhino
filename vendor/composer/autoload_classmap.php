@@ -32,6 +32,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\SaleController' => $baseDir . '/app/Http/Controllers/Admin/SaleController.php',
     'App\\Http\\Controllers\\Admin\\SizeController' => $baseDir . '/app/Http/Controllers/Admin/SizeController.php',
     'App\\Http\\Controllers\\Admin\\StockController' => $baseDir . '/app/Http/Controllers/Admin/StockController.php',
+    'App\\Http\\Controllers\\Admin\\UserController' => $baseDir . '/app/Http/Controllers/Admin/UserController.php',
     'App\\Http\\Controllers\\Auth\\AuthController' => $baseDir . '/app/Http/Controllers/Auth/AuthController.php',
     'App\\Http\\Controllers\\CartController' => $baseDir . '/app/Http/Controllers/CartController.php',
     'App\\Http\\Controllers\\CheckoutController' => $baseDir . '/app/Http/Controllers/CheckoutController.php',

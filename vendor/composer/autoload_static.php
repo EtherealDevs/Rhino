@@ -840,6 +840,7 @@ class ComposerStaticInitab94ad70e4d610ad68ba3b89b52960c2
         'App\\Http\\Controllers\\Admin\\SaleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SaleController.php',
         'App\\Http\\Controllers\\Admin\\SizeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SizeController.php',
         'App\\Http\\Controllers\\Admin\\StockController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/StockController.php',
+        'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
         'App\\Http\\Controllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthController.php',
         'App\\Http\\Controllers\\CartController' => __DIR__ . '/../..' . '/app/Http/Controllers/CartController.php',
         'App\\Http\\Controllers\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/CheckoutController.php',
