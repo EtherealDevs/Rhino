@@ -6,4 +6,6 @@ return [
     App\Providers\FortifyServiceProvider::class,
     App\Providers\JetstreamServiceProvider::class,
     Kreait\Laravel\Firebase\ServiceProvider::class,
+    Barryvdh\Debugbar\ServiceProvider::class,
+
 ];
