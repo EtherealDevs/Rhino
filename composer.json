@@ -7,7 +7,6 @@
     "require": {
         "php": "^8.2",
         "anayarojo/shoppingcart": "^4.2",
-        "barryvdh/laravel-debugbar": "^3.14",
         "kreait/firebase-php": "^7.12",
         "kreait/laravel-firebase": "^5.8",
         "laravel/framework": "^11.0",
@@ -21,6 +20,7 @@
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.14",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
