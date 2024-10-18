@@ -7,7 +7,6 @@
     "require": {
         "php": "^8.2",
         "anayarojo/shoppingcart": "^4.2",
-        "barryvdh/laravel-debugbar": "^3.14",
         "kreait/firebase-php": "^7.12",
         "kreait/laravel-firebase": "^5.8",
         "laravel/framework": "^11.0",

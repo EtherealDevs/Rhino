@@ -143,7 +143,6 @@ return array(
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'Beste\\Clock\\' => array($vendorDir . '/beste/clock/src/Clock'),
     'Beste\\Cache\\' => array($vendorDir . '/beste/in-memory-cache/src'),
-    'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
     'BaconQrCode\\' => array($vendorDir . '/bacon/bacon-qr-code/src'),
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
 );
