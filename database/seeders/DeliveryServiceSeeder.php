@@ -34,11 +34,6 @@ class DeliveryServiceSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'name' => 'oca',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
         ]);
     }
 }

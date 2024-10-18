@@ -55,15 +55,11 @@ class CartController extends Controller
         $cartTotal = $this->cartManager->getCarttotal();
 
         if (Auth::user() != null) {
-            if (Auth::user()->cart != null) {
-                if ($cartItems->isNotEmpty()) {
-                    $cartValidator = new CartValidator(Auth::user()->cart);
-                    $failedValidation = $cartValidator->validateCart();
-                    if ($failedValidation) {
-                            // Set session flash message
-                            session()->flash('cartError', 'Se eliminaron del carrito algunos productos que ya no estaban disponibles.');
-                    }
-                }
+            $cartValidator = new CartValidator(Auth::user()->cart);
+            $failedValidation = $cartValidator->validateCart();
+            if ($failedValidation) {
+                    // Set session flash message
+                    session()->flash('cartError', 'Se eliminaron del carrito algunos productos que ya no estaban disponibles.');
             }
         }
         

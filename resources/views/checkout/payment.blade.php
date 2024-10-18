@@ -184,9 +184,9 @@
     </script>
         
     @elseif ($selectedMethod == 'sucursal')
+    @dd($sucursal)
     <script>
-        var sucursal = {!! json_encode($sucursal) !!};
-        console.log(sucursal);
+        var sucursal = {!! $sucursal !!};
         const renderPaymentBrick = async (bricksBuilder) => {
             const settings = {
                 initialization: {
@@ -203,10 +203,13 @@
                         shippingMode: "Retiro en sucursal",
                         description: "El paquete se envia a una sucursal de OCA de tu eleccion, donde podes ir a retirarlo", // opcional
                         receiverAddress: {
-                            streetName: sucursal.Calle,
-                            streetNumber: sucursal.Numero,
-                            city: sucursal.Provincia, // opcional
-                            zipCode: sucursal.CodigoPostal,
+                            streetName: "test",
+                            streetNumber: `${address.number}`,
+                            complement: address.department,
+                            neighborhood: address.city.name, // opcional
+                            city: address.province.name, // opcional
+                            zipCode: address.zip_code.code,
+                            additionalInformation: address.observation, // opcional
                         },
                     },
                     preferenceId: prefId,
@@ -242,73 +245,26 @@
                                 })
                                 .then((response) => response.json())
                                 .then((response) => {
-                                    if (response.status === 'error') {
-                                        if (window.paymentBrickController) {
+                                    console.log(response);
+                                    // recibir el resultado del pago
+                                    resolve();
+                                    // Unmount the Payment Brick before navigating away
+                                    if (window.paymentBrickController) {
                                         window.paymentBrickController.unmount();
-                                        }
-                                        // Redirect to the cart page with the session flash message
-                                        window.location.href = response.redirect_url;
                                     }
-                                    else
-                                    {
-                                        console.log(response);
-                                        // recibir el resultado del pago
-                                        resolve();
-                                        // Unmount the Payment Brick before navigating away
-    
-                                        // Create a form dynamically for the POST request
-                                        const form = document.createElement('form');
-                                        form.method = 'POST';
-                                        form.action = "{{route('checkout.handlePayment')}}";
-    
-                                        // Add CSRF token (since it's a POST request)
-                                        const csrfInput = document.createElement('input');
-                                        csrfInput.type = 'hidden';
-                                        csrfInput.name = '_token';
-                                        csrfInput.value = csrf;  // You already have csrf in the script, reuse it here
-                                        form.appendChild(csrfInput);
-    
-                                        // Add hidden inputs for the data you need to pass
-                                        const selectedMethodInput = document.createElement('input');
-                                        selectedMethodInput.type = 'hidden';
-                                        selectedMethodInput.name = 'selectedMethod';
-                                        selectedMethodInput.value = 'sucursal';
-                                        form.appendChild(selectedMethodInput);
-    
-                                        const sucursalInput = document.createElement('input');
-                                        sucursalInput.type = 'hidden';
-                                        sucursalInput.name = 'sucursal';
-                                        sucursalInput.value = sucursal.IdCentroImposicion;
-                                        form.appendChild(sucursalInput);
-                                        
-                                        const zipCodeInput = document.createElement('input');
-                                        zipCodeInput.type = 'hidden';
-                                        zipCodeInput.name = 'zip_code';
-                                        zipCodeInput.value = sucursal.CodigoPostal;
-                                        form.appendChild(zipCodeInput);
-                                        
-                                        const deliveryPriceInput = document.createElement('input');
-                                        deliveryPriceInput.type = 'hidden';
-                                        deliveryPriceInput.name = 'delivery_price';
-                                        deliveryPriceInput.value = shippingCosts;
-                                        form.appendChild(deliveryPriceInput);
-    
-                                        const mpOrderIdInput = document.createElement('input');
-                                        mpOrderIdInput.type = 'hidden';
-                                        mpOrderIdInput.name = 'mp_order_id';
-                                        mpOrderIdInput.value = response.id;
-                                        form.appendChild(mpOrderIdInput);
-    
-                                        // Append form to the body and submit it
-                                        document.body.appendChild(form);
-                                        form.submit();
-                                    }
+
+                                    // Redirect based on the payment result
+                                    window.location.href = "/payment/status/" + response.id + "?" + "sucursal={{$sucursal['IdCentroImposicion']}}" + "&delivery_price=" + shippingCosts + "&zip_code=" + sucursal['CodigoPostal'];
                                 })
                                 .catch((error) => {
                                     // manejar la respuesta de error al intentar crear el pago
                                     // Unmount the Payment Brick in case of an error
+                                    if (window.paymentBrickController) {
+                                        window.paymentBrickController.unmount();
+                                    }
                                     console.log(error);
                                     reject();
+                                    window.location.href = "/checkout/payment/";
                                 });
                         });
                     },

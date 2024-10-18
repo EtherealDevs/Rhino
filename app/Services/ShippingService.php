@@ -32,7 +32,6 @@ class ShippingService
      *
      * @param Address|string|int $addressOrZipCode Either an address model or a zip code.
      * @param int $operativa The operation code.
-     * @param bool $sucursal Determines if the shipping costs should be calculated by sucursal or domicilio.
      *
      * @return float $price The calculated shipping price.
      *
@@ -40,7 +39,6 @@ class ShippingService
      */
     public function getShippingCosts(Address|string|int $addressOrZipCode, int $operativa)
     {
-
         if ($addressOrZipCode instanceof Address) {
             try {
                 $zipCode = $this->addressValidator->validateZipCode($addressOrZipCode->zipCode->code);
@@ -76,7 +74,7 @@ class ShippingService
         $sucursales = $this->getSucursales($zipCode);
         $sucursalesIds = [];
         foreach ($sucursales as $sucursal) {
-            array_push($sucursalesIds, $sucursal['IdCentroImposicion']);
+            array_push($sucursales, $sucursal['IdCentroImposicion']);
         }
         return $sucursalesIds;
     }

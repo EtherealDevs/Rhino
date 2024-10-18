@@ -87,8 +87,8 @@ class CheckoutController extends Controller
             case 'sucursal':
                 $address = null;
                 $sucursal = $request->sucursal;
-                $deliveryService = DeliveryService::where('name', '=', 'oca')->first();
-                $shippingCosts = $this->shippingService->getShippingCosts($sucursal['CodigoPostal'], config('app.delivery_service.sucursal_a_sucursal'));
+                dd($sucursal);
+                $shippingCosts = $this->shippingService->getShippingCosts($sucursal['IdCentroImposicion'], config('app.delivery_service.sucursal_a_sucursal'));
                 break;
             case 'retiro':
                 $address = null;
@@ -228,13 +228,11 @@ class CheckoutController extends Controller
                 $order = $orderService->createDeliveryOrder($payment, $user, Address::find($request->address_id), (float)$request->delivery_price);
                 break;
             case 'sucursal':
-                $sucursalesIds = $shippingService->getSucursalesIds($request->zip_code);
-                $sucursalesCollection = collect($shippingService->getSucursales($request->zip_code));
-                $sucursal = $sucursalesCollection->firstWhere('IdCentroImposicion', '=', $request->sucursal);
+                $order = $sucursalesIds = $shippingService->getSucursalesIds($request->zip_code);
                 $request->validate([
                         'sucursal' => ['nullable', 'numeric', Rule::in($sucursalesIds)]
                     ]);
-                $order = $orderService->createSucursalOrder($payment, $user, $sucursal, (float)$request->delivery_price);
+                $orderService->createSucursalOrder($payment, $user, $request->sucursal, (float)$request->delivery_price);
                 break;
             case 'retiro':
                 $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);

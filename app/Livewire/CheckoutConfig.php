@@ -22,7 +22,7 @@ use Illuminate\Validation\Rule;
 
 class CheckoutConfig extends Component
 {
-    public $house = 0;
+    public $house=0;
     public $addressModels;
     public $addressModel;
 
@@ -66,18 +66,18 @@ class CheckoutConfig extends Component
                 $this->validateOnly('city');
                 $this->redirectRoute('checkout.delivery', ['selectedMethod' => 'domicilio', 'zip_code' => $this->zip_code, 'province' => $this->province, 'city' => $this->city]);
                 break;
-            case 'sucursal':
-                $this->validateOnly('zip_code');
-                $this->validateOnly('sucursal');
-                foreach ($this->sucursales as $sucursal) {
-                    if ($sucursal['IdCentroImposicion'] == $this->sucursal) {
-                        $this->sucursalArray = $sucursal;
-                        break;
+                case 'sucursal':
+                    $this->validateOnly('zip_code');
+                    $this->validateOnly('sucursal');
+                    foreach ($this->sucursales as $sucursal) {
+                        if ($sucursal['IdCentroImposicion'] == $this->sucursal) {
+                            $this->sucursalArray = $sucursal;
+                            break;
+                        }
                     }
-                }
-                $this->redirectRoute('checkout.payment', ['selectedMethod' => 'sucursal', 'sucursal' => $this->sucursalArray]);
+                    $this->redirectRoute('checkout.payment', ['selectedMethod' => 'sucursal', 'sucursal' => $this->sucursalArray]);
                 break;
-            case 'retiro':
+            case'retiro':
                 $this->redirectRote('checkout.payment', ['selectedMethod' => 'reitro']);
                 break;
         }
@@ -90,7 +90,7 @@ class CheckoutConfig extends Component
             'province' => 'required',
             'city' => 'required',
             'sucursal' => [Rule::in($this->sucursalesIds)],
-            'selectedMethod' => ['string', 'alpha', Rule::in(['domicilio', 'sucursal', 'retiro'])]
+            'selectedMethod' => ['string','alpha', Rule::in(['domicilio', 'sucursal', 'retiro'])]
         ];
     }
     public function canGoToNextStep()
@@ -107,7 +107,7 @@ class CheckoutConfig extends Component
                 $this->validateOnly('sucursal');
                 return true;
                 break;
-            case 'retiro':
+            case'retiro':
                 return true;
                 break;
             default:
@@ -115,17 +115,17 @@ class CheckoutConfig extends Component
                 break;
         }
     }
-    #[On('selectionChanged')]
+    #[On('selectionChanged')] 
     public function setSelected($selection)
     {
-
+        
         $this->selectedMethod = $selection;
         $this->validateOnly('selectedMethod');
         $this->zip_code = null;
         $this->province = null;
         $this->city = null;
         $this->sucursal = null;
-        $this->sucursalArray = null;
+        $this->sucursalArray= null;
         $this->sucursales = null;
         $this->sucursalesIds = null;
         $this->dispatch('resetPrice');
@@ -143,7 +143,7 @@ class CheckoutConfig extends Component
     public function updatedZipCode($zipCode)
     {
         $this->validateOnly('zip_code');
-        $this->dispatch('updateZipCode', zip_code: $zipCode);
+        $this->dispatch('updateZipCode', zip_code : $zipCode);
         $addressValidator = new AddressValidator();
         $shippingService = new ShippingService();
         $addressValidator->validateZipCode($zipCode);
@@ -158,11 +158,12 @@ class CheckoutConfig extends Component
         foreach ($this->sucursales as $sucursal) {
             $this->sucursalesIds[] = $sucursal['IdCentroImposicion'];
         }
+
     }
 
     public function updatedSucursal()
     {
-
+        
         $this->dispatch('updatedSucursal', [])->to(Resume::class);
     }
 
