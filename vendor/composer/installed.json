@@ -11418,11 +11418,13 @@
     ],
     "dev": true,
     "dev-package-names": [
+        "barryvdh/laravel-debugbar",
         "fakerphp/faker",
         "filp/whoops",
         "hamcrest/hamcrest-php",
         "laravel/pint",
         "laravel/sail",
+        "maximebf/debugbar",
         "mockery/mockery",
         "myclabs/deep-copy",
         "nunomaduro/collision",
