@@ -8,4 +8,5 @@ return [
     Kreait\Laravel\Firebase\ServiceProvider::class,
     Barryvdh\Debugbar\ServiceProvider::class,
 
+
 ];
