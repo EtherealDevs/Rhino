@@ -78,6 +78,71 @@
                 </tbody>
 
             </table>
+            <table>
+                <h2>
+                    productos borrados
+                </h2>
+                @foreach ($deletedItems as $deletedItem)
+                <tr class="bg-red-100">
+                    <td class="p-4 border-b border-red-300">
+                        <div class="flex items-center gap-3">
+                            <div class="flex flex-col">
+                                <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
+                                    {{ $deletedItem->name }} (Eliminado)
+                                </p>
+                                <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal opacity-70">
+                                    {{ $deletedItem->deleted_at->format('d-m-Y') }}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-red-300">
+                        <div class="flex items-center gap-3">
+                            <div class="flex flex-col">
+                                <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
+                                    {{ $deletedItem->color ? $deletedItem->color->name : 'Sin color' }}
+                                </p>
+                                <span class="block border-4 border-[{{ $deletedItem->color ? $deletedItem->color->color : '#fff' }}]"></span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-red-300">
+                        <div class="flex flex-col">
+                            <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
+                                ${{ $deletedItem->price() }}
+                            </p>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-red-300">
+                        <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
+                            {{ $deletedItem->size ? $deletedItem->size->name : 'Sin tamaño' }}
+                        </p>
+                    </td>
+                    <td class="p-4 border-b border-red-300">
+                        <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
+                            {{ $deletedItem->stock }}
+                        </p>
+                    </td>
+                    <td class="p-4 border-b border-red-300">
+                        <div class="inline-flex space-x-4">
+                            <!-- Botón para recuperar el producto -->
+                            <form action="{{ route('admin.productitems.restore', $deletedItem->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button class="text-blue-600 hover:text-blue-900">Recuperar</button>
+                            </form>
+                            <!-- Botón para eliminar definitivamente -->
+                            <form action="{{ route('admin.productitems.forceDelete', $deletedItem->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-red-600 hover:text-red-900">Eliminar definitivamente</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+
+            </table>
         </div>
     </div>
 @endsection

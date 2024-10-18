@@ -22,7 +22,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = DB::table('products_sizes')->get();
-        return view('admin.products.index', compact('products'));
+        $deletedItems = ProductItem::onlyTrashed()->get();
+        return view('admin.products.index', compact('products', 'deletedItems'));
     }
 
     /**

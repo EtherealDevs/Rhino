@@ -73,17 +73,18 @@ class ProductItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $product) {
-        $productSize = DB::table('products_sizes')->where('id',$product)->first();
-        $productItem = ProductItem::where('id',$productSize->product_item_id)->first();
-        $size = Size::where('id',$productSize->size_id)->first();
+    public function edit($product)
+    {
+        $productSize = DB::table('products_sizes')->where('id', $product)->first();
+        $productItem = ProductItem::where('id', $productSize->product_item_id)->first();
+        $size = Size::where('id', $productSize->size_id)->first();
         $variationModel = $productItem->getItemPivotModel($size);
-        $stock= $variationModel->stock;
-        $colors= Color::all();
-        $products= Product::all();
-        $brands=Brand::all();
-        $categories=Category::all();
-        return view('admin.products.edit', compact('colors', 'products','brands','size','categories','productItem','stock'));
+        $stock = $variationModel->stock;
+        $colors = Color::all();
+        $products = Product::all();
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('admin.products.edit', compact('colors', 'products', 'brands', 'size', 'categories', 'productItem', 'stock'));
     }
 
     /**
@@ -91,7 +92,7 @@ class ProductItemController extends Controller
      */
     public function update(Request $request, $productItem)
     {
-        $productItem=ProductItem::find($productItem);
+        $productItem = ProductItem::find($productItem);
         $productItem->update([
             'product_id' => $request->product_id,
             'original_price' => $request->original_price,
@@ -99,11 +100,11 @@ class ProductItemController extends Controller
         ]);
         $productItem->sizes()->wherePivot('size_id', $request->size_id)->first()->pivot->update([
             'stock' => $request->stock,
-            ]);
+        ]);
 
-        if ($request->file){
+        if ($request->file) {
             $url = Storage::put('images/product', $request->file('image'));
-            $productItem->images()->create( ['url' => $url]);
+            $productItem->images()->create(['url' => $url]);
         }
         return redirect()->route('admin.products.index');
     }
@@ -111,11 +112,47 @@ class ProductItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($productSize)
+    public function destroy($productSizeId)
     {
-        $productSize= DB::table('products_sizes')->where('id',$productSize)->first();
-        $product_item=ProductItem::find($productSize->product_item_id);
-        $product_item->sizes()->wherePivot('size_id', $productSize->size_id)->first()->pivot->delete();
-        return redirect()->route('admin.products.index');
+        // Obtener el tamaño del producto (product_size) a eliminar
+        $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
+
+        // Verificar que se encontró el product_size
+        if (!$productSize) {
+            return redirect()->route('admin.products.index')->with('error', 'Tamaño del producto no encontrado.');
+        }
+
+        // Obtener el item del producto asociado
+        $productItem = ProductItem::with('sizes')->find($productSize->product_item_id);
+
+        if (!$productItem) {
+            return redirect()->route('admin.products.index')->with('error', 'Item del producto no encontrado.');
+        }
+
+        // Eliminar la relación en la tabla pivote (products_sizes)
+        $productItem->sizes()->detach($productSize->size_id); // Utiliza detach para eliminar la relación
+
+        // Opcionalmente, si deseas eliminar el producto si no hay más tamaños asociados
+        if ($productItem->sizes()->count() === 0) {
+            $productItem->delete(); // Elimina el item del producto si no hay más tamaños
+        }
+
+        return redirect()->route('admin.products.index')->with('success', 'Tamaño del producto eliminado correctamente.');
+    }
+
+    public function restore($id)
+    {
+        $productItem = ProductItem::onlyTrashed()->findOrFail($id);
+        $productItem->restore();
+
+        return redirect()->route('admin.products.index')->with('success', 'Producto recuperado con éxito.');
+    }
+
+    public function forceDelete($id)
+    {
+        $productItem = ProductItem::onlyTrashed()->findOrFail($id);
+        $productItem->forceDelete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Producto eliminado definitivamente.');
     }
 }

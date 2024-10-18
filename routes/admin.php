@@ -90,3 +90,7 @@ Route::get('/admin/transfer-info', [MyStoreController::class, 'create'])->name('
 
 // Para procesar el formulario (POST)
 Route::post('/admin/transfer-info/store', [MyStoreController::class, 'store'])->name('transfer-info.store');
+
+
+Route::put('/admin/productitems/{id}/restore', [ProductItemController::class, 'restore'])->name('admin.productitems.restore');
+Route::delete('/admin/productitems/{id}/force-delete', [ProductItemController::class, 'forceDelete'])->name('admin.productitems.forceDelete');
