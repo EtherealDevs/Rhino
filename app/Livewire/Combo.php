@@ -22,6 +22,7 @@ class Combo extends Component
 
     
     foreach ($combo_items as $combo_item) {
+        // dd($combo_items, $combo_item);
         $price += $combo_item->item->price();
     }
 

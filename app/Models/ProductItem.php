@@ -25,7 +25,7 @@ class ProductItem extends Model
     public function price() : int
     {
         if (optional($this->product)->sale && optional($this->product->sale)->sale && optional($this->product->sale->sale)->discount) {
-            $price = $this->original_price * ($this->product->sale->discount / 100);
+            $price = $this->original_price * ($this->product->sale->sale->discount / 100);
             return $price;
         } else
         {
