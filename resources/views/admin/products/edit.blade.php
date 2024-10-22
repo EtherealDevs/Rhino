@@ -40,13 +40,14 @@
 
             <div class="p-6 rounded-xl bg-white">
                 <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
-                    Editar {{ $productItem->product->name }} ({{$productItem->color->name}} - {{$size->name}})
+                    Editar {{ $productItem->product->name }} ({{ $productItem->color->name }} - {{ $size->name }})
                 </h2>
 
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
-                            <form action="{{ route('admin.productitems.update', $productItem->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.productitems.update', $productItem->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <input type="text" class="hidden" value="{{ $size->id }}" name="size_id">
@@ -63,7 +64,9 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <label for="product_id" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el producto</label>
+                                            <label for="product_id"
+                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar
+                                                el producto</label>
                                             @error('product_id')
                                                 <span class="text-sm text-red-600">{{ $message }}</span>
                                             @enderror
@@ -77,7 +80,8 @@
                                             <input type="number" name="original_price" id="original_price" placeholder=""
                                                 value="{{ old('original_price', $productItem->original_price) }}" required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                            <label for="original_price" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
+                                            <label for="original_price"
+                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
                                             @error('original_price')
                                                 <span class="text-sm text-red-600">{{ $message }}</span>
                                             @enderror
@@ -87,7 +91,8 @@
                                             <input type="number" name="stock" placeholder=""
                                                 value="{{ old('stock', $stock) }}" required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                            <label for="stock" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
+                                            <label for="stock"
+                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Stock</label>
                                             @error('stock')
                                                 <span class="text-sm text-red-600">{{ $message }}</span>
                                             @enderror
@@ -99,20 +104,26 @@
                                     <div class="grid grid-cols-2">
                                         @foreach ($productItem->images as $image)
                                             <div>
-                                                <img src="{{ url(Storage::url('images/product/' . $image->url)) }}" alt="">
+                                                <img src="{{ url(Storage::url($image->url)) }}" alt="">
                                             </div>
                                         @endforeach
                                     </div>
-                                    <label for="image" class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
+                                    <label for="image"
+                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
                                         <div class="w-full">
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
                                                 Selecciona una o más imágenes aquí 👇🏼
                                             </span>
-                                            <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                                <input class="hidden" type="file" name="images[]" accept="image/*" id="image" multiple onchange="previewImages(event)" />
+                                            <span
+                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                                <input class="hidden" type="file" name="images[]" accept="image/*"
+                                                    id="image" multiple onchange="previewImages(event)" />
                                                 <div class="flex items-center justify-center space-x-2 cursor-pointer">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" class="text-gray-500">
-                                                        <path fill="currentColor" d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z"></path>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 256 256" class="text-gray-500">
+                                                        <path fill="currentColor"
+                                                            d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z">
+                                                        </path>
                                                     </svg>
                                                     <span>Subir imágenes</span>
                                                 </div>
