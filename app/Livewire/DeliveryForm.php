@@ -89,9 +89,9 @@ class DeliveryForm extends Component
 
         $this->user = $user;
           // Obtener las direcciones del usuario autenticado
-          $addresses = Address::where('user_id', Auth::id())->get();
-          if ($addresses->isNotEmpty()) {
-              $this->addressModels = Address::where('user_id', Auth::id())->get()->load('province', 'city', 'zipCode');
+          $this->addressModels = Address::where('user_id', Auth::id())->get();
+          if ($this->addressModels->isNotEmpty()) {
+              $this->addressModels = $this->addressModels->load('province', 'city', 'zipCode');
     
               $this->selectedAddressId = $this->addressModels->first()->id;
               $this->addressModel = $this->addressModels->where('id', $this->selectedAddressId)->first();

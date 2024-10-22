@@ -20,7 +20,6 @@
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $user->id }}">
                             <input type="hidden" name="selectedMethod" value="domicilio">
-                            <input type="hidden" name="address_id" value="{{$selectedAddressId}}">
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <x-checkout.text-input name="name" label="Nombre" wire:model.blur="name"
@@ -159,6 +158,9 @@
                         <div class="mt-4">
                             <div class="max-w-md mx-auto space-y-6">
                                 <div class="space-y-4">
+                                    @if ($addresses->isNotEmpty())
+                                        
+                                    
                                     @foreach ($addresses as $address)
                                         <div class="relative">
                                             <input wire:model.live="selectedAddressId" type="radio"
@@ -203,6 +205,7 @@
                                             </label>
                                         </div>
                                     @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
