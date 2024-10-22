@@ -40,9 +40,7 @@ class ProductController extends Controller
         return view('admin.products.create', compact('colors', 'products', 'brands', 'sizes', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         // Validar los campos requeridos antes de crear el producto

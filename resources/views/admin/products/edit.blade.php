@@ -101,10 +101,17 @@
                                 </div>
 
                                 <div class="mb-8">
-                                    <div class="grid grid-cols-2">
+                                    <div class="grid grid-cols-2 gap-4">
                                         @foreach ($productItem->images as $image)
-                                            <div>
-                                                <img src="{{ url(Storage::url($image->url)) }}" alt="">
+                                            <div class="relative">
+                                                <img src="{{ url(Storage::url($image->url)) }}" alt="Imagen del producto"
+                                                    class="w-full h-auto rounded-md border border-gray-300">
+
+                                                <!-- Botón para eliminar la imagen -->
+                                                <button onclick="removeImage({{ $image->id }})"
+                                                    class="absolute top-1 z-50 right-1 bg-red-500 text-white px-2 py-1 rounded">
+                                                    Eliminar
+                                                </button>
                                             </div>
                                         @endforeach
                                     </div>
@@ -144,7 +151,34 @@
                         </div>
                     </div>
 
+                    <script>
+                        function removeImage(imageId) {
+                            if (!confirm("¿Estás seguro de que quieres eliminar esta imagen?")) {
+                                return;
+                            }
 
+                            // Llamada AJAX para eliminar la imagen
+                            fetch(`/delete-image/${imageId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Incluye el token CSRF para seguridad
+                                        'Content-Type': 'application/json',
+                                    },
+                                })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // Elimina la imagen del DOM si la eliminación fue exitosa
+                                        document.querySelector(`button[onclick="removeImage(${imageId})"]`).parentElement.remove();
+                                    } else {
+                                        alert("Error al eliminar la imagen.");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    alert("Error al eliminar la imagen.");
+                                });
+                        }
+                    </script>
 
                     <script>
                         'use strict'

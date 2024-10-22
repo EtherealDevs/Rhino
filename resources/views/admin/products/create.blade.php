@@ -60,7 +60,8 @@
                                                 @endforeach
                                             </select>
                                             <label for="select"
-                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el producto</label>
+                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar
+                                                el producto</label>
                                             @error('product_id')
                                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                                             @enderror
@@ -107,7 +108,8 @@
                                         <legend>Color:</legend>
                                         <div>
                                             @foreach ($colors as $color)
-                                                <input type="radio" id="color-{{ $color->id }}" name="color_id" value="{{ $color->id }}" required />
+                                                <input type="radio" id="color-{{ $color->id }}" name="color_id"
+                                                    value="{{ $color->id }}" required />
                                                 <label for="color-{{ $color->id }}">{{ $color->name }}</label>
                                             @endforeach
                                         </div>
@@ -129,7 +131,8 @@
                                         <legend>Talle:</legend>
                                         <div>
                                             @foreach ($sizes as $size)
-                                                <input type="radio" id="size-{{ $size->id }}" name="size_id" value="{{ $size->id }}" required />
+                                                <input type="radio" id="size-{{ $size->id }}" name="size_id"
+                                                    value="{{ $size->id }}" required />
                                                 <label for="size-{{ $size->id }}">{{ $size->name }}</label>
                                             @endforeach
                                         </div>
@@ -148,16 +151,22 @@
 
                                 <!-- Campo de selección de imágenes -->
                                 <div class="mb-8">
-                                    <label for="image" class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
+                                    <label for="image"
+                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
                                         <div class="w-full">
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
                                                 Selecciona una o más imágenes aquí 👇🏼
                                             </span>
-                                            <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                                <input class="hidden" type="file" name="images[]" accept="image/*" id="image" multiple onchange="previewImages(event)" />
+                                            <span
+                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                                <input class="hidden" type="file" name="images[]" accept="image/*"
+                                                    id="image" multiple onchange="previewImages(event)" />
                                                 <div class="flex items-center justify-center space-x-2 cursor-pointer">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" class="text-gray-500">
-                                                        <path fill="currentColor" d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z"></path>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 256 256" class="text-gray-500">
+                                                        <path fill="currentColor"
+                                                            d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z">
+                                                        </path>
                                                     </svg>
                                                     <span>Subir imágenes</span>
                                                 </div>
@@ -179,7 +188,6 @@
                         </div>
                     </div>
 
-
                     <script>
                         function previewImages(event) {
                             const files = event.target.files;
@@ -189,7 +197,7 @@
                             Array.from(files).forEach((file, index) => {
                                 const reader = new FileReader();
 
-                                reader.onload = function (e) {
+                                reader.onload = function(e) {
                                     // Contenedor de la imagen y el botón de eliminar
                                     const imageWrapper = document.createElement('div');
                                     imageWrapper.classList.add('relative', 'w-full', 'h-auto');
@@ -202,7 +210,8 @@
                                     // Crear botón para eliminar la imagen
                                     const removeButton = document.createElement('button');
                                     removeButton.innerHTML = 'Eliminar';
-                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white', 'px-2', 'py-1', 'rounded');
+                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
+                                        'px-2', 'py-1', 'rounded');
                                     removeButton.onclick = () => removeImage(index);
 
                                     // Agregar imagen y botón al contenedor

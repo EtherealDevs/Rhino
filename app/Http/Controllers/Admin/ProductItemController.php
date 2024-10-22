@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
+use App\Models\ProductImage; 
 use App\Models\ProductSize;
 use App\Models\ProductsSize;
 use App\Models\Size;
@@ -107,6 +108,21 @@ class ProductItemController extends Controller
             $productItem->images()->create(['url' => $url]);
         }
         return redirect()->route('admin.products.index');
+    }
+
+    public function deleteImage($imageId)
+    {
+        $image = ProductImage::findOrFail($imageId);
+
+        // Eliminar la imagen del almacenamiento
+        if (Storage::disk('public')->exists($image->url)) {
+            Storage::disk('public')->delete($image->url);
+        }
+
+        // Eliminar el registro de la base de datos
+        $image->delete();
+
+        return response()->json(['success' => true], 200);
     }
 
     /**
