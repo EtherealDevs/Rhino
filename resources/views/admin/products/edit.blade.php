@@ -103,16 +103,26 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <label for="file" class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
-                                        <div>
+                                    <label for="image" class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
+                                        <div class="w-full">
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
                                                 Selecciona una o más imágenes aquí 👇🏼
                                             </span>
                                             <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                                <input type="file" name="images[]" accept="image/*" id="image" multiple />
+                                                <input class="hidden" type="file" name="images[]" accept="image/*" id="image" multiple onchange="previewImages(event)" />
+                                                <div class="flex items-center justify-center space-x-2 cursor-pointer">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" class="text-gray-500">
+                                                        <path fill="currentColor" d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z"></path>
+                                                    </svg>
+                                                    <span>Subir imágenes</span>
+                                                </div>
                                             </span>
                                         </div>
                                     </label>
+                                    <div id="preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
+                                    @error('images.*')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <button id="button" type="submit"
