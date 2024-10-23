@@ -21,7 +21,7 @@
                 </div>
             </div>
         </td>
-        <td class="p-4 relative grid grid-cols-3 gap-1  border-t border-gray-200">
+        <td class="p-4 relative grid grid-cols-3 gap-2 border-t border-gray-200">
             @if ($product->sale)
                 {{-- Mostrar el porcentaje de descuento de manera más sutil --}}
                 <div
