@@ -46,6 +46,25 @@
                 <div class="mt-6">
                     <div class="px-12 mt-12">
                         <div class="mx-auto">
+                            <div class="grid grid-cols-2 gap-4 mb-5">
+                                @foreach ($productItem->images as $image)
+                                    <div class="relative">
+                                        <img src="{{ url(Storage::url($image->url)) }}" alt="Imagen del producto"
+                                            class="w-full h-auto rounded-md border border-gray-300">
+
+                                        <form method="POST"
+                                            action="{{ route('admin.productItems.images.delete', $image->id) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button onclick="deleteImage({{ $image->id }})"
+                                                class="absolute top-1 z-50 right-1 bg-red-500 text-white px-2 py-1 rounded">
+                                                Eliminar
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                @endforeach
+                            </div>
                             <form action="{{ route('admin.productitems.update', $productItem->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -101,20 +120,7 @@
                                 </div>
 
                                 <div class="mb-8">
-                                    <div class="grid grid-cols-2 gap-4">
-                                        @foreach ($productItem->images as $image)
-                                            <div class="relative">
-                                                <img src="{{ url(Storage::url($image->url)) }}" alt="Imagen del producto"
-                                                    class="w-full h-auto rounded-md border border-gray-300">
 
-                                                <!-- Botón para eliminar la imagen -->
-                                                <button onclick="removeImage({{ $image->id }})"
-                                                    class="absolute top-1 z-50 right-1 bg-red-500 text-white px-2 py-1 rounded">
-                                                    Eliminar
-                                                </button>
-                                            </div>
-                                        @endforeach
-                                    </div>
                                     <label for="image"
                                         class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
                                         <div class="w-full">
@@ -141,7 +147,6 @@
                                     @error('images.*')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
-
                                 </div>
 
                                 <button id="button" type="submit"
@@ -149,33 +154,11 @@
                                     Guardar
                                 </button>
                             </form>
+
                         </div>
                     </div>
 
                     <script>
-                        function removeImage(imageId) {
-                            if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
-                                fetch(`/admin/products/images/${imageId}`, {
-                                        method: 'DELETE',
-                                        headers: {
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                            'Content-Type': 'application/json',
-                                        },
-                                    })
-                                    .then(response => {
-                                        if (response.ok) {
-                                            // Eliminar la imagen del DOM
-                                            location.reload(); // Recargar la página para reflejar el cambio
-                                        } else {
-                                            alert('Error al eliminar la imagen.');
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.error('Error:', error);
-                                    });
-                            }
-                        }
-
                         function previewImages(event) {
                             const previewContainer = document.getElementById('preview-container');
                             previewContainer.innerHTML = ''; // Limpiar el contenedor antes de mostrar nuevas imágenes
@@ -190,6 +173,11 @@
                                 }
                                 reader.readAsDataURL(file);
                             });
+                        }
+
+                        function removeImage(index) {
+                            const previewContainer = document.getElementById('preview-container');
+                            previewContainer.children[index].remove(); // Remueve el div correspondiente a la imagen
                         }
                     </script>
                     <script>

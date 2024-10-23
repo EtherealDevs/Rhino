@@ -238,40 +238,8 @@
                         }
 
                         function removeImage(index) {
-                            // Elimina la imagen del array de archivos seleccionados
-                            selectedFiles.splice(index, 1);
-
-                            // Actualiza la vista previa de todas las imágenes restantes
                             const previewContainer = document.getElementById('preview-container');
-                            previewContainer.innerHTML = ''; // Limpiar el contenedor
-
-                            // Volver a mostrar todas las imágenes menos la eliminada
-                            selectedFiles.forEach((file, newIndex) => {
-                                const reader = new FileReader();
-
-                                reader.onload = function(e) {
-                                    const imageWrapper = document.createElement('div');
-                                    imageWrapper.classList.add('relative', 'w-full', 'h-auto');
-
-                                    const img = document.createElement('img');
-                                    img.src = e.target.result;
-                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
-
-                                    const removeButton = document.createElement('button');
-                                    removeButton.innerHTML = 'Eliminar';
-                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
-                                        'px-2', 'py-1', 'rounded');
-
-                                    // Manejar el evento de clic para eliminar la imagen
-                                    removeButton.onclick = () => removeImage(newIndex);
-
-                                    imageWrapper.appendChild(img);
-                                    imageWrapper.appendChild(removeButton);
-                                    previewContainer.appendChild(imageWrapper);
-                                };
-
-                                reader.readAsDataURL(file);
-                            });
+                            previewContainer.children[index].remove(); // Remueve el div correspondiente a la imagen
                         }
                     </script>
 

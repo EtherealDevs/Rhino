@@ -9,6 +9,7 @@ use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\ProductImage;
+use App\Models\Image;
 use App\Models\ProductSize;
 use App\Models\ProductsSize;
 use App\Models\Size;
@@ -99,31 +100,17 @@ class ProductItemController extends Controller
      */
     public function update(Request $request, $productItemId)
     {
-        // Validar la solicitud
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'original_price' => 'required|numeric',
-            'sale_price' => 'required|numeric',
-            'size_id' => 'required|exists:sizes,id',
-            'stock' => 'required|integer|min:0',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Asegúrate de que esto esté aquí
-        ]);
 
-
-        // Encontrar el ProductItem por su ID
         $productItem = ProductItem::findOrFail($productItemId);
 
-        // Actualizar el ProductItem
         $productItem->update([
             'product_id' => $request->product_id,
             'original_price' => $request->original_price,
             'sale_price' => $request->sale_price,
         ]);
 
-        // Actualizar el stock en la tabla pivote
         $productItem->sizes()->updateExistingPivot($request->size_id, ['stock' => $request->stock]);
 
-        // Manejar la carga de nuevas imágenes
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $url = Storage::put('images/product', $image);
@@ -141,27 +128,22 @@ class ProductItemController extends Controller
      */
     public function destroy($productSizeId)
     {
-        // Obtener el tamaño del producto (product_size) a eliminar
         $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
 
-        // Verificar que se encontró el product_size
         if (!$productSize) {
             return redirect()->route('admin.products.index')->with('error', 'Tamaño del producto no encontrado.');
         }
 
-        // Obtener el item del producto asociado
         $productItem = ProductItem::with('sizes')->find($productSize->product_item_id);
 
         if (!$productItem) {
             return redirect()->route('admin.products.index')->with('error', 'Item del producto no encontrado.');
         }
 
-        // Eliminar la relación en la tabla pivote (products_sizes)
-        $productItem->sizes()->detach($productSize->size_id); // Utiliza detach para eliminar la relación
+        $productItem->sizes()->detach($productSize->size_id);
 
-        // Opcionalmente, si deseas eliminar el producto si no hay más tamaños asociados
         if ($productItem->sizes()->count() === 0) {
-            $productItem->delete(); // Elimina el item del producto si no hay más tamaños
+            $productItem->delete();
         }
 
         return redirect()->route('admin.products.index')->with('success', 'Tamaño del producto eliminado correctamente.');
@@ -182,4 +164,14 @@ class ProductItemController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Producto eliminado definitivamente.');
     }
+
+    public function deleteImage($id)
+    {
+        $image = Image::findOrFail($id);
+        Storage::delete($image->url);
+        $image->delete();
+
+        return redirect()->back()->with('success', 'Imagen eliminada correctamente.');
+    }
 }
+
