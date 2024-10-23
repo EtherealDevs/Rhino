@@ -21,24 +21,22 @@
                 </div>
             </div>
         </td>
-        <td class="p-4 relative grid grid-cols-3 gap-2 border-t border-gray-200">
+        <td class="p-4 relative grid grid-rows-3 gap-2 border-t border-gray-200">
             @if ($product->sale)
                 {{-- Mostrar el porcentaje de descuento de manera más sutil --}}
-                <div
-                    class="col-span-3 absolute mb-5 border-b border-green-300 top-2 w-full text-gray-600 text-md font-medium font-josefin rounded-lg px-2 py-1">
+                <div class="row-span-1 border-b border-green-300 text-gray-600 text-md font-medium font-josefin rounded-lg px-2 py-1">
                     {{ $product->sale->sale->discount }}% de descuento
                 </div>
 
-                {{-- Mostrar el precio con descuento con un estilo más discreto --}}
-                <div
-                    class="col-span-2 absolute top-10 left-2 text-green-500 text-sm font-semibold font-josefin px-2 py-1">
-                    ${{ number_format($productItem->price() / 1, 2, ',', '.') }}
-                </div>
-
-                {{-- Mostrar el precio original tachado pero con una sutileza visual --}}
-                <div
-                    class="col-span-2 absolute top-10 right-3 text-sm text-gray-400 font-medium font-josefin line-through px-2 py-1">
-                    ${{ number_format($productItem->original_price / 1, 2, ',', '.') }}
+                {{-- Mostrar los precios en filas separadas --}}
+                <div class="row-span-1 flex justify-start items-center text-sm font-josefin px-2 py-1">
+                    <span class="text-green-500 font-semibold">
+                        ${{ number_format($productItem->price() / 1, 2, ',', '.') }}
+                    </span>
+                    <span class="mx-2">-</span>
+                    <span class="text-gray-400 font-medium line-through">
+                        ${{ number_format($productItem->original_price / 1, 2, ',', '.') }}
+                    </span>
                 </div>
             @else
                 {{-- Precio sin descuento, centrado y estilizado de forma minimalista --}}
@@ -49,6 +47,8 @@
                 </div>
             @endif
         </td>
+
+
 
 
 
