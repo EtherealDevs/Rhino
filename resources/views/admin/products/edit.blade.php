@@ -57,7 +57,7 @@
                                             @csrf
                                             @method('delete')
                                             <button onclick="deleteImage({{ $image->id }})"
-                                                class="absolute top-1 z-50 right-1 bg-red-500 text-white px-2 py-1 rounded">
+                                                class="absolute top-1 z-10 right-1 bg-red-500 text-white px-2 py-1 rounded">
                                                 Eliminar
                                             </button>
                                         </form>
