@@ -149,7 +149,7 @@ public function store(Request $request)
     }
 
     $sale->delete(); // Elimina la promoción
-    notify()->success('Se borró la promo con éxito ⚡️');
+    session()->flash('message', 'Se borró la promo con éxito ⚡️');
 
     return redirect()->back();
 }
