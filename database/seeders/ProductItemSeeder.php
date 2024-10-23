@@ -20,24 +20,33 @@ class ProductItemSeeder extends Seeder
     public function run(): void
     {
         $public = Storage::disk('public');
-        foreach ($public->files('images/product') as $file)
-        {
+        foreach ($public->files('images/product') as $file) {
             $public->delete($file);
         }
+
+        $productItemCount = 0; // Contador de ProductItems creados
+        $maxProductItems = 10; // Límite de ProductItems a crear
+
         foreach (Product::all() as $product) {
             foreach (Color::all() as $key => $color) {
+                if ($productItemCount >= $maxProductItems) {
+                    break 2; // Rompe ambos bucles cuando se alcanza el límite
+                }
+
                 $size = Size::all()->random(2);
-                if ($key == 0) {
-                    $count = 2;
-                }
-                else {
-                    $count = rand(1, 2);
-                }
-                ProductItem::factory()->hasAttached($size, ['stock' => rand(1, 3)])->hasImages($count)->create([
-                    'product_id' => $product->id,
-                    'color_id' => $color->id
-                ]);
+                $count = $key == 0 ? 2 : rand(1, 2);
+
+                ProductItem::factory()
+                    ->hasAttached($size, ['stock' => rand(1, 3)])
+                    ->hasImages($count)
+                    ->create([
+                        'product_id' => $product->id,
+                        'color_id' => $color->id
+                    ]);
+
+                $productItemCount++; // Incrementa el contador
             }
         }
     }
+
 }
