@@ -17,7 +17,7 @@
                                 @foreach ($item->images as $image)
                                     <li class="glide__slide">
                                         <img class="w-full h-64 lg:h-96 object-cover"
-                                        src="{{config('app.product_images_directory') . $image->url}}"
+                                        src="{{ url(Storage::url('images/product/' . $image->url)) }}"
                                             alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$item->color->name}}">
                                     </li>
                                 @endforeach
@@ -56,7 +56,7 @@
 
                 <div class="mb-4">
                     @if ($item->product != null)
-                        @if ($item->product->sale != null)    
+                        @if ($item->product->sale != null)
                             <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price() / 100, 2, ',', '.')}}</span>
                             <span class="text-lg line-through font-bold text-gray-500">${{number_format($item->original_price / 100, 2, ',', '.')}}</span>
                         @else
