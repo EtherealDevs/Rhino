@@ -140,13 +140,18 @@ public function store(Request $request)
     //     return redirect()->back();
     // }
 
-    static function destroy(Sale $sale)
-    {
+    public function destroy(Sale $sale)
+{
+    // Verifica si la venta tiene imágenes y elimina la primera
+    if ($sale->images()->exists()) {
         Storage::delete($sale->images->first()->url);
-        $sale->images()->delete();
-        $sale->delete();
-
-        notify()->success('Se borro la promo con exito ⚡️');
-        return redirect()->back();
+        $sale->images()->delete(); // Elimina todas las imágenes asociadas
     }
+
+    $sale->delete(); // Elimina la promoción
+    notify()->success('Se borró la promo con éxito ⚡️');
+
+    return redirect()->back();
+}
+
 }
