@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductItem;
-use App\Models\ProductImage; 
+use App\Models\ProductImage;
 use App\Models\ProductSize;
 use App\Models\ProductsSize;
 use App\Models\Size;
@@ -39,6 +39,11 @@ class ProductItemController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // Otros campos...
+        ]);
+
         $product_item = ProductItem::create([
             'product_id' => $request->product_id,
             'color_id' => $request->color_id,
@@ -50,9 +55,10 @@ class ProductItemController extends Controller
 
         // Verifica si se han subido imágenes
         if ($request->hasFile('images')) {
-            // Itera sobre cada imagen y guárdala
             foreach ($request->file('images') as $image) {
+                // Almacena la imagen
                 $url = Storage::put('images/product', $image);
+                // Crea una nueva imagen asociada al product_item
                 $product_item->images()->create([
                     'url' => $url,
                 ]);
@@ -91,39 +97,44 @@ class ProductItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $productItem)
+    public function update(Request $request, $productItemId)
     {
-        $productItem = ProductItem::find($productItem);
+        // Validar la solicitud
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'original_price' => 'required|numeric',
+            'sale_price' => 'required|numeric',
+            'size_id' => 'required|exists:sizes,id',
+            'stock' => 'required|integer|min:0',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Asegúrate de que esto esté aquí
+        ]);
+
+
+        // Encontrar el ProductItem por su ID
+        $productItem = ProductItem::findOrFail($productItemId);
+
+        // Actualizar el ProductItem
         $productItem->update([
             'product_id' => $request->product_id,
             'original_price' => $request->original_price,
             'sale_price' => $request->sale_price,
         ]);
-        $productItem->sizes()->wherePivot('size_id', $request->size_id)->first()->pivot->update([
-            'stock' => $request->stock,
-        ]);
 
-        if ($request->file) {
-            $url = Storage::put('images/product', $request->file('image'));
-            $productItem->images()->create(['url' => $url]);
-        }
-        return redirect()->route('admin.products.index');
-    }
+        // Actualizar el stock en la tabla pivote
+        $productItem->sizes()->updateExistingPivot($request->size_id, ['stock' => $request->stock]);
 
-    public function deleteImage($imageId)
-    {
-        $image = ProductImage::findOrFail($imageId);
-
-        // Eliminar la imagen del almacenamiento
-        if (Storage::disk('public')->exists($image->url)) {
-            Storage::disk('public')->delete($image->url);
+        // Manejar la carga de nuevas imágenes
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $url = Storage::put('images/product', $image);
+                $productItem->images()->create(['url' => $url]);
+            }
         }
 
-        // Eliminar el registro de la base de datos
-        $image->delete();
-
-        return response()->json(['success' => true], 200);
+        return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

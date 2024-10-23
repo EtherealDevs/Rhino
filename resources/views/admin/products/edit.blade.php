@@ -119,7 +119,7 @@
                                         class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
                                         <div class="w-full">
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
-                                                Selecciona una o más imágenes aquí 👇🏼
+                                                Selecciona una o más imágenes nuevas aquí 👇🏼
                                             </span>
                                             <span
                                                 class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
@@ -141,6 +141,7 @@
                                     @error('images.*')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
+
                                 </div>
 
                                 <button id="button" type="submit"
@@ -153,33 +154,44 @@
 
                     <script>
                         function removeImage(imageId) {
-                            if (!confirm("¿Estás seguro de que quieres eliminar esta imagen?")) {
-                                return;
+                            if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
+                                fetch(`/admin/products/images/${imageId}`, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                            'Content-Type': 'application/json',
+                                        },
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            // Eliminar la imagen del DOM
+                                            location.reload(); // Recargar la página para reflejar el cambio
+                                        } else {
+                                            alert('Error al eliminar la imagen.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
                             }
+                        }
 
-                            // Llamada AJAX para eliminar la imagen
-                            fetch(`/delete-image/${imageId}`, {
-                                    method: 'DELETE',
-                                    headers: {
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Incluye el token CSRF para seguridad
-                                        'Content-Type': 'application/json',
-                                    },
-                                })
-                                .then(response => {
-                                    if (response.ok) {
-                                        // Elimina la imagen del DOM si la eliminación fue exitosa
-                                        document.querySelector(`button[onclick="removeImage(${imageId})"]`).parentElement.remove();
-                                    } else {
-                                        alert("Error al eliminar la imagen.");
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                    alert("Error al eliminar la imagen.");
-                                });
+                        function previewImages(event) {
+                            const previewContainer = document.getElementById('preview-container');
+                            previewContainer.innerHTML = ''; // Limpiar el contenedor antes de mostrar nuevas imágenes
+
+                            Array.from(event.target.files).forEach(file => {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
+                                    previewContainer.appendChild(img);
+                                }
+                                reader.readAsDataURL(file);
+                            });
                         }
                     </script>
-
                     <script>
                         'use strict'
 

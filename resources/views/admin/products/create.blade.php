@@ -189,12 +189,20 @@
                     </div>
 
                     <script>
-                        function previewImages(event) {
-                            const files = event.target.files;
-                            const previewContainer = document.getElementById('preview-container');
-                            previewContainer.innerHTML = ''; // Limpiar previas anteriores
+                        // Variable para almacenar las imágenes seleccionadas
+                        let selectedFiles = [];
 
-                            Array.from(files).forEach((file, index) => {
+                        function previewImages(event) {
+                            const files = Array.from(event.target.files);
+                            const previewContainer = document.getElementById('preview-container');
+
+                            // Combinar los archivos nuevos con los ya seleccionados
+                            selectedFiles = [...selectedFiles, ...files];
+
+                            previewContainer.innerHTML = ''; // Limpiar el contenedor de vista previa
+
+                            // Mostrar cada archivo seleccionado
+                            selectedFiles.forEach((file, index) => {
                                 const reader = new FileReader();
 
                                 reader.onload = function(e) {
@@ -212,6 +220,8 @@
                                     removeButton.innerHTML = 'Eliminar';
                                     removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
                                         'px-2', 'py-1', 'rounded');
+
+                                    // Manejar el evento de clic para eliminar la imagen
                                     removeButton.onclick = () => removeImage(index);
 
                                     // Agregar imagen y botón al contenedor
@@ -222,10 +232,10 @@
                                     previewContainer.appendChild(imageWrapper);
                                 };
 
+                                // Leer el archivo como URL de datos
                                 reader.readAsDataURL(file);
                             });
                         }
-
                         function removeImage(index) {
                             const previewContainer = document.getElementById('preview-container');
                             previewContainer.children[index].remove(); // Remueve el div correspondiente a la imagen

@@ -94,4 +94,6 @@ Route::post('/admin/transfer-info/store', [MyStoreController::class, 'store'])->
 
 Route::put('/admin/productitems/{id}/restore', [ProductItemController::class, 'restore'])->name('admin.productitems.restore');
 Route::delete('/admin/productitems/{id}/force-delete', [ProductItemController::class, 'forceDelete'])->name('admin.productitems.forceDelete');
-Route::delete('/admin/productItems/delete-image/{id}', [ProductController::class, 'deleteImage'])->name('image.delete');
+
+Route::delete('/admin/products/images/{id}', [ProductItemController::class, 'deleteImage']);
+
