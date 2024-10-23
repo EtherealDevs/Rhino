@@ -154,7 +154,7 @@
     <div id="sidebar-overlay" class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
     <!-- end sidenav -->
 
-    <div class="w-full fixed md:w-[calc(100%-256px)] md:ml-64 bg-gray-200 transition-all main">
+    <div class="w-full fixed md:w-[calc(100%-256px)] z-50 md:ml-64 bg-gray-200 transition-all main">
         <!-- navbar -->
 
         <div class="top-0 py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky left-0 z-30">

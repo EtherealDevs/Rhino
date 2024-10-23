@@ -188,7 +188,7 @@
                                     // Crear botón para eliminar la imagen
                                     const removeButton = document.createElement('button');
                                     removeButton.innerHTML = 'Eliminar';
-                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
+                                    removeButton.classList.add('z-30', 'relative' , 'top-1', 'right-1', 'bg-red-500', 'text-white',
                                         'px-2', 'py-1', 'rounded');
 
                                     // Manejar el evento de clic para eliminar la imagen
