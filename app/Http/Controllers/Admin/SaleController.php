@@ -69,7 +69,7 @@ public function store(Request $request)
         ]);
     }
 
-    notify()->success('Creaste la promo con éxito ⚡️');
+    session()->flash('message', 'Se creo la promo con éxito ⚡️');
     return redirect()->route('admin.sales.index');
 }
 
@@ -127,7 +127,7 @@ public function store(Request $request)
             }
         }
 
-        notify()->success('Actualizaste la promo con éxito ⚡️');
+        session()->flash('message', 'Se editó la promo con éxito ⚡️');
         return redirect()->route('admin.sales.index');
     }
 
