@@ -105,14 +105,24 @@
                                 <!-- Campo de color -->
                                 <div class="grid grid-cols-2">
                                     <div class="relative z-0 w-full mb-5">
-                                        <legend>Color:</legend>
-                                        <div>
-                                            @foreach ($colors as $color)
-                                                <input type="radio" id="color-{{ $color->id }}" name="color_id"
-                                                    value="{{ $color->id }}" required />
-                                                <label for="color-{{ $color->id }}">{{ $color->name }}</label>
-                                            @endforeach
-                                        </div>
+                                        <fieldset class="mb-4">
+                                            <legend class="block text-gray-700 font-semibold font-josefin mb-2">Color:
+                                            </legend>
+                                            <div class="flex space-x-2 mt-6">
+                                                @foreach ($colors as $color)
+                                                    <div class="flex flex-col items-center">
+                                                        <input type="radio" id="color-{{ $color->id }}" name="color_id"
+                                                            value="{{ $color->id }}" class="hidden peer" required />
+                                                        <label for="color-{{ $color->id }}"
+                                                            style="background-color: {{ $color->color }}"
+                                                            class="w-8 h-8 rounded-full cursor-pointer outline outline-2 outline-dashed outline-gray-300
+                                                                   transition hover:outline-none peer-checked:outline-blue-500"></label>
+                                                        <p class="text-gray-700 text-xs font-semibold font-josefin mt-1">
+                                                            {{ $color->name }}</p>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </fieldset>
                                         <div>
                                             <button data-modal-target="crud-modal-color"
                                                 data-modal-toggle="crud-modal-color"
