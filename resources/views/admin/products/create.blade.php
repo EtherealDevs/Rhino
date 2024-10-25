@@ -147,7 +147,7 @@
                                                     <input type="radio" id="size-{{ $size->id }}" name="size_id"
                                                         value="{{ $size->id }}" class="hidden peer" required />
                                                     <label for="size-{{ $size->id }}"
-                                                        class="px-3 py-1 rounded-md bg-gray-200 cursor-pointer transition hover:bg-blue-100 peer-checked:bg-blue-500">
+                                                        class="px-3 py-1 rounded-md bg-gray-200 cursor-pointer transition hover:bg-blue-100 peer-checked:bg-blue-500 peer-checked:text-white">
                                                         {{ $size->name }}
                                                     </label>
                                                 </div>
