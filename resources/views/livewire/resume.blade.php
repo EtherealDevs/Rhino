@@ -22,7 +22,7 @@
                 <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
                 @if($total != 0)
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">
-                        ${{ number_format($total / 100 + ($sendPrice ?? 0), 2, ',', '.') }}
+                        ${{ number_format($total / 1 + ($sendPrice ?? 0), 2, ',', '.') }}
                         <!-- Usar 0 si sendPrice es null -->
                     </p>
                 @else

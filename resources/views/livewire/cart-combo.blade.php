@@ -146,7 +146,7 @@
             <!-- Precio / Descuento -->
             <div class="col-span-1 flex flex-col items-center justify-center">
                 <div class="text-xl line-through text-gray-500 font-extrabold">
-                    ${{ number_format($subtotal / 100, 2, ',', '.') }}
+                    ${{ number_format($subtotal / 1, 2, ',', '.') }}
                 </div>
                 <span class="text-xs rounded bg-green-600 px-2 py-1 font-bold text-white">
                     {{ number_format($discount, 0, ',', '.') }}% OFF
@@ -188,7 +188,7 @@
             <div class="col-span-1 flex flex-col items-center justify-center">
                 <div class="font-semibold text-gray-600">Total</div>
                 <div class="text-xl font-extrabold text-green-500">
-                    ${{ number_format($total / 100, 2, ',', '.') }}
+                    ${{ number_format($total / 1, 2, ',', '.') }}
                 </div>
             </div>
 
@@ -212,7 +212,7 @@
                         <div class="text-center sm:text-left">
                             <p class="text-2xl font-bold">{{ $comboItem->item->product->name }}</p>
                             <span class="text-sm font-bold w-auto bg-[#26ca60] text-white rounded-xl px-2 py-1 mt-2">
-                                ${{ number_format($comboItem->item->price() / 100, 2, ',', '.') }}
+                                ${{ number_format($comboItem->item->price() / 1, 2, ',', '.') }}
                             </span>
                         </div>
 
@@ -226,7 +226,7 @@
                         <div class="text-center">
                             <p class="font-bold">Total</p>
                             <p class="text-green-500 font-semibold">
-                                ${{ number_format(($comboItem->item->price() * $quantity) / 100, 2, ',', '.') }}
+                                ${{ number_format(($comboItem->item->price() * $quantity) / 1, 2, ',', '.') }}
                             </p>
                         </div>
                     </div>
