@@ -44,15 +44,26 @@ class ProductItemController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // Otros campos...
         ]);
+        $product_item = ProductItem::where('product_id',$request->product_id)->where('color_id',$request->color_id)->first();
+        if(isset($product_item)){
+                $product_size=$product_item->sizes()->wherePivot('size_id',$request->size_id)->first();
+                if(isset($product_size)){
+                $product_stock=$product_item->sizes()->wherePivot('size_id',$request->size_id)->first()->pivot;
+                $stock=$product_stock->stock+$request->stock;
+                $product_item->sizes()->wherePivot('size_id',$request->size_id)->first()->pivot->update(['stock'=>$stock]);
+                }else{
+                    $product_item->sizes()->attach($request->size_id, ['stock' => $request->stock]);
+                }
+        }else{
+            $product_item = ProductItem::create([
+                'product_id' => $request->product_id,
+                'color_id' => $request->color_id,
+                'original_price' => $request->original_price,
+                'sale_price' => $request->sale_price,
+            ]);
+            $product_item->sizes()->attach($request->size_id, ['stock' => $request->stock]);
+        }
 
-        $product_item = ProductItem::create([
-            'product_id' => $request->product_id,
-            'color_id' => $request->color_id,
-            'original_price' => $request->original_price,
-            'sale_price' => $request->sale_price,
-        ]);
-
-        $product_item->sizes()->attach($request->size_id, ['stock' => $request->stock]);
 
         // Verifica si se han subido imágenes
         if ($request->hasFile('images')) {
