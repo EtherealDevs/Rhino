@@ -103,12 +103,13 @@
                                 </div>
 
                                 <!-- Campo de color -->
-                                <div class="grid grid-cols-2">
-                                    <div class="relative z-0 w-full mb-5 max-w-full">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <!-- Campo de Color -->
+                                    <div class="relative z-0 w-full mb-5">
                                         <fieldset class="mb-4">
                                             <legend class="block text-gray-700 font-semibold font-josefin mb-2">Color:
                                             </legend>
-                                            <div class="flex space-x-2 mt-6">
+                                            <div class="flex flex-wrap gap-4 mt-6">
                                                 @foreach ($colors as $color)
                                                     <div class="flex flex-col items-center">
                                                         <input type="radio" id="color-{{ $color->id }}" name="color_id"
@@ -116,7 +117,7 @@
                                                         <label for="color-{{ $color->id }}"
                                                             style="background-color: {{ $color->color }}"
                                                             class="w-8 h-8 rounded-full cursor-pointer outline outline-2 outline-dashed outline-gray-300
-                                                                   transition hover:outline-none peer-checked:outline-blue-500"></label>
+                                                                      transition hover:outline-none peer-checked:outline-blue-500"></label>
                                                         <p class="text-gray-700 text-xs font-semibold font-josefin mt-1">
                                                             {{ $color->name }}</p>
                                                     </div>
@@ -127,37 +128,39 @@
                                             <button data-modal-target="crud-modal-color"
                                                 data-modal-toggle="crud-modal-color"
                                                 class="block text-white text-3xl bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
-                                                type="button">
-                                                +
-                                            </button>
+                                                type="button">+</button>
                                         </div>
                                         @error('color_id')
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
 
-                                    <!-- Campo de talle -->
+                                    <!-- Campo de Talle -->
                                     <div class="relative z-0 w-full mb-5">
-                                        <legend>Talle:</legend>
-                                        <div>
+                                        <legend class="block text-gray-700 font-semibold font-josefin mb-2">Talle:</legend>
+                                        <div class="flex flex-wrap gap-4 mt-8">
                                             @foreach ($sizes as $size)
-                                                <input type="radio" id="size-{{ $size->id }}" name="size_id"
-                                                    value="{{ $size->id }}" required />
-                                                <label for="size-{{ $size->id }}">{{ $size->name }}</label>
+                                                <div class="flex flex-col items-center">
+                                                    <input type="radio" id="size-{{ $size->id }}" name="size_id"
+                                                        value="{{ $size->id }}" class="hidden peer" required />
+                                                    <label for="size-{{ $size->id }}"
+                                                        class="px-3 py-1 rounded-md bg-gray-200 cursor-pointer transition hover:bg-blue-100 peer-checked:bg-blue-500">
+                                                        {{ $size->name }}
+                                                    </label>
+                                                </div>
                                             @endforeach
                                         </div>
                                         <div>
                                             <button data-modal-target="crud-modal-size" data-modal-toggle="crud-modal-size"
                                                 class="block text-white text-3xl bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
-                                                type="button">
-                                                +
-                                            </button>
+                                                type="button">+</button>
                                         </div>
                                         @error('size_id')
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
+
 
                                 <!-- Campo de selección de imágenes -->
                                 <div class="mb-8">
