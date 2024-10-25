@@ -104,7 +104,7 @@
 
                                 <!-- Campo de color -->
                                 <div class="grid grid-cols-2">
-                                    <div class="relative z-0 w-full mb-5">
+                                    <div class="relative z-0 w-full mb-5 max-w-full">
                                         <fieldset class="mb-4">
                                             <legend class="block text-gray-700 font-semibold font-josefin mb-2">Color:
                                             </legend>
