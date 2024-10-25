@@ -17,7 +17,7 @@
                                 @foreach ($item->images as $image)
                                     <li class="glide__slide">
                                         <img class="w-full h-64 lg:h-96 object-cover"
-                                        src="{{ url(Storage::url('images/product/' . $image->url)) }}"
+                                        src="{{ url(Storage::url( $image->url)) }}"
                                             alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$item->color->name}}">
                                     </li>
                                 @endforeach
@@ -25,17 +25,17 @@
                     </div>
                     </div>
                 @else
-                <div class="glide">
-                    <div class="glide__track" data-glide-el="track">
-                        <ul class="glide__slides">
-                            @foreach ($item->images as $image)
-                                <li class="glide__slide">
-                                    <p>No hay Imagen</p>
-                                </li>
-                            @endforeach
-                        </ul>
+                    <div class="glide">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides">
+                                @foreach ($item->images as $image)
+                                    <li class="glide__slide">
+                                        <p>No hay Imagen</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 @endif
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg">
@@ -218,16 +218,16 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach ($item->category()->products()->where('id', '!=', $item->product_id)->with('items')->take(4)->get() as $relatedProduct)
                 @php
-                    $relatedItem = $relatedProduct->items()->first();
+                    $relatedItem = $relatedProduct->first()->items()->first();
                 @endphp
-            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                <a href="{{route('products.show', ['product' => $relatedProduct,'productItem' => $relatedItem])}}">
-                    <img class="w-full h-48 object-cover rounded-t-lg" src="/storage/images/product/{{$relatedItem->images->first()->url}}"
-                        alt="Producto 1">
-                    <h4 class="text-lg font-semibold mt-2">{{$relatedProduct->name}}</h4>
-                    <p class="text-gray-700">${{number_format($relatedItem->price() / 100, 2, ',', ',')}}</p>
-                </a>
-            </div>
+                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                    <a href="{{route('products.show', ['product' => $relatedProduct,'productItem' => $relatedItem])}}">
+                        <img class="w-full h-48 object-cover rounded-t-lg" src="{{ url(Storage::url( $relatedItem->images()->first()->url)) }}"
+                            alt="Producto 1">
+                        <h4 class="text-lg font-semibold mt-2">{{$relatedProduct->name}}</h4>
+                        <p class="text-gray-700">${{number_format($relatedItem->price() / 100, 2, ',', ',')}}</p>
+                    </a>
+                </div>
             @endforeach
         </div>
     </div>

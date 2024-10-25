@@ -4,10 +4,10 @@
 <div class="glide" x-data="{ currentSlide: 0 }">
     <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
-            @foreach ($item->images as $image)    
+            @foreach ($item->images as $image)
                 <li class="glide__slide">
                     <img class="w-full h-64 lg:h-96 object-cover"
-                    src="/storage/images/product/{{$image->url}}"
+                    src="{{ url(Storage::url( $image->url)) }}"
                         alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$colors[$loop->index]->name}}-{{$loop->index}}">
                 </li>
             @endforeach
@@ -40,7 +40,7 @@
 <div class="flex mt-4">
     @foreach ($item->images as $image)
     <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = {{$loop->index}}"
-        src="/storage/images/product/{{$image->url}}"
+        src="{{ url(Storage::url( $image->url)) }}"
         alt="Miniatura {{$loop->index + 1}}">
     @endforeach
 </div>
