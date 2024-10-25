@@ -111,19 +111,22 @@
                                             </legend>
                                             <div class="flex flex-wrap gap-4 mt-6">
                                                 @foreach ($colors as $color)
-                                                    <div class="flex flex-col items-center">
+                                                    <div class="flex flex-col items-center p-2 border border-gray-200 rounded-xl">
                                                         <input type="radio" id="color-{{ $color->id }}" name="color_id"
                                                             value="{{ $color->id }}" class="hidden peer" required />
                                                         <label for="color-{{ $color->id }}"
                                                             style="background-color: {{ $color->color }}"
-                                                            class="w-8 h-8 rounded-full cursor-pointer outline outline-2 outline-dashed outline-gray-300
-                                                                      transition hover:outline-none peer-checked:outline-blue-500"></label>
-                                                        <p class="text-gray-700 text-xs font-semibold font-josefin mt-1">
+                                                            class="w-10 h-10 rounded-full cursor-pointer outline outline-2 outline-gray-300
+                                                                   transition-all duration-200 ease-in-out
+                                                                   peer-checked:outline-blue-400 hover:outline-gray-400
+                                                                   shadow-md"></label>
+                                                        <p class="text-gray-700 text-xs font-semibold font-josefin">
                                                             {{ $color->name }}</p>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </fieldset>
+
                                         <div>
                                             <button data-modal-target="crud-modal-color"
                                                 data-modal-toggle="crud-modal-color"
