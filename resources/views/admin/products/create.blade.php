@@ -111,19 +111,23 @@
                                             </legend>
                                             <div class="flex flex-wrap gap-4 mt-6">
                                                 @foreach ($colors as $color)
-                                                    <div class="flex flex-col items-center">
+                                                    <div
+                                                        class="flex flex-col items-center p-2 border border-gray-200 rounded-xl">
                                                         <input type="radio" id="color-{{ $color->id }}" name="color_id"
                                                             value="{{ $color->id }}" class="hidden peer" required />
                                                         <label for="color-{{ $color->id }}"
                                                             style="background-color: {{ $color->color }}"
-                                                            class="w-8 h-8 rounded-full cursor-pointer outline outline-2 outline-dashed outline-gray-300
-                                                                      transition hover:outline-none peer-checked:outline-blue-500"></label>
-                                                        <p class="text-gray-700 text-xs font-semibold font-josefin mt-1">
+                                                            class="w-10 h-10 rounded-full cursor-pointer outline outline-2 outline-gray-300
+                                                                transition-all duration-200 ease-in-out
+                                                                peer-checked:outline-blue-400 hover:outline-gray-400
+                                                                shadow-md"></label>
+                                                        <p class="text-gray-700 text-xs font-semibold font-josefin">
                                                             {{ $color->name }}</p>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </fieldset>
+
                                         <div>
                                             <button data-modal-target="crud-modal-color"
                                                 data-modal-toggle="crud-modal-color"
@@ -144,7 +148,7 @@
                                                     <input type="radio" id="size-{{ $size->id }}" name="size_id"
                                                         value="{{ $size->id }}" class="hidden peer" required />
                                                     <label for="size-{{ $size->id }}"
-                                                        class="px-3 py-1 rounded-md bg-gray-200 cursor-pointer transition hover:bg-blue-100 peer-checked:bg-blue-500">
+                                                        class="px-3 py-1 rounded-md bg-gray-200 cursor-pointer transition hover:bg-blue-100 peer-checked:bg-blue-500 peer-checked:text-white">
                                                         {{ $size->name }}
                                                     </label>
                                                 </div>
@@ -502,26 +506,26 @@
                                 class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
                             <input type="textarea" name="description" id="description"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                placeholder="Type product description" required>
+                                placeholder="Type product description" required="">
                         </div>
                         <div>
                             <label for="volume" class="block mb-2 text-sm font-medium text-gray-900">Volumen</label>
                             <input type="number" name="volume" id="volume"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                placeholder="Type product volume" required>
+                                placeholder="Type product volume" required="">
                         </div>
                         <div>
                             <label for="weigth" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
                             <input type="number" name="weight" id="weight"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                placeholder="Type product weigth" required>
+                                placeholder="Type product weigth" required="">
                         </div>
                         <div class="col-span-2 grid grid-cols-5">
                             <div class="col-span-4">
-                                <select name="category_id" id=""
+                                <select name="category_id" required="" id=""
                                     onclick="this.setAttribute('value', this.value);"
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                    <option value="null">Categoria</option>
+                                    <option value="">Categoria</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -537,18 +541,22 @@
                         </div>
                         <div class="col-span-2 grid grid-cols-5">
                             <div class="col-span-4">
-                                <select name="brand_id" id="" onclick="this.setAttribute('value', this.value);"
+                                <select name="brand_id" required id="brand_id"
+                                    onclick="this.setAttribute('value', this.value);"
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                    <option value="null">Marca</option>
+                                    <option value="" disabled selected>Marca</option>
                                     @foreach ($brands as $brand)
                                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                     @endforeach
                                 </select>
-                                <label for="select"
+                                <label for="brand_id"
                                     class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar
                                     marca</label>
+                                @error('brand_id')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="flex justify-center aling-items-center">
+                            <div class="flex justify-center items-center">
                                 <a class="text-white text-lg font-bold border rounded-lg bg-blue-700 p-3"
                                     href={{ route('admin.brands.create') }}>+</a>
                             </div>
