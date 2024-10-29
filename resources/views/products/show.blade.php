@@ -65,22 +65,36 @@
                     @endif
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-semibold font-josefin mb-2">Color:</label>
-                    <div class="flex space-x-2">
-                        <div class="grid grid-cols-1 grid-rows-2 justify-items-center">
-                            <p class="text-blue-800 font-bold font-josefin">{{$item->color->name}}</p>
-                            <button style="background-color: {{$item->color->color}}" class="w-8 h-8 rounded-full outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
+                    <label class="block text-gray-700 font-semibold font-josefin mb-4 text-lg">Seleccione un color:</label>
+                    <div class="flex flex-wrap gap-6 mt-6">
+
+                        {{-- Color seleccionado actual --}}
+                        <div class="flex flex-col items-center p-3 border border-blue-600 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+                            <p class="text-blue-800 font-bold font-josefin mb-2">{{$item->color->name}}</p>
+                            <button style="background-color: {{$item->color->color}}"
+                                class="w-12 h-12 rounded-full cursor-pointer outline outline-2 outline-gray-300
+                                       transition-all duration-200 ease-in-out
+                                       shadow-md hover:scale-105 transform"></button>
                         </div>
+
+                        {{-- Variaciones de color --}}
                         @foreach ($item->product->items->where('id', '!=', $item->id) as $variation)
-                            <a href="{{route('products.show', ['product' => $variation->product, 'productItem' => $variation])}}">
-                                <div class="grid grid-cols-1 grid-rows-2 justify-items-center">
-                                    <p>{{$variation->color->name}}</p>
-                                    <button style="background-color: {{$variation->color->color}}" class="w-8 h-8 rounded-full outline-dashed outline-1 transition ease-in-out delay-150 hover:outline-none"></button>
+                            <a href="{{ route('products.show', ['product' => $variation->product, 'productItem' => $variation]) }}"
+                               class="transform transition-transform duration-200 hover:scale-105">
+                                <div class="flex flex-col items-center p-3 border border-gray-300 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+                                    <p class="text-gray-700 text-md font-semibold font-josefin mb-2">{{$variation->color->name}}</p>
+                                    <button style="background-color: {{$variation->color->color}}"
+                                        class="w-12 h-12 rounded-full cursor-pointer outline outline-2 outline-gray-300
+                                               transition-all duration-200 ease-in-out
+                                               hover:outline-gray-400 shadow-md"></button>
                                 </div>
                             </a>
                         @endforeach
+
                     </div>
                 </div>
+
+
                 <script>
                     function getCounterValue(id) {
                         var value = document.getElementById(id).value;
@@ -89,22 +103,39 @@
                     }
                 </script>
 
-                <div class="mb-4" id="size-container">
-                    <label class="block text-gray-700 font-semibold font-josefin mb-2">Talle:</label>
-                    <select x-data id="size-selector" onchange="sizeOptionChanged()">
-                        <option value="" selected x-on:changed-size-option-0.window="$dispatch('change-livewire-component', { stock: null })">Seleccionar...</option>
-                        @php
-                            $sizes = $item->sizes()->orderBy('sort_number')->get();
-                        @endphp
-                        @foreach ($sizes as $size)
-                            <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$size->pivot->stock}} })" data-stock="{{$size->pivot->stock}}" value="{{$size->name}}" class="w-10 h-10 border rounded-lg focus:outline-none">{{$size->name}} -  @if ($size->pivot->stock < 1)
-                                No Hay Stock
-                                @else
-                                disponibles :{{$size->pivot->stock}}
-                            @endif </option>
-                        @endforeach
-                    </select>
-                </div>
+<div class="mb-4" id="size-container">
+    <label class="block text-gray-700 font-semibold font-josefin mb-2">Talle:</label>
+
+    <select x-data id="size-selector" onchange="sizeOptionChanged()"
+            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400
+                   focus:border-blue-500 transition duration-200 ease-in-out bg-white text-gray-700">
+
+        <option value="" selected
+                x-on:changed-size-option-0.window="$dispatch('change-livewire-component', { stock: null })"
+                class="text-gray-500">Seleccionar...</option>
+
+        @php
+            $sizes = $item->sizes()->orderBy('sort_number')->get();
+        @endphp
+
+        @foreach ($sizes as $size)
+            <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$size->pivot->stock}} })"
+                    data-stock="{{$size->pivot->stock}}"
+                    value="{{$size->name}}"
+                    class="px-3 py-2 text-gray-700 hover:bg-blue-100
+                           transition duration-150 ease-in-out
+                           @if($size->pivot->stock < 1) text-red-500 @endif">
+                {{$size->name}} -
+                @if ($size->pivot->stock < 1)
+                    No Hay Stock
+                @else
+                    Disponibles: {{$size->pivot->stock}}
+                @endif
+            </option>
+        @endforeach
+    </select>
+</div>
+
 
                 <div class="mb-4">
                     <label class="block text-gray-700 font-semibold font-josefin mb-2">Cantidad:</label>
