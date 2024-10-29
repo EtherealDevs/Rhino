@@ -70,7 +70,7 @@
 
                         {{-- Color seleccionado actual --}}
                         <div class="flex flex-col items-center p-3 border border-blue-600 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
-                            <p class="text-blue-800 font-bold font-josefin mb-2">{{$item->color->name}}</p>
+                            <p class="text-blue-800 text-xs font-bold font-josefin mb-2">{{$item->color->name}}</p>
                             <button style="background-color: {{$item->color->color}}"
                                 class="w-12 h-12 rounded-full cursor-pointer outline outline-2 outline-gray-300
                                        transition-all duration-200 ease-in-out
@@ -82,7 +82,7 @@
                             <a href="{{ route('products.show', ['product' => $variation->product, 'productItem' => $variation]) }}"
                                class="transform transition-transform duration-200 hover:scale-105">
                                 <div class="flex flex-col items-center p-3 border border-gray-300 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
-                                    <p class="text-gray-700 text-md font-semibold font-josefin mb-2">{{$variation->color->name}}</p>
+                                    <p class="text-gray-700 text-xs font-semibold font-josefin mb-2">{{$variation->color->name}}</p>
                                     <button style="background-color: {{$variation->color->color}}"
                                         class="w-12 h-12 rounded-full cursor-pointer outline outline-2 outline-gray-300
                                                transition-all duration-200 ease-in-out
