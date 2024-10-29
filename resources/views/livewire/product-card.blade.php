@@ -11,11 +11,11 @@
             </div>
             <div
                 class="absolute top-10 left-2 bg-[#10b94b] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
-                ${{ number_format($item->sale_price() / 100, 2, ',', '.') }}
+                ${{ number_format($item->sale_price() / 1, 2, ',', '.') }}
             </div>
         @else
             <div class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
-                ${{ number_format($item->price() / 100, 2, ',', '.') }}
+                ${{ number_format($item->price() / 1, 2, ',', '.') }}
             </div>
         @endif
         <div class="absolute top-2 right-2 flex flex-col space-y-2">

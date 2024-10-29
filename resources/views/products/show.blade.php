@@ -57,10 +57,10 @@
                 <div class="mb-4">
                     @if ($item->product != null)
                         @if ($item->product->sale != null)
-                            <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price() / 100, 2, ',', '.')}}</span>
-                            <span class="text-lg line-through font-bold text-gray-500">${{number_format($item->original_price / 100, 2, ',', '.')}}</span>
+                            <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price() / 1, 2, ',', '.')}}</span>
+                            <span class="text-lg line-through font-bold text-gray-500">${{number_format($item->original_price / 1, 2, ',', '.')}}</span>
                         @else
-                            <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price() / 100, 2, ',', '.')}}</span>
+                            <span class="text-2xl font-semibold font-josefin text-gray-700">${{number_format($item->price() / 1, 2, ',', '.')}}</span>
                         @endif
                     @endif
                 </div>
