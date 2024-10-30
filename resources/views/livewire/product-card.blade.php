@@ -1,9 +1,11 @@
 <div class="relative z-10 flex w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
-    onmouseover="changeImage(this, '{{  url(Storage::url($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
-    onmouseout="resetImage(this, '{{  url(Storage::url($item->images->first()->url)) }}')">
+    onmouseover="changeImage(this, '{{ url(Storage::url($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
+    onmouseout="resetImage(this, '{{ url(Storage::url($item->images->first()->url)) }}')">
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
-        <img src="{{ url(Storage::url($item->images->first()->url)) }}"
-            class="product-image h-full w-full object-cover" />
+        <div class="h-[200px] w-full">
+            <img src="{{ url(Storage::url($item->images->first()->url)) }}"
+                class="product-image h-full w-full object-cover" />
+        </div>
         @if ($product->sale)
             <div
                 class="absolute top-2 left-2 bg-[#ed5f5f] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
@@ -14,7 +16,8 @@
                 ${{ number_format($item->sale_price() / 1, 2, ',', '.') }}
             </div>
         @else
-            <div class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
+            <div
+                class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
                 ${{ number_format($item->price() / 1, 2, ',', '.') }}
             </div>
         @endif
@@ -32,7 +35,8 @@
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
                 <input type="hidden" name="item" value="{{ $item }}">
-                <input type="hidden" name="size" value="{{ $item->sizes()->wherePivot('stock', '!=', 0)->first() }}">
+                <input type="hidden" name="size"
+                    value="{{ $item->sizes()->wherePivot('stock', '!=', 0)->first() }}">
                 <input type="hidden" name="quantity" value="1">
                 <button type="submit" class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
