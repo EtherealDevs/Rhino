@@ -49,10 +49,10 @@
             </form>
         </div>
     </div>
-    <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
-        <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
-            <div class="flex flex-col items-center justify-center">
-                <p class="block font-sans font-bold text-base leading-5 text-white antialiased text-center">
+    <div class="h-[90px] bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
+        <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}" class="h-fulll">
+            <div class="grid grid-cols-1 content-around h-full">
+                <p class="block font-sans font-bold text-base leading-5 uppercase text-white antialiased text-center">
                     {{ $product->name }}
                 </p>
                 <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
