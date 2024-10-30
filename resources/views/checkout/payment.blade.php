@@ -330,6 +330,142 @@
         };
         renderPaymentBrick(bricksBuilder);
     </script>
+
+    @elseif ($selectedMethod == 'retiro')
+    <script>
+        console.log(address);
+        const renderPaymentBrick = async (bricksBuilder) => {
+            const settings = {
+                initialization: {
+                    /*
+                     "amount" es el monto total a pagar por todos los medios de pago con excepción de la Cuenta de Mercado Pago y Cuotas sin tarjeta de crédito, las cuales tienen su valor de procesamiento determinado en el backend a través del "preferenceId"
+                    */
+                    amount: total,
+                    items: {
+                        totalItemsAmount: cartTotal,
+                        itemsList: contents
+                    },
+                    shipping: { // opcional
+                        costs: 0, // opcional
+                        shippingMode: "Retiro en local de Rino",
+                        description: "Tu pedido te va a estar esperando en el local de Rino.", // opcional
+                        receiverAddress: {
+                            streetName: 'Milán',
+                            streetNumber: '1201',
+                            city: "Corrientes Capital", // opcional
+                            zipCode: "3400",
+                        },
+                    },
+                    preferenceId: prefId,
+                },
+                customization: {
+                    enableReviewStep: true,
+                    paymentMethods: {
+                        creditCard: "all",
+                        debitCard: "all",
+                        mercadoPago: "all",
+                    },
+                },
+                callbacks: {
+                    onReady: () => {
+                        
+                        /*
+                         Callback llamado cuando el Brick está listo.
+                         Aquí puede ocultar cargamentos de su sitio, por ejemplo.
+                        */
+                    },
+                    onSubmit: ({
+                        selectedPaymentMethod,
+                        formData
+                    }) => {
+                        // callback llamado al hacer clic en el botón enviar datos
+                        return new Promise((resolve, reject) => {
+                            fetch("/process_payment", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "X-CSRF-TOKEN": csrf,
+                                    },
+                                    body: JSON.stringify(formData),
+                                })
+                                .then((response) => response.json())
+                                .then((response) => {
+                                    if (response.status === 'error') {
+                                        if (window.paymentBrickController) {
+                                        window.paymentBrickController.unmount();
+                                        }
+                                        // Redirect to the cart page with the session flash message
+                                        window.location.href = response.redirect_url;
+                                    }
+                                    else
+                                    {
+                                        console.log(response);
+                                        // recibir el resultado del pago
+                                        resolve();
+                                        // Unmount the Payment Brick before navigating away
+    
+                                        // Create a form dynamically for the POST request
+                                        const form = document.createElement('form');
+                                        form.method = 'POST';
+                                        form.action = "{{route('checkout.handlePayment')}}";
+    
+                                        // Add CSRF token (since it's a POST request)
+                                        const csrfInput = document.createElement('input');
+                                        csrfInput.type = 'hidden';
+                                        csrfInput.name = '_token';
+                                        csrfInput.value = csrf;  // You already have csrf in the script, reuse it here
+                                        form.appendChild(csrfInput);
+    
+                                        // Add hidden inputs for the data you need to pass
+                                        const selectedMethodInput = document.createElement('input');
+                                        selectedMethodInput.type = 'hidden';
+                                        selectedMethodInput.name = 'selectedMethod';
+                                        selectedMethodInput.value = 'retiro';
+                                        form.appendChild(selectedMethodInput);
+
+                                        const deliveryPriceInput = document.createElement('input');
+                                        deliveryPriceInput.type = 'hidden';
+                                        deliveryPriceInput.name = 'delivery_price';
+                                        deliveryPriceInput.value = 0;
+                                        form.appendChild(deliveryPriceInput);
+    
+                                        const mpOrderIdInput = document.createElement('input');
+                                        mpOrderIdInput.type = 'hidden';
+                                        mpOrderIdInput.name = 'mp_order_id';
+                                        mpOrderIdInput.value = response.id;
+                                        form.appendChild(mpOrderIdInput);
+    
+                                        // Append form to the body and submit it
+                                        document.body.appendChild(form);
+                                        form.submit();
+                                    }
+                                })
+                                .catch((error) => {
+                                    // manejar la respuesta de error al intentar crear el pago
+                                    // Unmount the Payment Brick in case of an error
+                                    console.log(error);
+                                    reject();
+                                });
+                        });
+                    },
+                    onError: (error) => {
+                        // callback llamado para todos los casos de error de Brick
+                        console.error(error);
+                    },
+                    onClickEditShippingData: () => {}, // opcional
+                    onClickEditBillingData: () => {}, // opcional
+                    onRenderNextStep: (currentStep) => {}, // opcional
+                    onRenderPreviousStep: (currentStep) => {}, // opcional
+                },
+            };
+            window.paymentBrickController = await bricksBuilder.create(
+                "payment",
+                "paymentBrick_container",
+                settings
+            );
+        };
+        renderPaymentBrick(bricksBuilder);
+    </script>
     @endif
     <script type="text/javascript">
     window.onbeforeunload = confirmExit;

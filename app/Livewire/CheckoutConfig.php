@@ -78,7 +78,7 @@ class CheckoutConfig extends Component
                 $this->redirectRoute('checkout.payment', ['selectedMethod' => 'sucursal', 'sucursal' => $this->sucursalArray]);
                 break;
             case 'retiro':
-                $this->redirectRote('checkout.payment', ['selectedMethod' => 'retiro']);
+                $this->redirectRoute('checkout.payment', ['selectedMethod' => 'retiro']);
                 break;
         }
     }

@@ -183,7 +183,6 @@
                                                         </div>
                                                         <div class="w-full text-sm opacity-60">
                                                             {{ $address->address }}, {{ $address->number }}<br>
-                                                            {{ $address->city->name }},
                                                             {{ $address->province->name }}<br>
                                                             {{ $address->zipCode->code }}<br>
                                                             @php

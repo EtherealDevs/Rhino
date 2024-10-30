@@ -91,8 +91,10 @@ class CheckoutController extends Controller
                 $shippingCosts = $this->shippingService->getShippingCosts($sucursal['CodigoPostal'], config('app.delivery_service.sucursal_a_sucursal'));
                 break;
             case 'retiro':
-                $address = null;
+                $admin = User::where('name', '=', 'Ethereal')->first();
+                $address = Address::firstOrCreate(['name' => 'rino'], ['user_id' => $admin->id, 'last_name' => 'indumentaria', 'phone_number' => '379 4316606', 'zip_code_id' => 1526, 'province_id' => 5, 'address' => 'Milan 1201', 'street' => 'Milan', 'number' => '1201']);
                 $sucursal = null;
+                $deliveryService = null;
                 $shippingCosts = 0;
                 break;
             default:
