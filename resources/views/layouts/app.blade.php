@@ -49,7 +49,7 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    {{-- <div id="contain-loader"
+    <div id="contain-loader"
         class="fixed  z-50 flex h-screen w-screen backdrop-blur-2xl justify-center items-center bg-black/25">
         <div id="loader" class="h-18 mx-auto mt-12"></div>
     </div>
@@ -63,9 +63,9 @@
                 </svg>
             </button>
         </a>
-    </div> --}}
+    </div>
 
-    {{-- @livewire('navigation') --}}
+    @livewire('navigation')
     <div class="min-h-screen">
 
         {{-- @livewire('rating-stars') --}}
@@ -75,10 +75,10 @@
         </main>
 
         <div class="z-40">
-            {{-- @livewire('banner') --}}
+            @livewire('banner')
         </div>
 
-        {{-- @livewire('footer') --}}
+        @livewire('footer')
     </div>
 
     @stack('modals')

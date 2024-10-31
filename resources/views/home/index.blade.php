@@ -2,7 +2,10 @@
 
 @section('title', 'Bienvenidos a Rino Indumentaria | Moda Única')
 
-@section('meta_description', 'Descubre la última moda para hombres y adolescentes en nuestra tienda online. Desde ropa casual y deportiva hasta estilos más formales, tenemos todo lo que necesitas para lucir a la última. ¡Renueva tu armario con las últimas tendencias! #modamasculina #ropaonline #tendencias')
+@section('meta_description',
+    'Descubre la última moda para hombres y adolescentes en nuestra tienda online. Desde ropa
+    casual y deportiva hasta estilos más formales, tenemos todo lo que necesitas para lucir a la última. ¡Renueva tu armario
+    con las últimas tendencias! #modamasculina #ropaonline #tendencias')
 
 @section('content')
     <div class="static justify-center bg-white w-full">
@@ -179,8 +182,8 @@
 
             {{-- Seccion Ofertas --}}
             <div
-                class="relative lg:col-span-1 drop-shadow-lg w-full lg:w-[520px] xl:w-[450px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
-                <!-- Video de fondo -->
+                class="relative lg:col-span-1 drop-shadow-lg w-full xl:w-[450px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+
                 <video autoplay muted loop playsinline
                     class="absolute inset-0 w-full h-full object-cover rounded-none lg:rounded-3xl">
                     <source src="/img/nigga.mp4" type="video/mp4">

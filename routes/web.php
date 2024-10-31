@@ -27,10 +27,11 @@ use App\Livewire\RatingStars;
 use App\Livewire\ShippingCost;
 use App\Http\Controllers\ComprobanteController;
 
-/* Route::get('/', function () {
+Route::get('/', function () {
     $productItem = ProductItem::first();
     $combos = Combo::all();
     $sales= Sale::all();
+    $latestProductItems = ProductItem::latest()->take(3)->get();
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $now = Carbon::now('America/Argentina/Buenos_Aires')->translatedFormat('Y-m-d');
     foreach ($sales as $sale) {
@@ -38,13 +39,13 @@ use App\Http\Controllers\ComprobanteController;
             SaleController::destroy($sale);
         }
     }
-    return view('home.index', compact('productItem','sales','combos'));
-}); */
-
-Route::get('/', function () {
-    
-    return view('building.index');
+    return view('home.index', compact('productItem','sales','combos', 'latestProductItems'));
 });
+
+// Route::get('/', function () {
+    
+//     return view('building.index');
+// });
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
 

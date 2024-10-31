@@ -68,6 +68,7 @@ class ProductItem extends Model
     {
         return $this->sizes->pluck('pivot.stock')->min();
     }
+    
     public function getItemPivotModel($size)
     {
         if (is_string($size)) {
