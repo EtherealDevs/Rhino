@@ -172,30 +172,14 @@
                     </div>
                     <div x-show="activeTab === 'size'">
                         <h3 class="text-2xl font-bold font-josefin mb-4">Tamaños y Medidas</h3>
-                        <!-- component -->
-                        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-                        <main class="grid w-full place-content-center bg-white">
-                            <div x-data="imageSlider" class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
-                                <div class="absolute right-5 top-5 z-10 rounded-full bg-gray-600 px-2 text-center text-sm text-white">
-                                    <span x-text="currentIndex"></span>/<span x-text="images.length"></span>
-                                </div>
-
-                                <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-                                    <i class="fas fa-chevron-left text-2xl font-bold text-gray-500"></i>
-                                </button>
-                                <button @click="next()" class="absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-                                    <i class="fas fa-chevron-right text-2xl font-bold text-gray-500"></i>
-                                </button>
-
-                                <div class="flex h-full overflow-hidden">
-                                    <template x-for="(image, index) in images" :key="index">
-                                        <img :src="image" class="h-full w-full object-cover" x-show="currentIndex === index" />
-                                    </template>
-                                </div>
-                            </div>
-                        </main>
+                        @foreach ($item->images as $image)
+                @if (!$image->is_active)
+                    <li class="glide__slide">
+                        <img class="w-full h-64 lg:h-96 object-cover" src="{{ url(Storage::url($image->url)) }}"
+                            alt="{{ $item->id }}-{{ $item->product->id }}-{{ $item->product->name }}-{{ $colors[$loop->index]->name }}-{{ $loop->index }}">
+                    </li>
+                @endif
+            @endforeach
                     </div>
                     <div x-show="activeTab === 'reviews'">
                         <h3 class="text-2xl font-bold font-josefin mb-4">Reseñas y Calificaciones</h3>
