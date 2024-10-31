@@ -1,7 +1,7 @@
 <section class="bg-white relative ">
     <div class="w-full">
         {{-- Navbar --}}
-        <div class="w-full grid grid-cols-8 justify-between p-14">
+        <div class="w-full grid grid-cols-8 justify-between p-14 overflow-x-hidden">
             <div class="mx-auto col-span-8 relative">
                 <h2 class="w-12 border-b-2 text-2xl font-extrabold font-josefin italic border-gray-500">Colección</h2>
                 <div class="grid grid-cols-4 mt-3 relative">
@@ -24,11 +24,11 @@
             </div>
 
             {{-- Content (Productos) --}}
-            <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8">
+            <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8 overflow-x-hidden">
                 @if ($combos->isNotEmpty())
 
                     <div
-                        class="bg-center bg-contain w-[420px] xl:w-[1100px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
+                        class="bg-center bg-contain w-[420px] xl:w-[990px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
                         <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                             <div class="flex flex-col lg:flex-row lg:items-center ">
                                 <!-- Contenido de texto -->
