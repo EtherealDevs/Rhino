@@ -7,15 +7,16 @@
             @foreach ($item->images as $image)
                 <li class="glide__slide">
                     <img class="w-full h-64 lg:h-96 object-cover"
-                    src="{{ url(Storage::url( $image->url)) }}"
-                        alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$colors[$loop->index]->name}}-{{$loop->index}}">
+                         src="{{ url(Storage::url($image->url)) }}"
+                         alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{ $colors[$loop->index]->name ?? 'No color' }}-{{$loop->index}}">
                 </li>
             @endforeach
         </ul>
     </div>
+
     <div class="glide__bullets" data-glide-el="controls[nav]">
         @foreach ($item->images as $image)
-        <button class="glide__bullet" data-glide-dir="={{$loop->index}}"></button>
+            <button class="glide__bullet" data-glide-dir="={{ $loop->index }}"></button>
         @endforeach
     </div>
     <div class="glide__arrows" data-glide-el="controls">
@@ -39,8 +40,7 @@
 <!-- Thumbnails -->
 <div class="flex mt-4">
     @foreach ($item->images as $image)
-    <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = {{$loop->index}}"
-        src="{{ url(Storage::url( $image->url)) }}"
-        alt="Miniatura {{$loop->index + 1}}">
+        <img class="w-24 h-24 object-cover mr-2 cursor-pointer" @click="currentSlide = {{ $loop->index }}"
+            src="{{ url(Storage::url($image->url)) }}" alt="Miniatura {{ $loop->index + 1 }}">
     @endforeach
 </div>
