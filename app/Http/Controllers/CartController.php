@@ -98,7 +98,6 @@ class CartController extends Controller
         // Retrieve the product item from the database
         $item = ProductItem::where('id', $request->item)->first();
         $decoded_item = ProductItem::where('id', json_decode($request->item)->id)->first();
-        dd($item, $request->item, $decoded_item);
         // If the product item is not found, throw an exception
         if (!$decoded_item) {
             throw new Exception('Product item not found');
