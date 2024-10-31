@@ -151,10 +151,10 @@ class ProductItemController extends Controller
             return redirect()->route('admin.products.index')->with('error', 'Item del producto no encontrado.');
         }
 
-        $productItem->sizes()->detach($productSize->size_id);
+        // $productItem->sizes()->detach($productSize->size_id);
 
+        $productItem->delete();
         if ($productItem->sizes()->count() === 0) {
-            $productItem->delete();
         }
 
         return redirect()->route('admin.products.index')->with('success', 'Tamaño del producto eliminado correctamente.');

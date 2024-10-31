@@ -63,7 +63,7 @@ class OrderController extends Controller
     // Método show para visualizar el detalle de un pedido específico
     public function show($id)
     {
-        $order = Order::with('user', 'details.productItem', 'orderStatus', 'paymentMethod', 'deliveryService', 'address')
+        $order = Order::with('user', 'details', 'orderStatus', 'paymentMethod', 'deliveryService', 'address')
             ->findOrFail($id);
 
         return view('admin.orders.show', compact('order'));

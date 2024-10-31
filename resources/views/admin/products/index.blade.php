@@ -88,7 +88,7 @@
                                     <div class="flex flex-col">
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
-                                            {{ $deletedItem->name }} (Eliminado)
+                                            {{ $deletedItem->product->name }} (Eliminado)
                                         </p>
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal opacity-70">
@@ -112,7 +112,7 @@
                             <td class="p-4 border-b border-gray-300">
                                 <div class="flex flex-col">
                                     <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
-                                        ${{ $deletedItem->price() }}
+                                        ${{ number_format($deletedItem->price() / 100, 2, ',', '.') }}
                                     </p>
                                 </div>
                             </td>

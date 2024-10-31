@@ -97,14 +97,15 @@ class CartController extends Controller
         $quantity = $request->quantity;
         // Retrieve the product item from the database
         $item = ProductItem::where('id', $request->item)->first();
-
+        $decoded_item = ProductItem::where('id', json_decode($request->item)->id)->first();
+        dd($item, $request->item, $decoded_item);
         // If the product item is not found, throw an exception
-        if (!$item) {
+        if (!$decoded_item) {
             throw new Exception('Product item not found');
         }
 
         // Create a new cart item
-        $cartItem = new CartItem($item, $size);
+        $cartItem = new CartItem($decoded_item, $size);
 
         // Add the cart item to the shopping cart
         $this->cartManager->addItem($cartItem);

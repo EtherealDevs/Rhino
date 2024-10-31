@@ -31,7 +31,7 @@
                     </span>
                 </p>
                 <p class="text-lg text-gray-600"><strong class="font-medium">Método de Pago:</strong>
-                    {{ $order->paymentMethod->name }}</p>
+                    {{ __($order->paymentMethod->payment_method) }}</p>
                 <p class="text-lg mb-6 text-gray-600"><strong class="font-medium">Fecha de Creación:</strong>
                     {{ $order->created_at->format('d-m-Y H:i') }}</p>
             </div>
@@ -44,12 +44,18 @@
                         <p class="text-lg text-gray-600"><strong class="font-medium">Servicio de Entrega:</strong>
                             {{ $order->deliveryService->name }}</p>
                         <p class="text-lg text-gray-600"><strong class="font-medium">Costo de Entrega:</strong>
-                            ${{ number_format($order->delivery_price, 2) }}</p>
+                            ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
                     @endif
 
                     @if ($order->address)
                         <p class="text-lg text-gray-600"><strong class="font-medium">Dirección de Entrega:</strong>
-                            {{ $order->address->address_line }}</p>
+                            {{ $order->address->address }}</p>
+                        <p class="text-lg text-gray-600"><strong class="font-medium">Calle:</strong>
+                            {{ $order->address->street }}</p>
+                        <p class="text-lg text-gray-600"><strong class="font-medium">Numero:</strong>
+                            {{ $order->address->number }}</p>
+                        <p class="text-lg text-gray-600"><strong class="font-medium">Detalles:</strong>
+                            {{ $order->address->observation }}</p>
                     @endif
                 </div>
             @endif
@@ -58,7 +64,7 @@
             <div class="mb-10">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">Total del Pedido</h2>
                 <p class="text-xl text-gray-800 font-semibold"><strong>Total:</strong>
-                    ${{ number_format($order->total, 2) }}</p>
+                    ${{ number_format($order->total / 100, 2, ',', '.') }}</p>
             </div>
 
             <!-- Detalles del Pedido -->
@@ -68,14 +74,14 @@
                     <li class="flex items-center justify-between bg-gray-100 p-4 rounded-lg">
                         <div class="flex items-center space-x-4">
                             <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border transform hover:scale-110"
-                                src="{{ url(Storage::url('images/product/' . $detail->productItem->images->first()->url)) }}"
-                                alt="{{ $detail->productItem->name }}">
+                                src="{{ url(Storage::url('images/product/' . $detail->productItem()->images->first()->url)) }}"
+                                alt="{{ $detail->productItem()->name }}">
                             <div>
-                                <p class="text-lg font-medium text-gray-700">{{ $detail->productItem->product->name }}</p>
+                                <p class="text-lg font-medium text-gray-700">{{ $detail->productItem()->product->name }}</p>
                                 <p class="text-sm text-gray-500">Cantidad: {{ $detail->amount }}</p>
                             </div>
                         </div>
-                        <p class="text-lg font-semibold text-gray-700">${{ number_format($detail->price, 2) }}</p>
+                        <p class="text-lg font-semibold text-gray-700">${{ number_format($detail->price / 100, 2, ',', '.') }}</p>
                     </li>
                 @endforeach
             </ul>

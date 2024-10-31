@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductSize extends Pivot
 {
+    use SoftDeletes;
     /**
  * Indicates if the IDs are auto-incrementing.
  *
