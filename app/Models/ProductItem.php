@@ -75,7 +75,7 @@ class ProductItem extends Model
             return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
         }
         else if (is_numeric($size)) {
-            $size_id = Size::where('id', $size)->first()->id;
+            $size_id = Size::where('name', $size)->first()->id;
             return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
         }
         return $this->sizes()->wherePivot('size_id', $size->id)->first()->pivot;
