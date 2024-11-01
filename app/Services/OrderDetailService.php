@@ -22,12 +22,16 @@ class OrderDetailService
      * 
      * @return \Illuminate\Database\Eloquent\Model|object|null The pivot table record for the item variation.
      */
-    public function createOrderDetail(int $orderId, object $item, int $price)
+    public function createOrderDetail(int $orderId, object $item, int $price, $combo = null)
     {
+        $quantity = null;
+        if ($combo != null) {
+            $quantity = $combo->quantity;
+        } else{ $quantity = $item->quantity; }
         $detail = OrderDetail::create([
             'order_id' => $orderId,
             'variation_id' => $item->variation_id,
-            'amount' => $item->quantity,
+            'amount' => $quantity,
             'price' => $price,
         ]);
         $variationModel = DB::table('products_sizes')->where('id', $item->variation_id)->first();

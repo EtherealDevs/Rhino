@@ -44,7 +44,7 @@ class CheckoutService
                     "currency_id" => "ARS",
                     "picture_url" => "$imageUrl",
                     "description" => "Nombre: '{$itemModel->product->name}'. Color: '{$itemModel->color->name}'. Talle: '{$item['size']}'",
-                    "quantity" => $item['quantity'],
+                    "quantity" => (int) $item['quantity'],
                     "unit_price" => $itemModel->price() / 100
                 ];
                 $cartItem = [
