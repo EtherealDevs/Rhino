@@ -170,7 +170,7 @@
                     </div>
 
                     <div class="w-full flex justify-center">
-                        <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-6">
+                        <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-4">
                             @foreach ($latestProducts as $index => $product)
                                 @php
                                     $item = $product->items()->first();
