@@ -43,9 +43,9 @@ class CartValidator
     }
     public function validateCartCombo($item)
     {
+        $contents = $this->cartManager->getCartContents();
         $passes = true; // Start with true and set to false if any validation fails
-
-        foreach ($item->comboItems as $comboItem) { // Assuming `$item` has `comboItems`
+        foreach ($item->contents as $comboItem) { // Assuming `$item` has `contets`
             $variationModel = DB::table('products_sizes')->find($comboItem->variation_id);
 
             // Handle case where variationModel is null (variation doesn't exist)
@@ -55,14 +55,14 @@ class CartValidator
             }
 
             // Update quantity based on stock
-            if ($comboItem->quantity > $variationModel->stock) {
-                $comboItem->quantity = $variationModel->stock;
+            if ($item->quantity > $variationModel->stock) {
+                $item->quantity = $variationModel->stock;
 
                 if ($variationModel->stock == 0) {
                     $this->cartManager->removeItem($item->id);
                     $passes = false;
                 } else {
-                    $this->cartManager->updateComboQuantity($comboItem, 'update', $this->cartManager->contents, $comboItem->quantity);
+                    $this->cartManager->updateComboQuantity($item, 'update', $contents, $item->quantity);
                     $passes = false; // Set to false since quantity was modified
                 }
             }
@@ -72,6 +72,7 @@ class CartValidator
     }
     public function validateCartItem($item)
     {
+        $contents = $this->cartManager->getCartContents();
         $passes = true; // Start with true
 
         $variationModel = DB::table('products_sizes')->find($item->variation_id);
@@ -90,7 +91,7 @@ class CartValidator
                 $this->cartManager->removeItem($item->id);
                 $passes = false;
             } else {
-                $this->cartManager->updateItemQuantity($item, 'update', $this->cartManager->contents, $item->quantity);
+                $this->cartManager->updateItemQuantity($item, 'update', $contents, $item->quantity);
                 $passes = false; // Set to false since quantity was modified
             }
         }

@@ -17,9 +17,9 @@ class Products extends Component
     public $item;
     public $productSize;
     public function mount($id){
-        $product = DB::table('products_sizes')->where('id',$id)->first();
+        $product = ProductSize::find($id);
         $this->productSize = $product;
-        $this->productItem = ProductItem::withTrashed()->where('id',$product->product_item_id)->first();
+        $this->productItem = ProductItem::where('id', $product->product_item_id)->first();
         $this->product = $this->productItem->product;
         $this->size = Size::where('id',$product->size_id)->first();
         $this->stock = $product->stock;

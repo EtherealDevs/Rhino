@@ -17,6 +17,7 @@ class ComboController extends Controller
 
     public function show(Combo $combo)
     {
+        dd($combo);
         return view('combos.show', compact('combo'));
     }
 }

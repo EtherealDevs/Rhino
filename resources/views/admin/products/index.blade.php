@@ -32,7 +32,7 @@
                             class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                             <p
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                Teamlead
+                                Color
                             </p>
                         </th>
                         <th
@@ -79,9 +79,11 @@
 
             </table>
             <table>
-                @forelse ($deletedItems as $deletedItem)
-                    <h2 class="font-bold text-slate-400 text-xl my-2 mt-4">Aqui veras los productos eliminados</h2>
-                    @foreach ($deletedItems as $deletedItem)
+                <h2 class="font-bold text-slate-400 text-xl my-2 mt-4">Aqui veras los productos eliminados</h2>
+                @forelse ($deletedItems as $deletedVariation)
+                        @php
+                            $deletedItem = $deletedVariation->item
+                        @endphp
                         <tr class="bg-gray-100">
                             <td class="p-4 border-b border-gray-300">
                                 <div class="flex items-center gap-3">
@@ -92,7 +94,7 @@
                                         </p>
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal opacity-70">
-                                            {{ $deletedItem->deleted_at->format('d-m-Y') }}
+                                            {{ $deletedVariation->deleted_at->format('d-m-Y') }}
                                         </p>
                                     </div>
                                 </div>
@@ -118,30 +120,30 @@
                             </td>
                             <td class="p-4 border-b border-gray-300">
                                 <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
-                                    {{ $deletedItem->size ? $deletedItem->size->name : 'Sin tamaño' }}
+                                    {{ $deletedVariation->size ? $deletedVariation->size->name : 'Sin tamaño' }}
                                 </p>
                             </td>
                             <td class="p-4 border-b border-gray-300">
                                 <p class="block antialiased font-sans text-sm leading-normal text-red-800 font-normal">
-                                    {{ $deletedItem->stock }}
+                                    {{ $deletedVariation->stock }}
                                 </p>
                             </td>
                             <td class="p-4 border-b border-gray-300">
                                 <div class="inline-flex space-x-4">
                                     <!-- Botón para recuperar el producto -->
-                                    <form action="{{ route('admin.productitems.restore', $deletedItem->id) }}"
+                                    <form action="{{ route('admin.productitems.restore', $deletedVariation->id) }}"
                                         method="POST">
                                         @csrf
                                         @method('PUT')
                                         <button class="text-blue-600 hover:text-blue-900">Recuperar</button>
                                     </form>
                                     <!-- Botón para eliminar definitivamente -->
-                                    <form action="{{ route('admin.productitems.forceDelete', $deletedItem->id) }}"
+                                    {{-- <form action="{{ route('admin.productitems.forceDelete', $deletedVariation->id) }}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button class="text-red-600 hover:text-red-900">Eliminar definitivamente</button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </td>
                         </tr>
@@ -152,8 +154,6 @@
                                 </td>
                             </tr>
                         @endforelse
-                    @endforeach
-
                 </table>
             </div>
         </div>

@@ -54,7 +54,7 @@ class ProductItem extends Model
     }
     public function sizes() : BelongsToMany
     {
-        return $this->belongsToMany(Size::class, 'products_sizes')->using(ProductSize::class)->withPivot('id', 'stock');
+        return $this->belongsToMany(Size::class, 'products_sizes')->using(ProductSize::class)->withPivot('id', 'stock', 'created_at', 'updated_at', 'deleted_at');
     }
     public function getTotalStock()
     {

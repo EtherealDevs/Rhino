@@ -23,7 +23,7 @@ class OrderController extends Controller
     public function ventas()
     {
         // Filtrar los pedidos con order_status_id igual a 4
-        $orders = Order::with('user', 'details.productItem', 'orderStatus')
+        $orders = Order::with('user', 'details', 'orderStatus')
             ->get();
 
             $ventas = Order::where('order_status_id', 4)->get();
@@ -35,7 +35,7 @@ class OrderController extends Controller
 
         $orderStatuses = OrderStatus::all(); // Obtén todos los estados posibles
 
-        return view('admin.ventas.index', compact('ventas', 'orderStatuses', 'totalGanancias'));
+        return view('admin.ventas.index', compact('ventas', 'orders', 'orderStatuses', 'totalGanancias'));
     }
 
     public function updateStatus(Request $request, Order $order)

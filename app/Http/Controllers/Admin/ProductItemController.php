@@ -139,6 +139,9 @@ class ProductItemController extends Controller
      */
     public function destroy($productSizeId)
     {
+        $variation = ProductSize::find($productSizeId);
+        $variation->delete();
+        dd($variation, $variation->item, $variation->size);
         $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
 
         if (!$productSize) {
