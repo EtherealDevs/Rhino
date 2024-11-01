@@ -322,7 +322,7 @@
                                     </div>
                                 @else
                                     <!-- Bloque de inicio de sesión y registro para usuarios no autenticados -->
-                                    <div class="ml-4 flex items-center">
+                                    <div class="flex items-end">
                                         <a href="{{ route('login') }}"
                                             class="text-gray-600 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Ingresar</a>
                                     </div>
