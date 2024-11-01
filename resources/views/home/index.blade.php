@@ -171,9 +171,12 @@
 
                     <div class="w-full flex justify-center">
                         <!-- component -->
-                        <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-8">
-                            @foreach ($latestProductItems as $productItem)
-                                @livewire('product-card', ['product' => $productItem->product, 'item' => $productItem])
+                        <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-6">
+                            @foreach ($latestProducts as $product)
+                                @php
+                                    $item = $product->items()->first();
+                                @endphp
+                                @livewire('product-card', ['product' => $product, 'item' => $item])
                             @endforeach
                         </div>
                     </div>
@@ -219,7 +222,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

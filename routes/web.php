@@ -26,12 +26,13 @@ use App\Http\Controllers\ReviewController;
 use App\Livewire\RatingStars;
 use App\Livewire\ShippingCost;
 use App\Http\Controllers\ComprobanteController;
+use App\Models\Product;
 
 Route::get('/', function () {
     $productItem = ProductItem::first();
     $combos = Combo::all();
     $sales= Sale::all();
-    $latestProductItems = ProductItem::latest()->take(3)->get();
+    $latestProducts = Product::latest()->take(4)->get();
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $now = Carbon::now('America/Argentina/Buenos_Aires')->translatedFormat('Y-m-d');
     foreach ($sales as $sale) {
@@ -39,7 +40,7 @@ Route::get('/', function () {
             SaleController::destroy($sale);
         }
     }
-    return view('home.index', compact('productItem','sales','combos', 'latestProductItems'));
+    return view('home.index', compact('productItem','sales','combos', 'latestProducts'));
 });
 
 // Route::get('/', function () {
