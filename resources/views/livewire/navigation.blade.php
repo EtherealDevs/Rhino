@@ -40,7 +40,7 @@
                                     </svg>
                                 </button>
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="fixed top-14 right-0 h-full w-1/4 bg-white shadow-lg rounded-lg p-4 overflow-y-auto">
+                                    class="fixed top-14 right-0 h-full xl:h-screen w-1/4 bg-white shadow-lg rounded-lg p-4 overflow-y-auto">
                                     <div class="flex justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Mis Intereses</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
@@ -130,7 +130,7 @@
                                     </svg>
                                 </button>
                                 <div x-show="open" x-on:click.away="open = false"
-                                    class="fixed top-14 right-0 h-full w-1/4 bg-white shadow-lg rounded-lg p-4">
+                                    class="fixed top-14 right-0 h-full xl:h-screen w-1/4 bg-white shadow-lg rounded-lg p-4">
                                     <div class="flex fixed justify-between items-center border-b pb-2 mb-2">
                                         <h2 class="text-xl font-bold">Carrito</h2>
                                         <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
