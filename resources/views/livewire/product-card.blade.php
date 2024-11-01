@@ -35,8 +35,8 @@
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
                 <input type="hidden" name="item" value="{{ $item->id }}">
-                <input type="hidden" name="size"
-                    value="{{ $item->sizes()->wherePivot('stock', '!=', 0)->first()->name }}">
+                {{-- <input type="hidden" name="size"
+                    value="{{ $item->sizes()->wherePivot('deleted_at', '=', null)->wherePivot('stock', '!=', 0)->first()->name }}"> --}}
                 <input type="hidden" name="quantity" value="1">
                 <button type="submit" class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
