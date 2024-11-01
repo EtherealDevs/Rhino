@@ -24,7 +24,7 @@
                             <img class="mx-auto rounded-xl shadow-lg lg:w-3/4 w-3/5 mt-6 " src="/img/rino.png"
                                 alt="Your Company">
                         </div>
-                        <div class="mt-6 text-center">
+                        <div class="mt-6 mx-12 text-center">
                             <h2 class="text-lg italic font-josefin text-white leading-relaxed">
                                 Aca vas a encontrar una selección cuidada de prendas y accesorios diseñados para resaltar tu
                                 estilo y personalidad. <span class="font-bold">¡Explora nuestra colección y descubre lo que
