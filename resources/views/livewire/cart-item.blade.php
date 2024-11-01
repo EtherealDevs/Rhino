@@ -12,7 +12,7 @@
                 </span>
             @endif
             <span class="bg-green-500 text-white text-sm font-bold rounded-full px-3 py-1">
-                ${{ number_format($price / 1, 2, ',', '.') }}
+                ${{ number_format($price / 100, 2, ',', '.') }}
             </span>
         </div>
     </div>
@@ -79,7 +79,7 @@
         <div class="sm:w-1/6 text-center col-span-2 mt-4 sm:mt-0">
             <p class="font-semibold text-gray-600">Total</p>
             <p class="text-lg font-bold text-green-500">
-                ${{ number_format($total / 1, 2, ',', '.') }}
+                ${{ number_format($total / 100, 2, ',', '.') }}
             </p>
         </div>
         <div class="">
