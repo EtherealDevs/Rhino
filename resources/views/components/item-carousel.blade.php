@@ -5,15 +5,39 @@
     <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
             @foreach ($item->images as $image)
-                @if ($image->is_active)
-                    <li class="glide__slide">
-                        <img class="w-full h-64 lg:h-96 object-cover" src="{{ url(Storage::url($image->url)) }}"
-                            alt="{{ $item->id }}-{{ $item->product->id }}-{{ $item->product->name }}-{{ $colors[$loop->index]->name }}-{{ $loop->index }}">
-                    </li>
-                @endif
+                <?php
+                try {
+                    // Verificar si existe el índice en $colors antes de acceder a él y si el URL de la imagen está presente
+                    if (isset($colors[$loop->index]) && isset($image->url)) {
+                ?>
+                <li class="glide__slide">
+                    <img class="w-full h-64 lg:h-96 object-cover" src="{{ url(Storage::url($image->url)) }}"
+                        alt="{{ $item->id }}-{{ $item->product->id }}-{{ $item->product->name }}-{{ $colors[$loop->index]->name }}-{{ $loop->index }}">
+                </li>
+                <?php
+                    } else {
+                        // Mostrar mensaje de advertencia con información de la imagen problemática
+                ?>
+                <li class="glide__slide bg-yellow-100 text-yellow-700 p-4">
+                    <p>Advertencia: No se encontró color o URL para la imagen en el índice {{ $loop->index }}.</p>
+                    <p>Imagen URL: {{ isset($image->url) ? url(Storage::url($image->url)) : 'No disponible' }}</p>
+                </li>
+                <?php
+                    }
+                } catch (Exception $e) {
+                    // Mostrar mensaje de error con detalles del índice y la imagen
+                ?>
+                <li class="glide__slide bg-red-100 text-red-600 p-4">
+                    <p>Error al cargar imagen o color en índice {{ $loop->index }}: {{ $e->getMessage() }}</p>
+                    <p>Imagen URL: {{ isset($image->url) ? url(Storage::url($image->url)) : 'No disponible' }}</p>
+                </li>
+                <?php
+                }
+                ?>
             @endforeach
         </ul>
     </div>
+
     <div class="glide__bullets" data-glide-el="controls[nav]">
         @foreach ($item->images as $image)
             <button class="glide__bullet" data-glide-dir="={{ $loop->index }}"></button>
