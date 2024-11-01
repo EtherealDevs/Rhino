@@ -44,7 +44,7 @@ Route::get('/', function () {
 });
 
 // Route::get('/', function () {
-    
+
 //     return view('building.index');
 // });
 

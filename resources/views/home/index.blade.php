@@ -170,16 +170,41 @@
                     </div>
 
                     <div class="w-full flex justify-center">
-                        <!-- component -->
                         <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-6">
-                            @foreach ($latestProducts as $product)
+                            @foreach ($latestProducts as $index => $product)
                                 @php
                                     $item = $product->items()->first();
                                 @endphp
-                                @livewire('product-card', ['product' => $product, 'item' => $item])
+                                <div class="@if($index === 3) desktop-hidden @endif">
+                                    @livewire('product-card', ['product' => $product, 'item' => $item])
+                                </div>
                             @endforeach
                         </div>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            function adjustProductVisibility() {
+                                const screenWidth = window.innerWidth;
+                                const hiddenProduct = document.querySelector('.desktop-hidden');
+
+                                // Oculta el cuarto producto en pantallas grandes (ancho >= 1024px)
+                                if (screenWidth >= 1024 && hiddenProduct) {
+                                    hiddenProduct.style.display = 'none';
+                                } else if (hiddenProduct) {
+                                    hiddenProduct.style.display = 'block';
+                                }
+                            }
+
+                            // Ejecuta la función cuando se carga la página
+                            adjustProductVisibility();
+
+                            // Ejecuta la función cuando se cambia el tamaño de la ventana
+                            window.addEventListener('resize', adjustProductVisibility);
+                        });
+                        </script>
+
+
                 </div>
             </div>
 
