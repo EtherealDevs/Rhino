@@ -31,18 +31,18 @@
                 {{-- Mostrar los precios en filas separadas --}}
                 <div class="row-span-1 flex justify-start items-center text-sm font-josefin px-2 py-1">
                     <span class="text-green-500 font-semibold">
-                        ${{ number_format($productItem->price() / 1, 2, ',', '.') }}
+                        ${{ number_format($productItem->price() / 100, 2, ',', '.') }}
                     </span>
                     <span class="mx-2">-</span>
                     <span class="text-gray-400 font-medium line-through">
-                        ${{ number_format($productItem->original_price / 1, 2, ',', '.') }}
+                        ${{ number_format($productItem->original_price / 100, 2, ',', '.') }}
                     </span>
                 </div>
             @else
                 {{-- Precio sin descuento, centrado y estilizado de forma minimalista --}}
                 <div class="col-span-3 flex flex-col">
                     <p class="block font-sans text-sm leading-normal text-green-500 font-normal">
-                        ${{ number_format($productItem->price() / 1, 2, ',', '.') }}
+                        ${{ number_format($productItem->price() / 100, 2, ',', '.') }}
                     </p>
                 </div>
             @endif

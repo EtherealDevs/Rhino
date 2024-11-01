@@ -96,9 +96,26 @@
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-2 gap-4">
                                         <div>
-                                            <input type="number" name="original_price" id="original_price" placeholder=""
-                                                value="{{ old('original_price', $productItem->original_price) }}" required
+                                            <input type="text" name="displayInput" id="displayInput" placeholder=""
+                                                required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
+                                                <input type="hidden" name="original_price" id="original_price">
+                                                <script>
+                                                    const displayInput = document.getElementById("displayInput");
+                                                    const hiddenInput = document.getElementById("original_price");
+                                                  
+                                                    displayInput.addEventListener("input", () => {
+                                                        let value = displayInput.value.replace(/\D/g, ""); // Remove non-numeric characters
+                                                        hiddenInput.value = value; // Store raw number without decimal in hidden input
+
+                                                        // Add decimal point before the last two digits, if there are at least three digits
+                                                        if (value.length > 2) {
+                                                        displayInput.value = value.slice(0, -2) + "," + value.slice(-2);
+                                                        } else {
+                                                        displayInput.value = value; // No need to add a decimal point if less than 3 digits
+                                                        }
+                                                    });
+                                                  </script>
                                             <label for="original_price"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
                                             @error('original_price')

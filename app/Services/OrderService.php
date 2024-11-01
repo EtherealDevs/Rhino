@@ -45,12 +45,13 @@ class OrderService
         ]);
 
         $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
+        // dd($productItems, $items);
 
         foreach ($items as $item) {
             if ($item->type == CartCombo::DEFAULT_TYPE) {
                 foreach ($item->contents as $comboItem) {
-                    $productItem = $productItems->find($comboItem->item_id);
-                    $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
+                    $productItem = ProductItem::find($comboItem->item_id);
+                    $orderDetailService->createOrderDetail($order->id, $comboItem, $productItem->price(), $item);
                 }
             }
             else {

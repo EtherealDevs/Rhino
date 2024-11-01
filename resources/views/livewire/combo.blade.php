@@ -112,7 +112,7 @@
                     <input type="hidden" name="comboId" value="{{ $combo_items->first()->id }}">
                     <input type="hidden" name="sizes" value="{{ json_encode($combo_items->first()->combo->getItemsSizesByMinimumStockValue()) }}">
 
-                    <button href="" class="w-full flex justify-center">
+                    <button type="submit" class="w-full flex justify-center">
                         <p class="ml-2 font-sans font-bold text-base text-white">
                             Ver Contenido del combo
                         </p>

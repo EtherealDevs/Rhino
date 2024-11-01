@@ -159,7 +159,7 @@ class CartManager
         if ($itemInCart)
         {
             $cartItemId = $this->getCartItemId($itemInCart);
-            $this->updateQuantity($cartItemId, 'add');
+            $this->updateQuantity($cartItemId, 'add', $cartItem->quantity);
         } else 
         {
             $contents->put($cartItem->id, $item);

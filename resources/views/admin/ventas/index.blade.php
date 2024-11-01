@@ -42,6 +42,13 @@
                             class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                             <p
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                                Envío
+                            </p>
+                        </th>
+                        <th
+                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                            <p
+                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
                                 Total
                             </p>
                         </th>
@@ -90,7 +97,7 @@
                                     @foreach ($order->details as $detail)
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{ $detail->productItem->name }} - {{ $detail->amount }} x {{ $detail->price }}
+                                            {{ $detail->productItem()->product->name }} - {{ $detail->amount }} x ${{ number_format($detail->price / 100, 2, ',', '.') }}
                                         </p>
                                     @endforeach
                                 </div>
@@ -98,7 +105,13 @@
                             <td class="p-4 border-b border-blue-gray-50">
                                 <p
                                     class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                    {{ $order->total }} $$$
+                                    {{ number_format($order->delivery_price / 100, 2, ',', '.') }} $
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                    {{ number_format($order->total / 100, 2, ',', '.') }} $$$
                                 </p>
                             </td>
                             <td class="p-4">

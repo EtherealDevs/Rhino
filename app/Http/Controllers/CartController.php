@@ -97,15 +97,12 @@ class CartController extends Controller
         $quantity = $request->quantity;
         // Retrieve the product item from the database
         $item = ProductItem::where('id', $request->item)->first();
-        $decoded_item = ProductItem::where('id', json_decode($request->item)->id)->first();
         // If the product item is not found, throw an exception
-        if (!$decoded_item) {
+        if (!$item) {
             throw new Exception('Product item not found');
         }
-
         // Create a new cart item
-        $cartItem = new CartItem($decoded_item, $size);
-
+        $cartItem = new CartItem($item, $size, $quantity);
         // Add the cart item to the shopping cart
         $this->cartManager->addItem($cartItem);
 
@@ -156,7 +153,8 @@ class CartController extends Controller
         $cartItemId = $request->cartItemId;
         //add, subtract, update
         $mode = $request->mode;
-        $this->cartManager->updateQuantity($cartItemId, $mode);
+        dd($request);
+        $this->cartManager->updateQuantity($cartItemId, $mode, $request->quantity);
         return redirect()->route('cart');
     }
     public function addComboToCart(Request $request)

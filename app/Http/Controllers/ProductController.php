@@ -37,13 +37,13 @@ class ProductController extends Controller
     {
         // Calcular el promedio de estrellas
         $averageRating = $product->reviews()->avg('rating');
-
+        
         // Redondear a la estrella más cercana
         $averageRating = round($averageRating * 2) / 2;
-
+        
         $item = ProductItem::with(['product' => ['items' => ['color'], 'category'], 'sizes', 'images'])
-            ->where('id', $id)
-            ->first();
+        ->where('id', $id)
+        ->first();
         $colors = $item->colors();
         $reviews = Reviews::with('user', 'product')->get();
         return view('products.show', compact('item', 'colors', 'reviews', 'averageRating'));
@@ -55,12 +55,12 @@ class ProductController extends Controller
             'amount' => 'required',
             'size' => 'required',
         ]);
-        CartManager::addItem($productItem, $request->amount, $request->size);
+        // CartManager::addItem($productItem, $request->amount, $request->size);
 
         //Check if user logged in. If true persist the Cart to Database
         if (Auth::check()) {
             $user = User::where('id', Auth::user()->id)->first();
-            CartManager::storeOrUpdateInDatabase($user);
+            // CartManager::storeOrUpdateInDatabase($user);
             $cart = Cart::where('user_id', $user->id)->first();
         }
 

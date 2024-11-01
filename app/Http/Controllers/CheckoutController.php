@@ -121,14 +121,19 @@ class CheckoutController extends Controller
 
         // MercadoPago Client and Preference initialization
         $client = new PreferenceClient();
-        $preference = $client->create([
-            "items" => $items,
-            "back_urls" => [
-                "success" => "{$appUrl}/",
-                "failure" => "{$appUrl}/payment_failure",
-                "pending" => "{$appUrl}/payment_pending"
-            ]
-        ]);
+        try {
+            $preference = $client->create([
+                "items" => $items,
+                "back_urls" => [
+                    "success" => "{$appUrl}/",
+                    "failure" => "{$appUrl}/payment_failure",
+                    "pending" => "{$appUrl}/payment_pending"
+                ]
+            ]);
+        }
+        catch (MPApiException $e) {
+            dd($e, $items);
+        }
         $selectedMethod = $request->selectedMethod;
 
         return view('checkout.payment', ['cart' => $cart, 'pref' => $preference, 'items' => $items, 'colors' => $colors, 'address' => $address, 'cartItems' => $cartItems, 'shippingCosts' => $shippingCosts, 'total' => $total, 'cartTotal' => $cartTotal, 'clientToken' => $mpClientToken, 'delivery_service' => $deliveryService, 'sucursal' => $sucursal, 'selectedMethod' => $selectedMethod]);

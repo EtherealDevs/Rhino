@@ -13,12 +13,12 @@
             </div>
             <div
                 class="absolute top-10 left-2 bg-[#10b94b] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
-                ${{ number_format($item->sale_price() / 1, 2, ',', '.') }}
+                ${{ number_format($item->sale_price() / 100, 2, ',', '.') }}
             </div>
         @else
             <div
                 class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
-                ${{ number_format($item->price() / 1, 2, ',', '.') }}
+                ${{ number_format($item->price() / 100, 2, ',', '.') }}
             </div>
         @endif
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
@@ -34,9 +34,9 @@
 
             <form method="POST" action="{{ route('cart.addItem') }}">
                 @csrf
-                <input type="hidden" name="item" value="{{ $item }}">
-                <input type="hidden" name="size"
-                    value="{{ $item->sizes()->wherePivot('stock', '!=', 0)->first() }}">
+                <input type="hidden" name="item" value="{{ $item->id }}">
+                {{-- <input type="hidden" name="size"
+                    value="{{ $item->sizes()->wherePivot('deleted_at', '=', null)->wherePivot('stock', '!=', 0)->first()->name }}"> --}}
                 <input type="hidden" name="quantity" value="1">
                 <button type="submit" class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none"

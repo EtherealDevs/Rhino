@@ -56,6 +56,7 @@
                                                                 <th scope="col" class="py-3 px-6">Talle</th>
                                                                 <th scope="col" class="py-3 px-6">Color</th>
                                                                 <th scope="col" class="py-3 px-6">Cantidad</th>
+                                                                <th scope="col" class="py-3 px-6">Habilitado</th>
                                                             </tr>
                                                         </thead>
                                                         <form action="{{ route('admin.stock.store') }}" method="POST">
@@ -77,6 +78,20 @@
                                                                             <td class="py-4 px-6">
                                                                                 <input id="input-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}" type="number" name="stock" class="w-16 h-8 text-sm border-none" placeholder="{{ $size->pivot->stock }}" disabled />
                                                                             </td>
+                                                                            @php
+                                                                            $habilitado = null;
+                                                                                if
+                                                                                ($size->pivot->deleted_at instanceof \Illuminate\Support\Carbon) 
+                                                                                { 
+                                                                                    $habilitado = "No";
+                                                                                }
+                                                                                else {
+                                                                                    $habilitado = "Si";
+                                                                                }
+                                                                            @endphp
+                                                                            <td class="py-4 px-6">{{ $habilitado }}</td>
+                                                                            
+                                                                        
                                                                             @php
                                                                                 $stock += $size->pivot->stock;
                                                                             @endphp
