@@ -99,22 +99,35 @@
                                             <input type="text" name="displayInput" id="displayInput" placeholder=""
                                                 required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                                <input type="hidden" name="original_price" id="original_price">
+                                                <input type="hidden" name="original_price" id="original_price" value="{{$productItem->original_price}}">
                                                 <script>
                                                     const displayInput = document.getElementById("displayInput");
                                                     const hiddenInput = document.getElementById("original_price");
+                                                    
+                                                    let price = {{$productItem->original_price}};
+                                                    price = price.toString()
+                                                        // Add decimal point before the last two digits, if there are at least three digits
+                                                        if (price.length > 2) {
+                                                        displayInput.value = price.slice(0, -2) + "," + price.slice(-2);
+                                                        } else {
+                                                        displayInput.value = price; // No need to add a decimal point if less than 3 digits
+                                                        }
                                                   
                                                     displayInput.addEventListener("input", () => {
+                                                        formatPrice(displayInput, hiddenInput);
+                                                    });
+                                                    function formatPrice(displayInput, hiddenInput) 
+                                                    {
                                                         let value = displayInput.value.replace(/\D/g, ""); // Remove non-numeric characters
                                                         hiddenInput.value = value; // Store raw number without decimal in hidden input
-
+                                                        
                                                         // Add decimal point before the last two digits, if there are at least three digits
                                                         if (value.length > 2) {
                                                         displayInput.value = value.slice(0, -2) + "," + value.slice(-2);
                                                         } else {
                                                         displayInput.value = value; // No need to add a decimal point if less than 3 digits
                                                         }
-                                                    });
+                                                    }
                                                   </script>
                                             <label for="original_price"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
@@ -181,92 +194,68 @@
 
                         function previewImages(event) {
                             const files = Array.from(event.target.files);
-                            const previewContainer = document.getElementById('preview-container');
 
                             // Combinar los archivos nuevos con los ya seleccionados
                             selectedFiles = [...selectedFiles, ...files];
+                            buildFileList();
 
-                            previewContainer.innerHTML = ''; // Limpiar el contenedor de vista previa
+                             // Limpiar el contenedor de vista previa
 
                             // Mostrar cada archivo seleccionado
-                            selectedFiles.forEach((file, index) => {
-                                const reader = new FileReader();
-
-                                reader.onload = function(e) {
-                                    // Contenedor de la imagen y el botón de eliminar
-                                    const imageWrapper = document.createElement('div');
-                                    imageWrapper.classList.add('relative', 'w-full', 'h-auto');
-
-                                    // Crear imagen
-                                    const img = document.createElement('img');
-                                    img.src = e.target.result;
-                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
-
-                                    // Crear botón para eliminar la imagen
-                                    const removeButton = document.createElement('button');
-                                    removeButton.innerHTML = 'Eliminar';
-                                    removeButton.classList.add('z-30', 'relative' , 'top-1', 'right-1', 'bg-red-500', 'text-white',
-                                        'px-2', 'py-1', 'rounded');
-
-                                    // Manejar el evento de clic para eliminar la imagen
-                                    removeButton.onclick = () => removeImage(index);
-
-                                    // Agregar imagen y botón al contenedor
-                                    imageWrapper.appendChild(img);
-                                    imageWrapper.appendChild(removeButton);
-
-                                    // Añadir contenedor al preview-container
-                                    previewContainer.appendChild(imageWrapper);
-                                };
-
-                                // Leer el archivo como URL de datos
-                                reader.readAsDataURL(file);
-                            });
+                            populatePreviewContainer();
                         }
+                        function populatePreviewContainer(){
+                            const previewContainer = document.getElementById('preview-container');
+                            previewContainer.innerHTML = '';
+                            selectedFiles.forEach((file, index) => {
+                                    const reader = new FileReader();
+
+                                    reader.onload = function(e) {
+                                        // Contenedor de la imagen y el botón de eliminar
+                                        const imageWrapper = document.createElement('div');
+                                        imageWrapper.classList.add('relative', 'w-full', 'h-auto');
+
+                                        // Crear imagen
+                                        const img = document.createElement('img');
+                                        img.src = e.target.result;
+                                        img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
+
+                                        // Crear botón para eliminar la imagen
+                                        const removeButton = document.createElement('button');
+                                        removeButton.innerHTML = 'Eliminar';
+                                        removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
+                                            'px-2', 'py-1', 'rounded');
+
+                                        // Manejar el evento de clic para eliminar la imagen
+                                        removeButton.onclick = () => {removeImage(index)};
+
+                                        // Agregar imagen y botón al contenedor
+                                        imageWrapper.appendChild(img);
+                                        imageWrapper.appendChild(removeButton);
+
+                                        // Añadir contenedor al preview-container
+                                        previewContainer.appendChild(imageWrapper);
+                                    };
+
+                                    // Leer el archivo como URL de datos
+                                    reader.readAsDataURL(file);
+                                });
+                        };
 
                         function removeImage(index) {
-                            // Eliminar el archivo de la lista de archivos seleccionados
-                            selectedFiles.splice(index, 1);
-
-                            // Actualizar la vista previa
                             const previewContainer = document.getElementById('preview-container');
-                            previewContainer.innerHTML = ''; // Limpiar el contenedor de vista previa
-
-                            // Volver a mostrar las imágenes restantes
-                            selectedFiles.forEach((file, idx) => {
-                                const reader = new FileReader();
-
-                                reader.onload = function(e) {
-                                    // Contenedor de la imagen y el botón de eliminar
-                                    const imageWrapper = document.createElement('div');
-                                    imageWrapper.classList.add('relative', 'w-full', 'h-auto');
-
-                                    // Crear imagen
-                                    const img = document.createElement('img');
-                                    img.src = e.target.result;
-                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
-
-                                    // Crear botón para eliminar la imagen
-                                    const removeButton = document.createElement('button');
-                                    removeButton.innerHTML = 'Eliminar';
-                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
-                                        'px-2', 'py-1', 'rounded');
-
-                                    // Manejar el evento de clic para eliminar la imagen
-                                    removeButton.onclick = () => removeImage(
-                                    idx); // Actualizar el índice para la función removeImage
-
-                                    // Agregar imagen y botón al contenedor
-                                    imageWrapper.appendChild(img);
-                                    imageWrapper.appendChild(removeButton);
-
-                                    // Añadir contenedor al preview-container
-                                    previewContainer.appendChild(imageWrapper);
-                                };
-
-                                // Leer el archivo como URL de datos
-                                reader.readAsDataURL(file);
+                            previewContainer.children[index].remove(); // Remueve el div correspondiente a la imagen
+                            selectedFiles.splice(index, 1);
+                            buildFileList(); // Update the file list in the input field
+                            populatePreviewContainer(); // Update the preview container with the new images
+                        }
+                        function buildFileList() {
+                            imageInput = document.getElementById('image');
+                            let list = new DataTransfer();
+                            selectedFiles.forEach((file, index) => {
+                                list.items.add(file);
                             });
+                            imageInput.files = list.files;  // Update the input file list with the new files
                         }
                     </script>
                     <script>
