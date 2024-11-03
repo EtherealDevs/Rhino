@@ -40,7 +40,6 @@ class ProductItemController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $request->validate([
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // Otros campos...
@@ -116,7 +115,6 @@ class ProductItemController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // Otros campos...
         ]);
-        dd($request);
         $productItem = ProductItem::findOrFail($productItemId);
 
         $productItem->update([
@@ -189,7 +187,6 @@ class ProductItemController extends Controller
         $imageInStorage = Storage::exists($image->url);
         Storage::delete($image->url);
         $image->delete();
-        dd($image, $id, $imageInStorage);
 
         return redirect()->back()->with('success', 'Imagen eliminada correctamente.');
     }
