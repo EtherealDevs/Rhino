@@ -40,7 +40,6 @@ class ProductItemController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $request->validate([
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // Otros campos...
@@ -95,7 +94,7 @@ class ProductItemController extends Controller
      */
     public function edit($product)
     {
-        $productSize = ProductSize::withTrashed()->where('id', $product)->first();
+        $productSize = DB::table('products_sizes')->where('id', $product)->first();
         $productItem = ProductItem::where('id', $productSize->product_item_id)->first();
         $size = Size::where('id', $productSize->size_id)->first();
         $variationModel = $productItem->getItemPivotModel($size);
@@ -112,11 +111,7 @@ class ProductItemController extends Controller
      */
     public function update(Request $request, $productItemId)
     {
-        $request->validate([
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // Otros campos...
-        ]);
-        dd($request);
+
         $productItem = ProductItem::findOrFail($productItemId);
 
         $productItem->update([
@@ -146,30 +141,31 @@ class ProductItemController extends Controller
     {
         $variation = ProductSize::find($productSizeId);
         $variation->delete();
-        // $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
+        dd($variation, $variation->item, $variation->size);
+        $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
 
-        // if (!$productSize) {
-        //     return redirect()->route('admin.products.index')->with('error', 'Tamaño del producto no encontrado.');
-        // }
+        if (!$productSize) {
+            return redirect()->route('admin.products.index')->with('error', 'Tamaño del producto no encontrado.');
+        }
 
-        // $productItem = ProductItem::with('sizes')->find($productSize->product_item_id);
+        $productItem = ProductItem::with('sizes')->find($productSize->product_item_id);
 
-        // if (!$productItem) {
-        //     return redirect()->route('admin.products.index')->with('error', 'Item del producto no encontrado.');
-        // }
+        if (!$productItem) {
+            return redirect()->route('admin.products.index')->with('error', 'Item del producto no encontrado.');
+        }
 
         // $productItem->sizes()->detach($productSize->size_id);
 
-        // $productItem->delete();
-        // if ($productItem->sizes()->count() === 0) {
-        // }
+        $productItem->delete();
+        if ($productItem->sizes()->count() === 0) {
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Tamaño del producto eliminado correctamente.');
     }
 
     public function restore($id)
     {
-        $productItem = ProductSize::onlyTrashed()->findOrFail($id);
+        $productItem = ProductItem::onlyTrashed()->findOrFail($id);
         $productItem->restore();
 
         return redirect()->route('admin.products.index')->with('success', 'Producto recuperado con éxito.');
@@ -186,10 +182,8 @@ class ProductItemController extends Controller
     public function deleteImage($id)
     {
         $image = Image::findOrFail($id);
-        $imageInStorage = Storage::exists($image->url);
         Storage::delete($image->url);
         $image->delete();
-        dd($image, $id, $imageInStorage);
 
         return redirect()->back()->with('success', 'Imagen eliminada correctamente.');
     }
