@@ -8,7 +8,7 @@
                 @if ($image->is_active)
                     <li class="glide__slide">
                         <img class="w-full h-64 lg:h-96 object-cover" src="{{ url(Storage::url($image->url)) }}"
-                            alt="{{ $item->id }}-{{ $item->product->id }}-{{ $item->product->name }}-{{ $colors[$loop->index]->name }}-{{ $loop->index }}">
+                            alt="{{ $item->id }}-{{ $item->product->id }}-{{ $item->product->name }}">
                     </li>
                 @endif
             @endforeach
