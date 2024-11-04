@@ -136,7 +136,7 @@
                         @endforeach
                     </select>
                 </div>
-                
+
 
                 <div class="mb-4">
                     <label class="block text-gray-700 font-semibold font-josefin mb-2">Cantidad:</label>
@@ -145,7 +145,7 @@
                     </div>
                 </div>
 
-                
+
                 <form id="sendProductToCart" onsubmit="populateProductSubmitForm(event, {{$sizes}})" method="POST" action="{{route('cart.addItem')}}">
                     @csrf
                     <button type="submit" class="w-full bg-blue-600 text-white py-2 font-josefin rounded-lg hover:bg-blue-500">Agregar al carrito</button>
@@ -153,7 +153,7 @@
                     <input name="quantity" id="counterInput" type="hidden">
                     <input name="size" id="sizeInput" type="hidden">
                 </form>
-                
+
                 <!-- Tabs Section -->
                 <div x-data="{ activeTab: 'description' }" class="mt-6">
                     <div class="flex space-x-4 border-b-2 mb-4">
@@ -167,7 +167,7 @@
                             :class="{ 'border-blue-500 text-blue-500': activeTab === 'reviews' }"
                             class="py-2 px-4 text-[14px] xl:text-lg font-medium font-josefin border-b-2">Reseñas y Calificaciones</button>
                     </div>
-                    
+
                     <div x-show="activeTab === 'description'">
                         <h3 class="text-2xl font-bold font-josefin mb-4">Descripción</h3>
                         <p class="text-gray-700">{{$item->product->description}}</p>
@@ -183,7 +183,7 @@
                             @endif
                         @endforeach
                     </div>
-                    
+
                     <div x-show="activeTab === 'reviews'">
                         <h3 class="text-2xl font-bold font-josefin mb-4">Reseñas y Calificaciones</h3>
                         <div class="flex justify-center items-center h-full">
@@ -223,11 +223,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-        
+
      <!-- Recommended Products Section -->
      <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
         <h3 class="text-2xl font-bold font-josefin mb-4">Productos Recomendados</h3>
@@ -251,22 +251,22 @@
 
     <script src="{{asset('js/products/show.js')}}"></script>
     <script>
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     new Glide('.glide', {
-        //         type: 'carousel',
-        //         startAt: 0,
-        //         perView: 1,
-        //         focusAt: 'center',
-        //         breakpoints: {
-        //             1200: {
-        //                 perView: 1
-        //             },
-        //             800: {
-        //                 perView: 1
-        //             }
-        //         }
-        //     }).mount();
-        // });
+        document.addEventListener('DOMContentLoaded', () => {
+            new Glide('.glide', {
+                type: 'carousel',
+                startAt: 0,
+                perView: 1,
+                focusAt: 'center',
+                breakpoints: {
+                    1200: {
+                        perView: 1
+                    },
+                    800: {
+                        perView: 1
+                    }
+                }
+            }).mount();
+        });
 /*
         function sizeOptionChanged() {
             let selectedOption = document.querySelector('#size-selector option:checked');
