@@ -51,21 +51,28 @@
                                 <!-- Campo de selección de producto -->
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-10 gap-2">
-                                        <div class="col-span-9">
-                                            <select name="product_id" id="" required
-                                                onclick="this.setAttribute('value', this.value);"
-                                                class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                                @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <label for="select"
-                                                class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar
-                                                el producto</label>
+                                        <!-- Botón para abrir el modal -->
+                                        <div class="col-span-9 flex">
+                                            <button type="button" onclick="openModal('product-selection-modal')"
+                                                class="text-black font-bold py-2 px-4 rounded-lg">
+                                                Seleccionar producto
+                                            </button>
+
+                                            <!-- Campo oculto para almacenar el ID del producto seleccionado -->
+                                            <input type="hidden" name="product_id" id="selected-product-id">
+
+                                            <!-- Muestra el nombre del producto seleccionado -->
+                                            <p id="selected-product-name" class="text-gray-500 mt-2">Ningún producto
+                                                seleccionado</p>
+
                                             @error('product_id')
                                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
+
+                                        <!-- Modal para seleccionar el producto -->
+
+
                                         <div class="flex place-content-center">
                                             <button data-modal-target="crud-modal-product"
                                                 data-modal-toggle="crud-modal-product"
@@ -78,29 +85,29 @@
                                 </div>
 
                                 <!-- Campo de precio original y stock -->
-                                <div class="relative z-0 w-full mb-5">
+                                <div class="relative z-30 w-full mb-5">
                                     <div class="grid grid-cols-2 gap-4">
                                         <div class="relative">
                                             <input type="text" name="displayInput" id="displayInput" placeholder=""
                                                 required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                                <input type="hidden" name="original_price" id="original_price">
-                                                <script>
-                                                    const displayInput = document.getElementById("displayInput");
-                                                    const hiddenInput = document.getElementById("original_price");
-                                                  
-                                                    displayInput.addEventListener("input", () => {
-                                                        let value = displayInput.value.replace(/\D/g, ""); // Remove non-numeric characters
-                                                        hiddenInput.value = value; // Store raw number without decimal in hidden input
+                                            <input type="hidden" name="original_price" id="original_price">
+                                            <script>
+                                                const displayInput = document.getElementById("displayInput");
+                                                const hiddenInput = document.getElementById("original_price");
 
-                                                        // Add decimal point before the last two digits, if there are at least three digits
-                                                        if (value.length > 2) {
+                                                displayInput.addEventListener("input", () => {
+                                                    let value = displayInput.value.replace(/\D/g, ""); // Remove non-numeric characters
+                                                    hiddenInput.value = value; // Store raw number without decimal in hidden input
+
+                                                    // Add decimal point before the last two digits, if there are at least three digits
+                                                    if (value.length > 2) {
                                                         displayInput.value = value.slice(0, -2) + "," + value.slice(-2);
-                                                        } else {
+                                                    } else {
                                                         displayInput.value = value; // No need to add a decimal point if less than 3 digits
-                                                        }
-                                                    });
-                                                  </script>
+                                                    }
+                                                });
+                                            </script>
                                             <label for="original_price"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
                                             @error('original_price')
@@ -120,7 +127,7 @@
                                 </div>
 
                                 <!-- Campo de color -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="grid grid-cols-1 md:grid-cols-2 z-30 gap-8">
                                     <!-- Campo de Color -->
                                     <div class="relative z-0 w-full mb-5">
                                         <fieldset class="mb-4">
@@ -233,47 +240,50 @@
                             selectedFiles = [...selectedFiles, ...files];
                             buildFileList();
 
-                             // Limpiar el contenedor de vista previa
+                            // Limpiar el contenedor de vista previa
 
                             // Mostrar cada archivo seleccionado
                             populatePreviewContainer();
                         }
-                        function populatePreviewContainer(){
+
+                        function populatePreviewContainer() {
                             const previewContainer = document.getElementById('preview-container');
                             previewContainer.innerHTML = '';
                             selectedFiles.forEach((file, index) => {
-                                    const reader = new FileReader();
+                                const reader = new FileReader();
 
-                                    reader.onload = function(e) {
-                                        // Contenedor de la imagen y el botón de eliminar
-                                        const imageWrapper = document.createElement('div');
-                                        imageWrapper.classList.add('relative', 'w-full', 'h-auto');
+                                reader.onload = function(e) {
+                                    // Contenedor de la imagen y el botón de eliminar
+                                    const imageWrapper = document.createElement('div');
+                                    imageWrapper.classList.add('relative', 'w-full', 'h-auto');
 
-                                        // Crear imagen
-                                        const img = document.createElement('img');
-                                        img.src = e.target.result;
-                                        img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
+                                    // Crear imagen
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
 
-                                        // Crear botón para eliminar la imagen
-                                        const removeButton = document.createElement('button');
-                                        removeButton.innerHTML = 'Eliminar';
-                                        removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
-                                            'px-2', 'py-1', 'rounded');
+                                    // Crear botón para eliminar la imagen
+                                    const removeButton = document.createElement('button');
+                                    removeButton.innerHTML = 'Eliminar';
+                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
+                                        'px-2', 'py-1', 'rounded');
 
-                                        // Manejar el evento de clic para eliminar la imagen
-                                        removeButton.onclick = () => {removeImage(index)};
-
-                                        // Agregar imagen y botón al contenedor
-                                        imageWrapper.appendChild(img);
-                                        imageWrapper.appendChild(removeButton);
-
-                                        // Añadir contenedor al preview-container
-                                        previewContainer.appendChild(imageWrapper);
+                                    // Manejar el evento de clic para eliminar la imagen
+                                    removeButton.onclick = () => {
+                                        removeImage(index)
                                     };
 
-                                    // Leer el archivo como URL de datos
-                                    reader.readAsDataURL(file);
-                                });
+                                    // Agregar imagen y botón al contenedor
+                                    imageWrapper.appendChild(img);
+                                    imageWrapper.appendChild(removeButton);
+
+                                    // Añadir contenedor al preview-container
+                                    previewContainer.appendChild(imageWrapper);
+                                };
+
+                                // Leer el archivo como URL de datos
+                                reader.readAsDataURL(file);
+                            });
                         };
 
                         function removeImage(index) {
@@ -283,13 +293,14 @@
                             buildFileList(); // Update the file list in the input field
                             populatePreviewContainer(); // Update the preview container with the new images
                         }
+
                         function buildFileList() {
                             imageInput = document.getElementById('image');
                             let list = new DataTransfer();
                             selectedFiles.forEach((file, index) => {
                                 list.items.add(file);
                             });
-                            imageInput.files = list.files;  // Update the input file list with the new files
+                            imageInput.files = list.files; // Update the input file list with the new files
                         }
                     </script>
 
@@ -496,6 +507,33 @@
         </div>
     </div>
 
+    <!-- Modal de Productos -->
+    <div id="product-selection-modal"
+        class="hidden fixed inset-0 z-50 h-screen backdrop-blur-md flex items-center justify-center overflow-y-auto overflow-x-hidden fixed">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-12 relative">
+            <h2 class="text-xl font-semibold mb-4">Seleccionar Producto</h2>
+
+            <!-- Botón de cerrar -->
+            <button type="button" onclick="closeModal('product-selection-modal')"
+                class="absolute top-8 right-8 text-gray-400">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Lista de productos -->
+            <div class="flex flex-col space-y-2 z-50 overflow-y-auto">
+                @foreach ($products as $product)
+                    <button type="button" onclick="selectProduct({{ $product->id }}, '{{ $product->name }}')"
+                        class="px-4 py-2 text-left hover:bg-gray-100 rounded-lg">
+                        {{ $product->name }}
+                    </button>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     <!-- Main modal -->
     <div id="crud-modal-product" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 backdrop-blur-md h-[calc(100%-1rem)] max-h-full">
@@ -609,6 +647,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Función para abrir el modal
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        // Función para cerrar el modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Función para seleccionar un producto
+        function selectProduct(productId, productName) {
+            // Asigna el ID y el nombre del producto seleccionado al campo oculto y al texto de visualización
+            document.getElementById('selected-product-id').value = productId;
+            document.getElementById('selected-product-name').textContent = productName;
+
+            // Cierra el modal
+            closeModal('product-selection-modal');
+        }
+    </script>
     <script src="https://flowbite.com/docs/flowbite.min.js?v=2.3.0a"></script>
     <script src="https://flowbite.com/docs/datepicker.min.js?v=2.3.0a"></script>
     <script src="https://flowbite.com/docs/docs.js?v=2.3.0a"></script>

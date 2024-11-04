@@ -27,4 +27,8 @@ class ProductSize extends Pivot
     {
         return $this->belongsTo(ProductItem::class, 'product_item_id');
     }
+    public function product()
+    {
+        return $this->item->product;
+    }
 }
