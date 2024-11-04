@@ -25,11 +25,10 @@
                 </div>
             </div>
 
-            <div class="col-span-2 w-full px-10 z-20">
+            <div class="col-span-2 w-full md:px-10 z-20">
                 <!-- component -->
                 <!-- This is an example component -->
-                <div class="max-w-4xl w-24 lg:w-full mx-auto">
-
+                <div class="max-w-4xl w-32 lg:w-full mx-auto">
                     <form action="{{ route('contact.send') }}" method="POST">
                         @csrf
                         <div class="relative z-0 mb-6 w-full group">
@@ -37,8 +36,8 @@
                                 class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-blue-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" " required />
                             <label for="floating_email"
-                                class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Direccion
-                                de Correo Electronico</label>
+                                class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Correo
+                                Electronico</label>
                         </div>
                         <div class="grid xl:grid-cols-2 xl:gap-6">
                             <div class="relative z-0 mb-6 w-full group">
@@ -78,19 +77,24 @@
             <div class="grid grid-cols-2">
                 <div class="col-span-1 mr-8">
                     <div class="w-full mb-4 flex justify-end">
-                        <p class="font-bold text-white text-lg font-josefin">Av. Rio Juramento</p>
+                        <p class="font-bold md:text-lg sm:text-xs sm:text-black md:text-white font-josefin">Av. Rio
+                            Juramento</p>
                     </div>
                     <div class="w-full mb-4 flex justify-end">
-                        <p class="font-bold text-white text-lg font-josefin">+54 9 379 479 8404</p>
+                        <p class="font-bold md:text-lg sm:text-xs sm:text-black md:text-white text-lg font-josefin">+54 9
+                            379 479 8404</p>
                     </div>
                     <div class="w-full mb-4 flex justify-end">
                         <a href="mail">
-                            <p class="font-bold text-white text-lg lg:text-md font-josefin">julia.-castillo@hotmail.com</p>
+                            <p
+                                class="font-bold md:text-lg sm:text-xs text-black md:text-white text-lg lg:text-md font-josefin">
+                                julia.-castillo@hotmail.com</p>
                         </a>
                     </div>
                 </div>
                 <div class="col-span-1 ml-8">
-                    <h2 class="text-2xl text-white font-josefin font-bold mb-4">¡¡Siguenos en nuestras redes!!</h2>
+                    <h2 class="text-2xl text-white font-josefin font-bold mb-4">¡¡Siguenos en nuestras redes!!
+                    </h2>
                     <ul class="flex">
 
                         {{-- Whatsapp --}}
