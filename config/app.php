@@ -117,6 +117,13 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
+    'providers' => [
+    // Otros proveedores...
+    Laravel\Socialite\SocialiteServiceProvider::class,
+],
+
+'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
 
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),

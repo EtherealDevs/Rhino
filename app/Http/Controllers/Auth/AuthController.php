@@ -4,44 +4,51 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function redirectFacebook(){
+    public function redirectFacebook()
+    {
         return Socialite::driver('facebook')->redirect();
     }
 
-    public function callbackFacebook(){
-        if(!isset($_GET['error'])){
-        $user = Socialite::driver('facebook')->stateless()->user();
+    public function callbackFacebook()
+    {
+        // Obtener el usuario desde Facebook
+        $facebookUser = Socialite::driver('facebook')->user();
 
-        $user = User::firstOrCreate([
-            'email' => $user->getEmail(),
-        ], [
-            'name' => $user->getName(),
-        ]);
+        // Crear o encontrar al usuario en la base de datos
+        $user = User::firstOrCreate(
+            ['email' => $facebookUser->getEmail()],
+            ['name' => $facebookUser->getName()]
+        );
 
-        auth()->login($user);
-        }
+        // Iniciar sesión
+        Auth::login($user);
+
         return redirect()->to('/');
     }
 
-    public function redirectGoogle(){
+    public function redirectGoogle()
+    {
         return Socialite::driver('google')->redirect();
     }
 
-    public function callbackGoogle(){
-        if(!isset($_GET['error'])){
-            $user = Socialite::driver('google')->stateless()->user();
-            $user = User::firstOrCreate([
-                'email' => $user->getEmail(),
-            ], [
-                'name' => $user->getName(),
-            ]);
-            auth()->login($user);
-        }
+    public function callbackGoogle()
+    {
+        // Obtener el usuario desde Google
+        $googleUser = Socialite::driver('google')->user();
+
+        // Crear o encontrar al usuario en la base de datos
+        $user = User::firstOrCreate(
+            ['email' => $googleUser->getEmail()],
+            ['name' => $googleUser->getName()]
+        );
+
+        // Iniciar sesión
+        Auth::login($user);
 
         return redirect()->to('/');
     }
