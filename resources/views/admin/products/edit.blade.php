@@ -39,9 +39,29 @@
         <div class="pt-16  ">
 
             <div class="p-6 rounded-xl bg-white">
-                <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
-                    Editar {{ $productItem->product->name }} ({{ $productItem->color->name }} - {{ $size->name }})
-                </h2>
+                <div class="w-full flex justify-between">
+                    <div>
+                        <h2 class="font-josefin font-bold italic text-xl w-full mx-auto">
+                            Editar {{ $productItem->product->name }} ({{ $productItem->color->name }} - {{ $size->name }})
+                        </h2>
+                    </div>
+                    {{-- <div class="flex justify-end">
+                        <a href="">
+                            <button data-modal-target="edit-product" data-modal-toggle="edit-product"
+                                class="block text-white text-md bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
+                                type="button">
+                                Ver
+                            </button>
+                        </a>
+                    </div> --}}
+                    <div class="flex justify-end">
+                        <button data-modal-target="edit-product" data-modal-toggle="edit-product"
+                            class="block text-white text-md bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
+                            type="button">
+                            Editar
+                        </button>
+                    </div>
+                </div>
 
                 <div class="mt-6">
                     <div class="px-12 mt-12">
@@ -99,36 +119,37 @@
                                             <input type="text" name="displayInput" id="displayInput" placeholder=""
                                                 required
                                                 class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
-                                                <input type="hidden" name="original_price" id="original_price" value="{{$productItem->original_price}}">
-                                                <script>
-                                                    const displayInput = document.getElementById("displayInput");
-                                                    const hiddenInput = document.getElementById("original_price");
-                                                    
-                                                    let price = {{$productItem->original_price}};
-                                                    price = price.toString()
-                                                        // Add decimal point before the last two digits, if there are at least three digits
-                                                        if (price.length > 2) {
-                                                        displayInput.value = price.slice(0, -2) + "," + price.slice(-2);
-                                                        } else {
-                                                        displayInput.value = price; // No need to add a decimal point if less than 3 digits
-                                                        }
-                                                  
-                                                    displayInput.addEventListener("input", () => {
-                                                        formatPrice(displayInput, hiddenInput);
-                                                    });
-                                                    function formatPrice(displayInput, hiddenInput) 
-                                                    {
-                                                        let value = displayInput.value.replace(/\D/g, ""); // Remove non-numeric characters
-                                                        hiddenInput.value = value; // Store raw number without decimal in hidden input
-                                                        
-                                                        // Add decimal point before the last two digits, if there are at least three digits
-                                                        if (value.length > 2) {
+                                            <input type="hidden" name="original_price" id="original_price"
+                                                value="{{ $productItem->original_price }}">
+                                            <script>
+                                                const displayInput = document.getElementById("displayInput");
+                                                const hiddenInput = document.getElementById("original_price");
+
+                                                let price = {{ $productItem->original_price }};
+                                                price = price.toString()
+                                                // Add decimal point before the last two digits, if there are at least three digits
+                                                if (price.length > 2) {
+                                                    displayInput.value = price.slice(0, -2) + "," + price.slice(-2);
+                                                } else {
+                                                    displayInput.value = price; // No need to add a decimal point if less than 3 digits
+                                                }
+
+                                                displayInput.addEventListener("input", () => {
+                                                    formatPrice(displayInput, hiddenInput);
+                                                });
+
+                                                function formatPrice(displayInput, hiddenInput) {
+                                                    let value = displayInput.value.replace(/\D/g, ""); // Remove non-numeric characters
+                                                    hiddenInput.value = value; // Store raw number without decimal in hidden input
+
+                                                    // Add decimal point before the last two digits, if there are at least three digits
+                                                    if (value.length > 2) {
                                                         displayInput.value = value.slice(0, -2) + "," + value.slice(-2);
-                                                        } else {
+                                                    } else {
                                                         displayInput.value = value; // No need to add a decimal point if less than 3 digits
-                                                        }
                                                     }
-                                                  </script>
+                                                }
+                                            </script>
                                             <label for="original_price"
                                                 class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Precio</label>
                                             @error('original_price')
@@ -188,6 +209,115 @@
                         </div>
                     </div>
 
+                    <div id="edit-product" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 backdrop-blur-md h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow">
+                                <!-- Modal header -->
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                    <h3 class="text-lg text-black font-semibold">
+                                        Editar Producto
+                                    </h3>
+                                    <button type="button"
+                                        class="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                        data-modal-toggle="edit-product">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <form action="{{ route('admin.products.update', $productItem->product) }}" method="POST"
+                                    class="p-4 md:p-5">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
+                                            <input type="text" name="name" id="name"
+                                                value="{{ old('name', $productItem->product->name) }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                required>
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label for="slug"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Slug</label>
+                                            <input type="text" name="slug" id="slug"
+                                                value="{{ old('slug', $productItem->product->slug) }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                required>
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label for="description"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
+                                            <input type="text" name="description" id="description"
+                                                value="{{ old('description', $productItem->product->description) }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                required>
+                                        </div>
+                                        <div>
+                                            <label for="volume"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Volumen</label>
+                                            <input type="number" name="volume" id="volume"
+                                                value="{{ old('volume', $productItem->product->volume) }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                required>
+                                        </div>
+                                        <div>
+                                            <label for="weight"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
+                                            <input type="number" name="weight" id="weight"
+                                                value="{{ old('weight', $productItem->product->weight) }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                required>
+                                        </div>
+                                        <div class="col-span-2 grid grid-cols-5">
+                                            <div class="col-span-4">
+                                                <label for="category_id"
+                                                    class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
+                                                <select name="category_id" required
+                                                    class="pt-3 pb-2 block w-full bg-transparent border-b-2 border-gray-200 focus:border-black rounded-lg">
+                                                    <option value="">Categoría</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}"
+                                                            {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                                            {{ $category->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2 grid grid-cols-5">
+                                            <div class="col-span-4">
+                                                <label for="brand_id"
+                                                    class="block mb-2 text-sm font-medium text-gray-900">Marca</label>
+                                                <select name="brand_id" required
+                                                    class="pt-3 pb-2 block w-full bg-transparent border-b-2 border-gray-200 focus:border-black rounded-lg">
+                                                    <option value="">Marca</option>
+                                                    @foreach ($brands as $brand)
+                                                        <option value="{{ $brand->id }}"
+                                                            {{ $product->brand_id == $brand->id ? 'selected' : '' }}>
+                                                            {{ $brand->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                        class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">Guardar
+                                        cambios</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <script>
                         // Variable para almacenar las imágenes seleccionadas
                         let selectedFiles = [];
@@ -199,47 +329,50 @@
                             selectedFiles = [...selectedFiles, ...files];
                             buildFileList();
 
-                             // Limpiar el contenedor de vista previa
+                            // Limpiar el contenedor de vista previa
 
                             // Mostrar cada archivo seleccionado
                             populatePreviewContainer();
                         }
-                        function populatePreviewContainer(){
+
+                        function populatePreviewContainer() {
                             const previewContainer = document.getElementById('preview-container');
                             previewContainer.innerHTML = '';
                             selectedFiles.forEach((file, index) => {
-                                    const reader = new FileReader();
+                                const reader = new FileReader();
 
-                                    reader.onload = function(e) {
-                                        // Contenedor de la imagen y el botón de eliminar
-                                        const imageWrapper = document.createElement('div');
-                                        imageWrapper.classList.add('relative', 'w-full', 'h-auto');
+                                reader.onload = function(e) {
+                                    // Contenedor de la imagen y el botón de eliminar
+                                    const imageWrapper = document.createElement('div');
+                                    imageWrapper.classList.add('relative', 'w-full', 'h-auto');
 
-                                        // Crear imagen
-                                        const img = document.createElement('img');
-                                        img.src = e.target.result;
-                                        img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
+                                    // Crear imagen
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
 
-                                        // Crear botón para eliminar la imagen
-                                        const removeButton = document.createElement('button');
-                                        removeButton.innerHTML = 'Eliminar';
-                                        removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
-                                            'px-2', 'py-1', 'rounded');
+                                    // Crear botón para eliminar la imagen
+                                    const removeButton = document.createElement('button');
+                                    removeButton.innerHTML = 'Eliminar';
+                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
+                                        'px-2', 'py-1', 'rounded');
 
-                                        // Manejar el evento de clic para eliminar la imagen
-                                        removeButton.onclick = () => {removeImage(index)};
-
-                                        // Agregar imagen y botón al contenedor
-                                        imageWrapper.appendChild(img);
-                                        imageWrapper.appendChild(removeButton);
-
-                                        // Añadir contenedor al preview-container
-                                        previewContainer.appendChild(imageWrapper);
+                                    // Manejar el evento de clic para eliminar la imagen
+                                    removeButton.onclick = () => {
+                                        removeImage(index)
                                     };
 
-                                    // Leer el archivo como URL de datos
-                                    reader.readAsDataURL(file);
-                                });
+                                    // Agregar imagen y botón al contenedor
+                                    imageWrapper.appendChild(img);
+                                    imageWrapper.appendChild(removeButton);
+
+                                    // Añadir contenedor al preview-container
+                                    previewContainer.appendChild(imageWrapper);
+                                };
+
+                                // Leer el archivo como URL de datos
+                                reader.readAsDataURL(file);
+                            });
                         };
 
                         function removeImage(index) {
@@ -249,13 +382,14 @@
                             buildFileList(); // Update the file list in the input field
                             populatePreviewContainer(); // Update the preview container with the new images
                         }
+
                         function buildFileList() {
                             imageInput = document.getElementById('image');
                             let list = new DataTransfer();
                             selectedFiles.forEach((file, index) => {
                                 list.items.add(file);
                             });
-                            imageInput.files = list.files;  // Update the input file list with the new files
+                            imageInput.files = list.files; // Update the input file list with the new files
                         }
                     </script>
                     <script>
