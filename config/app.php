@@ -117,12 +117,12 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
-    'providers' => [
-    // Otros proveedores...
-    Laravel\Socialite\SocialiteServiceProvider::class,
-],
+//     'providers' => [
+//     // Otros proveedores...
+//     Laravel\Socialite\SocialiteServiceProvider::class,
+// ],
 
-'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+// 'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
 
     'maintenance' => [
