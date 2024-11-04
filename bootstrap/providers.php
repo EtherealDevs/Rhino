@@ -7,4 +7,5 @@ return [
     App\Providers\JetstreamServiceProvider::class,
     Kreait\Laravel\Firebase\ServiceProvider::class,
     Barryvdh\Debugbar\ServiceProvider::class,
+    Laravel\Socialite\SocialiteServiceProvider::class,
 ];
