@@ -16,103 +16,87 @@
                     </button>
                 </div>
             </div>
+            @forelse ($productSizes as $productId => $productSizes)
+            @php
+            // Obtener el primer ProductSize para acceder a la información del producto
+            $product = $productSizes->first()->item->product;
+        @endphp
+                <div class=" mx-auto w-full" x-data="{ open: null }">
+                    <!-- Q 1 -->
+                    <div class="border border-gray-200  rounded-md my-5">
+                        <button @click="open === {{ $product->id }} ? open = null : open = {{ $product->id }}"
+                            class="w-full flex justify-between items-center py-2 px-4  text-gray-700 rounded-md">
+                            <span>{{ $product->name }}</span>
+                            <svg :class="{ 'rotate-180': open === 1 }"
+                                class="ml-2 h-4 w-4 transition-transform duration-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <div x-show="open === {{ $product->id }}" x-cloak
+                            x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
+                            class="overflow-hidden  px-4 py-2 rounded-b-md">
+                            <table class="mt-1 w-full min-w-max table-auto text-left">
 
-            @forelse ($products as $product)
-                <div class="container mx-auto my-6">
-                    <div
-                        class="w-full lg:w-8/12 mx-auto bg-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300 ease-in-out">
-                        <!-- Product Header -->
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-semibold text-gray-800">{{ $product->name }}</h3>
-                            <button aria-label="Toggle Details"
-                                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" data-menu>
-                                <img class="transform transition-transform duration-300"
-                                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-8-svg2.svg" alt="Expand">
-                            </button>
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                                            <p
+                                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                                                Producto
+                                            </p>
+                                        </th>
+                                        <th
+                                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                                            <p
+                                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                                                Color
+                                            </p>
+                                        </th>
+                                        <th
+                                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                                            <p
+                                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                                                Precio
+                                            </p>
+                                        </th>
+                                        <th
+                                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                                            <p
+                                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                                                Talla
+                                            </p>
+                                        </th>
+                                        <th
+                                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                                            <p
+                                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                                                Stock
+                                            </p>
+                                        </th>
+                                        <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                                            colspan="2">
+                                            <p
+                                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
+                                                Acciones
+                                            </p>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                @foreach ($productSizes as $productSize)
+                                        <tbody>
+                                                    @livewire('admin.products', ['id' => $productSize->id])
+                                        </tbody>
+                                @endforeach
+                            </table>
                         </div>
-
-                        <!-- Product Details -->
-
-                        <div id="menu" class="hidden mt-4">
-                            <div class="mt-2 text-gray-700">
-                                <table class="mt-1 w-full min-w-max table-auto text-left">
-
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                                                <p
-                                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                                    Producto
-                                                </p>
-                                            </th>
-                                            <th
-                                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                                                <p
-                                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                                    Color
-                                                </p>
-                                            </th>
-                                            <th
-                                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                                                <p
-                                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                                    Precio
-                                                </p>
-                                            </th>
-                                            <th
-                                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                                                <p
-                                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                                    Talla
-                                                </p>
-                                            </th>
-                                            <th
-                                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                                                <p
-                                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                                    Stock
-                                                </p>
-                                            </th>
-                                            <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                                                colspan="2">
-                                                <p
-                                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                                    Acciones
-                                                </p>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($productSizes as $item)
-                                            @livewire('admin.products', ['id' => $item->id])
-                                        @endforeach
-                                    </tbody>
-
-
-                                </table>
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        let elements = document.querySelectorAll("[data-menu]");
-                        elements.forEach(element => {
-                            element.addEventListener("click", function() {
-                                let parent = element.closest(".container");
-                                let details = parent.querySelector("#menu");
-                                let icon = element.querySelector("img");
-
-                                details.classList.toggle("hidden");
-                                icon.classList.toggle("rotate-180");
-                            });
-                        });
-                    });
-                </script>
             @empty
                 <tr>
                     <td colspan="100%" class="text-center py-12 p-4 text-gray-500">
@@ -120,6 +104,8 @@
                     </td>
                 </tr>
             @endforelse
+
+
 
 
             <table>
@@ -181,11 +167,11 @@
                                 </form>
                                 <!-- Botón para eliminar definitivamente -->
                                 {{-- <form action="{{ route('admin.productitems.forceDelete', $deletedVariation->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="text-red-600 hover:text-red-900">Eliminar definitivamente</button>
-                                    </form> --}}
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="text-red-600 hover:text-red-900">Eliminar definitivamente</button>
+                        </form> --}}
                             </div>
                         </td>
                     </tr>
