@@ -192,7 +192,7 @@
 
                                                         <button data-modal-target="crud-modal-colorexist"
                                                             data-modal-toggle="crud-modal-colorexist"
-                                                            class="block text-white text-lg bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
+                                                            class="block ml-2 text-white text-sm bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-2 text-center"
                                                             type="button">Seleccionar color existente</button>
                                                     </div>
 
