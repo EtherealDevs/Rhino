@@ -92,13 +92,12 @@ class ProductItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($product)
+    public function edit($productItemVariationId)
     {
-        $productSize = ProductSize::withTrashed()->where('id', $product)->first();
-        $productItem = ProductItem::where('id', $productSize->product_item_id)->first();
-        $size = Size::where('id', $productSize->size_id)->first();
-        $variationModel = $productItem->getItemPivotModel($size);
-        $stock = $variationModel->stock;
+        $productItemVariation = ProductSize::withTrashed()->find($productItemVariationId);
+        $stock = $productItemVariation->stock;
+        $size = $productItemVariation->size;
+        $productItem = $productItemVariation->item;
         $colors = Color::all();
         $products = Product::all();
         $brands = Brand::all();
@@ -164,13 +163,38 @@ class ProductItemController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Tamaño del producto eliminado correctamente.');
     }
+    public function restoreVariation($id)
+    {
+        $variation = ProductSize::withTrashed()->findOrFail($id);
+        $variation->item;
+        $productItem = ProductItem::withTrashed()->find($variation->product_item_id);
+        $product = Product::withTrashed()->find($productItem->product_id);
+        $variation->restore();
+        if ($productItem->trashed())
+        {
+            $productItem->restore();
+        }
+        
+        if ($product->trashed()) {
+            $product->restore();
+        }
+        return redirect()->route('admin.products.index')->with('success', 'Producto recuperado con éxito.');
+    }
 
     public function restore($id)
     {
-        $productItem = ProductSize::onlyTrashed()->findOrFail($id);
+        $productItem = ProductItem::onlyTrashed()->findOrFail($id);
+        dd($productItem, $productItem->item);
         $productItem->restore();
 
         return redirect()->route('admin.products.index')->with('success', 'Producto recuperado con éxito.');
+    }
+    public function forceDeleteVariation($id)
+    {
+        $variation = ProductSize::onlyTrashed()->findOrFail($id);
+        $variation->forceDelete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Producto eliminado definitivamente.');
     }
 
     public function forceDelete($id)

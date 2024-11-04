@@ -43,7 +43,7 @@ class Combo extends Model
     }
     public function getItemsSizesByMinimumStockValue()
     {
-        $items = $this->items;
+        $items = $this->items()->has('item')->get();
         $sizesByMinStockValue = [];
         foreach ($items as $item) {
             $id = $item->item->id;

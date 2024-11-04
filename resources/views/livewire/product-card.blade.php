@@ -1,3 +1,4 @@
+
 <div class="relative z-10 flex w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
     onmouseover="changeImage(this, '{{ url(Storage::url($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
     onmouseout="resetImage(this, '{{ url(Storage::url($item->images->first()->url)) }}')">

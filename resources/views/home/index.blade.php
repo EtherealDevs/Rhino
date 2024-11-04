@@ -171,9 +171,10 @@
 
                     <div class="w-full flex justify-center">
                         <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-4">
-                            @foreach ($latestProducts as $index => $product)
+                            @foreach ($latestProductItems as $index => $productItem)
                                 @php
-                                    $item = $product->items()->first();
+                                    $item = $productItem;
+                                    $product = $productItem->product;
                                 @endphp
                                 <div class="@if($index === 3) desktop-hidden @endif">
                                     @livewire('product-card', ['product' => $product, 'item' => $item])

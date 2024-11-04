@@ -26,13 +26,11 @@ use App\Http\Controllers\ReviewController;
 use App\Livewire\RatingStars;
 use App\Livewire\ShippingCost;
 use App\Http\Controllers\ComprobanteController;
-use App\Models\Product;
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     $productItem = ProductItem::first();
     $combos = Combo::all();
     $sales= Sale::all();
-    $latestProducts = Product::latest()->take(4)->get();
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $now = Carbon::now('America/Argentina/Buenos_Aires')->translatedFormat('Y-m-d');
     foreach ($sales as $sale) {
@@ -40,17 +38,16 @@ Route::get('/', function () {
             SaleController::destroy($sale);
         }
     }
-    return view('home.index', compact('productItem','sales','combos', 'latestProducts'));
-});
+    return view('home.index', compact('productItem','sales','combos'));
+}); */
 
 // Route::get('/', function () {
-
 //     return view('building.index');
 // });
 
 Route::get('/firebase', [FirebaseController::class, 'index']);
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/contact', function () {
     return view('contact.index');
@@ -94,8 +91,6 @@ Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
 Route::post('/submit-review', [RatingStars::class, 'submitReview'])
     ->middleware('auth');
 // Route::get('/products-api', [ProductController::class, 'api']);
-
-Route::get('/test', [TestController::class, 'index'])->name('test');
 
 
 /* Autenticacion */
@@ -161,8 +156,6 @@ Route::get('promos', [PromoController::class, 'index'])->name('promos.index');
 
 // Ruta para mostrar un pedido específico
 Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-
-Route::get('/test', [TestController::class, 'index'])->name('test');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/envio', [CartController::class, 'envio'])->name('cart.envio');

@@ -8,13 +8,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\CascadesDeletes;
 
 class Product extends Model
 {
+    use CascadesDeletes;
+    use SoftDeletes;
     use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['name', 'slug', 'description', 'category_id', 'brand_id','volume','weight'];
+    protected $cascadeDeletes = ['items'];
 
     public function tags(): BelongsToMany
     {

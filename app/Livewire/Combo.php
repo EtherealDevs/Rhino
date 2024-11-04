@@ -14,13 +14,13 @@ class Combo extends Component
     }
     public function render()
 {
-    $combo_items = Combo_items::where('combo_id', $this->id)
+    $combo_items = Combo_items::has('item')->where('combo_id', $this->id)
         ->with('item', 'item.images') // Asegúrate de cargar las relaciones necesarias
         ->get();
 
     $price = 0;
 
-    
+    $collection = collect();
     foreach ($combo_items as $combo_item) {
         // dd($combo_items, $combo_item);
         $price += $combo_item->item->price();

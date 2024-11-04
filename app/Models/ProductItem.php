@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\CascadesDeletes;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,11 +17,12 @@ use Illuminate\Support\Collection;
 
 class ProductItem extends Model
 {
-
+    use CascadesDeletes;
     use HasFactory;
     use SoftDeletes;
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['product_id', 'original_price', 'sale_price', 'color_id'];
+    protected $cascadeDeletes = ['sizes'];
 
     public function price() : int
     {

@@ -21,9 +21,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = ProductSize::all();
-        $deletedItems = ProductSize::onlyTrashed()->get();
-        return view('admin.products.index', compact('products', 'deletedItems'));
+        $products = Product::all();
+        $deletedProducts = Product::onlyTrashed()->get();
+        $deletedProductItems = ProductItem::onlyTrashed()->get();
+        $deletedProductItemVariations = ProductSize::onlyTrashed()->get();
+        // dd($deletedProducts);
+        // $deletedProductItems = $deletedProducts->items;
+        // $ids = $deletedProductItems->pluck('id');
+        // $deletedProductItemVariations = ProductSize::whereIn('id', $ids)->get();
+        // $stock = $deletedProductItemVariations->sum('stock');
+        // dd($stock);
+        return view('admin.products.index', compact('products', 'deletedProducts', 'deletedProductItems', 'deletedProductItemVariations'));
     }
 
     /**
@@ -104,10 +112,23 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        foreach ($product->items() as $item) {
-            $item->destroy();
-        }
+        // foreach ($product->items() as $item) {
+        //     $item->destroy();
+        // }
         $product->delete();
         return redirect()->back();
+    }
+    public function forceDelete($id)
+    {
+        // $productItem = Product::onlyTrashed()->findOrFail($id);
+        // $productItem->forceDelete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Producto eliminado definitivamente.');
+    }
+    public function restore($id)
+    {
+        $product = Product::onlyTrashed()->find($id);
+        $product->restore();
+        return redirect()->route('admin.products.index');
     }
 }

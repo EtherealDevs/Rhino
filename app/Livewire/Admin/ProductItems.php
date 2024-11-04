@@ -2,40 +2,35 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\ProductSize;
-use App\Models\Size;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class Products extends Component
+class ProductItems extends Component
 {
     public $product;
     public $productItem;
     public $productItems;
+    public $productItemVariations;
     public $size;
     public $stock;
     public $item;
     public $productSize;
     public function mount($id){
-        $product = Product::find($id);
-        $productItems = $product->items;
+        $productItem = ProductItem::find($id);
         // $productItemVariations = $productItems;
         // $this->productSize = $product->items;
         // $this->productItem = ProductItem::where('id', $product->product_item_id)->first();
-        $this->productItems = $productItems;
-        $this->product = $product;
-        $ids = $this->productItems->pluck('id');
-        $productItemVariations = ProductSize::whereIn('id', $ids)->get();
-        $stock = $productItemVariations->pluck('stock');
-        $this->stock = $stock->sum();
+        $this->productItem = $productItem;
+        $this->product = $productItem->product;
+        $productItemVariations = ProductSize::has('item')->where('product_item_id', $productItem->id)->get();
+        $this->productItemVariations = $productItemVariations;
         // $this->size = Size::where('id',$product->size_id)->first();
         // $this->stock = $product->stock;
         // $this->item = $this->productItem;
     }
     public function render()
     {
-        return view('livewire.admin.products');
+        return view('livewire.admin.product-items');
     }
 }
