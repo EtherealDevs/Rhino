@@ -109,30 +109,33 @@ class ProductItemController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $productItemId)
-    {
-        $request->validate([
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // Otros campos...
-        ]);
-        $productItem = ProductItem::findOrFail($productItemId);
+{
+    $request->validate([
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        $productItem->update([
-            'product_id' => $request->product_id,
-            'original_price' => $request->original_price,
-            'sale_price' => $request->sale_price,
-        ]);
+    $productItem = ProductItem::findOrFail($productItemId);
 
-        $productItem->sizes()->updateExistingPivot($request->size_id, ['stock' => $request->stock]);
+    // Actualizar campos del producto, incluyendo color
+    $productItem->update([
+        'product_id' => $request->product_id,
+        'original_price' => $request->original_price,
+        'sale_price' => $request->sale_price,
+        'color_id' => $request->color_id, // Asigna el color_id
+    ]);
 
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $url = Storage::put('images/product', $image);
-                $productItem->images()->create(['url' => $url]);
-            }
+    $productItem->sizes()->updateExistingPivot($request->size_id, ['stock' => $request->stock]);
+
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $url = Storage::put('images/product', $image);
+            $productItem->images()->create(['url' => $url]);
         }
-
-        return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
     }
+
+    return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
+}
+
 
 
 
@@ -174,7 +177,7 @@ class ProductItemController extends Controller
         {
             $productItem->restore();
         }
-        
+
         if ($product->trashed()) {
             $product->restore();
         }

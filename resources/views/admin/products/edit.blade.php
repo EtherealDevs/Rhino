@@ -167,6 +167,41 @@
                                                 <span class="text-sm text-red-600">{{ $message }}</span>
                                             @enderror
                                         </div>
+
+                                        <div class="relative z-0 w-full mb-5">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <label for="color_name"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                                                    <input type="text" name="color_name" id="color_name"
+                                                        placeholder="Ingresa el color"
+                                                        value="{{ old('color_name', $productItem->color->name ?? '') }}"
+                                                        readonly
+                                                        class="pt-3 pb-2 block w-full px-0 mt-0 mb-6 bg-transparent border-b-8 appearance-none focus:outline-none"
+                                                        style="border-color: transparent; border-bottom-color: {{ $productItem->color->color ?? '#000000' }};" />
+
+                                                    {{-- Campo oculto para almacenar el color seleccionado --}}
+                                                    <input type="hidden" name="color_id" id="color_id"
+                                                        value="{{ $productItem->color_id ?? '' }}">
+
+                                                    <div class="flex">
+                                                        <button data-modal-target="crud-modal-color"
+                                                            data-modal-toggle="crud-modal-color"
+                                                            class="block text-white text-3xl bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
+                                                            type="button">+</button>
+
+                                                        <button data-modal-target="crud-modal-colorexist"
+                                                            data-modal-toggle="crud-modal-colorexist"
+                                                            class="block text-white text-lg bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
+                                                            type="button">Seleccionar color existente</button>
+                                                    </div>
+
+                                                    @error('color_name')
+                                                        <span class="text-sm text-red-600">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -312,6 +347,117 @@
                                     <button type="submit"
                                         class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">Guardar
                                         cambios</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal de colores existentes -->
+                    <div id="crud-modal-colorexist" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center backdrop-blur-md items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
+                            <div class="relative bg-white rounded-lg shadow ">
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                    <h3 class="text-lg font-semibold font-josefin italic text-black">Colores existentes
+                                    </h3>
+                                    <button type="button"
+                                        class="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:text-white"
+                                        data-modal-toggle="crud-modal-colorexist">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Cerrar modal</span>
+                                    </button>
+                                </div>
+                                <form action="#" method="POST" id="selectColorForm" class="p-4 md:p-5">
+                                    <fieldset class="mb-4">
+                                        <legend class="block text-gray-700 font-semibold font-josefin mb-2">Color:</legend>
+                                        <div class="flex flex-wrap gap-4 mt-6">
+                                            @foreach ($colors as $color)
+                                                <div
+                                                    class="flex flex-col items-center p-2 border border-gray-200 rounded-xl">
+                                                    <input type="radio" id="color-{{ $color->id }}" name="color_id"
+                                                        value="{{ $color->id }}" class="hidden peer" required />
+                                                    <label for="color-{{ $color->id }}"
+                                                        style="background-color: {{ $color->color }};"
+                                                        class="w-10 h-10 rounded-full cursor-pointer outline outline-2 outline-gray-300 transition-all duration-200 ease-in-out peer-checked:outline-blue-400 hover:outline-gray-400 shadow-md"
+                                                        onclick="updateColor('{{ $color->color }}', '{{ $color->name }}', {{ $color->id }})"></label>
+                                                    <p class="text-gray-700 text-xs font-semibold font-josefin">
+                                                        {{ $color->name }}</p>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function updateColor(colorHex, colorName, colorId) {
+                            // Actualiza el color en el input de la vista principal
+                            document.getElementById('color_name').value = colorName;
+                            document.getElementById('color_id').value = colorId;
+
+                            // Cambia el estilo del borde inferior del input para reflejar el color seleccionado
+                            document.getElementById('color_name').style.borderBottomColor = colorHex;
+                        }
+                    </script>
+
+                    {{-- Agregar nuevo color modal --}}
+                    <div id="crud-modal-color" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center backdrop-blur-md items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
+
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow ">
+                                <!-- Modal header -->
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                    <h3 class="text-lg font-semibold font-josefin italic text-black">
+                                        Crear nuevo Color
+                                    </h3>
+                                    <button type="button"
+                                        class="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:text-white"
+                                        data-modal-toggle="crud-modal-color">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <form action={{ route('admin.colors.store') }} method="POST" class="p-4 md:p-5">
+                                    @csrf
+                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+                                            <input type="text" name="name" id="name"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                placeholder="Type product name" required="">
+                                        </div>
+                                        <div class="col-span-2 sm:col-span-1">
+                                            <label for="color"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Color</label>
+                                            <input type="color" name="color" id="color"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                required="">
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        Guardar
+                                    </button>
                                 </form>
                             </div>
                         </div>
