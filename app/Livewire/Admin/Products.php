@@ -19,17 +19,18 @@ class Products extends Component
     public $item;
     public $productSize;
     public function mount($id){
-        $product = Product::find($id);
-        $productItems = $product->items;
+        $productVariation = ProductSize::find($id);
+        $productItem = $productVariation->item;
         // $productItemVariations = $productItems;
         // $this->productSize = $product->items;
         // $this->productItem = ProductItem::where('id', $product->product_item_id)->first();
-        $this->productItems = $productItems;
-        $this->product = $product;
-        $ids = $this->productItems->pluck('id');
-        $productItemVariations = ProductSize::whereIn('id', $ids)->get();
-        $stock = $productItemVariations->pluck('stock');
-        $this->stock = $stock->sum();
+        $this->productItem = $productItem;
+        $this->product = $productItem->product;
+        // $ids = $this->productItems->pluck('id');
+        // $productItemVariations = ProductSize::whereIn('id', $ids)->get();
+        // $stock = $productItemVariations->pluck('stock');
+        $this->stock = $productVariation->stock;
+        $this->size = $productVariation->size;
         // $this->size = Size::where('id',$product->size_id)->first();
         // $this->stock = $product->stock;
         // $this->item = $this->productItem;

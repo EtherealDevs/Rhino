@@ -21,17 +21,27 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        // $products = Product::all();
+        $productTest = ProductSize::with('item.product', 'size')
+        ->get();
+        $productTest2 = ProductSize::with('item.product')->get();
+        $productTest3 = ProductSize::withTrashed()->with('item.product')->get();
+
+
         $deletedProducts = Product::onlyTrashed()->get();
         $deletedProductItems = ProductItem::onlyTrashed()->get();
         $deletedProductItemVariations = ProductSize::onlyTrashed()->get();
-        // dd($deletedProducts);
-        // $deletedProductItems = $deletedProducts->items;
-        // $ids = $deletedProductItems->pluck('id');
-        // $deletedProductItemVariations = ProductSize::whereIn('id', $ids)->get();
-        // $stock = $deletedProductItemVariations->sum('stock');
-        // dd($stock);
-        return view('admin.products.index', compact('products', 'deletedProducts', 'deletedProductItems', 'deletedProductItemVariations'));
+        
+        $deletedItems = ProductSize::onlyTrashed()->get();
+        $products = ProductSize::with('item.product', 'size')
+        ->get()
+        ->groupBy('item.product.id');
+        
+        $categories = Category::all();
+        $colors = Color::all();
+        $brands = Brand::all();
+
+        return view('admin.products.index', compact('products', 'deletedProducts', 'deletedProductItems', 'deletedProductItemVariations', 'categories', 'colors', 'brands'));
     }
 
     /**

@@ -19,10 +19,10 @@
             </div>
 
             {{-- Productos --}}
-            @forelse ($productSizes as $productId => $productSizes)
+            @forelse ($products as $productVariations)
                 @php
                     // Obtener el primer ProductSize para acceder a la información del producto
-                    $product = $productSizes->first()->item->product;
+                    $product = $productVariations->first()->item->product;
                 @endphp
                 <div class=" mx-auto w-full" x-data="{ open: null }">
                     <div class="border border-gray-200  rounded-xl my-5">
@@ -249,7 +249,7 @@
                                             class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                                             <p
                                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                                Producto
+                                                
                                             </p>
                                         </th>
                                         <th
@@ -289,9 +289,9 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                @foreach ($productSizes as $productSize)
+                                @foreach ($productVariations as $productVariation)
                                     <tbody>
-                                        @livewire('admin.products', ['id' => $productSize->id])
+                                        @livewire('admin.products', ['id' => $productVariation->id])
                                     </tbody>
                                 @endforeach
                             </table>

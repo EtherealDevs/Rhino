@@ -1,20 +1,17 @@
 <div>
     <tr>
+        <td>
+            
+        </td>
         <td class="p-4 border-b border-blue-gray-50">
             <div class="flex items-center gap-3">
                 <div class="flex flex-col">
                     <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                        {{ $product->name }}</p>
-                    <p
-                        class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                        {{ $product->created_at->format('d-m-Y') }}</p>
+                        {{ $productItem->color->name }}</p>
+                    <span class="block border-4 border-[{{ $productItem->color->color }}]">
+                    </span>
                 </div>
             </div>
-        </td>
-        <td class="p-4 border-b border-blue-gray-50">
-            <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                {{ $product->description }}
-            </p>
         </td>
         <td class="p-4 relative grid grid-rows-3 gap-2 border-t border-gray-200">
             @if ($product->sale)
@@ -24,7 +21,7 @@
                 </div>
 
                 {{-- Mostrar los precios en filas separadas --}}
-                {{-- <div class="row-span-1 flex justify-start items-center text-sm font-josefin px-2 py-1">
+                <div class="row-span-1 flex justify-start items-center text-sm font-josefin px-2 py-1">
                     <span class="text-green-500 font-semibold">
                         ${{ number_format($productItem->price() / 100, 2, ',', '.') }}
                     </span>
@@ -32,7 +29,7 @@
                     <span class="text-gray-400 font-medium line-through">
                         ${{ number_format($productItem->original_price / 100, 2, ',', '.') }}
                     </span>
-                </div> --}}
+                </div>
             @else
                 {{-- Precio sin descuento, centrado y estilizado de forma minimalista --}}
                 <div class="col-span-3 flex flex-col">
@@ -41,6 +38,11 @@
                     </p>
                 </div>
             @endif
+        </td>
+        <td class="p-4 border-b border-blue-gray-50">
+            <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                {{ $size->name }}
+            </p>
         </td>
         <td class="p-4 border-b border-blue-gray-50">
             <div class="w-max">
@@ -65,25 +67,10 @@
                 @endif
             </div>
         </td>
-        <td class="p-4 border-b border-blue-gray-50">
-            <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                {{ $product->category->name }}
-            </p>
-        </td>
-        <td class="p-4 border-b border-blue-gray-50">
-            <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                {{ $product->brand->name }}
-            </p>
-        </td>
-        <td class="p-4 border-b border-blue-gray-50">
-            <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                {{ $product->weight / 100 }} | {{ $product->volume / 100 }}
-            </p>
-        </td>
         <td class="p-4">
         <td class="p-4 border-b border-blue-gray-50">
             <div class="inline-flex items-center rounded-md shadow-sm">
-                <a href="{{ route('admin.products.edit', $product->id) }}">
+                <a href="{{ route('admin.productitems.edit', $productItem->id) }}">
                     <button
                         class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
                         <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -96,8 +83,8 @@
                 </a>
                 <button
                     class="text-slate-800 hover:text-red-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center"
-                    data-modal-target="default-modal-{{ $product->id }}"
-                    data-modal-toggle="default-modal-{{ $product->id }}">
+                    data-modal-target="default-modal-{{ $productItem->id }}"
+                    data-modal-toggle="default-modal-{{ $productItem->id }}">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-4 h-4">
@@ -107,8 +94,8 @@
                     </span>
                 </button>
 
-                <form action={{ route('admin.products.destroy', $product->id) }} method="POST">
-                    <div id="default-modal-{{ $product->id }}" tabindex="-1" aria-hidden="true"
+                <form action={{ route('admin.productitems.destroy', $productItem->id) }} method="POST">
+                    <div id="default-modal-{{ $productItem->id }}" tabindex="-1" aria-hidden="true"
                         class="hidden min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
                         id="modal-id">
                         <div class="absolute bg-black opacity-80 inset-0 z-0"></div>
@@ -132,19 +119,19 @@
                                     </svg>
                                     <h2 class="text-xl font-bold py-4 ">¿ESTA SEGURO?</h3>
                                         <p class="text-sm text-gray-500 px-8">¿De verdad quiere borrar producto
-                                            id:{{ $product->id }}?
+                                            id:{{ $productItem->id }}?
                                             Este proceso no tiene retorno</p>
                                 </div>
                                 <!--footer-->
                                 <div class="p-3  mt-2 text-center space-x-4 md:block">
-                                    <button data-modal-hide="default-modal-{{ $product->id }}" type="button"
+                                    <button data-modal-hide="default-modal-{{ $productItem->id }}" type="button"
                                         class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                                         Cancelar
                                     </button>
 
                                     @csrf
                                     @method('DELETE')
-                                    <button data-modal-hide="default-modal-{{ $product->id }}" type="submit"
+                                    <button data-modal-hide="default-modal-{{ $productItem->id }}" type="submit"
                                         class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Eliminar</button>
 
                                 </div>
@@ -155,8 +142,5 @@
             </div>
         </td>
         </td>
-        @foreach ($productItems as $productItem)
-        @livewire('admin.product-items', ['id' => $productItem->id])
-        @endforeach
     </tr>
 </div>
