@@ -17,13 +17,13 @@
                             <ul class="glide__slides">
                                 @foreach ($item->images as $image)
                                     <li class="glide__slide">
-                                        <img class="w-full h-64 lg:h-96 object-cover"
+                                        <img class="w-full h-64 object-cover"
                                         src="{{ url(Storage::url( $image->url)) }}"
-                                            alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$item->color->name}}">
+                                        alt="{{$item->id}}-{{$item->product->id}}-{{$item->product->name}}-{{$item->color->name}}">
                                     </li>
                                 @endforeach
                             </ul>
-                    </div>
+                        </div>
                     </div>
                 @else
                     <div class="glide">
