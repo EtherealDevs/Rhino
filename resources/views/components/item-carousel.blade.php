@@ -7,7 +7,7 @@
             @foreach ($item->images as $image)
                 @if ($image->is_active)
                     <li class="glide__slide">
-                        <img class="w-full h-64 lg:h-[50vh] object-cover" src="{{ url(Storage::url($image->url)) }}"
+                        <img class="w-full h-64 lg:h-[100vh] object-cover" src="{{ url(Storage::url($image->url)) }}"
                             alt="{{ $item->id }}-{{ $item->product->id }}-{{ $item->product->name }}">
                     </li>
                 @endif

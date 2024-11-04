@@ -509,30 +509,29 @@
 
     <!-- Modal de Productos -->
     <div id="product-selection-modal"
-        class="hidden fixed inset-0 z-50 h-screen backdrop-blur-md flex items-center justify-center overflow-y-auto overflow-x-hidden fixed">
-        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-12 relative">
-            <h2 class="text-xl font-semibold mb-4">Seleccionar Producto</h2>
+    class="hidden fixed inset-0 z-50 h-screen backdrop-blur-md flex items-center justify-center overflow-y-auto overflow-x-hidden">
+    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-12 relative">
+        <h2 class="text-xl font-semibold mb-4">Seleccionar Producto</h2>
 
-            <!-- Botón de cerrar -->
-            <button type="button" onclick="closeModal('product-selection-modal')"
-                class="absolute top-8 right-8 text-gray-400">
-                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+        <!-- Botón de cerrar -->
+        <button type="button" onclick="closeModal('product-selection-modal')" class="absolute top-8 right-8 text-gray-400">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
 
-            <!-- Lista de productos -->
-            <div class="flex flex-col space-y-2 z-50 overflow-y-auto">
-                @foreach ($products as $product)
-                    <button type="button" onclick="selectProduct({{ $product->id }}, '{{ $product->name }}')"
-                        class="px-4 py-2 text-left hover:bg-gray-100 rounded-lg">
-                        {{ $product->name }}
-                    </button>
-                @endforeach
-            </div>
+        <!-- Lista de productos con scroll -->
+        <div class="flex flex-col space-y-2 z-50 overflow-y-auto max-h-80">
+            @foreach ($products as $product)
+                <button type="button" onclick="selectProduct({{ $product->id }}, '{{ $product->name }}')"
+                    class="px-4 py-2 text-left hover:bg-gray-100 rounded-lg">
+                    {{ $product->name }}
+                </button>
+            @endforeach
         </div>
     </div>
+</div>
+
 
     <!-- Main modal -->
     <div id="crud-modal-product" tabindex="-1" aria-hidden="true"
