@@ -45,15 +45,23 @@
                             Editar {{ $productItem->product->name }} ({{ $productItem->color->name }} - {{ $size->name }})
                         </h2>
                     </div>
+                    {{-- <div class="flex justify-end">
+                        <a href="">
+                            <button data-modal-target="edit-product" data-modal-toggle="edit-product"
+                                class="block text-white text-md bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
+                                type="button">
+                                Ver
+                            </button>
+                        </a>
+                    </div> --}}
                     <div class="flex justify-end">
                         <button data-modal-target="edit-product" data-modal-toggle="edit-product"
                             class="block text-white text-md bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
                             type="button">
-                            Editar Producto
+                            Editar
                         </button>
                     </div>
                 </div>
-
 
                 <div class="mt-6">
                     <div class="px-12 mt-12">

@@ -21,13 +21,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $productSizes = ProductSize::groupBy('product');
-        // $products = Product::all();
+        $products = Product::all();
+        $brands = Brand::all();
+        $categories = Category::all();
         $deletedItems = ProductSize::onlyTrashed()->get();
         $productSizes = ProductSize::with('item.product', 'size')
         ->get()
         ->groupBy('item.product.id');
-        return view('admin.products.index', compact( 'deletedItems', 'productSizes'));
+        return view('admin.products.index', compact( 'deletedItems', 'productSizes', 'products', 'brands', 'categories'));
     }
 
     /**
