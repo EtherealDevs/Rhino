@@ -171,7 +171,7 @@
 
                     <div class="w-full flex justify-center">
                         <div class="grid grid-cols-2 lg:grid-cols-3 xl:gap-8 gap-4">
-                           {{--  @foreach ($latestProductItems as $index => $productItem)
+                            @foreach ($latestProductItems as $index => $productItem)
                                 @php
                                     $item = $productItem;
                                     $product = $productItem->product;
@@ -179,7 +179,7 @@
                                 <div class="@if($index === 3) desktop-hidden @endif">
                                     @livewire('product-card', ['product' => $product, 'item' => $item])
                                 </div>
-                            @endforeach --}}
+                            @endforeach
                         </div>
                     </div>
 
