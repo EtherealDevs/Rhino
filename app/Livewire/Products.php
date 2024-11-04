@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Combo;
 use App\Models\ProductItem;
+use App\Models\ProductSize;
 use App\Models\Size;
 use Livewire\Component;
 use Illuminate\Http\Request;
