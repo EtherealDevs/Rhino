@@ -28,6 +28,7 @@ class ProductItem extends Model
     {
         if (optional($this->product)->sale && optional($this->product->sale)->sale && optional($this->product->sale->sale)->discount) {
             $price = $this->original_price * ($this->product->sale->sale->discount / 100);
+            $price = $this->original_price - $price;
             return $price;
         } else
         {
@@ -70,7 +71,7 @@ class ProductItem extends Model
     {
         return $this->sizes->pluck('pivot.stock')->min();
     }
-    
+
     public function getItemPivotModel($size)
     {
         if (is_string($size)) {

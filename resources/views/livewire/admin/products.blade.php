@@ -1,7 +1,7 @@
 <div>
     <tr>
         <td>
-            
+
         </td>
         <td class="p-4 border-b border-blue-gray-50">
             <div class="flex items-center gap-3">
@@ -21,7 +21,7 @@
                 </div>
 
                 {{-- Mostrar los precios en filas separadas --}}
-                <div class="row-span-1 flex justify-start items-center text-sm font-josefin px-2 py-1">
+                <div class="row-span-2 flex justify-start items-center text-sm font-josefin px-2 py-1">
                     <span class="text-green-500 font-semibold">
                         ${{ number_format($productItem->price() / 100, 2, ',', '.') }}
                     </span>
@@ -32,10 +32,13 @@
                 </div>
             @else
                 {{-- Precio sin descuento, centrado y estilizado de forma minimalista --}}
-                <div class="col-span-3 flex flex-col">
+                <div class="row-span-3 col-span-3 flex flex-col">
                     <p class="block font-sans text-sm leading-normal text-green-500 font-normal">
                         Sin descuento
                     </p>
+                    <span class="text-green-500  font-medium">
+                        ${{ number_format($productItem->original_price / 100, 2, ',', '.') }}
+                    </span>
                 </div>
             @endif
         </td>
