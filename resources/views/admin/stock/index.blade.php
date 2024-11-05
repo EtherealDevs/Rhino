@@ -17,125 +17,147 @@
             <table class="mt-6 w-full min-w-max table-auto text-left">
                 <thead>
                     <tr>
-                        <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                            <p class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-around gap-2 font-normal leading-none opacity-70">Producto</p>
+                        <th
+                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                            <p
+                                class="antialiased ml-4 font-sans text-sm text-blue-gray-900 flex items-center justify-start gap-2 font-normal leading-none opacity-70">
+                                Producto</p>
                         </th>
-                        <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                            <p class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">Cantidad</p>
+                        <th
+                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                            <p
+                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-start gap-2 font-normal leading-none opacity-70">
+                                Cantidad</p>
                         </th>
-                        <th class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                            <p class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">Estado</p>
+                        <th
+                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                            <p
+                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-start gap-2 font-normal leading-none opacity-70">
+                                Estado</p>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($products as $product)
-                        @php
-                            $stock = 0;
-                        @endphp
+                        @php $stock = 0; @endphp
                         <tr class="lg:w-8/12 w-full mx-auto items-center">
                             <td class="w-1/2">
-                                <div style="width: 25em" class="ml-10">
-                                    <div id="mainHeading" class="flex justify-between items-center w-1/2 mt-4">
-                                        <div>
-                                            <p class="flex lg:text-2xl transition justify-center items-center font-semibold w-full leading-none text-gray-800">
-                                                {{ $product->name }}
-                                            </p>
-                                        </div>
-                                        <button aria-label="toggler" class="" data-menu>
-                                            <p class="font-sans text-sm font-extralight">Ver Más</p>
+                                <div style="width: 30em" class="ml-5">
+                                    <div id="mainHeading" class="flex justify-between items-center w-full mt-4">
+                                        <button aria-label="toggler" data-menu
+                                            class="w-full flex py-2 px-4 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                                            <span
+                                                class="font-bold text-md lg:text-md text-slate-800">{{ $product->name }}</span>
+                                            <svg :class="{ 'rotate-180': open === 1 }"
+                                                class="ml-2 flex justify-end h-4 w-4 transition-transform duration-300 text-blue-500"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7"></path>
+                                            </svg>
                                         </button>
                                     </div>
-                                    <div id="menu" class="hidden mt-6 w-full transition-height duration-500 overflow-hidden">
-                                        <div class='flex items-center justify-start'>
-                                            <div class="flex items-center justify-center">
-                                                <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-                                                    <table class="w-full text-sm text-left text-gray-500">
-                                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                                            <tr>
-                                                                <th scope="col" class="py-3 px-6">Talle</th>
-                                                                <th scope="col" class="py-3 px-6">Color</th>
-                                                                <th scope="col" class="py-3 px-6">Cantidad</th>
-                                                                <th scope="col" class="py-3 px-6">Habilitado</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <form action="{{ route('admin.stock.store') }}" method="POST">
-                                                            @csrf
-                                                            <tbody>
-                                                                @php
-                                                                    $i = 1;
-                                                                @endphp
-                                                                @foreach ($product->items as $item)
-                                                                    @php
-                                                                        $j = 1;
-                                                                    @endphp
-                                                                    @foreach ($item->sizes as $size)
-                                                                        <tr class="bg-white border-b">
-                                                                            <td class="py-4 px-6">{{ $size->name }}</td>
-                                                                            <input type="number" name="size_id" class="hidden" value="{{ $size->id }}">
-                                                                            <td class="py-4 px-6">{{ $item->color->name }}</td>
-                                                                            <input type="number" name="product_id" class="hidden" value="{{ $item->id }}">
-                                                                            <td class="py-4 px-6">
-                                                                                <input id="input-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}" type="number" name="stock" class="w-16 h-8 text-sm border-none" placeholder="{{ $size->pivot->stock }}" disabled />
-                                                                            </td>
-                                                                            @php
-                                                                            $habilitado = null;
-                                                                                if
-                                                                                ($size->pivot->deleted_at instanceof \Illuminate\Support\Carbon) 
-                                                                                { 
-                                                                                    $habilitado = "No";
-                                                                                }
-                                                                                else {
-                                                                                    $habilitado = "Si";
-                                                                                }
-                                                                            @endphp
-                                                                            <td class="py-4 px-6">{{ $habilitado }}</td>
-                                                                            
-                                                                        
-                                                                            @php
-                                                                                $stock += $size->pivot->stock;
-                                                                            @endphp
-                                                                            <td>
-                                                                                <button type="button" class="py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out" onclick="edit('input-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}')">
-                                                                                    Editar
-                                                                                </button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        @php
-                                                                            $j++;
-                                                                        @endphp
-                                                                    @endforeach
-                                                                    @php
-                                                                        $i++;
-                                                                    @endphp
-                                                                @endforeach
-                                                            </tbody>
-                                                            <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                                                                Guardar
-                                                            </button>
-                                                        </form>
-                                                    </table>
+
+                                    <div id="stock-modal" tabindex="-1" aria-hidden="true"
+                                        class="hidden fixed z-50 justify-center backdrop-blur-md items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <!-- Modal content -->
+                                        <div
+                                            class="absolute max-h-full overflow-y-auto overflow-x-hidden left-1/4 top-12 bg-white h-[650px] w-[750px] rounded-lg shadow ">
+                                            <form action="{{ route('admin.stock.store') }}" method="POST"
+                                                class="p-4 md:p-5">
+                                                <!-- Modal header -->
+                                                <div class="sticky top-0 z-10 bg-white border-b rounded-t">
+                                                    <div class="flex items-center justify-between p-4 md:p-5">
+                                                        <h3 class="text-lg font-semibold font-josefin italic text-black">
+                                                            Stock
+                                                            de {{ $product->name }}</h3>
+                                                        <button type="submit"
+                                                            class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">Guardar</button>
+                                                        <button type="button"
+                                                            class="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                                            onclick="toggleModal('stock-modal')">
+                                                            <svg class="w-3 h-3" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 14 14">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                            </svg>
+                                                            <span class="sr-only">Cerrar modal</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <!-- Modal body -->
+
+                                                @csrf
+                                                <table class="w-full text-sm text-left text-gray-500">
+                                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                                        <tr>
+                                                            <th scope="col" class="py-3 px-6">Talle</th>
+                                                            <th scope="col" class="py-3 px-6">Color</th>
+                                                            <th scope="col" class="py-3 px-6">Cantidad</th>
+                                                            <th scope="col" class="py-3 px-6">Habilitado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($product->items as $item)
+                                                            @foreach ($item->sizes as $size)
+                                                                <tr class="bg-white border-b">
+                                                                    <td class="py-4 px-6">{{ $size->name }}</td>
+                                                                    <input type="hidden" name="size_id"
+                                                                        value="{{ $size->id }}">
+                                                                    <td class="py-4 px-6">{{ $item->color->name }}</td>
+                                                                    <input type="hidden" name="product_id"
+                                                                        value="{{ $item->id }}">
+                                                                    <td class="py-4 px-6">
+                                                                        <input
+                                                                            id="input-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}"
+                                                                            type="number" name="stock"
+                                                                            class="w-16 h-8 text-sm border-none"
+                                                                            placeholder="{{ $size->pivot->stock }}"
+                                                                            disabled />
+                                                                    </td>
+                                                                    <td class="py-4 px-6">
+                                                                        {{ $size->pivot->deleted_at instanceof \Illuminate\Support\Carbon ? 'No' : 'Si' }}
+                                                                    </td>
+                                                                    @php $stock += $size->pivot->stock; @endphp
+                                                                    <td>
+                                                                        <button type="button"
+                                                                            class="py-2 px-4 bg-gray-50 text-gray-600 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out"
+                                                                            onclick="edit('input-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}')"><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="none" viewBox="0 0 24 24"
+                                                                                stroke-width="1.5" stroke="currentColor"
+                                                                                class="w-4 h-4">
+                                                                                <path stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <p class="mt-4">
-                                    <span class="lg:mr-6 mr-4 lg:text-4xl md:text-xl text-lg leading-6 md:leading-5 lg:leading-4 font-semibold text-gray-800">{{ $stock }}</span>
+                                    <span
+                                        class="lg:mr-6 mr-4 lg:text-xl md:text-xl text-lg leading-6 md:leading-5 lg:leading-4 font-semibold text-gray-800">{{ $stock }}</span>
                                 </p>
                             </td>
                             <td>
-                                @if ($stock == 0)
-                                    <div class="rounded-full bg-gray-300 w-1/2 flex justify-center">
-                                        <p class="text-gray-500 justify-center my-2 font-josefin font-bold">Inactivo</p>
-                                    </div>
-                                @else
-                                    <div class="rounded-full bg-green-300 w-1/2 flex justify-center">
-                                        <p class="text-green-800 justify-center my-2 font-josefin font-bold">Activo</p>
-                                    </div>
-                                @endif
+                                <div
+                                    class="{{ $stock == 0 ? 'bg-gray-300' : 'bg-green-200' }} rounded-lg w-1/2 flex justify-center">
+                                    <p
+                                        class="{{ $stock == 0 ? 'text-gray-500' : 'text-green-800' }} uppercase justify-center my-1 mx-0 font-josefin font-bold text-sm">
+                                        {{ $stock == 0 ? 'Inactivo' : 'Activo' }}</p>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -157,34 +179,17 @@
             input.classList.add('border');
         }
 
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+
         let elements = document.querySelectorAll("[data-menu]");
         elements.forEach(element => {
             element.addEventListener("click", function() {
-                let parent = element.closest('div[style="width: 25em"]');
-                let menu = parent.querySelector("#menu");
-                let textElement = element.querySelector("p");
-
-                if (menu.classList.contains("hidden")) {
-                    menu.classList.remove("hidden");
-                    menu.style.height = "0";
-                    setTimeout(() => {
-                        menu.style.height = menu.scrollHeight + "px";
-                        textElement.textContent = "Ver Menos";
-                    }, 10);
-                } else {
-                    menu.style.height = menu.scrollHeight + "px";
-                    setTimeout(() => {
-                        menu.style.height = "0";
-                        textElement.textContent = "Ver Más";
-                    }, 10);
-                    menu.addEventListener("transitionend", () => {
-                        if (menu.style.height === "0px") {
-                            menu.classList.add("hidden");
-                        }
-                    }, {
-                        once: true
-                    });
-                }
+                let parent = element.closest('div[style="width: 30em"]'); // Adjust the selector as needed
+                toggleModal(
+                    'stock-modal'); // You might want to pass a specific modal ID if you have multiple
             });
         });
     </script>

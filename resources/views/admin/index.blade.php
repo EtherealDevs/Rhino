@@ -319,11 +319,11 @@
                             {{ $totalStock }}
                         </span>
                         <br>
-                        Productos con Stock
+                        Productos sin Stock
                     </p>
                     <a class="text-blue-500  w-full flex justify-center border-t-2 mt-2 items-center text-center text-sm"
                         href={{ route('admin.stock.index') }}>
-                        <p class="mt-2"> Ver todos
+                        <p class="mt-2"> Ver stock
                         </p>
                     </a>
                 </div>
@@ -348,7 +348,7 @@
                                 ${{ number_format($totalGanancias, 2) }}
                             </span>
                             <br>
-                            Ganancias Generadas
+                            Recaudación Generada
                             <br>
                             <span class="text-sm text-gray-300"> Ultimos 30 dias</span>
                         </p>

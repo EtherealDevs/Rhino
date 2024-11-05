@@ -27,11 +27,11 @@ class AdminController extends Controller
             ->sum('total');
 
         $deliveredOrdersCount = Order::where('order_status_id', 4)->count();
-        $totalStock = DB::table('products_sizes')->sum('stock');
+        $totalStock = DB::table('products_sizes')->where('stock', 0)->count();
+
 
         return view('admin.index', compact('user', 'pendingOrders', 'totalGanancias', 'pendingOrdersCount', 'deliveredOrdersCount', 'totalStock'));
     }
-
 
     public function show($id)
     {
@@ -39,5 +39,4 @@ class AdminController extends Controller
 
         return view('admin.orders.show', compact('order'));
     }
-
 }

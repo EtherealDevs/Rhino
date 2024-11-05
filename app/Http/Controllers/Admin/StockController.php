@@ -58,6 +58,16 @@ class StockController extends Controller
      *
      * @param Request $request
      */
+    public function without()
+    {
+        // Filtrar productos con stock total igual a cero en todos los tamaños
+        $products = Product::whereDoesntHave('items.sizes', function ($query) {
+            $query->where('stock', '>', 0);
+        })->with('items.sizes.color')->get();
+
+        return view('admin.stock.without', compact('products'));
+    }
+
     protected function notifyLowStock(Request $request)
     {
         $product = Product::find($request->product_id);
