@@ -34,11 +34,6 @@ class StockController extends Controller
             'stock' => 'required|integer|min:0',
         ]);
 
-        $product_size = DB::table('products_sizes')
-            ->where('product_item_id', $request->product_id)
-            ->where('size_id', $request->size_id)
-            ->first();
-
         DB::table('products_sizes')
             ->where('product_item_id', $request->product_id)
             ->where('size_id', $request->size_id)
