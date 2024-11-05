@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.4.1/dist/css/glide.theme.min.css">
     <script src="//unpkg.com/alpinejs" defer></script>
 
-    <div class="container mx-auto p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="container mx-auto p-0 lg:p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 lg:gap-4">
             <div class="p-6 rounded-lg shadow-lg bg-white">
                 @if ($item->images->count() > 1)
                 <x-item-carousel :item="$item" :colors="$colors"></x-item-carousel>
