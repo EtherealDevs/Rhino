@@ -4,7 +4,6 @@
     <div class="p-6">
         <div class="container mx-auto mt-14 p-12 bg-white rounded-lg shadow-lg">
             <h1 class="text-3xl font-semibold text-gray-800 mb-6">Detalle del Pedido #{{ $order->id }}</h1>
-
             <!-- Información del Usuario -->
             <div class="mb-10">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">Información del Usuario</h2>
@@ -46,7 +45,6 @@
                         <p class="text-lg text-gray-600"><strong class="font-medium">Costo de Entrega:</strong>
                             ${{ number_format($order->delivery_price, 2) }}</p>
                     @endif
-
                     @if ($order->address)
                         <p class="text-lg text-gray-600"><strong class="font-medium">Dirección de Entrega:</strong>
                             {{ $order->address->address_line }}</p>
@@ -140,8 +138,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
     <script src="//unpkg.com/alpinejs" defer></script>

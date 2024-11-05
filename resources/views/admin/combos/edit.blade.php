@@ -118,8 +118,6 @@
                     </script>
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection

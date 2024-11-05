@@ -77,7 +77,6 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5">
-
                                     <div class="grid grid-cols-3 gap-4">
                                         <div>
                                             <input type="number" name="original_price" id="original_price" placeholder=" "
@@ -210,7 +209,6 @@
                     </script>
                 </div>
             </div>
-
         </div>
     </div>
 

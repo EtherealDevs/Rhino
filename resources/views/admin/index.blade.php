@@ -57,38 +57,6 @@
             }
         </style>
 
-
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                showLoaderAdmin();
-            });
-
-            function showLoaderAdmin() {
-                const loaderElement = document.querySelector("#contain-loader");
-
-                if (loaderElement) {
-                    loaderElement.style.display = "flex"; // Mostrar el loader
-                }
-
-                // Ocultar el loader después de 10 segundos
-                setTimeout(() => {
-                    hideLoaderAdmin();
-                }, 10000); // 10000 ms = 10 segundos
-            }
-
-            function hideLoaderAdmin() {
-                const loaderElement = document.querySelector("#contain-loader");
-
-                if (loaderElement) {
-                    loaderElement.style.animation = "fadeOut 1.5s forwards, slideDown 1.5s forwards";
-                    setTimeout(() => {
-                        loaderElement.style.display = "none"; // Ocultar el loader después del desvanecimiento
-                    }, 1500); // 1500 ms = duración de la animación de desvanecimiento y deslizamiento
-                }
-            }
-        </script>
-
-
         <div id="contain-loader"
             class="fixed h-screen bg-transparent backdrop-blur-md inset-0 flex items-center justify-center z-50">
             <div id="loaderadmin" class="w-16 h-16 border-4 border-t-4">
@@ -98,7 +66,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Carrousel -->
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -181,7 +148,6 @@
                     }
                 } else {
                     $errorMessage = 'No se pudo obtener la información del clima en este momento.';
-                
                     if ($response) {
                         $errorMessage .= " Respuesta de la API: {$response}";
                     }
@@ -427,8 +393,35 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            showLoaderAdmin();
+        });
+
+        function showLoaderAdmin() {
+            const loaderElement = document.querySelector("#contain-loader");
+
+            if (loaderElement) {
+                loaderElement.style.display = "flex"; // Mostrar el loader
+            }
+
+            setTimeout(() => {
+                hideLoaderAdmin();
+            }, 10000); // 10000 ms = 10 segundos
+        }
+
+        function hideLoaderAdmin() {
+            const loaderElement = document.querySelector("#contain-loader");
+            if (loaderElement) {
+                loaderElement.style.animation = "fadeOut 1.5s forwards, slideDown 1.5s forwards";
+                setTimeout(() => {
+                    loaderElement.style.display = "none"; // Ocultar el loader después del desvanecimiento
+                }, 1500); // 1500 ms = duración de la animación de desvanecimiento y deslizamiento
+            }
+        }
+    </script>
     @vite('resources/js/app.js')
 @endsection

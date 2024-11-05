@@ -2,14 +2,12 @@
 @section('content')
     <div class=" p-6">
         <div class="p-6 mt-24 bg-white rounded-xl overflow-scroll">
-
             <div class="flex justify-between w-full mb-5 overflow-none">
                 <div class="justify-start">
                     <h2 class="font-josefin font-bold italic text-2xl">
                         Productos
                     </h2>
                 </div>
-
                 <div class="justify-end">
                     <button class="bg-blue-500 rounded-xl p-2 px-4">
                         <a class="text-white font-bold" href={{ route('admin.products.create') }}>Nuevo Producto</a>
@@ -18,7 +16,6 @@
             </div>
 
             <table class="mt-1 w-full min-w-max table-auto text-left">
-
                 <thead>
                     <tr>
                         <th
@@ -76,7 +73,6 @@
                         </tr>
                     @endforelse
                 </tbody>
-
             </table>
         </div>
     </div>

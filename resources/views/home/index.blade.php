@@ -2,7 +2,10 @@
 
 @section('title', 'Bienvenidos a Rino Indumentaria | Moda Única')
 
-@section('meta_description', 'Descubre la última moda para hombres y adolescentes en nuestra tienda online. Desde ropa casual y deportiva hasta estilos más formales, tenemos todo lo que necesitas para lucir a la última. ¡Renueva tu armario con las últimas tendencias! #modamasculina #ropaonline #tendencias')
+@section('meta_description',
+    'Descubre la última moda para hombres y adolescentes en nuestra tienda online. Desde ropa
+    casual y deportiva hasta estilos más formales, tenemos todo lo que necesitas para lucir a la última. ¡Renueva tu armario
+    con las últimas tendencias! #modamasculina #ropaonline #tendencias')
 
 @section('content')
     <div class="static justify-center bg-white w-full">
@@ -34,7 +37,6 @@
                     {{-- Carrousel --}}
                     <div class="col-span-3 h-full flex rounded-none lg:rounded-br-3xl">
                         <div class="max-w-7xl w-full justify-end">
-
                             <div id="default-carousel" class="relative h-full" data-carousel="active">
                                 <!-- Carousel wrapper -->
                                 <div class="overflow-hidden relative h-48 sm:h-96 lg:h-[580px]">
@@ -216,7 +218,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
