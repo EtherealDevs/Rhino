@@ -97,14 +97,18 @@ class DeliveryForm extends Component
               $this->addressModel = $this->addressModels->where('id', $this->selectedAddressId)->first();
               $this->updatedSelectedAddressId($this->selectedAddressId);
           }
-        // if ($zip_code != null) {
-        //     $this->zip_code = $zip_code;
-        //     $this->updatedZipCode($this->zip_code);
-        // }
-        // if ($city != null) {
-        //     $this->city = $city;
-        //     $this->updatedCity($this->city);
-        // }
+          else
+          {
+            if ($zip_code != null) {
+                $this->zip_code = $zip_code;
+                $this->updatedZipCode($this->zip_code);
+            }
+            if ($city != null) {
+                $this->city = $city;
+                $this->updatedCity($this->city);
+            }
+          }
+        
         
     }
 
