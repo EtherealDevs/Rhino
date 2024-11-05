@@ -91,12 +91,13 @@
 
                                                 @csrf
                                                 <table class="w-full text-sm text-left text-gray-500">
-                                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                                    <thead class="text-xs sticky top-20 z-40 text-gray-700 uppercase bg-gray-50">
                                                         <tr>
                                                             <th scope="col" class="py-3 px-6">Talle</th>
                                                             <th scope="col" class="py-3 px-6">Color</th>
                                                             <th scope="col" class="py-3 px-6">Cantidad</th>
                                                             <th scope="col" class="py-3 px-6">Habilitado</th>
+                                                            <th scope="col" class="py-3 px-6">Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -121,7 +122,7 @@
                                                                         {{ $size->pivot->deleted_at instanceof \Illuminate\Support\Carbon ? 'No' : 'Si' }}
                                                                     </td>
                                                                     @php $stock += $size->pivot->stock; @endphp
-                                                                    <td>
+                                                                    <td class="flex justify-center items-center mt-3">
                                                                         <button type="button"
                                                                             class="py-2 px-4 bg-gray-50 text-gray-600 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out"
                                                                             onclick="edit('input-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}')"><svg
