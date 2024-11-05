@@ -7,7 +7,7 @@
                 <div class="grid grid-cols-4 mt-3 relative">
                     @foreach ($categories as $category)
                         @if (is_null($category->parent_id))
-                            <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold"
+                            <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold "
                                 wire:click="selectCategory({{ $category->id }})">
                                 <p>{{ $category->name }}</p>
                             </div>

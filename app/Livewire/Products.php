@@ -7,26 +7,18 @@ use App\Models\Category;
 use App\Models\Combo;
 use App\Models\Size;
 use Livewire\Component;
-use Illuminate\Http\Request;
 
 class Products extends Component
 {
     public $search;
-    public $filter =[""];
+    public $filter = [""];
     public $products = [];
     public $selectedCategory = null;
-    public function render(Request $request)
-    {
-        $sizes = Size::all();
-        $categories = Category::all();
-        $products = Product::all();
-        $combos = Combo::all();
-        return view('livewire.products', compact('products', 'categories', 'sizes', 'combos'));
-    }
 
     public function mount()
     {
-        $this->products = Product::all(); // Cargar todos los productos inicialmente
+        // Cargar todos los productos inicialmente
+        $this->products = Product::all();
     }
 
     public function selectCategory($categoryId)
@@ -35,6 +27,19 @@ class Products extends Component
         // Filtrar productos por categoría
         $this->products = Product::where('category_id', $categoryId)->get();
     }
+
+    public function render()
+    {
+        $sizes = Size::all();
+        $categories = Category::all();
+        $combos = Combo::all();
+
+        // Pasar $this->products a la vista correctamente
+        return view('livewire.products', [
+            'products' => $this->products,
+            'categories' => $categories,
+            'sizes' => $sizes,
+            'combos' => $combos,
+        ]);
+    }
 }
-
-
