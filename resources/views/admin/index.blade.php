@@ -51,7 +51,7 @@
                 align-items: center;
                 justify-content: center;
                 z-index: 50;
-                animation: fadeOut 1.5s forwards 5s, slideDown 1.5s forwards 5s;
+                animation: fadeOut 0.5s forwards 2s, slideDown 1.5s forwards 2s;
                 /* Agrega un retraso de 5 segundos para las animaciones de desvanecimiento y deslizamiento */
             }
         </style>
@@ -72,7 +72,7 @@
                 // Ocultar el loader después de 10 segundos
                 setTimeout(() => {
                     hideLoaderAdmin();
-                }, 10000); // 10000 ms = 10 segundos
+                }, 1000); // 10000 ms = 10 segundos
             }
 
             function hideLoaderAdmin() {
@@ -82,7 +82,7 @@
                     loaderElement.style.animation = "fadeOut 1.5s forwards, slideDown 1.5s forwards";
                     setTimeout(() => {
                         loaderElement.style.display = "none"; // Ocultar el loader después del desvanecimiento
-                    }, 1500); // 1500 ms = duración de la animación de desvanecimiento y deslizamiento
+                    }, 1000); // 1500 ms = duración de la animación de desvanecimiento y deslizamiento
                 }
             }
         </script>
