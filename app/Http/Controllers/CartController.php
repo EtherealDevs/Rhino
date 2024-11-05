@@ -150,11 +150,11 @@ class CartController extends Controller
             'mode' => ['required', Rule::in($modes)]
         ]);
 
+        $quantity = $request->quantity != null ? $request->quantity : 1;
         $cartItemId = $request->cartItemId;
         //add, subtract, update
         $mode = $request->mode;
-        dd($request);
-        $this->cartManager->updateQuantity($cartItemId, $mode, $request->quantity);
+        $this->cartManager->updateQuantity($cartItemId, $mode, $quantity);
         return redirect()->route('cart');
     }
     public function addComboToCart(Request $request)
