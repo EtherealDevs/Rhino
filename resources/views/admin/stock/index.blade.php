@@ -107,7 +107,9 @@
                                                                     <td class="py-4 px-6">{{ $size->name }}</td>
                                                                     <input type="hidden" name="size_id"
                                                                         value="{{ $size->id }}">
-                                                                    <td class="py-4 px-6">{{ $item->color->name }}</td>
+                                                                    <td class="py-4 px-6">{{ $item->color->name }}
+                                                                        <span class="block border-4 border-[{{ $item->color->color }}]">
+                                                                    </td>
                                                                     <input type="hidden" name="product_id"
                                                                         value="{{ $item->id }}">
                                                                     <td class="py-4 px-6">
