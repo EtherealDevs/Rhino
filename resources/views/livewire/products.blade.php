@@ -25,7 +25,7 @@
             </div>
 
             {{-- Content (Productos) --}}
-            <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8 overflow-x-hidden">
+            <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8 overflow-hidden">
                 @if ($combos->isNotEmpty())
 
                     <div
