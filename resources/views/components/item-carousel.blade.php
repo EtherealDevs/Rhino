@@ -1,10 +1,7 @@
 @props(['item', 'colors'])
 
 <!-- Carousel -->
-<div class="glide" x-data="{ currentSlide: 0 }" x-init="
-    const glide = new Glide('.glide', { type: 'carousel', perView: 1 }).mount();
-    $watch('currentSlide', value => glide.go('=' + value));
-">
+<div class="glide" x-data="{ currentSlide: 0 }">
     <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
             @foreach ($item->images as $image)
@@ -44,10 +41,8 @@
 <div class="flex mt-4 overflow-x-auto max-w-full space-x-2">
     <div class="flex min-w-[300px] lg:min-w-[600px] space-x-2">
         @foreach ($item->images as $image)
-            <img class="w-24 h-24 object-cover cursor-pointer"
-                 @click="currentSlide = {{ $loop->index }}"
-                 src="{{ url(Storage::url($image->url)) }}"
-                 alt="Miniatura {{ $loop->index + 1 }}">
+            <img class="w-24 h-24 object-cover cursor-pointer" @click="currentSlide = {{ $loop->index }}"
+                src="{{ url(Storage::url($image->url)) }}" alt="Miniatura {{ $loop->index + 1 }}">
         @endforeach
     </div>
 </div>
