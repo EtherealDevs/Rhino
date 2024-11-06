@@ -47,7 +47,18 @@
                         <div class="mx-auto">
                             <form action={{ route('admin.productitems.store') }} method="POST" enctype="multipart/form-data">
                                 @csrf
-
+                                @if ($errors->any())
+                                    <div class="mb-4">
+                                        <ul class="text-sm text-red-500">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                            <p class="text-md text-red-500">
+                                                Por lo tanto no se ha podido crear el producto
+                                            </p>
+                                        </ul>
+                                    </div>
+                                @endif
                                 <!-- Campo de selección de producto -->
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-10 gap-2">
@@ -533,8 +544,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- Main modal -->
     <div id="crud-modal-product" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 backdrop-blur-md h-[calc(100%-1rem)] max-h-full">
@@ -558,19 +567,11 @@
                     </button>
                 </div>
                 <!-- Modal body -->
+
                 <form action={{ route('admin.products.store') }} method="POST" class="p-4 md:p-5">
                     @csrf
-                    @csrf
                     <!-- Errores -->
-                    @if ($errors->any())
-                        <div class="mb-4">
-                            <ul class="text-sm text-red-500">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+
 
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
