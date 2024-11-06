@@ -568,21 +568,20 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-
                 <form action={{ route('admin.products.store') }} method="POST" class="p-4 md:p-5">
                     @csrf
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
-                            <input type="text" name="name" id="name"
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
+                            <input type="text" name="name" id="products_name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="Escribe el nombre" required="">
+                                placeholder="Escribe el nombre" required>
                         </div>
                         <div class="col-span-2">
-                            <label for="slug" class="block mb-2 text-sm font-medium text-gray-900e">Slug</label>
+                            <label for="slug" class="block mb-2 text-sm font-medium text-gray-900">Slug</label>
                             <input type="text" name="slug" id="slug"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="Slug unico" required="">
+                                class="bg-[#f3f4f6] border border-gray-300 text-gray-900 text-sm rounded-lg cursor-not-allowed focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                placeholder="Slug unico" readonly>
                         </div>
                         <div class="col-span-2">
                             <label for="description"
@@ -660,6 +659,21 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+    <script>
+        // Escuchar el evento 'input' en el campo 'name'
+        document.getElementById('products_name').addEventListener('input', function() {
+            const name = this.value; // Obtener el valor del campo 'name'
+
+            // Usar lodash para convertir el nombre a formato slug (kebab-case)
+            const slug = _.kebabCase(name);
+
+            // Asignar el slug generado al campo 'slug'
+            document.getElementById('slug').value = slug;
+        });
+    </script>
 
     <script>
         // Función para abrir el modal

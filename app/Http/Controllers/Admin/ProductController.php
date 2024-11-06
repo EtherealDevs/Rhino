@@ -65,20 +65,15 @@ class ProductController extends Controller
             'weight' => 'required|numeric|min:0',
         ]);
 
-        $request->merge([
-            'slug' => $request->slug ?: Str::slug($request->name)
-        ]);
+    $slug = $validatedData['slug'] ?? Str::slug($validatedData['name']);
+    $originalSlug = $slug;
+    $count = 1;
 
-        $slug = $validatedData['slug'] ?? Str::slug($validatedData['name']);
-        $originalSlug = $slug;
-        $count = 1;
-
-        // Asegurarse de que el slug sea único
-        while (Product::where('slug', $slug)->exists()) {
-            $slug = "{$originalSlug}-{$count}";
-            $count++;
-        }
-
+    // Validación para asegurar unicidad del slug
+    while (Product::where('slug', $slug)->exists()) {
+        $slug = "{$originalSlug}-{$count}";
+        $count++;
+    }
         // Crear el producto con los datos validados
         Product::create([
             'name' => $validatedData['name'],
