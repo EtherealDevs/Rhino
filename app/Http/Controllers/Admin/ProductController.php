@@ -21,22 +21,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $products = Product::all();
-        $productTest = ProductSize::with('item.product', 'size')
-        ->get();
-        $productTest2 = ProductSize::with('item.product')->get();
-        $productTest3 = ProductSize::withTrashed()->with('item.product')->get();
 
 
         $deletedProducts = Product::onlyTrashed()->get();
         $deletedProductItems = ProductItem::onlyTrashed()->get();
         $deletedProductItemVariations = ProductSize::onlyTrashed()->get();
-        
+
         $deletedItems = ProductSize::onlyTrashed()->get();
         $products = ProductSize::with('item.product', 'size')
         ->get()
         ->groupBy('item.product.id');
-        
         $categories = Category::all();
         $colors = Color::all();
         $brands = Brand::all();

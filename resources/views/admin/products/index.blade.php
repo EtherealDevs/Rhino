@@ -19,7 +19,7 @@
             </div>
 
             {{-- Productos --}}
-            @forelse ($products as $productVariations)
+            @forelse ($products as $productId =>$productVariations)
                 @php
                     // Obtener el primer ProductSize para acceder a la información del producto
                     $product = $productVariations->first()->item->product;

@@ -73,7 +73,7 @@
         <td class="p-4">
         <td class="p-4 border-b border-blue-gray-50">
             <div class="inline-flex items-center rounded-md shadow-sm">
-                <a href="{{ route('admin.productitems.edit', $productItem->id) }}">
+                <a href="{{ route('admin.productitems.edit', $productVariation->id) }}">
                     <button
                         class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
                         <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -97,7 +97,7 @@
                     </span>
                 </button>
 
-                <form action={{ route('admin.productitems.destroy', $productItem->id) }} method="POST">
+                <form action={{ route('admin.productitems.destroy', $productVariation->id) }} method="POST">
                     <div id="default-modal-{{ $productItem->id }}" tabindex="-1" aria-hidden="true"
                         class="hidden min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
                         id="modal-id">
