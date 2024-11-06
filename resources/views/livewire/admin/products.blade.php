@@ -98,7 +98,7 @@
                 </button>
 
                 <form action={{ route('admin.productitems.destroy', $productVariation->id) }} method="POST">
-                    <div id="default-modal-{{ $productItem->id }}" tabindex="-1" aria-hidden="true"
+                    <div id="default-modal-{{ $productVariation->id }}" tabindex="-1" aria-hidden="true"
                         class="hidden min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
                         id="modal-id">
                         <div class="absolute bg-black opacity-80 inset-0 z-0"></div>
@@ -122,19 +122,19 @@
                                     </svg>
                                     <h2 class="text-xl font-bold py-4 ">¿ESTA SEGURO?</h3>
                                         <p class="text-sm text-gray-500 px-8">¿De verdad quiere borrar producto
-                                            id:{{ $productItem->id }}?
+                                            {{ $productItem->product->name }} ({{$productItem->color->name}}, {{$productVariation->size->name}})?
                                             Este proceso no tiene retorno</p>
                                 </div>
                                 <!--footer-->
                                 <div class="p-3  mt-2 text-center space-x-4 md:block">
-                                    <button data-modal-hide="default-modal-{{ $productItem->id }}" type="button"
+                                    <button data-modal-hide="default-modal-{{ $productVariation->id }}" type="button"
                                         class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                                         Cancelar
                                     </button>
 
                                     @csrf
                                     @method('DELETE')
-                                    <button data-modal-hide="default-modal-{{ $productItem->id }}" type="submit"
+                                    <button data-modal-hide="default-modal-{{ $productVariation->id }}" type="submit"
                                         class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Eliminar</button>
 
                                 </div>
