@@ -10,6 +10,7 @@ use App\Models\ProductItem;
 use App\Models\Category;
 use App\Models\Size;
 use App\Models\Combo;
+use App\Models\ProductSize;
 use App\Models\Reviews;
 use App\Models\User;
 use App\Notifications\OrderNotification;
@@ -41,12 +42,14 @@ class ProductController extends Controller
         // Redondear a la estrella más cercana
         $averageRating = round($averageRating * 2) / 2;
         
+        $itemVariations = ProductSize::where('product_item_id', $id)->get();
+        // $productItem = $productVariations->first()->item;
         $item = ProductItem::with(['product' => ['items' => ['color'], 'category'], 'sizes', 'images'])
         ->where('id', $id)
         ->first();
         $colors = $item->colors();
         $reviews = Reviews::with('user', 'product')->get();
-        return view('products.show', compact('item', 'colors', 'reviews', 'averageRating'));
+        return view('products.show', compact('item', 'colors', 'itemVariations', 'reviews', 'averageRating'));
     }
 
     public function addToCart(Request $request, Product $product, ProductItem $productItem)

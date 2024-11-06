@@ -80,6 +80,11 @@
 
                         {{-- Variaciones de color --}}
                         @foreach ($item->product->items->where('id', '!=', $item->id) as $variation)
+                            @foreach ($variation->sizes as $size)
+                                @if ($size->pivot->deleted_at != null)
+                                    @continue(2)
+                                @endif
+                            @endforeach
                             <a href="{{ route('products.show', ['product' => $variation->product, 'productItem' => $variation]) }}"
                                class="transform transition-transform duration-200 hover:scale-105">
                                 <div class="flex flex-col items-center p-3 border border-gray-300 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
@@ -119,18 +124,18 @@
                             $sizes = $item->sizes()->orderBy('sort_number')->get();
                         @endphp
 
-                        @foreach ($sizes as $size)
-                            <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$size->pivot->stock}} })"
-                                    data-stock="{{$size->pivot->stock}}"
-                                    value="{{$size->name}}"
+                        @foreach ($itemVariations as $itemVariation)
+                            <option x-on:changed-size-option-{{$loop->index + 1}}.window="$dispatch('change-livewire-component', { stock: {{$itemVariation->stock}} })"
+                                    data-stock="{{$itemVariation->stock}}"
+                                    value="{{$itemVariation->size->name}}"
                                     class="px-3 py-2 text-gray-700 hover:bg-blue-100
                                         transition duration-150 ease-in-out
-                                        @if($size->pivot->stock < 1) text-red-500 @endif">
-                                {{$size->name}} -
-                                @if ($size->pivot->stock < 1)
+                                        @if($itemVariation->stock < 1) text-red-500 @endif">
+                                {{$itemVariation->size->name}} -
+                                @if ($itemVariation->stock < 1)
                                     No Hay Stock
                                 @else
-                                    Disponibles: {{$size->pivot->stock}}
+                                    Disponibles: {{$itemVariation->stock}}
                                 @endif
                             </option>
                         @endforeach
