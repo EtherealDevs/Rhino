@@ -47,6 +47,7 @@
                         <div class="mx-auto">
                             <form action={{ route('admin.productitems.store') }} method="POST" enctype="multipart/form-data">
                                 @csrf
+                                <!-- Errores -->
                                 @if ($errors->any())
                                     <div class="mb-4">
                                         <ul class="text-sm text-red-500">
@@ -384,7 +385,7 @@
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
                             <input type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="Type product name" required="">
+                                placeholder="Nombre del color" required="">
                         </div>
                         <div class="col-span-2 sm:col-span-1">
                             <label for="color" class="block mb-2 text-sm font-medium text-gray-900">Color</label>
@@ -570,40 +571,37 @@
 
                 <form action={{ route('admin.products.store') }} method="POST" class="p-4 md:p-5">
                     @csrf
-                    <!-- Errores -->
-
-
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
                             <input type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="Type product name" required="">
+                                placeholder="Escribe el nombre" required="">
                         </div>
                         <div class="col-span-2">
                             <label for="slug" class="block mb-2 text-sm font-medium text-gray-900e">Slug</label>
                             <input type="text" name="slug" id="slug"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="Type product name" required="">
+                                placeholder="Slug unico" required="">
                         </div>
                         <div class="col-span-2">
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
                             <input type="textarea" name="description" id="description"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                placeholder="Type product description" required="">
+                                placeholder="Escribe una descripción" required="">
                         </div>
                         <div>
                             <label for="volume" class="block mb-2 text-sm font-medium text-gray-900">Volumen</label>
                             <input type="number" name="volume" id="volume"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                placeholder="Type product volume" required="">
+                                placeholder="Escribe el volumen" required="">
                         </div>
                         <div>
                             <label for="weigth" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
                             <input type="number" name="weight" id="weight"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                placeholder="Type product weigth" required="">
+                                placeholder="Peso" required="">
                         </div>
                         <div class="col-span-2 grid grid-cols-5">
                             <div class="col-span-4">
