@@ -36,43 +36,34 @@ class ProductController extends Controller
 
     public function show(Product $product, $id)
     {
+        // Obtener las variedades de talla del producto
+        $itemVariations = ProductSize::where('product_item_id', $id)->get();
+        if ($itemVariations == null || $itemVariations->isEmpty()) {
+            return abort(404);
+        }
         // Calcular el promedio de estrellas
         $averageRating = $product->reviews()->avg('rating');
         
         // Redondear a la estrella más cercana
         $averageRating = round($averageRating * 2) / 2;
         
-        $itemVariations = ProductSize::where('product_item_id', $id)->get();
-        // $productItem = $productVariations->first()->item;
-        $item = ProductItem::with(['product' => ['items' => ['color'], 'category'], 'sizes', 'images'])
+        $item = ProductItem::with(['product' => ['items' => ['color', 'sizes'], 'category'], 'sizes', 'images'])
         ->where('id', $id)
         ->first();
+        // Obtener las variedades de colores del producto
+        $productVariations = $item->product->items->load('sizes')->filter(function (ProductItem $variation, int $key) use($item)
+        {
+            foreach ($variation->sizes as $size)
+            {
+                if ($size->pivot->deleted_at == null && $variation->id != $item->id)
+                {
+                    return true;
+                }
+            }
+        });
         $colors = $item->colors();
         $reviews = Reviews::with('user', 'product')->get();
-        return view('products.show', compact('item', 'colors', 'itemVariations', 'reviews', 'averageRating'));
-    }
-
-    public function addToCart(Request $request, Product $product, ProductItem $productItem)
-    {
-        $request->validate([
-            'amount' => 'required',
-            'size' => 'required',
-        ]);
-        // CartManager::addItem($productItem, $request->amount, $request->size);
-
-        //Check if user logged in. If true persist the Cart to Database
-        if (Auth::check()) {
-            $user = User::where('id', Auth::user()->id)->first();
-            // CartManager::storeOrUpdateInDatabase($user);
-            $cart = Cart::where('user_id', $user->id)->first();
-        }
-
-        if (session('cartError')) {
-            return redirect()->route('cart')->with('failure', session('cartError'));
-        }
-
-        notify()->success('Producto agregado ⚡️');
-        return redirect()->route('cart')->with('success', 'true');
+        return view('products.show', compact('item', 'productVariations', 'colors', 'itemVariations', 'reviews', 'averageRating'));
     }
 
     public function filter(Request $request)

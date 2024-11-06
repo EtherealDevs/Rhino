@@ -79,12 +79,7 @@
                         </div>
 
                         {{-- Variaciones de color --}}
-                        @foreach ($item->product->items->where('id', '!=', $item->id) as $variation)
-                            @foreach ($variation->sizes as $size)
-                                @if ($size->pivot->deleted_at != null)
-                                    @continue(2)
-                                @endif
-                            @endforeach
+                        @foreach ($productVariations as $variation)
                             <a href="{{ route('products.show', ['product' => $variation->product, 'productItem' => $variation]) }}"
                                class="transform transition-transform duration-200 hover:scale-105">
                                 <div class="flex flex-col items-center p-3 border border-gray-300 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
