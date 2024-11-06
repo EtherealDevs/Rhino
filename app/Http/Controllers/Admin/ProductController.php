@@ -11,6 +11,7 @@ use App\Models\ProductItem;
 use App\Models\ProductSize;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,8 +22,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-
-
         $deletedProducts = Product::onlyTrashed()->get();
         $deletedProductItems = ProductItem::onlyTrashed()->get();
         $deletedProductItemVariations = ProductSize::onlyTrashed()->get();
@@ -66,6 +65,20 @@ class ProductController extends Controller
             'weight' => 'required|numeric|min:0',
         ]);
 
+        $request->merge([
+            'slug' => $request->slug ?: Str::slug($request->name)
+        ]);
+
+        $slug = $validatedData['slug'] ?? Str::slug($validatedData['name']);
+        $originalSlug = $slug;
+        $count = 1;
+
+        // Asegurarse de que el slug sea único
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = "{$originalSlug}-{$count}";
+            $count++;
+        }
+
         // Crear el producto con los datos validados
         Product::create([
             'name' => $validatedData['name'],
@@ -80,23 +93,13 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Producto creado exitosamente.');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($product, Size $size) {}
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
         $product->update([
