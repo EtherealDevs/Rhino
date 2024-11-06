@@ -52,8 +52,6 @@
                                 <input type="number" id="order_id" name="order_id" value="{{$order->id}}" class="hidden">
                                 <input type="number" id="dni" name="dni" placeholder="dni que figura en le comprobante">
 
-
-
                                 <!-- Botón para subir el comprobante -->
                                 <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200">
                                     Subir Comprobante
@@ -76,7 +74,9 @@
                             <p class="text-sm text-gray-500">Cantidad: {{ $detail->amount }}</p>
                         </div>
                     </div>
-                    <p class="text-lg font-semibold text-gray-700">${{ number_format($detail->price, 2) }}</p>
+                    <p class="text-lg font-semibold text-gray-700">
+                        ${{ number_format($detail->price / 100, 2, '.', ',') }}
+                    </p>
                 </li>
             @endforeach
         </ul>

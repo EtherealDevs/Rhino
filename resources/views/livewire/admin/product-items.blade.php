@@ -68,7 +68,7 @@
                             <div class="w-max">
                                 <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
                                     {{ $stock }}</p>
-                
+
                                 @if ($stock == 0)
                                     <div class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-600 py-1 px-2 text-xs rounded-md"
                                         style="opacity: 1;">
@@ -146,12 +146,12 @@
                                                         class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                                                         Cancelar
                                                     </button>
-                
+
                                                     @csrf
                                                     @method('DELETE')
                                                     <button data-modal-hide="default-modal-{{ $productItemVariation->id }}" type="submit"
                                                         class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Eliminar</button>
-                
+
                                                 </div>
                                             </div>
                                         </div>

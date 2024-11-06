@@ -78,13 +78,13 @@
                                                             text-emerald-600 bg-emerald-100 @endif
                                                         rounded-full">
                                                     {{ $order->orderStatus->name }} -
-                                                    ${{ $order->delivery_price }}
+                                                    ${{ number_format($order->delivery_price / 100, 2, '.', ',') }}
                                                 </div>
                                                 </p>
                                             </div>
 
                                             <div class="block items-center text-base font-semibold text-gray-900">
-                                                ${{ $order->total }}
+                                                ${{ number_format($order->total / 100, 2, ',', '.') }}
                                                 <br>
 
                                                 <p class="text-sm text-gray-500 truncate">
