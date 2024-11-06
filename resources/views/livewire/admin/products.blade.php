@@ -86,8 +86,8 @@
                 </a>
                 <button
                     class="text-slate-800 hover:text-red-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center"
-                    data-modal-target="default-modal-{{ $productItem->id }}"
-                    data-modal-toggle="default-modal-{{ $productItem->id }}">
+                    data-modal-target="default-modal-{{ $productVariation->id }}"
+                    data-modal-toggle="default-modal-{{ $productVariation->id }}">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-4 h-4">
