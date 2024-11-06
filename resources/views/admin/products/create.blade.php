@@ -558,6 +558,17 @@
                 <!-- Modal body -->
                 <form action={{ route('admin.products.store') }} method="POST" class="p-4 md:p-5">
                     @csrf
+                    <!-- Errores -->
+                    @if ($errors->any())
+                        <div class="mb-4">
+                            <ul class="text-sm text-red-500">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
