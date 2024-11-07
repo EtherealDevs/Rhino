@@ -127,49 +127,49 @@
             });
         </script>
 
-        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-x-6 row-span-1">
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-x-6 gap-y-6 row-span-1">
             <div
-                class="bg-gradient-to-r from-[#2F3467] to-[#7D86DD] bg-r  col-span-2 h-5/6 rounded-xl border-t-4 border-purple-300 p-4 mb-2 shadow-md shadow-black/5">
+                class="bg-gradient-to-r from-[#2F3467] to-[#7D86DD] bg-r  col-span-2 h-full lg:h-5/6 rounded-xl border-t-4 border-purple-300 p-4 mb-2 shadow-md shadow-black/5">
                 <?php
                 use Carbon\Carbon;
-
+                
                 date_default_timezone_set('America/Argentina/Buenos_Aires');
-
+                
                 // Obtenemos la fecha actual en Buenos Aires
                 $now = Carbon::now('America/Argentina/Buenos_Aires');
-
+                
                 // Formateamos la fecha para mostrar "hoy es martes 16 de agosto"
                 setlocale(LC_TIME, 'es_ES'); // Establecer el idioma local a español
                 $formattedDate = $now->translatedFormat('l j \de F'); // "l" para el día de la semana, "j" para el día, "F" para el mes
-
+                
                 // Obtenemos la hora actual
                 $currentTime = $now->format('H:i'); // Formato hora:minuto:segundo
-
+                
                 // Obtener el pronóstico del clima actual usando OpenWeatherMap API
                 $apiKey = '4eb017fd3584fc1e33ce24ef2f3dad38'; // Reemplaza 'TU_API_KEY' con tu propia API key de OpenWeatherMap
                 $city = 'Corrientes';
-
+                
                 // Codificar el nombre de la ciudad para evitar problemas con caracteres especiales
                 $encodedCity = urlencode($city);
-
+                
                 // Construir la URL de la solicitud
                 $url = "https://api.openweathermap.org/data/2.5/weather?q={$encodedCity}&units=metric&appid={$apiKey}";
-
+                
                 // Realizar la solicitud HTTP para obtener los datos del clima
                 $response = file_get_contents($url);
-
+                
                 // Decodificar la respuesta JSON
                 $weatherData = json_decode($response);
-
+                
                 // Verificar si se recibió una respuesta válida
                 if ($weatherData && isset($weatherData->main, $weatherData->weather)) {
                     // Extraer los datos del clima
                     $temperature = $weatherData->main->temp;
                     $description = strtolower($weatherData->weather[0]->description); // Convertir descripción a minúsculas
-
+                
                     // Asignar emoji según la descripción del clima en inglés
                     $emoji = '';
-
+                
                     if (strpos($description, 'clear') !== false || strpos($description, 'sunny') !== false) {
                         $emoji = '☀️'; // Soleado o claro
                     } elseif (strpos($description, 'rain') !== false || strpos($description, 'shower') !== false) {
@@ -181,7 +181,7 @@
                     }
                 } else {
                     $errorMessage = 'No se pudo obtener la información del clima en este momento.';
-
+                
                     if ($response) {
                         $errorMessage .= " Respuesta de la API: {$response}";
                     }
@@ -190,12 +190,12 @@
 
                 {{-- HEADER --}}
                 <div class="grid grid-cols-2 lg:grid-cols-4 p-1 justify-center">
-                    <div class="col-span-2 ml-2 mb-3">
+                    <div class="col-span-2 ml-2">
 
                         <div class="justify-center">
-                            <h2 class="text-[#FFF1F1] font-encode font-bold text-2xl leading-8  italic">Bienvenido
+                            <h2 class="text-[#FFF1F1] font-encode font-bold text-3xl leading-8  italic">Bienvenido
                             </h2>
-                            <h3 class="text-white uppercase mt-0 font-blinker font-bold font-lg text-semibold leading-6">
+                            <h3 class="text-white uppercase mt-0 font-blinker font-bold text-xl text-semibold leading-6">
                                 <span class="font-blinker">
                                     {{ $user->name }}
                                 </span>
@@ -208,10 +208,10 @@
                         </div>
                     </div>
                     <div
-                        class="bg-black/20 text-3xl flex justify-center items-center shadow-xl font-bold italic rounded-lg mr-3 lg:mb-3">
+                        class=" bg-black/20 text-3xl flex justify-center items-center shadow-xl font-bold italic rounded-lg mr-3 lg:mb-3">
                         <span class="leading-loose text-white">{{ $currentTime }}</span>
                     </div>
-                    <div>
+                    <div class="">
                         <div>
                             @isset($errorMessage)
                                 <div class="text-sm font-medium text-red-600">{{ $errorMessage }}</div>
@@ -300,7 +300,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 mt-6 lg:mt-0 lg:grid-cols-4 md:grid-cols-2 col-span-2 h-5/6 gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 col-span-2 h-full gap-6">
                 <div class="p-2 bg-white rounded-xl">
                     <p class="font-blinker block font-medium text-md text-center p-4">
                         <span class="font-bold text-4xl">
@@ -360,7 +360,7 @@
 
             <!-- Sección de Pedidos Pendientes -->
             <div
-                class="p-6 col-span-2 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-xl rounded-xl mt-6">
+                class="p-6 col-span-2 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-xl rounded-xl">
                 <div class="max-w-2xl mx-auto">
                     <!-- Header de la sección -->
                     <div class="flex flex-col sm:flex-row justify-between w-full mb-6 items-center">

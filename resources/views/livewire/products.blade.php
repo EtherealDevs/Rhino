@@ -120,6 +120,7 @@
                             @php
                                 $notDeletedItems = collect();
                             @endphp
+
                             @if ($product->items->first())
                                 @foreach ($product->items as $item)
                                     @foreach ($item->sizes as $size)
@@ -131,8 +132,9 @@
                                     @endif
                                 @endforeach
                             @endforeach
+
                             @if ($product->variations->isNotEmpty())
-                            @livewire('product-card', ['product' => $product, 'item' => $notDeletedItems->first()])
+                                @livewire('product-card', ['product' => $product, 'item' => $notDeletedItems->first()])
                             @endif
                         @endif
                     @endforeach
