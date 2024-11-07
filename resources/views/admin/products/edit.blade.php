@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <div class="px-12 mt-12">
+                    <div class="px-4 lg:px-12 mt-12">
                         <div class="mx-auto">
                             <div class="grid grid-cols-2 gap-4 mb-5">
                                 @foreach ($productItem->images as $image)
@@ -168,38 +168,36 @@
                                             @enderror
                                         </div>
 
-                                        <div class="relative z-0 w-full mb-5">
-                                            <div class="grid grid-cols-2 gap-4">
-                                                <div>
-                                                    <label for="color_name"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
-                                                    <input type="text" name="color_name" id="color_name"
-                                                        placeholder="Ingresa el color"
-                                                        value="{{ old('color_name', $productItem->color->name ?? '') }}"
-                                                        readonly
-                                                        class="pt-3 pb-2 block w-full px-0 mt-0 mb-6 bg-transparent border-b-8 appearance-none focus:outline-none"
-                                                        style="border-color: transparent; border-bottom-color: {{ $productItem->color->color ?? '#000000' }};" />
+                                        <div class="relative z-0 w-full mb-5 col-span-2">
+                                            <div class="w-full">
+                                                <label for="color_name"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                                                <input type="text" name="color_name" id="color_name"
+                                                    placeholder="Ingresa el color"
+                                                    value="{{ old('color_name', $productItem->color->name ?? '') }}"
+                                                    readonly
+                                                    class="pt-3 pb-2 block w-full px-0 mt-0 mb-6 bg-transparent border-b-8 appearance-none focus:outline-none"
+                                                    style="border-color: transparent; border-bottom-color: {{ $productItem->color->color ?? '#000000' }};" />
 
-                                                    {{-- Campo oculto para almacenar el color seleccionado --}}
-                                                    <input type="hidden" name="color_id" id="color_id"
-                                                        value="{{ $productItem->color_id ?? '' }}">
+                                                {{-- Campo oculto para almacenar el color seleccionado --}}
+                                                <input type="hidden" name="color_id" id="color_id"
+                                                    value="{{ $productItem->color_id ?? '' }}">
 
-                                                    <div class="flex">
-                                                        <button data-modal-target="crud-modal-color"
-                                                            data-modal-toggle="crud-modal-color"
-                                                            class="block text-white text-3xl bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
-                                                            type="button">+</button>
+                                                <div class="flex w-full">
+                                                    <button data-modal-target="crud-modal-color"
+                                                        data-modal-toggle="crud-modal-color"
+                                                        class="block text-white text-3xl bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-1 text-center"
+                                                        type="button">+</button>
 
-                                                        <button data-modal-target="crud-modal-colorexist"
-                                                            data-modal-toggle="crud-modal-colorexist"
-                                                            class="block ml-2 text-white text-sm bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-2 text-center"
-                                                            type="button">Seleccionar color existente</button>
-                                                    </div>
-
-                                                    @error('color_name')
-                                                        <span class="text-sm text-red-600">{{ $message }}</span>
-                                                    @enderror
+                                                    <button data-modal-target="crud-modal-colorexist"
+                                                        data-modal-toggle="crud-modal-colorexist"
+                                                        class="block ml-2 text-white text-sm bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-2 text-center"
+                                                        type="button">Seleccionar color existente</button>
                                                 </div>
+
+                                                @error('color_name')
+                                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
