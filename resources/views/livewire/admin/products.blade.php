@@ -1,4 +1,4 @@
-<div>
+<div class="overflow-x-auto">
     <tr>
         <td>
 

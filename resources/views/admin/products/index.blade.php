@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('content')
     <div class=" p-6">
-        <div class="p-6 mt-24 bg-white rounded-xl overflow-scroll">
+        <div class="p-6 mt-24 bg-white rounded-xl">
 
             {{-- Encabezado --}}
-            <div class="flex justify-between w-full mb-5 overflow-none">
+            <div class="flex justify-between w-full mb-5">
                 <div class="justify-start">
                     <h2 class="font-josefin font-bold italic text-2xl">
                         Productos
@@ -245,7 +245,7 @@
                             x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
                             x-transition:leave="transition ease-in duration-150"
                             x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
-                            class="overflow-hidden  px-4 py-2 rounded-b-md">
+                            class="overflow-hidden overflow-x-auto  px-4 py-2 rounded-b-md">
                             <table class="mt-1 w-full min-w-max table-auto text-left">
 
                                 <thead>
@@ -295,7 +295,7 @@
                                     </tr>
                                 </thead>
                                 @foreach ($productVariations as $productVariation)
-                                    <tbody>
+                                    <tbody class="overflow-scroll">
                                         @livewire('admin.products', ['id' => $productVariation->id])
                                     </tbody>
                                 @endforeach
@@ -312,121 +312,85 @@
             @endforelse
 
             {{-- Seccion de productos borrados --}}
-            <table>
-                @forelse ($deletedProductItemVariations as $deletedProductItemVariation)
-                    @php
-                        $newDeletedProductItem = $deletedProductItemVariation->item()->withTrashed()->first();
-                        $newDeletedProduct = $newDeletedProductItem->product()->withTrashed()->first();
-                    @endphp
-                    <tr class="bg-red-50 hover:bg-red-100 transition duration-300 w-full">
-                        <td class="p-4 border-b border-gray-300">
-                            <div class="flex items-center gap-3">
-                                <div class="flex flex-col">
-                                    <p class="font-sans text-sm font-semibold text-red-900">
-                                        {{ $newDeletedProduct->name }} <span
-                                            class="text-red-700 font-normal">(Eliminado)</span>
-                                    </p>
-                                    <p class="text-xs text-red-700 opacity-80">
-                                        Eliminado el {{ $deletedProductItemVariation->deleted_at->format('d-m-Y') }}
-                                    </p>
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-200">
+                    @forelse ($deletedProductItemVariations as $deletedProductItemVariation)
+                        @php
+                            $newDeletedProductItem = $deletedProductItemVariation->item()->withTrashed()->first();
+                            $newDeletedProduct = $newDeletedProductItem->product()->withTrashed()->first();
+                        @endphp
+                        <tr
+                            class="bg-red-50 hover:bg-red-100 transition duration-300 w-full md:table-row flex flex-col md:flex-row mb-4 md:mb-0">
+                            <td class="p-4 border-b border-gray-300 md:table-cell flex-1">
+                                <div class="flex flex-col md:flex-row gap-3">
+                                    <div>
+                                        <p class="font-sans text-sm font-semibold text-red-900">
+                                            {{ $newDeletedProduct->name }}
+                                            <span class="text-red-700 font-normal">(Eliminado)</span>
+                                        </p>
+                                        <p class="text-xs text-red-700 opacity-80">
+                                            Eliminado el {{ $deletedProductItemVariation->deleted_at->format('d-m-Y') }}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td class="p-4 border-b border-gray-300">
-                            <div class="flex items-center gap-3">
+                            <td class="p-4 border-b border-gray-300 md:table-cell flex-1">
+                                <div class="flex items-center gap-3">
+                                    <p class="font-sans text-sm font-semibold text-gray-800">
+                                        {{ $newDeletedProductItem->color ? $newDeletedProductItem->color->name : 'Sin color' }}
+                                    </p>
+                                    <span class="h-4 w-4 rounded-full border-2"
+                                        style="background-color: {{ $newDeletedProductItem->color ? $newDeletedProductItem->color->color : '#fff' }}">
+                                    </span>
+                                </div>
+                            </td>
+
+                            <!-- Repite la estructura de los <td> con las demás celdas, siguiendo el mismo patrón. -->
+
+                            <td class="p-4 border-b border-gray-300 md:table-cell flex-1">
                                 <p class="font-sans text-sm font-semibold text-gray-800">
-                                    {{ $newDeletedProductItem->color ? $newDeletedProductItem->color->name : 'Sin color' }}
+                                    ${{ number_format($newDeletedProductItem->price() / 100, 2, ',', '.') }}
                                 </p>
-                                <span class="h-4 w-4 rounded-full border-2"
-                                    style="background-color: {{ $newDeletedProductItem->color ? $newDeletedProductItem->color->color : '#fff' }}">
-                                </span>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td class="p-4 border-b border-gray-300">
-                            <p class="font-sans text-sm font-semibold text-gray-800">
-                                ${{ number_format($newDeletedProductItem->price() / 100, 2, ',', '.') }}
-                            </p>
-                        </td>
+                            <!-- Continúa con las celdas para cada dato necesario -->
 
-                        <td class="p-4 border-b border-gray-300">
-                            <p class="font-sans text-sm font-semibold text-gray-800">
-                                {{ $deletedProductItemVariation->size ? $deletedProductItemVariation->size->name : 'Sin tamaño' }}
-                            </p>
-                        </td>
+                            <td class="p-4 border-b border-gray-300 md:table-cell flex-1">
+                                <p class="font-sans text-sm font-semibold text-gray-800">
+                                    {{ $newDeletedProduct->category->name }}
+                                </p>
+                            </td>
 
-                        <td class="p-4 border-b border-gray-300">
-                            <p class="font-sans text-sm font-semibold text-gray-800">
-                                {{ $deletedProductItemVariation->stock }}
-                            </p>
-                        </td>
-
-                        <td class="p-4 border-b border-gray-300">
-                            <p class="font-sans text-sm font-semibold text-gray-800">
-                                {{ $newDeletedProduct->category->name }}
-                            </p>
-                        </td>
-
-                        <td class="p-4 border-b border-gray-300">
-                            <p class="font-sans text-sm font-semibold text-gray-800">
-                                {{ $newDeletedProduct->brand->name }}
-                            </p>
-                        </td>
-
-                        <td class="p-4 border-b border-gray-300">
-                            <p class="font-sans text-sm font-semibold text-gray-800">
-                                Peso: {{ $newDeletedProduct->weight }} | Volumen: {{ $newDeletedProduct->volume }}
-                            </p>
-                        </td>
-
-                        <td class="p-4 border-b border-gray-300">
-                            <div class="flex space-x-4">
-                                <!-- Botón para recuperar el producto -->
-                                <form
-                                    action="{{ route('admin.productitemvariations.restore', $deletedProductItemVariation->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <button
-                                        class="text-blue-600 hover:text-blue-800 font-semibold transition duration-200 flex items-center gap-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                            viewBox="0 0 24 24">
-                                            <g fill="none">
-                                                <path
-                                                    d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                            <td class="p-4 border-b border-gray-300 md:table-cell flex-1">
+                                <div class="flex space-x-4">
+                                    <form
+                                        action="{{ route('admin.productitemvariations.restore', $deletedProductItemVariation->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button
+                                            class="text-blue-600 hover:text-blue-800 font-semibold transition duration-200 flex items-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                viewBox="0 0 24 24">
                                                 <path fill="currentColor"
                                                     d="M7.16 10.972A7 7 0 0 1 19.5 15.5a1.5 1.5 0 1 0 3 0c0-5.523-4.477-10-10-10a9.97 9.97 0 0 0-7.418 3.295L4.735 6.83a1.5 1.5 0 1 0-2.954.52l1.042 5.91c.069.391.29.74.617.968c.403.282.934.345 1.385.202l5.644-.996a1.5 1.5 0 1 0-.52-2.954l-2.788.491Z" />
-                                            </g>
-                                        </svg>
-                                        Recuperar
-                                    </button>
-                                </form>
-                                <!-- Botón para eliminar definitivamente (descomentado si es necesario) -->
-                                {{--
-                                    <form action="{{ route('admin.productitemvariations.forceDelete', $deletedProductItemVariation->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="text-red-600 hover:text-red-800 font-semibold transition duration-200 flex items-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                                             </svg>
-                                            Eliminar
+                                            Recuperar
                                         </button>
                                     </form>
-                                    --}}
-                            </div>
-                        </td>
-                    </tr>
-
-                @empty
-                    <tr>
-                        <td colspan="100%" class="text-center py-12 p-4">
-                            No tienes productos eliminados
-                        </td>
-                    </tr>
-                @endforelse
-            </table>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="100%" class="text-center py-12 p-4">
+                                No tienes productos eliminados
+                            </td>
+                        </tr>
+                    @endforelse
+                </table>
+            </div>
         </div>
     </div>
     </div>

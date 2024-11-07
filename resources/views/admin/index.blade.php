@@ -21,6 +21,7 @@
                     background-position: 100% 0;
                 }
             }
+
             @keyframes fadeOut {
                 0% {
                     opacity: 1;
@@ -201,7 +202,8 @@
                             </h3>
                         </div>
 
-                        <div class="text-sm font-bold bg-black/20 p-1 w-full lg:w-8/12 px-5 rounded-lg text-white uppercase">
+                        <div
+                            class="text-sm font-bold bg-black/20 p-1 w-full lg:w-8/12 px-5 rounded-lg text-white uppercase">
                             <i class="ri-calendar-2-line"></i> {{ $formattedDate }}
                         </div>
                     </div>
@@ -361,52 +363,47 @@
                 class="p-6 col-span-2 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-white w-full shadow-xl rounded-xl mt-6">
                 <div class="max-w-2xl mx-auto">
                     <!-- Header de la sección -->
-                    <div class="flex justify-between w-full mb-6 items-center">
-                        <h2 class="font-josefin font-bold italic text-3xl text-gray-800">
+                    <div class="flex flex-col sm:flex-row justify-between w-full mb-6 items-center">
+                        <h2
+                            class="font-josefin font-bold italic text-2xl md:text-3xl text-gray-800 text-center sm:text-left">
                             Pedidos
                         </h2>
-
                         <a href="{{ route('admin.orders.index') }}"
-                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-lg shadow-md transition duration-300">
+                            class="mt-4 sm:mt-0 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 text-center">
                             Ver Todos los Pedidos
                         </a>
                     </div>
 
                     <!-- Contenido con altura fija y scroll -->
                     <div
-                        class="w-full mx-auto px-12 md:px-6 h-96 overflow-y-auto border-t border-gray-200 divide-y divide-gray-200">
+                        class="w-full mx-auto px-6 md:px-8 lg:px-12 h-96 overflow-y-auto border-t border-gray-200 divide-y divide-gray-200">
                         @if ($pendingOrders->isEmpty())
                             <p class="text-center text-gray-500 py-10">No hay pedidos pendientes.</p>
                         @else
                             <ul>
                                 @foreach ($pendingOrders as $order)
                                     <!-- Pedido individual -->
-                                    <li class="relative pl-8 sm:pl-32 py-16 group hover:bg-gray-50 transition duration-300">
+                                    <li
+                                        class="relative pl-4 sm:pl-12 md:pl-32 py-8 md:py-16 group hover:bg-gray-50 transition duration-300">
                                         <!-- Etiqueta con el número del pedido -->
-                                        <div class="font-medium text-indigo-500 mb-1 sm:mb-0">
+                                        <div class="font-medium text-indigo-500 mb-1 sm:mb-0 text-sm md:text-base">
                                             Pedido #{{ $order->id }} - Corrientes, Capital
                                         </div>
 
                                         <!-- Línea vertical y marcador de posición -->
                                         <div
-                                            class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden relative">
-                                            {{-- <div
-                                                class="absolute left-2 sm:left-0 before:h-full before:bg-gray-300 sm:before:left-28 before:absolute before:px-px before:-translate-x-1/2 before:translate-y-3">
-                                                <div
-                                                    class="after:absolute after:left-2 sm:after:left-28 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:border-white after:rounded-full after:-translate-x-1/2 after:translate-y-1.5">
-                                                </div>
-                                            </div> --}}
-
-                                            <!-- Fechas del pedido -->
+                                            class="flex flex-col md:flex-row items-start mb-1 group-last:before:hidden relative">
                                             <div class="flex flex-col items-start mb-3 sm:mb-0">
+                                                <!-- Fechas del pedido -->
                                                 <time
-                                                    class="inline-flex items-center justify-center text-xs font-semibold uppercase w-24 h-6 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
+                                                    class="inline-flex items-center justify-center text-xs font-semibold uppercase w-20 md:w-24 h-6 text-emerald-600 bg-emerald-100 rounded-full">{{ $order->created_at->format('d-m-Y') }}</time>
                                                 <time
-                                                    class="mt-2 inline-flex items-center justify-center text-xs font-semibold uppercase w-24 h-6 text-gray-600 bg-gray-100 rounded-full">{{ $order->created_at->format('H:i') }}</time>
+                                                    class="mt-2 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 md:w-24 h-6 text-gray-600 bg-gray-100 rounded-full">{{ $order->created_at->format('H:i') }}</time>
                                             </div>
 
                                             <!-- Detalles del pedido -->
-                                            <div class="text-xl font-bold text-slate-900 mt-2 sm:mt-0 ml-4">
+                                            <div
+                                                class="text-lg md:text-xl font-bold text-slate-900 mt-2 md:mt-0 ml-0 sm:ml-4">
                                                 ${{ $order->total }} -
                                                 <a href="{{ route('admin.orders.show', $order->id) }}"
                                                     class="text-blue-600 hover:underline">
@@ -416,7 +413,7 @@
                                         </div>
 
                                         <!-- Información del usuario -->
-                                        <div class="text-slate-500 mt-2 flex">
+                                        <div class="text-slate-500 mt-2 flex flex-wrap text-sm md:text-base">
                                             <span class="mr-2">{{ $order->user->name }}</span> -
                                             <span class="ml-2">{{ $order->user->email }}</span>
                                         </div>
@@ -427,6 +424,7 @@
                     </div>
                 </div>
             </div>
+
 
         </div>
     </div>
