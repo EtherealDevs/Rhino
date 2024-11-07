@@ -41,8 +41,10 @@
 <div class="flex mt-4 overflow-x-auto max-w-full space-x-2">
     <div class="flex min-w-[300px] lg:min-w-[600px] space-x-2">
         @foreach ($item->images as $image)
-            <img class="w-24 h-24 object-cover cursor-pointer" @click="currentSlide = {{ $loop->index }}"
-                src="{{ url(Storage::url($image->url)) }}" alt="Miniatura {{ $loop->index + 1 }}">
+            @if ($image->is_active)
+                <img class="w-24 h-24 object-cover cursor-pointer" @click="currentSlide = {{ $loop->index }}"
+                    src="{{ url(Storage::url($image->url)) }}" alt="Miniatura {{ $loop->index + 1 }}">
+            @endif
         @endforeach
     </div>
 </div>
