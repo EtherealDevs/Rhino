@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductItem;
 use App\Models\Combo;
+use App\Models\Product;
+use App\Models\ProductSize;
 use App\Models\Sale;
 use Carbon\Carbon;
 
@@ -13,7 +15,8 @@ class HomeController extends Controller
     public function index()
     {
         // Obtener los tres últimos ProductItem
-        $latestProductItems = ProductItem::orderBy('created_at', 'desc')->take(3)->get();
+        // $latestProductItems = ProductItem::orderBy('created_at', 'desc')->get();
+        $latestProductItems = ProductItem::getAvailable()->orderBy('created_at', 'desc')->get()->unique('product_id')->take(3);
         $combos = Combo::all();
         $sales = Sale::all();
 

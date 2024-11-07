@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\DeletedItemVariation;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
@@ -145,7 +146,13 @@ class ProductItemController extends Controller
     public function destroy($productSizeId)
     {
         $variation = ProductSize::find($productSizeId);
-        $variation->delete();
+        try {
+            $variation->delete();
+            DeletedItemVariation::dispatch($variation);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
         // $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
 
         // if (!$productSize) {

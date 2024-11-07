@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\CascadesDeletes;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -83,6 +84,38 @@ class ProductItem extends Model
             return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
         }
         return $this->sizes()->wherePivot('size_id', $size->id)->first()->pivot;
+    }
+    /**
+     * Get the product items that are available for purchase.
+     *
+     * Retrieves all product items associated with their sizes / variations.
+     * It filters out the product items where all their sizes are either deleted or out of stock.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function getAvailable()
+    {
+        $productItems = ProductItem::with('sizes')->orderBy('created_at', 'desc')->get();
+        $productItems = $productItems->filter(function ($item, $key) {
+            foreach ($item->sizes as $sizeKey => $size) {
+                if ($size->pivot->deleted_at == null && $size->pivot->stock > 0) {
+                    return true;
+                }
+            }
+        });
+        return $productItems->toQuery();
+    }
+    public static function getLatest($number)
+    {
+        $test = ProductItem::with('product', 'product.category', 'images', 'sizes')->latest()->get();
+        $test = $test->filter(function ($item, $key) use ($number) {
+            foreach ($item->sizes as $sizeKey => $size) {
+                if ($size->pivot->deleted_at == null) {
+                    return true;
+                }
+            }
+        });
+        dd($test->take(3));
     }
     public function images() : MorphMany
     {

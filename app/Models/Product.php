@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\CascadesDeletes;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Product extends Model
 {
@@ -48,6 +49,10 @@ class Product extends Model
     public function items(): HasMany
     {
         return $this->hasMany(ProductItem::class);
+    }
+    public function variations(): HasManyThrough
+    {
+        return $this->hasManyThrough(ProductSize::class, ProductItem::class);
     }
 
     public function images()

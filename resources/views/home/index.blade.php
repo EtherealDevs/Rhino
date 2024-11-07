@@ -179,9 +179,7 @@
                                     $item = $productItem;
                                     $product = $productItem->product;
                                 @endphp
-                                <div class="@if ($index === 3) desktop-hidden @endif">
                                     @livewire('product-card', ['product' => $product, 'item' => $item])
-                                </div>
                             @endforeach
                         </div>
                     </div>

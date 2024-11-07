@@ -123,7 +123,7 @@
                             @if ($product->items->first())
                                 @foreach ($product->items as $item)
                                     @foreach ($item->sizes as $size)
-                                        @if ($size->pivot->deleted_at == null)
+                                        @if ($size->pivot->deleted_at == null && $size->pivot->stock > 0)
                                             @php
                                                 $notDeletedItems->push($item);
                                             @endphp
@@ -131,7 +131,9 @@
                                     @endif
                                 @endforeach
                             @endforeach
+                            @if ($product->variations->isNotEmpty())
                             @livewire('product-card', ['product' => $product, 'item' => $notDeletedItems->first()])
+                            @endif
                         @endif
                     @endforeach
                 </div>
