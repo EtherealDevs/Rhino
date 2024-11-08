@@ -35,7 +35,7 @@
 
 
                     {{-- Carrousel --}}
-                    <div class="col-span-3 h-full flex rounded-none lg:rounded-br-3xl">
+                    <div class="col-span-3 h-full flex">
                         <div class="max-w-7xl w-full justify-end">
 
                             <div id="default-carousel" class="relative h-full" data-carousel="active">
@@ -61,6 +61,20 @@
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/banner4.png"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            alt="Banner de tienda física">
+
+                                        <!-- Botón que redirige a Google Maps -->
+                                        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+                                            <a href="https://maps.app.goo.gl/ejFFD1789TdA8fuj9" target="_blank"
+                                                class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium transition">
+                                                ¡Visítanos en Google Maps!
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        <img src="/img/banners/banner5.png"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
@@ -179,7 +193,7 @@
                                     $item = $productItem;
                                     $product = $productItem->product;
                                 @endphp
-                                    @livewire('product-card', ['product' => $product, 'item' => $item])
+                                @livewire('product-card', ['product' => $product, 'item' => $item])
                             @endforeach
                         </div>
                     </div>
