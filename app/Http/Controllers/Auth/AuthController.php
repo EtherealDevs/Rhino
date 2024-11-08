@@ -44,10 +44,14 @@ class AuthController extends Controller
         // Crear o encontrar al usuario en la base de datos
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
-            ['name' => $googleUser->getName()],
-            ['last_name' => $googleUser->getLastName]
-            /* Entendes */
+            [
+                'name' => $googleUser->getName(),
+                'provider' => 'google', // Almacenamos el nombre del proveedor (Google)
+                'provider_id' => $googleUser->getId(), // Almacenamos el ID único del usuario en Google
+                'avatar' => $googleUser->getAvatar(), // Almacenamos la URL del avatar
+            ]
         );
+
 
         // Iniciar sesión
         Auth::login($user);
