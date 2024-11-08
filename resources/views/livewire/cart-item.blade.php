@@ -1,7 +1,7 @@
 <li class="py-4 px-4 mb-3 bg-white rounded-lg shadow-lg lg:flex flex-col grid grid-cols-2 sm:flex-row sm:items-center">
     <div class="flex-shrink-0 mx-auto sm:mx-0">
         <img class="h-24 lg:h-16 w-24 lg:w-16 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-            src="/storage/images/product/{{ $cartItem->images[0]->url }}" alt="Product image">
+            src="{{url(Storage::url($cartItem->images[0]->url))}}" alt="Product image">
     </div>
     <div class="sm:w-1/3 text-center mt-4 ml-5 lg:mt-0 sm:text-left">
         <p class="text-xl font-bold text-gray-900 truncate">{{ $cartItem->product->name }}</p>
