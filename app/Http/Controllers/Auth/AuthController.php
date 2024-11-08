@@ -44,7 +44,9 @@ class AuthController extends Controller
         // Crear o encontrar al usuario en la base de datos
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
-            ['name' => $googleUser->getName()]
+            ['name' => $googleUser->getName()],
+            ['last_name' => $googleUser->getLastName]
+            /* Entendes */
         );
 
         // Iniciar sesión
