@@ -211,7 +211,7 @@
                                 <div class=" border-4 rounded-full p-1">
                                     <button x-on:click="open = !open" type="button"
                                         class="flex items-center text-sm font-medium text-white ">
-                                        <img class="h-6 w-6 rounded-full" src="{{ auth()->user()->profile_photo_url }}"
+                                        <img class="h-6 w-6 rounded-full" src="{{ auth()->user()->avatar ?? auth()->user()->profile_photo_url }}"
                                             alt="">
                                     </button>
                                 </div>
