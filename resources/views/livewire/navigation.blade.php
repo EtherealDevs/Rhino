@@ -290,7 +290,9 @@
                                                 <button x-on:click="open = !open" type="button"
                                                     class="flex items-end text-sm font-medium text-white ">
                                                     <img class="h-6 rounded-full"
-                                                        src="{{ auth()->user()->profile_photo_url }}" alt="">
+                                                        src="{{ auth()->user()->avatar ?? auth()->user()->profile_photo_url }}"
+                                                        alt="Avatar">
+
                                                 </button>
                                             </div>
 
