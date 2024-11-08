@@ -52,7 +52,7 @@
                                                     <div class="flex items-center justify-center">
                                                         @foreach ($order->details as $detail)
                                                             <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border transform hover:scale-125"
-                                                                src="{{ url(Storage::url('images/product/' . $detail->productItem()->images->first()->url )) }}" />
+                                                                src="{{ url(Storage::url($detail->productItem()->images->first()->url )) }}" />
                                                         @endforeach
                                                     </div>
                                                     <time

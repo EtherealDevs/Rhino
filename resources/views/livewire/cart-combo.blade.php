@@ -85,7 +85,7 @@
     <a @click.prevent="isOpen = !isOpen" class="flex justify-center items-center">
         <div class="mb-3 py-3 mt-6 w-full max-w-screen-xl transform cursor-pointer flex-col lg:flex-row justify-between rounded-xl bg-white bg-opacity-75 p-6 text-slate-800 transition-shadow duration-500 hover:-translate-y-1 hover:shadow-lg">
 
-        
+
             <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
                 <!-- Imagenes -->
                 <div class="col-span-2 flex space-x-2">
@@ -95,7 +95,7 @@
                             <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
                                 <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
                                     class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-                                    src="{{ url(Storage::url('images/product/' . $comboItems[$i]->item->images->first()->url)) }}"
+                                    src="{{ url(Storage::url($comboItems[$i]->item->images->first()->url)) }}"
                                     alt="Imagen Producto" />
 
                                 <!-- Tooltip -->
@@ -117,7 +117,7 @@
                             <div x-data="{ tooltip: false }" class="relative transition duration-300 ease-in-out">
                                 <img @mouseover="tooltip = true" @mouseleave="tooltip = false"
                                     class="h-14 w-14 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-                                    src="{{ url(Storage::url('images/product/' . $comboItems[$i]->item->images->first()->url)) }}"
+                                    src="{{ url(Storage::url($comboItems[$i]->item->images->first()->url)) }}"
                                     alt="Imagen Producto" />
 
                                 <!-- Tooltip -->
@@ -204,7 +204,7 @@
                 @foreach ($comboItems as $comboItem)
                     <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
                         <img class="w-14 h-14 rounded-full"
-                            src="/storage/images/product/{{ $comboItem->item->images[0]->url }}" alt="Product image">
+                            src="{{url(Storage::url($comboItem->item->images[0]->url))}}" alt="Product image">
 
                         <div class="grid grid-cols-3 sm:grid-cols-3 sm:justify-between sm:items-center w-full">
                             <!-- Nombre y Precio -->

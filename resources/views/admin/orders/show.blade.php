@@ -91,7 +91,7 @@
                     <li class="flex flex-col lg:flex-row items-center justify-between bg-gray-100 p-4 rounded-lg">
                         <div class="flex items-center space-x-4 mb-2 lg:mb-0">
                             <img class="lg:w-14 w-12 h-12 rounded-full border-gray-200 border transform hover:scale-110 transition duration-150"
-                                src="{{ url(Storage::url('images/product/' . $detail->productItem()->images->first()->url)) }}"
+                                src="{{ url(Storage::url($detail->productItem()->images->first()->url)) }}"
                                 alt="{{ $detail->productItem()->name }}">
                             <div class="text-center lg:text-left">
                                 <p class="text-lg font-medium text-gray-700">
