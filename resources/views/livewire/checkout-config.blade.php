@@ -86,7 +86,7 @@
                                         <select name="city" wire:model.live="city"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
                                             <option value="" selected>
-                                                Selecciona una localidad...
+                                                Tienes que incluir Codigo Postal antes de Localidad
                                             </option>
                                             @foreach ($cities as $city2)
                                                 <option value="{{ $city2->id }}">{{ $city2->name }}</option>
