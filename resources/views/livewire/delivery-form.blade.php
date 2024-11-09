@@ -28,39 +28,46 @@
                                 <x-checkout.text-input name="last_name" label="Apellido" wire:model.blur="last_name"
                                     class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
 
-                                <div class="w-full max-w-sm min-w-[200px] mt-4 sm:col-span-2">
-                                    <label class="block mb-1 text-sm text-gray-800">Número de Teléfono</label>
-                                    <div class="relative mt-2">
-                                        <div class="absolute top-2 left-0 flex items-center pl-3">
-                                            <button type="button" id="dropdownButton"
-                                                class="h-full text-sm flex justify-center items-center bg-transparent text-gray-700 focus:outline-none">
-                                                <span id="dropdownSpan">+54</span>
-                                                <!-- Cambia el código de país según sea necesario -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                    class="h-4 w-4 ml-1">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                                </svg>
-                                            </button>
-                                            <div class="h-6 border-l border-gray-200 ml-2"></div>
-                                        </div>
-                                    <input maxlength="11"
-                                        class="w-full h-10 pl-20 bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-400 shadow-sm focus:shadow-md"
-                                        type="text" id="formattedPhone" placeholder="3794-895167"
-                                        oninput="formatPhone(this)" wire:model.blur="formattedNumber"
-                                        value="{{ $formattedNumber }}" />
+                                    <div class="w-full max-w-sm min-w-[200px] mt-4 sm:col-span-2">
+                                        <label class="block mb-1 text-sm text-gray-800">Número de Teléfono</label>
+                                        <div class="relative mt-2">
+                                            <div class="absolute top-2 left-0 flex items-center pl-3">
+                                                <!-- Dropdown para seleccionar código de país -->
+                                                <button type="button" id="dropdownButton" onclick="toggleCountryCodeDropdown()"
+                                                    class="h-full text-sm flex justify-center items-center bg-transparent text-gray-700 focus:outline-none">
+                                                    <span id="dropdownSpan">+54</span> <!-- Valor inicial del código de país -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="h-4 w-4 ml-1">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                                    </svg>
+                                                </button>
+                                                <div id="countryCodeDropdown" class="absolute z-10 bg-white border rounded shadow-md hidden">
+                                                    <ul>
+                                                        <li onclick="selectCountryCode('+1')">+1</li>
+                                                        <li onclick="selectCountryCode('+54')">+54</li>
+                                                        <li onclick="selectCountryCode('+44')">+44</li>
+                                                        <!-- Agrega más opciones de códigos de país según sea necesario -->
+                                                    </ul>
+                                                </div>
+                                                <div class="h-6 border-l border-gray-200 ml-2"></div>
+                                            </div>
 
-                                    <!-- Hidden input to store unformatted number and bind with Livewire -->
-                                    <input type="hidden" name="phone_number" id="unformattedPhone"
-                                        wire:model.live="phone_number" value="{{$phone_number}}" />
-                                    </div>
-                                    @error('phone_number')
-                                        <div class="mt-2 text-red-500 text-xs">
-                                            <span class="error">{{ $message }}</span>
+                                            <!-- Campo de entrada para el número de teléfono con formateo -->
+                                            <input maxlength="11" id="formattedPhone" type="text" placeholder="3794-895167"
+                                                class="w-full h-10 pl-20 bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-400 shadow-sm focus:shadow-md"
+                                                oninput="formatPhone()" wire:model.blur="formattedNumber" value="{{ $formattedNumber }}" />
+
+                                            <!-- Campo oculto para guardar el número sin formato + código de país -->
+                                            <input type="hidden" name="phone_number" id="unformattedPhone" wire:model.live="phone_number" value="{{$phone_number}}" />
                                         </div>
-                                    @enderror
-                                </div>
+
+                                        @error('phone_number')
+                                            <div class="mt-2 text-red-500 text-xs">
+                                                <span class="error">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
+
 
 
                                 <div class="mb-4 col-span-1 sm:col-span-2 grid grid-cols-2 grid-rows-2">
