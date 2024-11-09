@@ -6,11 +6,22 @@
                 class="flex flex-col w-full rounded-lg shadow-lg px-4 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-20 justify-between">
 
 
-                <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]" x-data="{ step: 1, selected: 'domicilio', paymentMethod: 'mercado_pago', file: null, changeSelection(selection) { this.selected = selection; Livewire.dispatch('selectionChanged', { selection: this.selected }) } }">
+                <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]"
+                    x-data="{
+                        step: 1,
+                        selected: 'domicilio',
+                        paymentMethod: 'mercado_pago',
+                        file: null,
+                        changeSelection(selection) {
+                            this.selected = selection;
+                            Livewire.dispatch('selectionChanged', { selection: this.selected })
+                        }
+                    }">
 
                     <!-- Paso 1: Selección del método de envío -->
                     <div x-show="step === 1" class="w-full h-auto m-auto flex flex-col p-8">
-                        <h2 class="text-[#2E3366] text-xl lg:text-3xl font-bold mb-2 lg:mb-6">Vamos a Cotizar el envío 📦</h2>
+                        <h2 class="text-[#2E3366] text-xl lg:text-3xl font-bold mb-2 lg:mb-6">Vamos a Cotizar el envío 📦
+                        </h2>
 
                         <!-- Botones para seleccionar envío -->
                         <div class="relative w-full mt-4 mb-2 rounded-md border h-22 p-1 bg-gray-200">
@@ -19,7 +30,8 @@
                                 <div @click="changeSelection('domicilio')" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'domicilio', 'text-gray-500': selected !== 'domicilio' }"
-                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',1)">
+                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold"
+                                        wire:click="$set('house',1)">
                                         Envío a Domicilio 🏠
                                     </button>
                                 </div>
@@ -28,7 +40,8 @@
                                 <div @click="changeSelection('sucursal')" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-600 font-semibold': selected === 'sucursal', 'text-gray-500': selected !== 'sucursal' }"
-                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',2)">
+                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold"
+                                        wire:click="$set('house',2)">
                                         Envío a Sucursal
                                     </button>
                                 </div>
@@ -37,7 +50,8 @@
                                 <div @click="changeSelection('retiro')" class="flex-grow cursor-pointer text-center">
                                     <button
                                         :class="{ 'text-blue-800 font-semibold': selected === 'retiro', 'text-gray-500': selected !== 'retiro' }"
-                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',3)">
+                                        class="w-full rounded-lg text-sm py-2 px-4 font-bold"
+                                        wire:click="$set('house',3)">
                                         Retiro en Tienda 🏪
                                     </button>
                                 </div>
@@ -57,8 +71,16 @@
                         <!-- Contenido dinamico -->
                         <div class="h-[200px] p-2">
                             <!-- Envío a Domicilio -->
-                            <div x-show="selected === 'domicilio'" class="mt-4">
+                            <div x-show="selected === 'domicilio'" class="mt-2">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                                    <div class="col-span-2">
+                                        <!-- Mensaje que desaparecerá después de 12 segundos -->
+                                        <h2 class="text-sm text-blue-700">
+                                            Tienes que incluir tu Código Postal y la provincia se completará
+                                            automáticamente.
+                                        </h2>
+                                    </div>
+
                                     <!-- Código Postal -->
                                     <div class="col-span-1">
                                         <label for="province" class="text-xs font-semibold py-2">C.P.</label>
@@ -86,7 +108,7 @@
                                         <select name="city" wire:model.live="city"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
                                             <option value="" selected>
-                                                Tienes que incluir Codigo Postal antes de Localidad
+                                                Selecciona una localidad
                                             </option>
                                             @foreach ($cities as $city2)
                                                 <option value="{{ $city2->id }}">{{ $city2->name }}</option>
@@ -124,10 +146,10 @@
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4">
                                             <option value="">Selecciona una sucursal</option>
                                             @isset($sucursales)
-                                            @foreach ($sucursales as $sucursal)
-
-                                            <option value="{{$sucursal['IdCentroImposicion']}}">{{$sucursal['Sucursal']}}</option>
-                                            @endforeach
+                                                @foreach ($sucursales as $sucursal)
+                                                    <option value="{{ $sucursal['IdCentroImposicion'] }}">
+                                                        {{ $sucursal['Sucursal'] }}</option>
+                                                @endforeach
                                             @endisset
                                         </select>
                                         @error('sucursal')
@@ -141,13 +163,15 @@
 
                             <!-- Retiro yo -->
                             <div x-show="selected === 'retiro'" class="mt-4 mb-4">
-                                <p class="text-gray-700 text-md">Puedes retirar tu pedido directamente de nuestro local sin
+                                <p class="text-gray-700 text-md">Puedes retirar tu pedido directamente de nuestro local
+                                    sin
                                     costo adicional.</p>
                             </div>
                         </div>
 
                         <!-- Botón para continuar al siguiente paso -->
-                        <button @click="async () => {
+                        <button
+                            @click="async () => {
                             const canProceed = await $wire.canGoToNextStep();
                             if (canProceed) {
                                 step = 2;
@@ -162,8 +186,7 @@
 
 
                     <!-- Paso 2: Selección del método de pago -->
-                    <div x-show="step === 2"
-                        class="w-full h-auto m-auto flex flex-col p-8">
+                    <div x-show="step === 2" class="w-full h-auto m-auto flex flex-col p-8">
                         <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago? 💰</h2>
 
                         <div class="radio-section">
@@ -172,8 +195,8 @@
 
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
-                                    <input type="radio" id="mercado_pago" name="paymentMethod" x-model="paymentMethod"
-                                        value="mercado_pago" />
+                                    <input type="radio" id="mercado_pago" name="paymentMethod"
+                                        x-model="paymentMethod" value="mercado_pago" />
                                     <label class="text-white" for="mercado_pago">Mercado Pago</label>
                                 </div>
 
@@ -207,7 +230,8 @@
                             <div class="mb-4">
                                 <h3 class="text-lg font-semibold text-gray-700">Método de Envío:</h3>
                                 <p class="text-gray-600"
-                                    x-text="selected === 'domicilio' ? 'Envío a Domicilio' : 'Envío a Sucursal': 'Retiro en Tienda"></p>
+                                    x-text="selected === 'domicilio' ? 'Envío a Domicilio' : 'Envío a Sucursal': 'Retiro en Tienda">
+                                </p>
 
                                 <!-- Mostrar detalles del envío a domicilio -->
                                 <div x-show="selected === 'domicilio'" class="mt-2">
@@ -239,8 +263,7 @@
                         <!-- Botón para realizar la compra -->
                         <button wire:click="save"
                             class="w-full bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 shadow-lg mt-auto bottom-4">
-                            <a :href=""
-                                class="flex items-center justify-center">
+                            <a :href="" class="flex items-center justify-center">
                                 <p class="text-white text-lg font-semibold font-josefin">
                                     <span
                                         x-text="paymentMethod === 'transferencia' ? 'Rellenemos Informacion de Envio' : '🛒 Confirmar y pagar con Mercado Pago'"></span>
