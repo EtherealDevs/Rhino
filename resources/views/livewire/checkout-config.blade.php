@@ -76,7 +76,7 @@
                                     <div class="col-span-2">
                                         <!-- Mensaje que desaparecerá después de 12 segundos -->
                                         <h2 class="text-sm text-blue-700">
-                                            Tienes que incluir tu Código Postal y la provincia se completará
+                                            Incluye tu Código Postal y la Provincia se completará
                                             automáticamente.
                                         </h2>
                                     </div>
