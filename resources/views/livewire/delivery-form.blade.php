@@ -11,7 +11,7 @@
 
             {{-- Formulario --}}
             <div
-                class="max-w-xl col-span-1 lg:col-span-2 h-full space-y-8 w-full p-10 bg-transparent rounded-xl shadow-lg z-40">
+                class="max-w-xl col-span-1 lg:col-span-2 h-full space-y-8 w-full p-10 bg-transparent rounded-xl shadow-lg z-50">
                 <div class="h-full">
                     <div class="">
                         {{-- Formulario de envio --}}
@@ -159,8 +159,8 @@
                             <div class="max-w-md mx-auto space-y-6">
                                 <div class="space-y-4">
                                     @if ($addresses->isNotEmpty())
-                                        
-                                    
+
+
                                     @foreach ($addresses as $address)
                                         <div class="relative">
                                             <input wire:model.live="selectedAddressId" type="radio"
