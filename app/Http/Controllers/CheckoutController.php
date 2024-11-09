@@ -217,7 +217,7 @@ class CheckoutController extends Controller
             'selectedMethod' => 'required|in:domicilio,sucursal,retiro',
             'delivery_price' => 'nullable|numeric',
         ]);
-        
+
         $user = Auth::user();
         $items = $user->cart->contents;
 
@@ -243,9 +243,12 @@ class CheckoutController extends Controller
                     ]);
                 $order = $orderService->createSucursalOrder($payment, $user, $sucursal, (float)$request->delivery_price);
                 break;
-            case 'retiro':
-                $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);
-                break;
+                case 'retiro':
+                    $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);
+
+                    $order->delivery_service_id = 2;
+                    $order->save();
+                    break;
         }
 
 
