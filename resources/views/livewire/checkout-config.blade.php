@@ -55,10 +55,10 @@
                         </div>
 
                         <!-- Contenido dinamico -->
-                        <div class="h-[200px] p-1">
+                        <div class="h-[200px] p-2">
                             <!-- Envío a Domicilio -->
                             <div x-show="selected === 'domicilio'" class="mt-4">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
                                     <!-- Código Postal -->
                                     <div class="col-span-1">
                                         <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
