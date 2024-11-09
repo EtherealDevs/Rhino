@@ -4,13 +4,13 @@
         <div class="rounded-none lg:rounded-3xl w-full bg-gradient-to-b from-[#343678] to-[#273053]">
             <div
                 class="flex flex-col w-full rounded-lg shadow-lg px-4 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-20 justify-between">
-                
+
 
                 <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]" x-data="{ step: 1, selected: 'domicilio', paymentMethod: 'mercado_pago', file: null, changeSelection(selection) { this.selected = selection; Livewire.dispatch('selectionChanged', { selection: this.selected }) } }">
 
                     <!-- Paso 1: Selección del método de envío -->
                     <div x-show="step === 1" class="w-full h-auto m-auto flex flex-col p-8">
-                        <h2 class="text-[#2E3366] text-3xl font-bold mb-6">Vamos a Cotizar el envío 📦</h2>
+                        <h2 class="text-[#2E3366] text-xl lg:text-3xl font-bold mb-2 lg:mb-6">Vamos a Cotizar el envío 📦</h2>
 
                         <!-- Botones para seleccionar envío -->
                         <div class="relative w-full mt-4 mb-2 rounded-md border h-22 p-1 bg-gray-200">
@@ -36,7 +36,7 @@
                                 <!-- Botón Retiro yo -->
                                 <div @click="changeSelection('retiro')" class="flex-grow cursor-pointer text-center">
                                     <button
-                                        :class="{ 'text-blue-600 font-semibold': selected === 'retiro', 'text-gray-500': selected !== 'retiro' }"
+                                        :class="{ 'text-blue-800 font-semibold': selected === 'retiro', 'text-gray-500': selected !== 'retiro' }"
                                         class="w-full rounded-lg text-sm py-2 px-4 font-bold" wire:click="$set('house',3)">
                                         Retiro en Tienda 🏪
                                     </button>
@@ -51,16 +51,16 @@
                                     'left-1': selected === 'domicilio'
                                 }"
                                 x-text="selected === 'domicilio' ? 'Envío a Domicilio 🏠' : selected === 'sucursal' ? 'Envío a Sucursal' : 'Retiro en Tienda 🏪'"
-                                class="bg-white shadow text-sm flex items-center justify-center w-1/3 rounded h-3/4 transition-all duration-150 ease-linear top-[8px] absolute text-blue-700 font-semibold"></span>
+                                class="bg-white shadow text-sm flex items-center justify-center w-1/3 px-4 rounded h-3/4 transition-all duration-150 ease-linear top-[8px] absolute text-gray-800 font-semibold"></span>
                         </div>
 
                         <!-- Contenido dinamico -->
                         <div class="h-[200px] p-2">
                             <!-- Envío a Domicilio -->
                             <div x-show="selected === 'domicilio'" class="mt-4">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                     <!-- Código Postal -->
-                                    <div class="col-span-2">
+                                    <div class="col-span-1">
                                         <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
                                             wire:model.blur="zip_code"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
@@ -79,7 +79,7 @@
                                     </div>
 
                                     <!-- Localidad -->
-                                    <div class="mb-4 col-span-1">
+                                    <div class="mb-4 col-span-2">
                                         <label for="city"
                                             class="text-xs font-semibold text-gray-600 py-2">Localidad</label>
                                         <select name="city" wire:model.live="city"
@@ -111,7 +111,7 @@
                             <div x-show="selected === 'sucursal'" class="mt-4 mb-4">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <!-- Código Postal -->
-                                    <div>
+                                    <div class="">
                                         <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
                                             wire:model.blur="zip_code"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
