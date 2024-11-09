@@ -3,38 +3,39 @@
 @section('content')
     <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg">
         <h1 class="text-3xl font-semibold text-gray-800 mb-4">Detalle del Pedido #{{ $order->id }}</h1>
+
+        <!-- Estado del Pedido -->
         <div
-        class="inline-flex items-center justify-center text-xs font-semibold uppercase w-24 xl:w-40 h-6 rounded-full
+            class="inline-flex items-center justify-center text-xs font-semibold uppercase w-24 xl:w-40 h-6 rounded-full
             @if ($order->orderStatus->id == 5) text-red-500 bg-red-100
             @elseif ($order->orderStatus->id == 1) text-yellow-600 bg-yellow-300
             @else text-emerald-600 bg-emerald-100 @endif">
-        {{ $order->orderStatus->name }}
-    </div>
-    </p>
+            {{ $order->orderStatus->name }}
+        </div>
 
         <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <!-- Información del usuario y estado del pedido -->
+            <!-- Información del Usuario -->
             <div class="space-y-3">
-                <p class="text-lg text-gray-600"><strong class="font-medium">Usuario:</strong> {{ $order->user->name }}</p>
-
-                <p class="text-sm font-medium text-gray-900">
-
-
-                <p class="text-lg text-gray-600"><strong class="font-medium">Fecha de Creación:</strong>
-                    {{ $order->created_at->format('d-m-Y H:i') }}</p>
+                <p class="text-lg text-gray-600">
+                    <strong class="font-medium">Usuario:</strong> {{ $order->user->name }}
+                </p>
+                <p class="text-lg text-gray-600">
+                    <strong class="font-medium">Fecha de Creación:</strong> {{ $order->created_at->format('d-m-Y H:i') }}
+                </p>
             </div>
+        </div>
 
+        <div class="">
             <!-- Sección de Comprobante y Método de Pago -->
             @if ($order->paymentMethod->id)
-                <div class="flex justify-center">
+                <div class="w-1/2">
                     @if ($order->comprobante)
-                        <!-- Comprobante Existente -->
                         <div class="mt-4 bg-gray-200 p-4 rounded w-full sm:w-auto flex flex-col items-center">
                             <img src="{{ asset('storage/' . $order->comprobante->url) }}"
                                 alt="Comprobante de pago del pedido #{{ $order->id }}"
                                 class="w-full sm:w-64 h-auto object-cover rounded mb-4">
 
-                            @if ($order->orderStatus->id == 1 || $order->orderStatus->id == 2)
+                            @if (in_array($order->orderStatus->id, [1, 2]))
                                 <p class="text-sm text-gray-700 font-semibold">Pago: {{ $order->orderStatus->name }}</p>
                             @else
                                 <button
@@ -44,12 +45,12 @@
                             @endif
                         </div>
                     @else
-                        <!-- Información para Transferencia y Subir Comprobante -->
+                        <!-- Información para Transferencia -->
                         <div class="mt-4 bg-gray-200 p-4 rounded w-full sm:w-auto flex flex-col items-start space-y-2">
                             <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
-                            <p><strong>Alias:</strong> </p>
-                            <p><strong>CBU:</strong> </p>
-                            <p><strong>Nombre:</strong> </p>
+                            <p><strong>Alias:</strong></p>
+                            <p><strong>CBU:</strong></p>
+                            <p><strong>Nombre:</strong></p>
 
                             <form action="{{ route('comprobante.store') }}" method="post" enctype="multipart/form-data"
                                 class="w-full">
@@ -60,7 +61,6 @@
                                 <input type="number" id="dni" name="dni" placeholder="DNI en el comprobante"
                                     class="mt-2 w-full border border-gray-300 rounded px-2 py-1">
 
-                                <!-- Botón para subir el comprobante -->
                                 <button type="submit"
                                     class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 w-full">
                                     Subir Comprobante
@@ -70,16 +70,37 @@
                     @endif
                 </div>
             @endif
+
+            <!-- Sección para Pactar Retiro del Pedido -->
+            @if ($order->delivery_service_id === 2)
+            <div class="w-1/2 mb-10 mt-12">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pactar retiro del pedido</h2>
+                <div class="mt-4">
+                    <button onclick="contactRino()" class="bg-[#25D366] text-white flex items-center px-4 py-2 rounded-md hover:bg-[#1EBE57] transition">
+                        <!-- Icono de WhatsApp en SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28"/></svg>
+                        <p class="p-2 text-lg font-bold">Pactar retiro con Rino</p>
+                    </button>
+                </div>
+            </div>
+
+            @endif
+
+            <script>
+                function contactRino() {
+                    window.location.href="https://wa.me/5493794316606?text={{ urlencode('Hola Rino!! te contacto para retirar el pedido número ' . $order->id) }}";
+                }
+            </script>
         </div>
 
+        <!-- Detalles de Productos -->
         <h3 class="text-2xl font-semibold text-gray-800 mb-4">Detalles de Productos</h3>
         <ul class="space-y-4">
             @foreach ($order->details as $detail)
                 <li class="flex items-center justify-between bg-gray-100 p-4 rounded-lg">
                     <div class="flex items-center space-x-4">
                         <img class="lg:w-12 h-8 lg:h-12 w-8 rounded-full border-gray-200 border transform hover:scale-125"
-                            src="{{ url(Storage::url($detail->productItem()->images->first()->url)) }}"
-                            alt="">
+                            src="{{ url(Storage::url($detail->productItem()->images->first()->url)) }}" alt="">
                         <div>
                             <p class="text-lg font-medium text-gray-700">{{ $detail->productItem()->product->name }}</p>
                             <p class="text-sm text-gray-500">Cantidad: {{ $detail->amount }}</p>
@@ -92,22 +113,24 @@
             @endforeach
         </ul>
 
+        <!-- Botones de Navegación y Total -->
         <div class="justify-between mt-6 gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
-            <!-- Contenedor de los botones -->
             <div class="lg:col-span-4 w-full flex flex-col sm:flex-row sm:justify-start sm:gap-4 items-center">
-                <!-- Botón 'Ver lista de pedidos' -->
+                <!-- Botón "Ver lista de pedidos" -->
                 <div class="w-full sm:w-3/12 mb-4 sm:mb-0">
                     <a href="{{ route('orders.index') }}"
-                        class="w-full flex justify-center px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-center">
+                        class="w-full flex justify-center items-center gap-2 px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-center transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="w-6 h-6" viewBox="0 0 24 24"><path fill="currentColor" d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"/></svg>
                         Ver lista de pedidos
                     </a>
                 </div>
 
-                <!-- Botón 'Contactanos por algún problema' -->
+                <!-- Botón "Contactanos por algún problema" -->
                 <div class="w-full sm:w-3/12">
-                    <a href="https://wa.me/c/5493794316606"
-                        class="w-full flex justify-center px-6 py-2 text-white bg-green-400 hover:bg-green-600 rounded-lg font-semibold text-center">
-                        Contactanos por algún problema
+                    <a href="https://wa.me/5493794316606?text={{ urlencode('Hola Rinooo!! 👋🏻 tengo un problema con el pedido número ' . $order->id) }}"
+                        class="w-full flex justify-center items-center gap-2 px-6 py-2 text-white bg-[#25D366] hover:bg-[#1EBE57] rounded-lg font-semibold text-center transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28"/></svg>
+                        Tengo un Problema
                     </a>
                 </div>
             </div>
