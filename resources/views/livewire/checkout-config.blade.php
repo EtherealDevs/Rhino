@@ -61,7 +61,8 @@
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
                                     <!-- Código Postal -->
                                     <div class="col-span-1">
-                                        <x-checkout.text-input inputmode="numeric" name="zip_code" label="Código Postal"
+                                        <label for="province" class="text-xs font-semibold py-2">Codigo Pos.</label>
+                                        <x-checkout.text-input inputmode="numeric" name="zip_code" label=""
                                             wire:model.blur="zip_code"
                                             class="block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
                                     </div>
