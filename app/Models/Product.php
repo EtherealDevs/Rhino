@@ -19,7 +19,7 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
-    protected $fillable = ['name', 'slug', 'description', 'category_id', 'brand_id','volume','weight'];
+    protected $fillable = ['name', 'slug', 'description', 'category_id', 'brand_id', 'volume', 'weight'];
     protected $cascadeDeletes = ['items'];
 
     public function tags(): BelongsToMany
@@ -63,5 +63,10 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Reviews::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }
