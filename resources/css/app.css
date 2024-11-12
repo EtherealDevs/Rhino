@@ -8,7 +8,7 @@
 /* HTML: <div class="loader"></div> */
 /* HTML: <div class="loader"></div> */
 
-/* #loader {
+#loader {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -16,14 +16,13 @@
     border: 5px solid #f5f9ff;
     border-top-color: transparent;
     animation: spin 1s linear infinite;
-} */
-/*
+}
 @keyframes spin {
     100% {
         transform: rotate(360deg);
     }
 }
- */
+
 #polygon {
     height: 450px;
     width: 954px;

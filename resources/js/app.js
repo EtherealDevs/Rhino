@@ -1,4 +1,4 @@
-/* import './bootstrap';
+import './bootstrap';
 
 document.addEventListener("DOMContentLoaded", () => {
     const containLoaderElement = document.querySelector("#contain-loader");
@@ -25,4 +25,4 @@ document.addEventListener("DOMContentLoaded", () => {
       loaderElement.style.display = "none";
     }
   });
- */
+
