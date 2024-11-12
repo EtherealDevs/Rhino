@@ -64,8 +64,7 @@
                                                     @if ($images->isNotEmpty())
                                                         @php
                                                             // Construir la URL de la imagen
-                                                            $imageUrl = asset(
-                                                                'storage/images/product/' . $images[0]->url,
+                                                            $imageUrl = asset( $images[0]->url,
                                                             );
                                                         @endphp
                                                         <img src="{{ $imageUrl }}"
