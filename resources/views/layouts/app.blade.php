@@ -74,9 +74,9 @@
             @yield('content')
         </main>
 
-        <div class="z-40">
+        {{-- <div class="z-40">
             @livewire('banner')
-        </div>
+        </div> --}}
 
         @livewire('footer')
     </div>
