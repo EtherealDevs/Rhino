@@ -27,7 +27,7 @@
                 <div class="col-span-5 ml-0 lg:ml-2 z-10 mb-8">
                     <div class="xl:ml-[18px] 2xl:ml-0 flex w-full justify-center lg:justify-end">
                         <div
-                            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 xl:mx-12 sm:gap-6 md:gap-8 lg:gap-8 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20">
+                            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-24 xl:ml-0">
                             @foreach ($products as $product)
                                 @if ($product->items->first())
                                     @php

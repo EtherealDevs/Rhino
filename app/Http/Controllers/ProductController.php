@@ -43,10 +43,10 @@ class ProductController extends Controller
         }
         // Calcular el promedio de estrellas
         $averageRating = $product->reviews()->avg('rating');
-        
+
         // Redondear a la estrella más cercana
         $averageRating = round($averageRating * 2) / 2;
-        
+
         $item = ProductItem::with(['product' => ['items' => ['color', 'sizes'], 'category'], 'sizes', 'images'])
         ->where('id', $id)
         ->first();
@@ -91,7 +91,7 @@ class ProductController extends Controller
         }
 
         // Filtrar por rango de precios, considerando sale_price y original_price
-        if ($minPrice && $maxPrice) {
+        /* if ($minPrice && $maxPrice) {
             $productsQuery->whereHas('items', function ($query) use ($minPrice, $maxPrice) {
                 $query->where(function ($query) use ($minPrice, $maxPrice) {
                     // Verifica si sale_price está dentro del rango
@@ -101,18 +101,20 @@ class ProductController extends Controller
                     });
                 });
             });
-        }
+        } */
 
         // Obtener los productos filtrados
         $products = $productsQuery->get();
 
         // Obtener todas las categorías en estructura jerárquica
-        $categories = Category::hierarchicalCategories();
+        $categories = Category::whereNotNull('parent_id')->get();
+
 
         // Obtener todos los talles
         $sizes = Size::all();
         $combos = Combo::all();
 
+        /* @dd($products); */
         return view('products.filter', compact('products', 'categories', 'sizes', 'combos'));
     }
 }
