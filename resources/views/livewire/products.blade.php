@@ -7,16 +7,18 @@
                 <div class="grid grid-cols-4 mt-3 relative">
                     @foreach ($categories as $category)
                         @if (is_null($category->parent_id))
-                            <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold "
-                                wire:click="selectCategory({{ $category->id }})">
+                            <a href="{{ route('collection.index', ['category' => $category->id]) }}"
+                                class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
                                 <p>{{ $category->name }}</p>
-                            </div>
+                            </a>
                         @endif
                     @endforeach
                 </div>
                 <div class="underline-bar absolute"></div>
             </div>
         </div>
+
+
 
         {{-- Main content with sidebar and products --}}
         <div class="justify-between md:flex relative">

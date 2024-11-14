@@ -11,6 +11,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DeliveryServiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\FirebaseController;
 use App\Http\Controllers\WhapController;
 use Laravel\Socialite\Facades\Socialite;
@@ -54,6 +55,8 @@ Route::get('/contact', function () {
 });
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+Route::get('/collection/{category}', [CollectionController::class, 'index'])->name('collection.index');
 
 Route::get('/about', function () {
     return view('about.index');
