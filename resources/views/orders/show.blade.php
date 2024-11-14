@@ -46,7 +46,8 @@
                         </div>
                     @else
                         <!-- Información para Transferencia -->
-                        <div class="mt-4 bg-gray-200 p-4 rounded w-full sm:w-auto flex flex-col items-start space-y-2">
+                        <div
+                            class="mt-4 bg-white  border border-slate-700 p-6 rounded-xl w-full sm:w-auto flex flex-col items-start space-y-2">
                             <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
                             <p><strong>Alias:</strong> {{ $transferInfo->alias }}</p>
                             <p><strong>CBU:</strong> {{ $transferInfo->cbu }}</p>
@@ -55,14 +56,29 @@
                             <form action="{{ route('comprobante.store') }}" method="post" enctype="multipart/form-data"
                                 class="w-full">
                                 @csrf
-                                <input type="file" id="file" name="file" accept="image/*,*.pdf"
-                                    class="mt-2 block w-full" />
-                                <input type="hidden" id="order_id" name="order_id" value="{{ $order->id }}">
-                                <input type="number" id="dni" name="dni" placeholder="DNI en el comprobante"
-                                    class="mt-2 w-full border border-gray-300 rounded px-2 py-1">
+                                <div class="space-y-4">
+                                    <!-- Carga de archivo con SVG -->
+                                    <label for="file"
+                                        class="w-full flex items-center justify-center border border-gray-300 rounded py-4 cursor-pointer">
+                                        <!-- SVG que representa el ícono de carga de archivo -->
+                                        <svg class="h-6 w-6 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 6h10M7 9h10m-8 8h6"/><path d="M3 12h-.4a.6.6 0 0 0-.6.6v8.8a.6.6 0 0 0 .6.6h18.8a.6.6 0 0 0 .6-.6v-8.8a.6.6 0 0 0-.6-.6H21M3 12V2.6a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6.6V12M3 12h18"/></g></svg>
+                                        <span class="text-gray-700">Cargar archivo</span>
+                                        <!-- Input hidden, el cual activará el cuadro de diálogo de carga al hacer clic en el label -->
+                                        <input type="file" id="file" name="file" accept="image/*,.pdf"
+                                            class="hidden" />
+                                    </label>
+
+                                    <!-- Input oculto con el ID del pedido -->
+                                    <input type="hidden" id="order_id" name="order_id" value="{{ $order->id }}">
+
+                                    <!-- Input para el DNI con un diseño mejorado -->
+                                    <input type="number" id="dni" name="dni" placeholder="DNI en el comprobante"
+                                        class="mt-2 w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" />
+                                </div>
+
 
                                 <button type="submit"
-                                    class="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition duration-200 w-full">
+                                    class="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-xl transition duration-200 w-full">
                                     Subir Comprobante
                                 </button>
                             </form>
@@ -77,7 +93,7 @@
                     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pactar retiro del pedido</h2>
                     <div class="mt-4">
                         <button onclick="contactRino()"
-                            class="bg-[#25D366] text-white flex items-center px-4 py-2 rounded-md hover:bg-[#1EBE57] transition">
+                            class="bg-[#25D366] text-white flex items-center px-4 py-2 rounded-xl hover:bg-[#1EBE57] transition">
                             <!-- Icono de WhatsApp en SVG -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" width="1em" height="1em"
                                 viewBox="0 0 24 24">
@@ -128,7 +144,7 @@
                 <!-- Botón "Ver lista de pedidos" -->
                 <div class="w-full sm:w-3/12 mb-4 sm:mb-0">
                     <a href="{{ route('orders.index') }}"
-                        class="w-full flex justify-center items-center gap-2 px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-center transition">
+                        class="w-full flex justify-center items-center gap-2 px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-xl font-semibold text-center transition">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="w-6 h-6"
                             viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -141,7 +157,7 @@
                 <!-- Botón "Contactanos por algún problema" -->
                 <div class="w-full sm:w-3/12">
                     <a href="https://wa.me/5493794316606?text={{ urlencode('Hola Rinooo!! 👋🏻 tengo un problema con el pedido número ' . $order->id) }}"
-                        class="w-full flex justify-center items-center gap-2 px-6 py-2 text-white bg-[#25D366] hover:bg-[#1EBE57] rounded-lg font-semibold text-center transition">
+                        class="w-full flex justify-center items-center gap-2 px-6 py-2 text-white bg-[#25D366] hover:bg-[#1EBE57] rounded-xl font-semibold text-center transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" width="1em" height="1em"
                             viewBox="0 0 24 24">
                             <path fill="currentColor"
