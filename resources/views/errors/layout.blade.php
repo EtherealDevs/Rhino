@@ -84,7 +84,7 @@
         .polygon {
             position: absolute;
             aspect-ratio: 1155 / 678;
-            width: 12rem;
+            width: 10rem;
             /* Ajusta el tamaño del polígono */
             height: auto;
             /* Mantén la relación de aspecto */

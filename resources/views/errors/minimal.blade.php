@@ -59,27 +59,60 @@
             margin-right: 10px;
         }
 
-        .background {
+        .polygon-container {
             position: absolute;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
-            background: radial-gradient(circle at center, #bb94b7, #004cff);
-            opacity: 0.7;
-            z-index: 0;
-            filter: blur(100px);
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .polygon {
+            position: absolute;
+            width: 200px;
+            /* Ajuste del tamaño */
+            height: auto;
+            background: linear-gradient(to top right, #0051ff, #bb94b7);
+            opacity: 0.5;
+            /* Aumentar opacidad para visibilidad */
+            clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);
+        }
+
+        /* Posiciones de los polígonos */
+        .polygon1 {
+            top: 10%;
+            left: 10%;
+            transform: rotate(20deg);
+        }
+
+        .polygon2 {
+            top: 50%;
+            left: 50%;
+            transform: rotate(50deg) translate(-50%, -50%);
+        }
+
+        .polygon3 {
+            bottom: 10%;
+            right: 10%;
+            transform: rotate(-30deg);
         }
     </style>
 </head>
 
 <body>
-    <div class="background"></div>
     <div class="container">
-        <img src="public\img\rino-blue.png" alt="Logo Rino" class="logo">
+        <img src="public/img/rino-blue.png" alt="Logo Rino" class="logo">
         <div class="message">
             @yield('message')
         </div>
+    </div>
+    <div class="polygon-container">
+        <div class="polygon polygon1"></div>
+        <div class="polygon polygon2"></div>
+        <div class="polygon polygon3"></div>
     </div>
 </body>
 
