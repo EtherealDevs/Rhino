@@ -19,7 +19,9 @@ class CollectionController extends Controller
         // Obtén todos los productos de las categorías hijas
         $products = Product::whereIn('category_id', $childCategories->pluck('id'))->get();
 
+        $categories = Category::all();
+
         // Pasa la categoría y los productos a la vista
-        return view('collection.index', compact('category', 'products'));
+        return view('collection.index', compact('category', 'products', 'categories'));
     }
 }

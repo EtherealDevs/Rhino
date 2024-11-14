@@ -14,8 +14,27 @@
                 <div class="container mx-auto flex flex-col items-center">
                     <div class="flex mt-12 flex-col w-full sticky md:top-36 lg:w-1/3 md:mt-12 px-8">
                         <div class="text-center">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full grid grid-cols-8 justify-between p-14 overflow-x-hidden">
+                    <div class="mx-auto col-span-8 relative">
+                        <div class="w-12 text-2xl font-extrabold font-josefin italic border-gray-500">Colección
                             <h1 class="text-4xl font-bold text-gray-900 sm:text-6xl">{{ $category->name }}</h1>
                         </div>
+                        <div class="grid grid-cols-4 mt-3 relative">
+                            @foreach ($categories as $category)
+                                @if (is_null($category->parent_id))
+                                    <a href="{{ route('collection.index', ['category' => $category->id]) }}"
+                                        class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
+                                        <p>{{ $category->name }}</p>
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="underline-bar absolute"></div>
                     </div>
                 </div>
             </div>
