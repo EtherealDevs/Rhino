@@ -40,7 +40,8 @@ class MyStoreController extends Controller
 
         // Categorías de productos más vendidos
         $topCategories = OrderDetail::select('products.category_id', DB::raw('SUM(order_details.amount) as total_sold'))
-            ->join('products', 'order_details.product_item_id', '=', 'products.id')
+            ->join('products_sizes', 'order_details.variation_id', '=', 'products_sizes.id')
+            ->join('products', 'products_sizes.product_item_id', '=', 'products.id')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->where('orders.order_status_id', 4)
             ->groupBy('products.category_id')
@@ -49,7 +50,8 @@ class MyStoreController extends Controller
             ->get();
 
         $earningsByCategory = OrderDetail::select('products.category_id', DB::raw('SUM(order_details.amount * order_details.price) as total_earnings'))
-            ->join('products', 'order_details.product_item_id', '=', 'products.id')
+            ->join('products_sizes', 'order_details.variation_id', '=', 'products_sizes.id')
+            ->join('products', 'products_sizes.product_item_id', '=', 'products.id')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->where('orders.order_status_id', 4)
             ->groupBy('products.category_id')
@@ -57,12 +59,16 @@ class MyStoreController extends Controller
             ->limit(4)
             ->get();
 
+        // Obtener las categorías relacionadas con las ganancias por categoría
         $categories = Category::whereIn('id', $earningsByCategory->pluck('category_id'))->get()->keyBy('id');
 
+        // Obtener las categorías relacionadas con los productos más vendidos
         $categories = Category::whereIn('id', $topCategories->pluck('category_id'))->get()->keyBy('id');
 
+        // Ganancias por producto
         $earningsByProduct = OrderDetail::select('products.id', 'products.name', DB::raw('SUM(order_details.amount * order_details.price) as total_earnings'))
-            ->join('products', 'order_details.product_item_id', '=', 'products.id')
+            ->join('products_sizes', 'order_details.variation_id', '=', 'products_sizes.id')
+            ->join('products', 'products_sizes.product_item_id', '=', 'products.id')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->where('orders.order_status_id', 4)
             ->groupBy('products.id', 'products.name')
@@ -90,27 +96,26 @@ class MyStoreController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Validar los datos
-    $validated = $request->validate([
-        'alias' => 'required|string|max:255',
-        'cbu' => 'required|string|max:22', // CBU tiene 22 caracteres
-        'holder_name' => 'required|string|max:255',
-    ]);
+    {
+        // Validar los datos
+        $validated = $request->validate([
+            'alias' => 'required|string|max:255',
+            'cbu' => 'required|string|max:22', // CBU tiene 22 caracteres
+            'holder_name' => 'required|string|max:255',
+        ]);
 
-    // Buscar la información de transferencia existente
-    $transferInfo = TransferInfo::first();
+        // Buscar la información de transferencia existente
+        $transferInfo = TransferInfo::first();
 
-    if ($transferInfo) {
-        // Si existe, actualiza la información
-        $transferInfo->update($validated);
-    } else {
-        // Si no existe, crea una nueva entrada
-        TransferInfo::create($validated);
+        if ($transferInfo) {
+            // Si existe, actualiza la información
+            $transferInfo->update($validated);
+        } else {
+            // Si no existe, crea una nueva entrada
+            TransferInfo::create($validated);
+        }
+
+        // Redirigir o mostrar mensaje de éxito
+        return redirect()->back()->with('success', 'Información de transferencia guardada con éxito.');
     }
-
-    // Redirigir o mostrar mensaje de éxito
-    return redirect()->back()->with('success', 'Información de transferencia guardada con éxito.');
-}
-
 }

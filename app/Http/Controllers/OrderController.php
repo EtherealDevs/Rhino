@@ -32,15 +32,12 @@ class OrderController extends Controller
         $order = Order::with('details', 'orderStatus')
             ->where('user_id', $user->id)
             ->findOrFail($id);
-        // $transferInfo = TransferInfo::first(); // Obtén la primera entrada de TransferInfo
 
-        // if ($transferInfo) {
-        //     $alias = $transferInfo->alias; // Suponiendo que 'alias' existe
-        //     $cbu = $transferInfo->cbu; // Suponiendo que 'cbu' existe
-        //     $holder_name = $transferInfo->holder_name; // Suponiendo que 'name' existe
-        // }
+        // Obtener la información de transferencia
+        $transferInfo = TransferInfo::first(); // Obtiene la primera entrada
 
-        return view('orders.show', compact('order'));
+        // Pasar el pedido y la información de transferencia a la vista
+        return view('orders.show', compact('order', 'transferInfo'));
     }
 }
 
