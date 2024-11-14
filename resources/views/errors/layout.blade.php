@@ -8,435 +8,129 @@
     <title>@yield('title')</title>
 
     <style>
-        /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-        html {
-            line-height: 1.15;
-            -webkit-text-size-adjust: 100%;
-        }
-
+        /* Estilos base */
         body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             margin: 0;
-            background-color: #000000;
-            background: radial-gradient(farthest-side, #ffffff 94%, #0000) top/8px 8px no-repeat,
-                conic-gradient(#0000 30%, #f5f9ff);
-        }
-
-        a {
-            background-color: transparent;
-        }
-
-        code {
-            font-family: monospace, monospace;
-            font-size: 1em;
-        }
-
-        [hidden] {
-            display: none;
-        }
-
-        html {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-            line-height: 1.5;
-        }
-
-        *,
-        :after,
-        :before {
-            box-sizing: border-box;
-            border: 0 solid #e2e8f0;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: inherit;
-        }
-
-        code {
-            font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-        }
-
-        svg,
-        video {
-            display: block;
-            vertical-align: middle;
-        }
-
-        video {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .bg-white {
-            --bg-opacity: 1;
-            background-color: #fff;
-            background-color: rgba(255, 255, 255, var(--bg-opacity));
-        }
-
-        .bg-gray-100 {
-            --bg-opacity: 1;
-            background-color: #f7fafc;
-            background-color: rgba(247, 250, 252, var(--bg-opacity));
-        }
-
-        .border-gray-200 {
-            --border-opacity: 1;
-            border-color: #edf2f7;
-            border-color: rgba(237, 242, 247, var(--border-opacity));
-        }
-
-        .border-gray-400 {
-            --border-opacity: 1;
-            border-color: #cbd5e0;
-            border-color: rgba(203, 213, 224, var(--border-opacity));
-        }
-
-        .border-t {
-            border-top-width: 1px;
-        }
-
-        .border-r {
-            border-right-width: 1px;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .grid {
-            display: grid;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .items-center {
-            align-items: center;
-        }
-
-        .justify-center {
-            justify-content: center;
-        }
-
-        .font-semibold {
-            font-weight: 600;
-        }
-
-        .h-5 {
-            height: 1.25rem;
-        }
-
-        .h-8 {
-            height: 2rem;
-        }
-
-        .h-16 {
-            height: 4rem;
-        }
-
-        .text-sm {
-            font-size: .875rem;
-        }
-
-        .text-lg {
-            font-size: 1.125rem;
-        }
-
-        .leading-7 {
-            line-height: 1.75rem;
-        }
-
-        .mx-auto {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .ml-1 {
-            margin-left: .25rem;
-        }
-
-        .mt-2 {
-            margin-top: .5rem;
-        }
-
-        .mr-2 {
-            margin-right: .5rem;
-        }
-
-        .ml-2 {
-            margin-left: .5rem;
-        }
-
-        .mt-4 {
-            margin-top: 1rem;
-        }
-
-        .ml-4 {
-            margin-left: 1rem;
-        }
-
-        .mt-8 {
-            margin-top: 2rem;
-        }
-
-        .ml-12 {
-            margin-left: 3rem;
-        }
-
-        .-mt-px {
-            margin-top: -1px;
-        }
-
-        .max-w-xl {
-            max-width: 36rem;
-        }
-
-        .max-w-6xl {
-            max-width: 72rem;
-        }
-
-        .min-h-screen {
+            padding: 0;
             min-height: 100vh;
-        }
-
-        .overflow-hidden {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-blur: 2xl;
+            position: relative;
             overflow: hidden;
         }
 
-        .p-6 {
-            padding: 1.5rem;
+        /* Fondo con rombos */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            z-index: -1;
+            opacity: 0.2;
         }
 
-        .py-4 {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-
-        .px-4 {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        .px-6 {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-
-        .pt-8 {
-            padding-top: 2rem;
-        }
-
-        .fixed {
-            position: fixed;
-        }
-
-        .relative {
-            position: relative;
-        }
-
-        .top-0 {
-            top: 0;
-        }
-
-        .right-0 {
-            right: 0;
-        }
-
-        .shadow {
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-        }
-
-        .text-center {
+        /* Contenedor principal */
+        .container {
+            background-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            height: 100vh;
+            width: 100vw;
             text-align: center;
+            position: relative;
+            z-index: 1;
+            /* Asegúrate de que el contenedor principal esté por encima de los polígonos */
         }
 
-        .text-gray-200 {
-            --text-opacity: 1;
-            color: #edf2f7;
-            color: rgba(237, 242, 247, var(--text-opacity));
-        }
-
-        .text-gray-300 {
-            --text-opacity: 1;
-            color: #e2e8f0;
-            color: rgba(226, 232, 240, var(--text-opacity));
-        }
-
-        .text-gray-400 {
-            --text-opacity: 1;
-            color: #cbd5e0;
-            color: rgba(203, 213, 224, var(--text-opacity));
-        }
-
-        .text-gray-500 {
-            --text-opacity: 1;
-            color: #a0aec0;
-            color: rgba(160, 174, 192, var(--text-opacity));
-        }
-
-        .text-gray-600 {
-            --text-opacity: 1;
-            color: #718096;
-            color: rgba(113, 128, 150, var(--text-opacity));
-        }
-
-        .text-gray-700 {
-            --text-opacity: 1;
+        /* Texto */
+        .code {
+            font-size: 2rem;
+            font-weight: bold;
             color: #4a5568;
-            color: rgba(74, 85, 104, var(--text-opacity));
+            border-right: 2px solid #cbd5e0;
+            padding-right: 1rem;
+            margin-right: 1rem;
         }
 
-        .text-gray-900 {
-            --text-opacity: 1;
-            color: #1a202c;
-            color: rgba(26, 32, 44, var(--text-opacity));
-        }
-
-        .uppercase {
+        .message {
+            font-size: 1.25rem;
+            color: #4a5568;
             text-transform: uppercase;
         }
 
-        .underline {
-            text-decoration: underline;
+        /* Estilos para los polígonos */
+        .polygon-container {
+            position: absolute;
+            inset-x: 0;
+            top: 0;
+            /* Ajusta esto si deseas que los polígonos estén más arriba o más abajo */
+            z-index: -1;
+            /* Asegúrate de que los polígonos estén detrás del contenedor principal */
+            transform: translate3d(0, 0, 0);
+            overflow: hidden;
+            filter: blur(3xl);
+            pointer-events: none;
+            /* Asegúrate de que los polígonos no interfieran con los clics */
         }
 
-        .antialiased {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        .polygon {
+            position: absolute;
+            aspect-ratio: 1155 / 678;
+            width: 12rem;
+            /* Ajusta el tamaño del polígono */
+            height: auto;
+            /* Mantén la relación de aspecto */
+            background: linear-gradient(to top right, #0051ff, #bb94b7);
+            opacity: 0.3;
+            clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);
         }
 
-        .tracking-wider {
-            letter-spacing: .05em;
+        /* Posiciones de los polígonos */
+        .polygon1 {
+            top: 10%;
+            left: 10%;
+            transform: rotate(20deg);
         }
 
-        .w-5 {
-            width: 1.25rem;
+        .polygon2 {
+            top: 50%;
+            left: 50%;
+            transform: rotate(50deg) translateX(-50%);
         }
 
-        .w-8 {
-            width: 2rem;
-        }
-
-        .w-auto {
-            width: auto;
-        }
-
-        .grid-cols-1 {
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-        }
-
-        @-webkit-keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(1turn);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(1turn);
-            }
-        }
-
-        @-webkit-keyframes ping {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            75%,
-            to {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        @keyframes ping {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            75%,
-            to {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        @-webkit-keyframes pulse {
-
-            0%,
-            to {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: .5;
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            to {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: .5;
-            }
-        }
-
-        @-webkit-keyframes bounce {
-
-            0%,
-            to {
-                transform: translateY(-25%);
-                -webkit-animation-timing-function: cubic-bezier(.8, 0, 1, 1);
-                animation-timing-function: cubic-bezier(.8, 0, 1, 1);
-            }
-
-            50% {
-                transform: translateY(0);
-                -webkit-animation-timing-function: cubic-bezier(0, 0, .2, 1);
-                animation-timing-function: cubic-bezier(0, 0, .2, 1);
-            }
-        }
-
-        @keyframes bounce {
-
-            0%,
-            to {
-                transform: translateY(-25%);
-                -webkit-animation-timing-function: cubic-bezier(.8, 0, 1, 1);
-                animation-timing-function: cubic-bezier(.8, 0, 1, 1);
-            }
-
-            50% {
-                transform: translateY(0);
-                -webkit-animation-timing-function: cubic-bezier(0, 0, .2, 1);
-                animation-timing-function: cubic-bezier(0, 0, .2, 1);
-            }
+        .polygon3 {
+            bottom: 10%;
+            right: 10%;
+            transform: rotate(-30deg);
         }
     </style>
-
 </head>
 
-<body>
-    <div class="flex-center position-ref full-height">
-        <div class="content">
-            <div class="title">
+<body class="antialiased">
+    <div class="container">
+        <div class="flex items-center justify-center">
+            <div class="code">
+                @yield('code')
+            </div>
+            <div class="message">
                 @yield('message')
             </div>
         </div>
+    </div>
+
+    <!-- Polígonos -->
+    <div class="polygon-container">
+        <div class="polygon polygon1"></div>
+        <div class="polygon polygon2"></div>
+        <div class="polygon polygon3"></div>
     </div>
 </body>
 
