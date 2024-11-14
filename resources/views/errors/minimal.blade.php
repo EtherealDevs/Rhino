@@ -7,56 +7,12 @@
     <title>RINO Indumentaria</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            backdrop-filter: blur(10px);
             margin: 0;
             padding: 0;
             overflow: hidden;
             position: relative;
             height: 100vh;
-        }
-
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            padding: 50px;
-        }
-
-        .logo {
-            margin-top: 20px;
-            width: 100px;
-            height: auto;
-        }
-
-        h1 {
-            font-size: 48px;
-            font-weight: bold;
-            color: #000000;
-        }
-
-        p {
-            font-size: 18px;
-            color: #333333;
-            margin: 20px 0;
-        }
-
-        button {
-            background-color: #005ac8;
-            color: #ffffff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px auto;
-        }
-
-        button svg {
-            margin-right: 10px;
         }
 
         .polygon-container {
@@ -67,21 +23,17 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-            pointer-events: none;
         }
 
         .polygon {
             position: absolute;
             width: 200px;
-            /* Ajuste del tamaño */
             height: auto;
-            background: linear-gradient(to top right, #0051ff, #bb94b7);
+            background-color: linear-gradient(to top right, #0051ff, #bb94b7);
             opacity: 0.5;
-            /* Aumentar opacidad para visibilidad */
             clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);
         }
 
-        /* Posiciones de los polígonos */
         .polygon1 {
             top: 10%;
             left: 10%;
