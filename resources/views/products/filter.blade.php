@@ -6,12 +6,13 @@
             <div class="w-full grid grid-cols-8 justify-between p-14">
                 <div class="mx-auto col-span-8 relative">
                     <h2 class="w-12 border-b-2 text-2xl font-extrabold italic border-gray-500">Colección</h2>
-                    <div class="grid grid-cols-4 mt-3 relative">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 mt-3 relative">
                         @foreach ($categories as $category)
                             @if (is_null($category->parent_id))
-                                <div class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
+                                <a href="{{ route('collection.index', ['category' => $category->id]) }}"
+                                    class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
                                     <p>{{ $category->name }}</p>
-                                </div>
+                                </a>
                             @endif
                         @endforeach
                     </div>

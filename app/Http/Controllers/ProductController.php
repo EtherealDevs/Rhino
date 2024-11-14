@@ -107,7 +107,7 @@ class ProductController extends Controller
         $products = $productsQuery->get();
 
         // Obtener todas las categorías en estructura jerárquica
-        $categories = Category::whereNotNull('parent_id')->get();
+        $categories = Category::all();
 
 
         // Obtener todos los talles

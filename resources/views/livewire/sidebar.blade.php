@@ -23,32 +23,33 @@
         <form action="{{ route('products.filter') }}" method="GET">
             <!-- Contenido del formulario de categorías -->
             <h2 class="font-bold text-xl font-josefin text-center">Categorías</h2>
-            <div class="flex flex-col">
+            <div class="flex flex-col ml-2">
                 @foreach ($categories as $category)
-                    <div>
-                        <h3
-                            class="text-lg font-extrabold font-josefin leading-snug text-gray-300 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
-                            {{ $category->name }} ({{ count($category->products) }})
+                    <div x-data="{ open: false }" class="mb-3">
+                        <h3 @click="open = !open"
+                            class="text-lg flex font-extrabold font-josefin leading-snug text-gray-300 py-2 px-1 cursor-pointer hover:text-black transition duration-200 ease-in-out">
+                            {{ $category->name }}
+                            <span class="ml-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1024 1024"><path fill="currentColor" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8l316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496"/></svg>
+                            </span>
                         </h3>
-                    </div>
 
-                    @if ($category->children->isNotEmpty())
-                        <div class="ml-4">
+                        <!-- Sección expandible -->
+                        <div x-show="open" x-collapse class="ml-4">
                             @foreach ($category->children as $child)
                                 <div>
                                     <label class="flex items-center font-josefin space-x-3 cursor-pointer">
                                         <input type="checkbox" name="categories[]" value="{{ $child->id }}"
                                             class="form-checkbox h-5 w-5 rounded-full border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out shadow-md hover:ring-2 hover:ring-blue-300"
                                             @if (in_array($child->id, request('categories', []))) checked @endif>
-                                        <span
-                                            class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
+                                        <span class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
                                             {{ $child->name }} ({{ count($child->products) }})
                                         </span>
                                     </label>
                                 </div>
 
+                                <!-- Verifica si hay nietos -->
                                 @if ($child->children->isNotEmpty())
-                                    <!-- Verifica si hay nietos -->
                                     <div class="ml-4">
                                         @foreach ($child->children as $grandchild)
                                             <div>
@@ -57,8 +58,7 @@
                                                         value="{{ $grandchild->id }}"
                                                         class="form-checkbox h-5 w-5 rounded-full border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out shadow-md hover:ring-2 hover:ring-blue-300"
                                                         @if (in_array($grandchild->id, request('categories', []))) checked @endif>
-                                                    <span
-                                                        class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
+                                                    <span class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
                                                         {{ $grandchild->name }} ({{ count($grandchild->products) }})
                                                     </span>
                                                 </label>
@@ -68,10 +68,11 @@
                                 @endif
                             @endforeach
                         </div>
-                    @endif
+                    </div>
                 @endforeach
-
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
 
             <!-- Resto del contenido del formulario -->
             <h2 class="font-bold text-xl font-josefin text-center mt-10">Talles</h2>
