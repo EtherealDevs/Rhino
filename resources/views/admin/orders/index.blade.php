@@ -14,7 +14,7 @@
 
                 <div class="justify-end">
                     <button class="bg-blue-500 rounded-xl p-2 px-4">
-                        <a class="text-white font-bold" href={{ route('admin.orders.create') }}>Nuevo Pedido</a>
+                        <a class="text-white font-bold" href={{ route('admin.stock.index') }}>Ver Stock</a>
                     </button>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                                     @method('PUT')
                                     <div class="relative">
                                         <select name="order_status_id"
-                                            class="form-select mt-1 block w-full p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
+                                            class="form-select mt-1 block w-full mr-10 p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
                                             @foreach ($orderStatuses as $status)
                                                 <option value="{{ $status->id }}"
                                                     {{ $status->id == $order->order_status_id ? 'selected' : '' }}>

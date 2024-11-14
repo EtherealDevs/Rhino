@@ -48,15 +48,12 @@ class OrderController extends Controller
             'order_status_id' => $request->input('order_status_id'),
         ]);
 
-        notify()->success('Actualizaste el pedido con exito ⚡️');
         return redirect()->route('admin.orders.index');
     }
 
     public function create()
     {
         $statuses = OrderStatus::all();
-
-        notify()->success('Se creo la venta con exito ⚡️');
         return view('admin.orders.create', compact('statuses'));
     }
 
