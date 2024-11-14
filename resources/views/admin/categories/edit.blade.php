@@ -90,7 +90,7 @@
 
                             <!-- Seleccionar el padre -->
                             <div class="relative z-0 w-full mb-5">
-                                <select name="parent_id" required
+                                <select name="parent_id"
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
                                     <option value="">Seleccionar una categoría</option>
                                     @foreach ($categories as $cat)
