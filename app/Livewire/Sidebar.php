@@ -9,10 +9,12 @@ class Sidebar extends Component
     public $categories;
     public $sizes;
 
-    public function mount($categories, $sizes)
+    public function mount($sizes)
     {
-        // Filtrar categorías con parent_id no nulo
-        $this->categories = Category::whereNotNull('parent_id')->get(); // Filtra categorías que tienen parent_id no nulo
+        // Obtener todas las categorías, pero excluyendo las categorías padres que no tengan hijos
+        $this->categories = Category::with('children') // Trae las categorías con sus hijos
+            ->whereNull('parent_id') // Filtra solo categorías padres
+            ->get();
         $this->sizes = $sizes;
     }
 

@@ -26,16 +26,12 @@
             <div class="flex flex-col">
                 @foreach ($categories as $category)
                     <div>
-                        <label class="flex items-center font-josefin space-x-3 cursor-pointer">
-                            <input type="checkbox" name="categories[]" value="{{ $category->id }}"
-                                class="form-checkbox h-5 w-5 rounded-full border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out shadow-md hover:ring-2 hover:ring-blue-300"
-                                @if (in_array($category->id, request('categories', []))) checked @endif>
-                            <span
-                                class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
-                                {{ $category->name }} ({{ count($category->products) }})
-                            </span>
-                        </label>
+                        <h3
+                            class="text-lg font-extrabold font-josefin leading-snug text-gray-300 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
+                            {{ $category->name }} ({{ count($category->products) }})
+                        </h3>
                     </div>
+
                     @if ($category->children->isNotEmpty())
                         <div class="ml-4">
                             @foreach ($category->children as $child)
@@ -50,10 +46,31 @@
                                         </span>
                                     </label>
                                 </div>
+
+                                @if ($child->children->isNotEmpty())
+                                    <!-- Verifica si hay nietos -->
+                                    <div class="ml-4">
+                                        @foreach ($child->children as $grandchild)
+                                            <div>
+                                                <label class="flex items-center font-josefin space-x-3 cursor-pointer">
+                                                    <input type="checkbox" name="categories[]"
+                                                        value="{{ $grandchild->id }}"
+                                                        class="form-checkbox h-5 w-5 rounded-full border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out shadow-md hover:ring-2 hover:ring-blue-300"
+                                                        @if (in_array($grandchild->id, request('categories', []))) checked @endif>
+                                                    <span
+                                                        class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
+                                                        {{ $grandchild->name }} ({{ count($grandchild->products) }})
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     @endif
                 @endforeach
+
             </div>
 
             <!-- Resto del contenido del formulario -->
