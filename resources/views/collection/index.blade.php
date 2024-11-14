@@ -24,7 +24,7 @@
                         <div class="w-12 text-2xl font-extrabold font-josefin italic border-gray-500">Colección
                             <h1 class="text-4xl font-bold text-gray-900 sm:text-6xl">{{ $category->name }}</h1>
                         </div>
-                        <div class="grid grid-cols-4 mt-3 relative">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 mt-3 relative">
                             @foreach ($categories as $category)
                                 @if (is_null($category->parent_id))
                                     <a href="{{ route('collection.index', ['category' => $category->id]) }}"
