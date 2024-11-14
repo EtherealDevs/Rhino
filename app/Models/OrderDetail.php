@@ -34,6 +34,6 @@ class OrderDetail extends Model
     public function itemVariation()
     {
         $variation = DB::table('products_sizes')->find($this->variation_id);
-        return $variation;
+        return ProductSize::find($this->variation_id);
     }
 }

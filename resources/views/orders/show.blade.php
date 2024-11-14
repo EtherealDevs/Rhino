@@ -104,6 +104,10 @@
                         <div>
                             <p class="text-lg font-medium text-gray-700">{{ $detail->productItem()->product->name }}</p>
                             <p class="text-sm text-gray-500">Cantidad: {{ $detail->amount }}</p>
+
+                            <p class="text-sm text-gray-500">Talle: {{ $detail->itemVariation()->size->name }}</p>
+
+                                <p class="text-sm text-gray-500">Color: {{ $detail->productItem()->color->name }}</p>
                         </div>
                     </div>
                     <p class="text-lg font-semibold text-gray-700">
