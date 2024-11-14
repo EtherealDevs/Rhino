@@ -18,7 +18,7 @@
             @endif
             <!-- Botón para abrir el modal -->
             <button id="openModal"
-                class="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-200">
+                class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-600 transition duration-200">
                 Actualizar Información de Cobro
             </button>
         </div>
@@ -27,7 +27,7 @@
         <!-- Modal -->
         <div id="modal" class="fixed inset-0 backdrop-blur-xl hidden items-center justify-center z-50">
             <div
-                class="bg-white rounded-lg p-6 w-full max-w-lg transform -translate-x-1/2 -translate-y-1/2 relative left-1/2 top-1/2">
+                class="bg-white rounded-xl p-6 w-full max-w-lg transform -translate-x-1/2 -translate-y-1/2 relative left-1/2 top-1/2">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Configurar Información de Transferencia</h2>
 
                 <!-- Formulario -->
@@ -79,21 +79,21 @@
 
         <!-- Estadísticas Principales -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <div class="p-6 bg-gray-50 rounded-lg shadow-lg">
+            <div class="p-6 bg-gray-50 rounded-xl shadow-lg">
                 <p class="text-gray-700 text-lg font-semibold">Ventas últimos 30 días</p>
-                <h3 class="text-4xl text-green-500 font-bold mt-2">${{ number_format($salesLast30Days, 2) }}</h3>
+                <h3 class="text-xl text-green-500 font-bold mt-2">${{ number_format($salesLast30Days, 2) }}</h3>
             </div>
-            <div class="p-6 bg-gray-50 rounded-lg shadow-lg">
+            <div class="p-6 bg-gray-50 rounded-xl shadow-lg">
                 <p class="text-gray-700 text-lg font-semibold">Ventas últimos 6 meses</p>
-                <h3 class="text-4xl text-green-500 font-bold mt-2">${{ number_format($salesLast6Months, 2) }}</h3>
+                <h3 class="text-xl text-green-500 font-bold mt-2">${{ number_format($salesLast6Months, 2) }}</h3>
             </div>
-            <div class="p-6 bg-gray-50 rounded-lg shadow-lg">
+            <div class="p-6 bg-gray-50 rounded-xl shadow-lg">
                 <p class="text-gray-700 text-lg font-semibold">Productos vendidos en total</p>
-                <h3 class="text-4xl text-yellow-500 font-bold mt-2">{{ $totalProductsSold }}</h3>
+                <h3 class="text-xl text-yellow-500 font-bold mt-2">{{ $totalProductsSold }}</h3>
             </div>
-            <div class="p-6 bg-gray-50 rounded-lg shadow-lg">
+            <div class="p-6 bg-gray-50 rounded-xl shadow-lg">
                 <p class="text-gray-700 text-xl font-semibold">Usuarios logueados</p>
-                <h3 class="text-3xl text-purple-500 font-bold">{{ $loggedUsers }}</h3>
+                <h3 class="text-xl text-purple-500 font-bold">{{ $loggedUsers }}</h3>
             </div>
         </div>
 
