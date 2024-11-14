@@ -2,7 +2,7 @@
 
 @section('content')
     <section>
-        <div class="relative isolate px-6 pt-14 lg:px-8">
+        <div class="relative isolate px-4 pt-14 lg:px-8">
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true">
                 <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#0051ff] to-[#bb94b7] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
@@ -21,13 +21,13 @@
             </div>
 
             <!-- Muestra los productos de las categorías hijas -->
-            <div class="text-black font-sans py-8">
+            <div class="text-black font-sans py-8 w-full">
                 <div class="container mx-auto flex flex-col items-start">
-                    <div class="flex justify-center mt-12 w-full md:mt-12 px-8">
-                        <div class="p-7 rounded-xl w-11/12">
+                    <div class="flex justify-center mt-12 w-full md:mt-12 px-2 lg:px-8">
+                        <div class="lg:p-7 p-0 w-full lg:w-11/12">
 
                             <!-- Grid de productos -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-6">
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-8 mt-6">
                                 @foreach ($products as $product)
                                     @php
                                         $notDeletedItems = collect();
