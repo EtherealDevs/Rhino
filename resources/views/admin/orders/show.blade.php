@@ -36,6 +36,14 @@
                     {{ $order->created_at->format('d-m-Y H:i') }}</p>
             </div>
 
+            <!-- Datos de Mercadopago -->
+            <div class="mb-10">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Datos de Mercadopago</h2>
+                <p class="text-lg text-gray-600">
+                    {{$mpOrder}}
+                </p>
+            </div>
+
             <!-- Información de Entrega -->
             <div class="mb-10">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>

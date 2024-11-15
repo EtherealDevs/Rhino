@@ -131,6 +131,8 @@ return [
     ],
 
     'mp_access_token' => env('MERCADOPAGO_ACCESS_TOKEN'),
+    'mp_client_token' => env('MERCADOPAGO_CLIENT_TOKEN'),
+    
     'mp_access_token_test' => env('MERCADOPAGO_ACCESS_TOKEN_TEST'),
     'mp_client_token_test' => env('MERCADOPAGO_CLIENT_TOKEN_TEST'),
 
