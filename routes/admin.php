@@ -105,6 +105,8 @@ Route::delete('/admin/products/{id}/force-delete', [ProductController::class, 'f
 Route::delete('/admin/productitems/{id}/force-delete', [ProductItemController::class, 'forceDelete'])->name('admin.productitems.forceDelete');
 Route::delete('/admin/productitemvariations/{id}/force-delete', [ProductController::class, 'forceDeleteVariation'])->name('admin.productitemvariations.forceDelete');
 
+/* Rutas de eliminacion de imagenes tabla polimorfica */
 Route::delete('/productItems/images/{id}', [ProductItemController::class, 'deleteImage'])->name('admin.productItems.images.delete');
 
+Route::delete('/categories/images/{id}', [CategoryController::class, 'deleteImage'])->name('admin.categories.images.delete');
 
