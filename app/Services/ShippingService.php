@@ -61,7 +61,8 @@ class ShippingService
         $weight = $props['weight'] ?? 0;
         $volume = $props['volume'] ?? 0;
         $total = $props['total'] ?? 0;
-        $params = ['operativa' => $operativa, 'peso' => $weight / 1000, 'volumen' => $volume, 'cP' => (int) config('app.delivery_service.origin_zipcode'), 'cPDes' => $cpDest, 'cantidad' => 1, 'valor' => (int) ($total / 100)];
+        
+        $params = ['operativa' => $operativa, 'peso' => $weight / 1000, 'volumen' => $volume / 1000, 'cP' => (int) config('app.delivery_service.origin_zipcode'), 'cPDes' => $cpDest, 'cantidad' => 1, 'valor' => (int) ($total / 100)];
         $price = DeliveryServiceController::obtenerTarifas($params);
         return (float) $price;
     }

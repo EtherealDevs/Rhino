@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use MercadoPago\Client\Payment\PaymentClient;
+use MercadoPago\Exceptions\MPApiException;
+use MercadoPago\MercadoPagoConfig;
 
 class OrderController extends Controller
 {
@@ -60,9 +63,23 @@ class OrderController extends Controller
     // Método show para visualizar el detalle de un pedido específico
     public function show($id)
     {
+        $mpAccessToken = config('app.mp_access_token_test');
+        MercadoPagoConfig::setAccessToken($mpAccessToken);
+        $client = new PaymentClient();
+        
         $order = Order::with('user', 'details', 'orderStatus', 'paymentMethod', 'deliveryService', 'address')
             ->findOrFail($id);
+            $mpOrder = null;
+            // Mercado Pago: Obtener la información del pedido
+            if ($order->mp_order_id != null) {
+                try {
+                    $mpOrder = $client->get($order->mp_order_id);
+                } catch (MPApiException $th) {
+                    dd($th);
+                }
+            }
+        $mpOrder = json_encode($mpOrder);
 
-        return view('admin.orders.show', compact('order'));
+        return view('admin.orders.show', compact('order', 'mpOrder'));
     }
 }

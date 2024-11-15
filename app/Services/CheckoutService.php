@@ -5,6 +5,7 @@ use App\Http\Cart\CartCombo;
 use App\Http\Cart\CartItem;
 use App\Models\Cart;
 use App\Models\ProductItem;
+use App\Models\ProductSize;
 use App\Models\Size;
 
 class CheckoutService
@@ -28,14 +29,16 @@ class CheckoutService
     */
     public function buildItems(Cart $cart)
     {
+        
         $items = [];
         $cartItems = [];
         // Code to build checkout items
         foreach ($cart->contents as $item) {
+            
             if ($item['type'] == CartItem::DEFAULT_TYPE) {
-                $sizeModel = Size::where('name', $item['size'])->first();
+                // $sizeModel = Size::where('name', $item['size'])->first();
                 $itemModel = ProductItem::where('id', $item['item_id'])->first();
-                $itemVariation = $this->productItemService->getItemVariation($itemModel, $sizeModel->name);
+                $itemVariation = ProductSize::find($item['variation_id']);
                 $imageUrl = config('app.product_images_directory') . $itemModel->images[0]->url;
                 $newItem = [
                     'id' => $itemVariation->id,
@@ -57,9 +60,9 @@ class CheckoutService
                 array_push($cartItems, $cartItem);
             } else if ($item['type'] == CartCombo::DEFAULT_TYPE) {
                 foreach ($item['contents'] as $key => $value) {
-                    $sizeModel = Size::where('name', $value['size'])->first();
+                    // $sizeModel = Size::where('name', $value['size'])->first();
                     $itemModel = ProductItem::where('id', $value['item_id'])->first();
-                    $itemVariation = $this->productItemService->getItemVariation($itemModel, $sizeModel->name);
+                    $itemVariation = ProductSize::find($value['variation_id']);
                     $imageUrl = config('app.product_images_directory') . $itemModel->images[0]->url;
                     $newItem = [
                         'id' => $itemVariation->id,

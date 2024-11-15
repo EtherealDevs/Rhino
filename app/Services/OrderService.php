@@ -27,13 +27,13 @@ class OrderService
      */
     public function createDeliveryOrder(Payment $mpOrder, User $user, Address $address, float $shippingCosts)
     {
+        
         $orderDetailService = new OrderDetailService();
         $items = collect(json_decode($user->cart->contents));
 
         $shippingCosts = (int) ($shippingCosts * 100);
         $total = (int) ($mpOrder->transaction_amount * 100);
         
-        $payment_methods = ['credit_card' => 4, 'debit_card' => 3];
         $order = Order::create([
             'user_id' => $user->id,
             'payment_method_id' => PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
@@ -42,6 +42,7 @@ class OrderService
             'delivery_price' => $shippingCosts,
             'address_id' => $address->id,
             'order_status_id' => 1,
+            'mp_order_id' => $mpOrder->id
         ]);
 
         $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
@@ -104,6 +105,7 @@ class OrderService
             'delivery_price' => $shippingCosts,
             'address_id' => $address->id,
             'order_status_id' => 1,
+            'mp_order_id' => $mpOrder->id
         ]);
 
         $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
@@ -148,6 +150,7 @@ class OrderService
             'delivery_price' => $shippingCosts,
             'address_id' => $address->id,
             'order_status_id' => 1,
+            'mp_order_id' => $mpOrder->id
         ]);
 
         $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
