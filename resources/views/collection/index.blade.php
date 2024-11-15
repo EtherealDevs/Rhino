@@ -12,8 +12,9 @@
 
 
             <div class="w-screen h-2/6">
-                <div class="container mx-auto bg-black/25 rounded-b-3xl flex flex-col h-[500px] w-full bg-cover bg-center"
+                <div class="container mx-auto bg-black/50 rounded-b-3xl flex flex-col h-[500px] w-full bg-cover bg-center"
                     style="background-image: url('{{ url(Storage::url($category->images->first()->url)) }}');">
+                    <div class="absolute inset-0 bg-black opacity-50 rounded-b-3xl"></div>
                 </div>
 
                 <!-- Verificamos si hay imagen y aplicamos color de texto según la existencia de la imagen -->
