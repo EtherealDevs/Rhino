@@ -12,8 +12,30 @@
 
 
             <div class="w-screen h-2/6">
+                {{-- @if ($category->images && $category->images->count() > 0)
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        @foreach ($category->images as $image)
+                            <div class="relative">
+                                <img src="{{ url(Storage::url($image->url)) }}" alt="Imagen de la categoría"
+                                    class="w-full h-auto rounded-md border border-gray-300">
+
+                                <form method="POST" action="{{ route('admin.categories.images.delete', $image->id) }}"
+                                    class="absolute top-2 right-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition duration-150">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-gray-500">No hay imágenes asociadas a esta categoría.</p>
+                @endif --}}
                 <div class="container mx-auto rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
-                    style="background-image: url('{{ asset('categories/images' . $category->image) }}');">
+                    style="background-image: url('{{ url(Storage::url($category->images->first()->url)) }}');">
                 </div>
 
                 <!-- Verificamos si hay imagen y aplicamos color de texto según la existencia de la imagen -->
