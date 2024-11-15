@@ -16,19 +16,27 @@
                     style="background-image: url('{{ asset('storage/img/images/categories/' . $category->image) }}');">
                 </div>
 
-
-                <div class="-translate-y-full  w-full grid grid-cols-8 justify-between p-14 overflow-x-hidden">
+                <!-- Verificamos si hay imagen y aplicamos color de texto según la existencia de la imagen -->
+                <div class="-translate-y-full w-full grid grid-cols-8 justify-between p-14 overflow-x-hidden">
                     <div class="mx-auto col-span-8 relative">
-                        <div class="w-12 text-2xl font-extrabold text-gray-100 font-josefin italic border-gray-500">
+                        <div
+                            class="w-12 text-2xl font-extrabold font-josefin italic border-gray-500
+                            {{ $category->image ? 'text-gray-100' : 'text-black' }}">
                             Colección
-                            <h1 class="text-4xl font-bold text-gray-100 sm:text-6xl">{{ $category->name }}</h1>
+                            <h1
+                                class="text-4xl font-bold sm:text-6xl
+                                {{ $category->image ? 'text-gray-100' : 'text-black' }}">
+                                {{ $category->name }}
+                            </h1>
                         </div>
                         <div class="grid grid-cols-2 lg:grid-cols-4 mt-3 relative">
                             @foreach ($categories as $category)
                                 @if (is_null($category->parent_id))
                                     <a href="{{ route('collection.index', ['category' => $category->id]) }}"
                                         class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
-                                        <p class="text-gray-100">{{ $category->name }}</p>
+                                        <p class="{{ $category->image ? 'text-gray-100' : 'text-black' }}">
+                                            {{ $category->name }}
+                                        </p>
                                     </a>
                                 @endif
                             @endforeach
@@ -37,6 +45,7 @@
                     </div>
                 </div>
             </div>
+
 
 
             <!-- Muestra los productos de las categorías hijas -->
