@@ -97,28 +97,37 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-
-        $validatedData = $request->validate([
+        // Validación
+        $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:categories,slug,' . $category->id,
+            'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images' => 'nullable|array', // Para permitir múltiples imágenes
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validación de imágenes
         ]);
 
-        // Subir imagen si existe y eliminar la antigua
-        if ($request->hasFile('image')) {
-            if ($category->image) {
-                Storage::disk('public')->delete($category->image);
+        // Actualizar la categoría
+        $category->update([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'description' => $request->description,
+            'parent_id' => $request->parent_id,
+        ]);
+
+        // Subir imágenes si se han proporcionado
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('categories/images', 'public');
+                $category->images()->create([
+                    'url' => $path,
+                ]);
             }
-            $path = $request->file('image')->store('categories', 'public');
-            $validatedData['image'] = $path;
         }
 
-        $category->update($validatedData);
-
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success', 'Categoría actualizada correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
