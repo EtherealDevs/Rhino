@@ -9,10 +9,5 @@
         <p style="font-size: 1.5rem; color: #666;">
             Estas intentando acceder a una direccion y no tienes las credenciales necesarias, vuelve a intentarlo.
         </p>
-        <a href="{{ url('/') }}" style="text-decoration: none;">
-            <button>
-                Volver al Inicio
-            </button>
-        </a>
     </div>
 @endsection
