@@ -13,15 +13,28 @@ class CollectionController extends Controller
         // Obtén la categoría seleccionada
         $category = Category::findOrFail($categoryId);
 
-        // Obtén las categorías hijas de la categoría seleccionada
-        $childCategories = $category->subCategories;
+        // Obtén las categorías hijas, incluidas las nietas
+        $categoriesTree = Category::hierarchicalCategories($categoryId);
 
-        // Obtén todos los productos de las categorías hijas
-        $products = Product::whereIn('category_id', $childCategories->pluck('id'))->get();
+        // Recopila los IDs de todas las categorías hijas y nietas
+        $categoryIds = collect([$categoryId]);
+        $flattenCategories = function ($categories) use (&$flattenCategories, &$categoryIds) {
+            foreach ($categories as $child) {
+                $categoryIds->push($child->id);
+                if ($child->children) {
+                    $flattenCategories($child->children);
+                }
+            }
+        };
+        $flattenCategories($categoriesTree);
 
+        // Obtén todos los productos de las categorías seleccionadas
+        $products = Product::whereIn('category_id', $categoryIds)->get();
+
+        // Todas las categorías para el menú
         $categories = Category::all();
 
         // Pasa la categoría y los productos a la vista
-        return view('collection.index', compact('category', 'products', 'categories'));
+        return view('collection.index', compact('category', 'products', 'categories', 'categoriesTree'));
     }
 }

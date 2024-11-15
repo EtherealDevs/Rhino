@@ -49,8 +49,8 @@ class Category extends Model
 
     public static function hierarchicalCategories($parentId = null)
     {
-        return Category::where('parent_id', $parentId)
-            ->with('children')  // Carga recursivamente las categorías hijas
+        return self::where('parent_id', $parentId)
+            ->with('children.children') // Carga las categorías hijas y nietas
             ->get();
     }
 }

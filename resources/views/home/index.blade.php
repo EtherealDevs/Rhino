@@ -241,14 +241,15 @@
 
             {{-- Seccion Ofertas --}}
             <div
-                class="relative lg:col-span-1 drop-shadow-lg w-full xl:w-[410px] 2xl:w-[450px] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class="relative lg:col-span-1 drop-shadow-lg w-full xl:w-[410px] 2xl:w-[450px] h-full rounded-none lg:rounded-3xl overflow-hidden text-white font-extrabold">
 
+                <!-- Video con efecto de zoom controlado -->
                 <video autoplay muted loop playsinline
-                    class="absolute inset-0 w-full h-full object-cover rounded-none lg:rounded-3xl">
+                    class="absolute inset-0 w-full h-full object-cover transform scale-125 rounded-none lg:rounded-3xl">
                     <source src="/img/nigga.mp4" type="video/mp4">
                 </video>
 
-                <!-- Capa de superposición oscura -->
+                <!-- Contenido superpuesto -->
                 <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl mb-8">
                     <div class="flex justify-center">
                         <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-blue-100 tracking-wide">
@@ -256,12 +257,12 @@
                         </p>
                     </div>
                     <div class="flex justify-start p-4 mb-12">
-                        <p class="text-center mt-6 text-xl mx-8 font-josefin  py-2 px-4 rounded-full shadow-lg">
+                        <p class="text-center mt-6 text-xl mx-8 font-josefin py-2 px-4 rounded-full shadow-lg">
                             Disponibles por tiempo limitado. No dejes pasar esta oportunidad de ahorrar y disfrutar de la
-                            mejor calidad al mejor precio.
+                            mejor
+                            calidad al mejor precio.
                         </p>
                     </div>
-
                     <div class="flex items-end justify-center">
                         <a href="/promos">
                             <button

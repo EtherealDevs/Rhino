@@ -86,9 +86,12 @@
 
             <!-- Total del Pedido -->
             <div class="mb-10">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Total del Pedido</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Detalle de Pedido</h2>
+                <h3>Total Venta:</h3>
+                <h3>Comision Mercado Pago</h3>
                 <p class="text-xl text-gray-800 font-semibold"><strong>Total:</strong>
-                    ${{ number_format($order->total / 100, 2, ',', '.') }}</p>
+                    ${{ number_format($order->total / 100, 2, ',', '.') }}
+                </p>
             </div>
 
             <!-- Detalles del Pedido -->
