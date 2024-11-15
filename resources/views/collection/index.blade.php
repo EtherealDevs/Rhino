@@ -13,7 +13,7 @@
 
             <div class="w-screen h-2/6">
                 <div class="container mx-auto rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
-                    style="background-image: url('{{ asset('storage/img/images/categories/' . $category->image) }}');">
+                    style="background-image: url('{{ asset('categories/images' . $category->image) }}');">
                 </div>
 
                 <!-- Verificamos si hay imagen y aplicamos color de texto según la existencia de la imagen -->
