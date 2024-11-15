@@ -12,29 +12,7 @@
 
 
             <div class="w-screen h-2/6">
-                {{-- @if ($category->images && $category->images->count() > 0)
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        @foreach ($category->images as $image)
-                            <div class="relative">
-                                <img src="{{ url(Storage::url($image->url)) }}" alt="Imagen de la categoría"
-                                    class="w-full h-auto rounded-md border border-gray-300">
-
-                                <form method="POST" action="{{ route('admin.categories.images.delete', $image->id) }}"
-                                    class="absolute top-2 right-2">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition duration-150">
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <p class="text-gray-500">No hay imágenes asociadas a esta categoría.</p>
-                @endif --}}
-                <div class="container mx-auto rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
+                <div class="container mx-auto bg-black/25 rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
                     style="background-image: url('{{ url(Storage::url($category->images->first()->url)) }}');">
                 </div>
 
@@ -42,12 +20,10 @@
                 <div class="-translate-y-full w-full grid grid-cols-8 justify-between p-14 overflow-x-hidden">
                     <div class="mx-auto col-span-8 relative">
                         <div
-                            class="w-12 text-2xl font-extrabold font-josefin italic border-gray-500
-                            {{ $category->image ? 'text-gray-100' : 'text-black' }}">
+                            class="w-12 text-2xl font-extrabold font-josefin italic border-gray-500">
                             Colección
                             <h1
-                                class="text-4xl font-bold sm:text-6xl
-                                {{ $category->image ? 'text-gray-100' : 'text-black' }}">
+                                class="text-4xl text-white font-bold sm:text-6xl">
                                 {{ $category->name }}
                             </h1>
                         </div>
@@ -56,7 +32,7 @@
                                 @if (is_null($category->parent_id))
                                     <a href="{{ route('collection.index', ['category' => $category->id]) }}"
                                         class="collection-item px-6 border-r-2 border-gray-300 italic font-semibold">
-                                        <p class="{{ $category->image ? 'text-gray-100' : 'text-black' }}">
+                                        <p class="text-white">
                                             {{ $category->name }}
                                         </p>
                                     </a>
