@@ -104,7 +104,7 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
             'images' => 'nullable|array', // Para permitir múltiples imágenes
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validación de imágenes
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg', // Validación de imágenes
         ]);
 
         // Actualizar la categoría
