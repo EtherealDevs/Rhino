@@ -12,19 +12,20 @@
 
 
             <div class="w-screen h-2/6">
-                <div class="container mx-auto bg-black/50 rounded-b-3xl flex flex-col h-[500px] w-full bg-cover bg-center"
+                <div class="container mx-auto relative bg-black/50 rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
                     style="background-image: url('{{ url(Storage::url($category->images->first()->url)) }}');">
+                    <!-- Capa de opacidad superpuesta -->
                     <div class="absolute inset-0 bg-black opacity-50 rounded-b-3xl"></div>
+                    <!-- Contenido aquí -->
                 </div>
+
 
                 <!-- Verificamos si hay imagen y aplicamos color de texto según la existencia de la imagen -->
                 <div class="-translate-y-full w-full grid grid-cols-8 justify-between p-14 overflow-x-hidden">
                     <div class="mx-auto col-span-8 relative">
-                        <div
-                            class="w-12 text-2xl font-extrabold text-white font-josefin italic border-gray-500">
+                        <div class="w-12 text-2xl font-extrabold text-white font-josefin italic border-gray-500">
                             Colección
-                            <h1
-                                class="text-4xl text-white font-bold sm:text-6xl">
+                            <h1 class="text-4xl text-white font-bold sm:text-6xl">
                                 {{ $category->name }}
                             </h1>
                         </div>
