@@ -12,12 +12,21 @@
 
 
             <div class="w-screen h-2/6">
-                <div class="container mx-auto relative bg-black/50 rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
-                    style="background-image: url('{{ url(Storage::url($category->images->first()->url)) }}');">
-                    <!-- Capa de opacidad superpuesta -->
-                    <div class="absolute inset-0 bg-black opacity-50 rounded-b-3xl"></div>
-                    <!-- Contenido aquí -->
-                </div>
+                @if ($category->images->isNotEmpty())
+                    <div class="container mx-auto relative bg-black/50 rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
+                        style="background-image: url('{{ url(Storage::url($category->images->first()->url)) }}');">
+                        <!-- Capa de opacidad superpuesta -->
+                        <div class="absolute inset-0 bg-black opacity-50 rounded-b-3xl"></div>
+                        <!-- Contenido aquí -->
+                    </div>
+                @else
+                    <div class="container mx-auto relative bg-black/50 rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
+                        style="background-image: url('https://images.unsplash.com/photo-1470309864661-68328b2cd0a5?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                        <!-- Capa de opacidad superpuesta -->
+                        <div class="absolute inset-0 bg-black opacity-50 rounded-b-3xl"></div>
+                        <!-- Contenido aquí -->
+                    </div>
+                @endif
 
 
                 <!-- Verificamos si hay imagen y aplicamos color de texto según la existencia de la imagen -->
