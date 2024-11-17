@@ -19,7 +19,7 @@
 
     <!-- Contenido del sidebar -->
     <div x-show="open" x-on:click.away="if(window.innerWidth < 768) open = false"
-        class="sticky top-16 xl:top-[80px] h-[80vh] overflow-y-auto md:h-screen 2xl:h-[90vh] bg-white md:bg-white/50 rounded-lg shadow-xl p-4 space-y-10">
+        class="sticky top-16 xl:top-[80px] h-[80vh] lg:h-[65vh] overflow-y-auto md:h-screen 2xl:h-[90vh] bg-white md:bg-white/50 rounded-lg shadow-xl p-4">
         <form action="{{ route('products.filter') }}" method="GET">
             <!-- Contenido del formulario de categorías -->
             <h2 class="font-bold text-xl font-josefin text-center">Categorías</h2>
@@ -121,9 +121,12 @@
                     </div>
                 </div>
 
-                <!-- Botón de filtrar -->
+
+            </div>
+            <!-- Botón de filtrar -->
+            <div class="sticky bottom-0 left-0 w-full bg-white p-4 drop-shadow-lg rounded-xl">
                 <button type="submit"
-                    class="mt-5 text-base text-center border font-josefin font-medium text-white py-2 px-2 bg-blue-800 border-blue-800 hover:text-base rounded-md transition duration-150 ease-in-out">
+                    class="w-full text-base text-center border font-josefin font-medium text-white py-2 px-2 bg-blue-800 border-blue-800 hover:bg-blue-700 rounded-md transition duration-150 ease-in-out">
                     <span>Filtrar</span>
                 </button>
             </div>
