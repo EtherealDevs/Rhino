@@ -240,7 +240,7 @@
             </div>
         </div>
 
-        <div class="mt-10 h-98 bg-white rounded-lg shadow-lg p-8">
+        <div class="mt-10 bg-white rounded-lg shadow-lg p-8">
             <h3 class="text-3xl font-bold font-josefin text-gray-800 mb-6 border-b-2 border-gray-200 pb-2">
                 Productos Recomendados
             </h3>
@@ -254,8 +254,8 @@
                             class="bg-white rounded-lg overflow-hidden shadow-md transform transition-transform duration-300 hover:scale-105">
                             <a
                                 href="{{ route('products.show', ['product' => $relatedProduct->id, 'productItem' => $relatedItem->id]) }}">
-                                <div class="relative">
-                                    <img class="w-full h-72 object-cover"
+                                <div class="relative py-6">
+                                    <img class="w-full h-48 object-cover"
                                         src="{{ $relatedItem->images->first()?->url ? url(Storage::url($relatedItem->images->first()?->url)) : asset('images/default.png') }}"
                                         alt="{{ $relatedProduct->name }}">
                                     <div
