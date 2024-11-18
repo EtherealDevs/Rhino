@@ -26,21 +26,21 @@
                             class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                             <p
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                Pedido Nro/Fecha
+                                Pedido Nro/Fecha-Hora
                             </p>
                         </th>
                         <th
                             class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                             <p
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                Usuario
+                                Envio/Retiro
                             </p>
                         </th>
                         <th
                             class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                             <p
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                Productos
+                                Metodo de Pago
                             </p>
                         </th>
                         <th
@@ -78,7 +78,7 @@
                                         </p>
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                            {{ $order->created_at->format('d-m-Y') }}
+                                            {{ $order->created_at->setTimezone('America/Argentina/Buenos_Aires')->format('d-m-Y H:i') }}
                                         </p>
                                     </div>
                                 </div>
@@ -86,30 +86,35 @@
                             <td class="p-4 border-b border-blue-gray-50">
                                 <div class="flex items-center gap-3">
                                     <div class="flex flex-col">
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{ $order->user->name }}
-                                        </p>
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-70">
-                                            {{ $order->user->email }}
-                                        </p>
+                                        @if ($order->deliveryService)
+                                            <p
+                                                class="block antialiased font-sans p-2 rounded-full font-bold text-md text-blue-600 px-3 leading-normal">
+                                                {{ $order->deliveryService->name }}
+                                            </p>
+
+                                            @if ($order->delivery_service == 1)
+                                                <p
+                                                    class="block antialiased font-sans text-sm leading-normal text-green-700 font-bold">
+                                                    ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}
+                                                </p>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
+
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <div class="flex flex-col">
-                                    @foreach ($order->details as $detail)
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{ $detail->productItem()->name }} - {{ $detail->amount }} x {{ number_format($detail->price / 100, 2, ',', '.') }}
-                                        </p>
-                                    @endforeach
+                                    <p
+                                        class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                        {{ __($order->paymentMethod->payment_method) }}
+                                    </p>
                                 </div>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <p class="block font-josefin text-lg leading-normal text-green-600 font-semibold">
-                                    <span class="font-bold text-green-700">$ </span>{{ number_format($order->total / 100, 2, ',', '.') }}
+                                    <span class="font-bold text-green-700">$
+                                    </span>{{ number_format($order->total / 100, 2, ',', '.') }}
                                 </p>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
