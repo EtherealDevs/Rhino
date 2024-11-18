@@ -255,7 +255,7 @@
                             <a
                                 href="{{ route('products.show', ['product' => $relatedProduct->id, 'productItem' => $relatedItem->id]) }}">
                                 <div class="relative py-6">
-                                    <img class="w-full h-48 object-cover"
+                                    <img class="w-full h-full object-cover"
                                         src="{{ $relatedItem->images->first()?->url ? url(Storage::url($relatedItem->images->first()?->url)) : asset('images/default.png') }}"
                                         alt="{{ $relatedProduct->name }}">
                                     <div
