@@ -227,7 +227,7 @@
                                 </div>
 
                                 <!-- Segundo campo, inicialmente oculto -->
-                                <div id="reference-field" class="mb-8 hidden">
+                                <div id="reference-field" class="mb-8">
                                     <label for="reference_images"
                                         class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
                                         <div class="w-full">
@@ -275,14 +275,6 @@
 
                             // Actualiza la previsualización del primer campo
                             populatePreviewContainer('preview-container', selectedFiles);
-
-                            // Muestra el segundo campo si hay imágenes seleccionadas
-                            const referenceField = document.getElementById('reference-field');
-                            if (selectedFiles.length > 0) {
-                                referenceField.classList.remove('hidden');
-                            } else {
-                                referenceField.classList.add('hidden');
-                            }
                         }
 
                         // Maneja cambios en el segundo campo
