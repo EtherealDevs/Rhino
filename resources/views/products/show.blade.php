@@ -254,8 +254,8 @@
                             class="bg-white rounded-lg overflow-hidden shadow-md transform transition-transform duration-300 hover:scale-105">
                             <a
                                 href="{{ route('products.show', ['product' => $relatedProduct->id, 'productItem' => $relatedItem->id]) }}">
-                                <div class="relative py-6">
-                                    <img class="w-full h-48 object-cover"
+                                <div class="relative">
+                                    <img class="w-full h-54 object-cover"
                                         src="{{ $relatedItem->images->first()?->url ? url(Storage::url($relatedItem->images->first()?->url)) : asset('images/default.png') }}"
                                         alt="{{ $relatedProduct->name }}">
                                     <div
