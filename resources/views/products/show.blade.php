@@ -240,7 +240,7 @@
             </div>
         </div>
 
-        <div class="mt-10 bg-white rounded-lg shadow-lg p-8">
+        <div class="mt-10 h-98 bg-white rounded-lg shadow-lg p-8">
             <h3 class="text-3xl font-bold font-josefin text-gray-800 mb-6 border-b-2 border-gray-200 pb-2">
                 Productos Recomendados
             </h3>
