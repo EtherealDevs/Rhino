@@ -48,40 +48,42 @@ class ProductController extends Controller
         $averageRating = round($averageRating * 2) / 2;
 
         $item = ProductItem::with(['product' => ['items' => ['color', 'sizes'], 'category'], 'sizes', 'images'])
-        ->where('id', $id)
-        ->first();
+            ->where('id', $id)
+            ->first();
         // Obtener las variedades de colores del producto
-        $productVariations = $item->product->items->load('sizes')->filter(function (ProductItem $variation, int $key) use($item)
-        {
-            foreach ($variation->sizes as $size)
-            {
-                if ($size->pivot->deleted_at == null && $variation->id != $item->id)
-                {
+        $productVariations = $item->product->items->load('sizes')->filter(function (ProductItem $variation, int $key) use ($item) {
+            foreach ($variation->sizes as $size) {
+                if ($size->pivot->deleted_at == null && $variation->id != $item->id) {
                     return true;
                 }
             }
         });
         $colors = $item->colors();
         $reviews = Reviews::with('user', 'product')->get();
-        return view('products.show', compact('item', 'productVariations', 'colors', 'itemVariations', 'reviews', 'averageRating'));
+
+        // Obtener productos relacionados
+        $relatedProducts = Product::with(['items.images'])
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id) // Excluir el producto actual
+            ->take(4) // Limitar a 4 productos relacionados
+            ->get();
+
+        return view('products.show', compact('item', 'productVariations', 'colors', 'itemVariations', 'reviews', 'averageRating', 'relatedProducts'));
     }
 
     public function filter(Request $request)
     {
-        // Obtener las categorías, talles y precios seleccionados
         $selectedCategories = $request->input('categories', []);
         $selectedSizes = $request->input('sizes', []);
-        $minPrice = max(1, (int) str_replace(['$', '.', ' '], '', $request->input('minprice', 1)));
-        $maxPrice = max(1, (int) str_replace(['$', '.', ' '], '', $request->input('maxprice', 500000)));
+        $minPrice = str_replace(['$', '.', ' '], '', $request->input('minprice', 0));
+        $maxPrice = str_replace(['$', '.', ' '], '', $request->input('maxprice', 500000));
 
-        // Consultar productos basados en las categorías seleccionadas
         $productsQuery = Product::query();
 
         if (!empty($selectedCategories)) {
             $productsQuery->whereIn('category_id', $selectedCategories);
         }
 
-        // Filtrar por talles a nivel de ProductItem
         if (!empty($selectedSizes)) {
             $productsQuery->whereHas('items', function ($query) use ($selectedSizes) {
                 $query->whereHas('sizes', function ($query) use ($selectedSizes) {
@@ -90,31 +92,32 @@ class ProductController extends Controller
             });
         }
 
-        // Filtrar por rango de precios, considerando sale_price y original_price
-        /* if ($minPrice && $maxPrice) {
-            $productsQuery->whereHas('items', function ($query) use ($minPrice, $maxPrice) {
-                $query->where(function ($query) use ($minPrice, $maxPrice) {
-                    // Verifica si sale_price está dentro del rango
-                    $query->whereBetween('sale_price', [$minPrice, $maxPrice])->orWhere(function ($query) use ($minPrice, $maxPrice) {
-                        // Si sale_price es NULL, entonces original_price debe estar dentro del rango
-                        $query->whereNull('sale_price')->whereBetween('original_price', [$minPrice, $maxPrice]);
+        $products = Product::whereHas('items', function ($query) use ($minPrice, $maxPrice) {
+            $query->where(function ($query) use ($minPrice, $maxPrice) {
+                // Filtramos por sale_price en el rango
+                $query->whereBetween('sale_price', [$minPrice, $maxPrice])
+                    ->orWhere(function ($query) use ($minPrice, $maxPrice) {
+                        // O filtramos por original_price si sale_price es nulo
+                        $query->whereNull('sale_price')
+                            ->whereBetween('original_price', [$minPrice, $maxPrice]);
                     });
-                });
-            });
-        } */
+            })
+                // Aseguramos que no esté marcado como eliminado
+                ->whereNull('deleted_at');
+        })
+            // Aseguramos que el producto no esté marcado como eliminado
+            ->whereNull('products.deleted_at')
+            ->get();
 
-        // Obtener los productos filtrados
+        // Ver los productos resultantes
+        dd($products);
+
+
         $products = $productsQuery->get();
-
-        // Obtener todas las categorías en estructura jerárquica
         $categories = Category::all();
-
-
-        // Obtener todos los talles
         $sizes = Size::all();
         $combos = Combo::all();
 
-        /* @dd($products); */
         return view('products.filter', compact('products', 'categories', 'sizes', 'combos'));
     }
 }
