@@ -10,7 +10,7 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url', 'imageable_id', 'imageable_type'];
+    protected $fillable = ['url', 'imageable_id', 'imageable_type', 'is_active'];
 
     public function imageable() : MorphTo
     {
