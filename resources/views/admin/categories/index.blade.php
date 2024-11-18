@@ -130,7 +130,6 @@
                                             </div>
 
                                         </summary>
-
                                         <div class="border-t border-gray-300 my-2"></div>
 
                                         <!-- Detalles de Subcategorías -->
@@ -164,6 +163,11 @@
                                     </div>
                                 </td>
                             </tr>
+                            @include('admin.components.delete-modal', [
+                                'item' => $category,
+                                'route' => 'admin.categories.destroy',
+                                'name' => 'Categoria',
+                            ])
                         @empty
                             <tr>
                                 <td colspan="100%" class="text-center p-4">
@@ -172,11 +176,6 @@
                             </tr>
                         @endforelse
                     </tbody>
-
-
-
-
-
                 </table>
             </div>
         </div>

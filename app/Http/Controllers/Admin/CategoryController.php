@@ -135,7 +135,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->image()->delete();
+        if (isset($category->images)) {
+            $category->images()->delete();
+        }/*
+        @dd($category->images(), $category->images); */
         $category->delete();
         return back();
     }
