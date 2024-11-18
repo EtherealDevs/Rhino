@@ -75,8 +75,8 @@ class ProductController extends Controller
     {
         $selectedCategories = $request->input('categories', []);
         $selectedSizes = $request->input('sizes', []);
-        $minPrice = str_replace(['$', '.', ' '], '', $request->input('minprice', 0));
-        $maxPrice = str_replace(['$', '.', ' '], '', $request->input('maxprice', 500000));
+        $minPrice = $request->input('minprice', 0);
+        $maxPrice = $request->input('maxprice', 500000);
 
         $productsQuery = Product::query();
 
@@ -92,6 +92,7 @@ class ProductController extends Controller
             });
         }
 
+        dd($productsQuery);
         $products = Product::whereHas('items', function ($query) use ($minPrice, $maxPrice) {
             $query->where(function ($query) use ($minPrice, $maxPrice) {
                 // Filtramos por sale_price en el rango
@@ -108,10 +109,6 @@ class ProductController extends Controller
             // Aseguramos que el producto no esté marcado como eliminado
             ->whereNull('products.deleted_at')
             ->get();
-
-        // Ver los productos resultantes
-        dd($products);
-
 
         $products = $productsQuery->get();
         $categories = Category::all();
