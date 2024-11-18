@@ -268,7 +268,7 @@
                                     <p class="text-gray-500 truncate text-sm">{{ $relatedProduct->description }}</p>
                                     {{-- Precio desactivado --}}
                                 </div>
-                                <div class="bg-gray-100 px-4 py-2 text-center font-semibold text-sm text-gray-800">
+                                <div class="bg-gray-100 sticky bottom-0 px-4 py-2 text-center font-semibold text-sm text-gray-800">
                                     Ver más detalles
                                 </div>
                             </a>
