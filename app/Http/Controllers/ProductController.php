@@ -75,8 +75,8 @@ class ProductController extends Controller
     {
         $selectedCategories = $request->input('categories', []);
         $selectedSizes = $request->input('sizes', []);
-        $minPrice = $request->input('minprice', 0);
-        $maxPrice = $request->input('maxprice', 500000);
+        $minPrice = $request->input('minprice', 0)*100;
+        $maxPrice = $request->input('maxprice', 300000)*100;
 
         $productsQuery = Product::query();
 
@@ -92,23 +92,18 @@ class ProductController extends Controller
             });
         }
 
-        dd($productsQuery);
-        $products = Product::whereHas('items', function ($query) use ($minPrice, $maxPrice) {
+        $productsQuery->whereHas('items', function ($query) use ($minPrice, $maxPrice) {
             $query->where(function ($query) use ($minPrice, $maxPrice) {
-                // Filtramos por sale_price en el rango
-                $query->whereBetween('sale_price', [$minPrice, $maxPrice])
+
+                $query->whereBetween('sale_price', array($minPrice, $maxPrice))
                     ->orWhere(function ($query) use ($minPrice, $maxPrice) {
-                        // O filtramos por original_price si sale_price es nulo
                         $query->whereNull('sale_price')
-                            ->whereBetween('original_price', [$minPrice, $maxPrice]);
+                            ->whereBetween('original_price', array($minPrice, $maxPrice));
                     });
             })
-                // Aseguramos que no esté marcado como eliminado
                 ->whereNull('deleted_at');
         })
-            // Aseguramos que el producto no esté marcado como eliminado
-            ->whereNull('products.deleted_at')
-            ->get();
+            ->whereNull('products.deleted_at');
 
         $products = $productsQuery->get();
         $categories = Category::all();

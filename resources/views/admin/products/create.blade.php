@@ -201,7 +201,6 @@
                                     </div>
                                 </div>
 
-
                                 <!-- Campo de selección de imágenes -->
                                 <div class="mb-8">
                                     <label for="image"

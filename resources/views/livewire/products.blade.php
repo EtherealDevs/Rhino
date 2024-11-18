@@ -179,9 +179,9 @@
     function range() {
         return {
             min: 1, // Valor mínimo del rango
-            max: 500000,
+            max: 300000,
             minprice: 1,
-            maxprice: 500000,
+            maxprice: 300000,
             minthumb: 0, // Inicialmente 0 pero será ajustado por mintrigger
             maxthumb: 100,
             mintrigger() {
