@@ -128,6 +128,7 @@ class ProductItemController extends Controller
 {
     $request->validate([
         'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'reference_images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
     $productItem = ProductItem::findOrFail($productItemId);
@@ -149,6 +150,18 @@ class ProductItemController extends Controller
         }
     }
 
+    // Verifica si se han subido imágenes al segundo campo
+    if ($request->hasFile('reference_images')) {
+        foreach ($request->file('reference_images') as $image) {
+            // Almacena la imagen
+            $url = Storage::put('images/product', $image);
+            // Crea una nueva imagen asociada al product_item
+            $productItem->images()->create([
+                'url' => $url,
+                'is_active' => 0, // Marcada como de referencia
+            ]);
+        }
+    }
     return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
 }
 

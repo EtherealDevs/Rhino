@@ -251,9 +251,6 @@
                                         <div id="reference-preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
                                     </div>
 
-
-
-
                                     <!-- Botón de envío -->
                                     <button id="button" type="submit"
                                         class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
