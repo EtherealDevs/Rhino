@@ -240,26 +240,53 @@
             </div>
         </div>
 
-        <!-- Recommended Products Section -->
-        <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
-            <h3 class="text-2xl font-bold font-josefin mb-4">Productos Recomendados</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach ($item->category()->products()->where('id', '!=', $item->product_id)->with('items')->take(4)->get() as $relatedProduct)
+        <div class="mt-10 bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-3xl font-bold font-josefin text-gray-800 mb-6 border-b-2 border-gray-200 pb-2">
+                Productos Recomendados
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                @foreach ($relatedProducts as $relatedProduct)
                     @php
-                        $relatedItem = $relatedProduct->first()->items()->first();
+                        $relatedItem = $relatedProduct->items->first();
                     @endphp
-                    <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                        <a
-                            href="{{ route('products.show', ['product' => $relatedProduct, 'productItem' => $relatedItem]) }}">
-                            <img class="w-full h-48 object-cover rounded-t-lg"
-                                src="{{ url(Storage::url($relatedItem->images()->first()->url)) }}" alt="Producto 1">
-                            <h4 class="text-lg font-semibold mt-2">{{ $relatedProduct->name }}</h4>
-                            <p class="text-gray-700">${{ number_format($relatedItem->price() / 100, 2, ',', ',') }}</p>
-                        </a>
-                    </div>
+                    @if ($relatedItem)
+                        <div
+                            class="bg-white rounded-lg overflow-hidden shadow-md transform transition-transform duration-300 hover:scale-105">
+                            <a
+                                href="{{ route('products.show', ['product' => $relatedProduct->id, 'productItem' => $relatedItem->id]) }}">
+                                <div class="relative">
+                                    <img class="w-full h-48 object-cover"
+                                        src="{{ $relatedItem->images->first()?->url ? url(Storage::url($relatedItem->images->first()?->url)) : asset('images/default.png') }}"
+                                        alt="{{ $relatedProduct->name }}">
+                                    <div
+                                        class="absolute top-0 left-0 bg-green-500 bg-opacity-50 text-white text-sm px-3 py-1 rounded-br-lg font-bold">
+                                        Nuevo
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="text-lg font-semibold uppercase truncate text-gray-800 mb-2">
+                                        {{ $relatedProduct->name }}</h4>
+                                    <p class="text-gray-500 truncate text-sm">{{ $relatedProduct->description }}</p>
+                                    {{-- Precio desactivado --}}
+                                </div>
+                                <div class="bg-gray-100 items-center justify-center flex px-4 py-2 text-center font-semibold text-sm text-gray-800">
+                                    <p class="">
+                                        Ver más detalles
+                                    </p>
+                                    <svg class="h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                        viewBox="0 0 16 16">
+                                        <path fill="currentColor"
+                                            d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.042-.018a.75.75 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
                 @endforeach
             </div>
         </div>
+
+
     </div>
 
     <script src="{{ asset('js/products/show.js') }}"></script>

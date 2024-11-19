@@ -53,6 +53,7 @@ class CategoryController extends Controller
         $category = Category::create([
             'name' => $request->name,
             'slug' => $request->slug,
+            'parent_id' =>  $request->parent_id ?? null,
             'description' => $request->description,
         ]);
 
@@ -134,7 +135,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->image()->delete();
+        if (isset($category->images)) {
+            $category->images()->delete();
+        }/*
+        @dd($category->images(), $category->images); */
         $category->delete();
         return back();
     }

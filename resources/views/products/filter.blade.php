@@ -77,9 +77,9 @@
             function range() {
                 return {
                     min: 0,
-                    max: 500000,
+                    max: 300000,
                     minprice: 0,
-                    maxprice: 500000,
+                    maxprice: 300000,
                     minthumb: 0,
                     maxthumb: 100,
                     mintrigger() {

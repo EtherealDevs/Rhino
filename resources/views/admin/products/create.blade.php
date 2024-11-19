@@ -201,19 +201,17 @@
                                     </div>
                                 </div>
 
-
-                                <!-- Campo de selección de imágenes -->
                                 <div class="mb-8">
-                                    <label for="image"
-                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
-                                        <div class="w-full">
-                                            <span class="mb-2 block text-xl font-semibold text-[#07074D]">
-                                                Selecciona una o más imágenes aquí 👇🏼
-                                            </span>
-                                            <span
-                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
+                                    <div class="mb-8">
+                                        <!-- Primer campo -->
+                                        <label for="image"
+                                            class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
+                                            <div class="w-full">
+                                                <span class="mb-2 block text-xl font-semibold text-[#07074D]">
+                                                    Selecciona una o más imágenes aquí 👇🏼
+                                                </span>
                                                 <input class="hidden" type="file" name="images[]" accept="image/*"
-                                                    id="image" multiple onchange="previewImages(event)" />
+                                                    id="image" multiple onchange="handleFirstFieldChange(event)" />
                                                 <div class="flex items-center justify-center space-x-2 cursor-pointer">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 256 256" class="text-gray-500">
@@ -223,49 +221,92 @@
                                                     </svg>
                                                     <span>Subir imágenes</span>
                                                 </div>
-                                            </span>
-                                        </div>
-                                    </label>
-                                    <div id="preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
-                                    @error('images.*')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                            </div>
+                                        </label>
+                                        <div id="preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
+                                    </div>
 
-                                <!-- Botón de envío -->
-                                <button id="button" type="submit"
-                                    class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
-                                    Guardar
-                                </button>
+                                    <!-- Segundo campo, inicialmente oculto -->
+                                    <div id="reference-field" class="mb-8 hidden">
+                                        <label for="reference_images"
+                                            class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
+                                            <div class="w-full">
+                                                <span class="mb-2 block text-xl font-semibold text-[#07074D]">
+                                                    Selecciona imágenes de referencia para talles 👇🏼
+                                                </span>
+                                                <input class="hidden" type="file" name="reference_images[]"
+                                                    accept="image/*" id="reference_images" multiple
+                                                    onchange="handleReferenceFieldChange(event)" />
+                                                <div class="flex items-center justify-center space-x-2 cursor-pointer">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 256 256" class="text-gray-500">
+                                                        <path fill="currentColor"
+                                                            d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z">
+                                                        </path>
+                                                    </svg>
+                                                    <span>Subir imágenes</span>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <div id="reference-preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
+                                    </div>
+
+                                    <!-- Botón de envío -->
+                                    <button id="button" type="submit"
+                                        class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-600 hover:bg-blue-700 hover:shadow-lg focus:outline-none">
+                                        Guardar
+                                    </button>
                             </form>
                         </div>
                     </div>
 
                     <script>
-                        // Variable para almacenar las imágenes seleccionadas
-                        let selectedFiles = [];
+                        // Variables para almacenar imágenes seleccionadas
+                        let selectedFiles = []; // Primer campo
+                        let referenceFiles = []; // Segundo campo
 
-                        function previewImages(event) {
+                        // Maneja cambios en el primer campo
+                        function handleFirstFieldChange(event) {
                             const files = Array.from(event.target.files);
 
-                            // Combinar los archivos nuevos con los ya seleccionados
+                            // Combina archivos nuevos con los existentes
                             selectedFiles = [...selectedFiles, ...files];
-                            buildFileList();
+                            buildFileList('image', selectedFiles); // Actualiza el input del primer campo
 
-                            // Limpiar el contenedor de vista previa
+                            // Actualiza la previsualización del primer campo
+                            populatePreviewContainer('preview-container', selectedFiles);
 
-                            // Mostrar cada archivo seleccionado
-                            populatePreviewContainer();
+                            // Muestra el segundo campo si hay imágenes seleccionadas
+                            const referenceField = document.getElementById('reference-field');
+                            if (selectedFiles.length > 0) {
+                                referenceField.classList.remove('hidden');
+                            } else {
+                                referenceField.classList.add('hidden');
+                            }
                         }
 
-                        function populatePreviewContainer() {
-                            const previewContainer = document.getElementById('preview-container');
-                            previewContainer.innerHTML = '';
-                            selectedFiles.forEach((file, index) => {
+                        // Maneja cambios en el segundo campo
+                        function handleReferenceFieldChange(event) {
+                            const files = Array.from(event.target.files);
+
+                            // Combina archivos nuevos con los existentes
+                            referenceFiles = [...referenceFiles, ...files];
+                            buildFileList('reference_images', referenceFiles); // Actualiza el input del segundo campo
+
+                            // Actualiza la previsualización del segundo campo
+                            populatePreviewContainer('reference-preview-container', referenceFiles);
+                        }
+
+                        // Actualiza la previsualización de imágenes
+                        function populatePreviewContainer(containerId, fileList) {
+                            const previewContainer = document.getElementById(containerId);
+                            previewContainer.innerHTML = ''; // Limpia el contenedor
+
+                            fileList.forEach((file, index) => {
                                 const reader = new FileReader();
 
                                 reader.onload = function(e) {
-                                    // Contenedor de la imagen y el botón de eliminar
+                                    // Crear contenedor de imagen y botón de eliminar
                                     const imageWrapper = document.createElement('div');
                                     imageWrapper.classList.add('relative', 'w-full', 'h-auto');
 
@@ -274,77 +315,60 @@
                                     img.src = e.target.result;
                                     img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
 
-                                    // Crear botón para eliminar la imagen
+                                    // Crear botón de eliminar
                                     const removeButton = document.createElement('button');
                                     removeButton.innerHTML = 'Eliminar';
-                                    removeButton.classList.add('absolute', 'top-1', 'right-1', 'bg-red-500', 'text-white',
-                                        'px-2', 'py-1', 'rounded');
+                                    removeButton.classList.add(
+                                        'absolute',
+                                        'top-1',
+                                        'right-1',
+                                        'bg-red-500',
+                                        'text-white',
+                                        'px-2',
+                                        'py-1',
+                                        'rounded'
+                                    );
 
-                                    // Manejar el evento de clic para eliminar la imagen
+                                    // Maneja la eliminación de imágenes
                                     removeButton.onclick = () => {
-                                        removeImage(index)
+                                        removeImage(containerId, index);
                                     };
 
-                                    // Agregar imagen y botón al contenedor
+                                    // Agrega imagen y botón al contenedor
                                     imageWrapper.appendChild(img);
                                     imageWrapper.appendChild(removeButton);
 
-                                    // Añadir contenedor al preview-container
+                                    // Agrega el contenedor de imagen al preview-container
                                     previewContainer.appendChild(imageWrapper);
                                 };
 
-                                // Leer el archivo como URL de datos
-                                reader.readAsDataURL(file);
+                                reader.readAsDataURL(file); // Leer el archivo como Data URL
                             });
-                        };
-
-                        function removeImage(index) {
-                            const previewContainer = document.getElementById('preview-container');
-                            previewContainer.children[index].remove(); // Remueve el div correspondiente a la imagen
-                            selectedFiles.splice(index, 1);
-                            buildFileList(); // Update the file list in the input field
-                            populatePreviewContainer(); // Update the preview container with the new images
                         }
 
-                        function buildFileList() {
-                            imageInput = document.getElementById('image');
-                            let list = new DataTransfer();
-                            selectedFiles.forEach((file, index) => {
-                                list.items.add(file);
-                            });
-                            imageInput.files = list.files; // Update the input file list with the new files
+                        // Elimina una imagen seleccionada
+                        function removeImage(containerId, index) {
+                            if (containerId === 'preview-container') {
+                                selectedFiles.splice(index, 1);
+                                buildFileList('image', selectedFiles);
+                                populatePreviewContainer('preview-container', selectedFiles);
+                            } else if (containerId === 'reference-preview-container') {
+                                referenceFiles.splice(index, 1);
+                                buildFileList('reference_images', referenceFiles);
+                                populatePreviewContainer('reference-preview-container', referenceFiles);
+                            }
                         }
-                    </script>
 
-                    <script>
-                        'use strict'
+                        // Actualiza la lista de archivos en el input
+                        function buildFileList(inputId, fileList) {
+                            const input = document.getElementById(inputId);
+                            const dataTransfer = new DataTransfer();
 
-                        document.getElementById('button').addEventListener('click', toggleError)
-                        const errMessages = document.querySelectorAll('#error')
+                            fileList.forEach((file) => {
+                                dataTransfer.items.add(file);
+                            });
 
-                        // function price_sale(){
-                        //     const original_price = document.getElementById('original_price').value
-                        //     const sale_price = document.getElementById('sale_price').value
-                        //     if(sale_price===null){
-                        //         sale_price = original_price
-                        //     }
-                        // }
-
-                        function toggleError() {
-                            // Show error message
-                            errMessages.forEach((el) => {
-                                el.classList.toggle('hidden')
-                            })
-
-                            // Highlight input and label with red
-                            const allBorders = document.querySelectorAll('.border-gray-200')
-                            const allTexts = document.querySelectorAll('.text-gray-500')
-                            allBorders.forEach((el) => {
-                                el.classList.toggle('border-red-600')
-                            })
-                            allTexts.forEach((el) => {
-                                el.classList.toggle('text-red-600')
-                            })
+                            input.files = dataTransfer.files; // Actualiza los archivos del input
                         }
                     </script>
                 </div>
@@ -597,7 +621,8 @@
                                 placeholder="Escribe el volumen" required="">
                         </div>
                         <div>
-                            <label for="weigth" class="block mb-2 text-sm font-medium text-gray-900">Peso (Gramos)</label>
+                            <label for="weigth" class="block mb-2 text-sm font-medium text-gray-900">Peso
+                                (Gramos)</label>
                             <input type="number" name="weight" id="weight"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                                 placeholder="Peso" required="">

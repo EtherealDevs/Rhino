@@ -39,7 +39,7 @@
                                 class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                                 <p
                                     class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                                    Descripción
+                                    Jerarquia
                                 </p>
                             </th>
                         </tr>
@@ -130,7 +130,6 @@
                                             </div>
 
                                         </summary>
-
                                         <div class="border-t border-gray-300 my-2"></div>
 
                                         <!-- Detalles de Subcategorías -->
@@ -164,6 +163,11 @@
                                     </div>
                                 </td>
                             </tr>
+                            @include('admin.components.delete-modal', [
+                                'item' => $category,
+                                'route' => 'admin.categories.destroy',
+                                'name' => 'Categoria',
+                            ])
                         @empty
                             <tr>
                                 <td colspan="100%" class="text-center p-4">
@@ -172,11 +176,6 @@
                             </tr>
                         @endforelse
                     </tbody>
-
-
-
-
-
                 </table>
             </div>
         </div>

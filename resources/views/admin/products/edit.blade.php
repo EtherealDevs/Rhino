@@ -204,33 +204,51 @@
                                 </div>
 
                                 <div class="mb-8">
-
                                     <label for="image"
                                         class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
                                         <div class="w-full">
                                             <span class="mb-2 block text-xl font-semibold text-[#07074D]">
-                                                Selecciona una o más imágenes nuevas aquí 👇🏼
+                                                Selecciona una o más imágenes aquí 👇🏼
                                             </span>
-                                            <span
-                                                class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                                                <input class="hidden" type="file" name="images[]" accept="image/*"
-                                                    id="image" multiple onchange="previewImages(event)" />
-                                                <div class="flex items-center justify-center space-x-2 cursor-pointer">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 256 256" class="text-gray-500">
-                                                        <path fill="currentColor"
-                                                            d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z">
-                                                        </path>
-                                                    </svg>
-                                                    <span>Subir imágenes</span>
-                                                </div>
-                                            </span>
+                                            <input class="hidden" type="file" name="images[]" accept="image/*"
+                                                id="image" multiple onchange="handleFirstFieldChange(event)" />
+                                            <div class="flex items-center justify-center space-x-2 cursor-pointer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 256 256" class="text-gray-500">
+                                                    <path fill="currentColor"
+                                                        d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z">
+                                                    </path>
+                                                </svg>
+                                                <span>Subir imágenes</span>
+                                            </div>
                                         </div>
                                     </label>
                                     <div id="preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
-                                    @error('images.*')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
+                                </div>
+
+                                <!-- Segundo campo, inicialmente oculto -->
+                                <div id="reference-field" class="mb-8">
+                                    <label for="reference_images"
+                                        class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
+                                        <div class="w-full">
+                                            <span class="mb-2 block text-xl font-semibold text-[#07074D]">
+                                                Selecciona imágenes de referencia para talles 👇🏼
+                                            </span>
+                                            <input class="hidden" type="file" name="reference_images[]"
+                                                accept="image/*" id="reference_images" multiple
+                                                onchange="handleReferenceFieldChange(event)" />
+                                            <div class="flex items-center justify-center space-x-2 cursor-pointer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 256 256" class="text-gray-500">
+                                                    <path fill="currentColor"
+                                                        d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-60 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m60 112H40v-39.31l46.34-46.35a8 8 0 0 1 11.32 0L165 181.66a8 8 0 0 0 11.32-11.32l-17.66-17.65L173 138.34a8 8 0 0 1 11.31 0L216 170.07z">
+                                                    </path>
+                                                </svg>
+                                                <span>Subir imágenes</span>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <div id="reference-preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
                                 </div>
 
                                 <button id="button" type="submit"
@@ -241,6 +259,110 @@
 
                         </div>
                     </div>
+
+                    <script>
+                        // Variables para almacenar imágenes seleccionadas
+                        let selectedFiles = []; // Primer campo
+                        let referenceFiles = []; // Segundo campo
+
+                        // Maneja cambios en el primer campo
+                        function handleFirstFieldChange(event) {
+                            const files = Array.from(event.target.files);
+
+                            // Combina archivos nuevos con los existentes
+                            selectedFiles = [...selectedFiles, ...files];
+                            buildFileList('image', selectedFiles); // Actualiza el input del primer campo
+
+                            // Actualiza la previsualización del primer campo
+                            populatePreviewContainer('preview-container', selectedFiles);
+                        }
+
+                        // Maneja cambios en el segundo campo
+                        function handleReferenceFieldChange(event) {
+                            const files = Array.from(event.target.files);
+
+                            // Combina archivos nuevos con los existentes
+                            referenceFiles = [...referenceFiles, ...files];
+                            buildFileList('reference_images', referenceFiles); // Actualiza el input del segundo campo
+
+                            // Actualiza la previsualización del segundo campo
+                            populatePreviewContainer('reference-preview-container', referenceFiles);
+                        }
+
+                        // Actualiza la previsualización de imágenes
+                        function populatePreviewContainer(containerId, fileList) {
+                            const previewContainer = document.getElementById(containerId);
+                            previewContainer.innerHTML = ''; // Limpia el contenedor
+
+                            fileList.forEach((file, index) => {
+                                const reader = new FileReader();
+
+                                reader.onload = function(e) {
+                                    // Crear contenedor de imagen y botón de eliminar
+                                    const imageWrapper = document.createElement('div');
+                                    imageWrapper.classList.add('relative', 'w-full', 'h-auto');
+
+                                    // Crear imagen
+                                    const img = document.createElement('img');
+                                    img.src = e.target.result;
+                                    img.classList.add('w-full', 'h-auto', 'rounded-md', 'border', 'border-gray-300');
+
+                                    // Crear botón de eliminar
+                                    const removeButton = document.createElement('button');
+                                    removeButton.innerHTML = 'Eliminar';
+                                    removeButton.classList.add(
+                                        'absolute',
+                                        'top-1',
+                                        'right-1',
+                                        'bg-red-500',
+                                        'text-white',
+                                        'px-2',
+                                        'py-1',
+                                        'rounded'
+                                    );
+
+                                    // Maneja la eliminación de imágenes
+                                    removeButton.onclick = () => {
+                                        removeImage(containerId, index);
+                                    };
+
+                                    // Agrega imagen y botón al contenedor
+                                    imageWrapper.appendChild(img);
+                                    imageWrapper.appendChild(removeButton);
+
+                                    // Agrega el contenedor de imagen al preview-container
+                                    previewContainer.appendChild(imageWrapper);
+                                };
+
+                                reader.readAsDataURL(file); // Leer el archivo como Data URL
+                            });
+                        }
+
+                        // Elimina una imagen seleccionada
+                        function removeImage(containerId, index) {
+                            if (containerId === 'preview-container') {
+                                selectedFiles.splice(index, 1);
+                                buildFileList('image', selectedFiles);
+                                populatePreviewContainer('preview-container', selectedFiles);
+                            } else if (containerId === 'reference-preview-container') {
+                                referenceFiles.splice(index, 1);
+                                buildFileList('reference_images', referenceFiles);
+                                populatePreviewContainer('reference-preview-container', referenceFiles);
+                            }
+                        }
+
+                        // Actualiza la lista de archivos en el input
+                        function buildFileList(inputId, fileList) {
+                            const input = document.getElementById(inputId);
+                            const dataTransfer = new DataTransfer();
+
+                            fileList.forEach((file) => {
+                                dataTransfer.items.add(file);
+                            });
+
+                            input.files = dataTransfer.files; // Actualiza los archivos del input
+                        }
+                    </script>
 
                     <div id="edit-product" tabindex="-1" aria-hidden="true"
                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 backdrop-blur-md h-[calc(100%-1rem)] max-h-full">

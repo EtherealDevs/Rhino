@@ -108,7 +108,7 @@
                         <div class="relative z-10 h-2">
                             <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200">
                             </div>
-                            <div class="absolute z-20 top-0 bottom-0 rounded-md bg-blue-500"
+                            <div class="absolute z-10 top-0 bottom-0 rounded-md bg-blue-500"
                                 x-bind:style="'right:' + maxthumb + '%; left:' + minthumb + '%'"></div>
                         </div>
                     </div>
