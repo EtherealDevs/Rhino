@@ -63,7 +63,7 @@ class OrderController extends Controller
     // Método show para visualizar el detalle de un pedido específico
     public function show($id)
     {
-        $mpAccessToken = config('app.mp_access_token');
+        $mpAccessToken = config('app.mp_access_token_test');
         MercadoPagoConfig::setAccessToken($mpAccessToken);
         $client = new PaymentClient();
         

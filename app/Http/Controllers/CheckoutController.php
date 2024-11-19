@@ -42,7 +42,7 @@ class CheckoutController extends Controller
     private $mpAccessToken;
     public function __construct()
     {
-        $this->mpAccessToken = config('app.mp_access_token');
+        $this->mpAccessToken = config('app.mp_access_token_test');
         MercadoPagoConfig::setAccessToken($this->mpAccessToken);
         $this->shippingService = new ShippingService();
         $this->productItemService = new ProductItemService();
@@ -62,7 +62,7 @@ class CheckoutController extends Controller
         $sucursal = null;
         //MercadoPago initialization
         $mpAccessToken = MercadoPagoConfig::getAccessToken();
-        $mpClientToken = config('app.mp_client_token');
+        $mpClientToken = config('app.mp_client_token_test');
 
         // User, address, and linked cart. Colors
         $user = User::where('id', auth()->user()->id)->with('address')->first();
