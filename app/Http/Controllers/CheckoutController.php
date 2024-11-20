@@ -50,6 +50,7 @@ class CheckoutController extends Controller
     }
     public function showCheckoutDeliveryPage(Request $request)
     {
+        
         $user = User::where('id', auth()->user()->id)->with('address')->first();
         return view('checkout.delivery', ['user' => $user, 'zip_code' => $request->zip_code, 'province' => $request->province, 'city' => $request->city]);
     }
@@ -68,7 +69,7 @@ class CheckoutController extends Controller
         $user = User::where('id', auth()->user()->id)->with('address')->first();
         $cart = Cart::where('user_id', $user->id)->first();
         $colors = Color::all();
-        if ($cart == null || $user->addresses->isEmpty()) {
+        if ($cart == null) {
             return redirect('/')->with('error', 'Invalid Data');
         }
         switch ($request->selectedMethod) {
@@ -79,6 +80,9 @@ class CheckoutController extends Controller
                 }
                 if ($address == null) {
                     $address = $user->addresses->first();
+                }
+                if ($address == null) {
+                    return redirect('/cart')->with('error', 'Invalid Data');
                 }
                 $address->load('zipCode', 'city', 'province');
                 $deliveryService = DeliveryService::where('name', '=', 'oca')->first();
@@ -92,9 +96,10 @@ class CheckoutController extends Controller
                 break;
             case 'retiro':
                 $admin = User::where('name', '=', 'Ethereal')->first();
-                $address = Address::firstOrCreate(['name' => 'rino'], ['user_id' => $admin->id, 'last_name' => 'indumentaria', 'phone_number' => '379 4316606', 'zip_code_id' => 1526, 'province_id' => 5, 'address' => 'Milan 1201', 'street' => 'Milan', 'number' => '1201']);
-                $sucursal = null;
-                $deliveryService = null;
+                $rinoZipCode = ModelsZipCode::where('code', '=', '3400')->first();
+                $rinoProvince = $rinoZipCode->province;
+                $address = Address::firstOrCreate(['name' => 'rino'], ['user_id' => $admin->id, 'last_name' => 'indumentaria', 'phone_number' => '379 4316606', 'zip_code_id' => $rinoZipCode->id, 'province_id' => $rinoProvince->id, 'address' => 'Milan 1201', 'street' => 'Milan', 'number' => '1201']);
+                $deliveryService = DeliveryService::where('name', '=', 'Retiro en el Local')->first();
                 $shippingCosts = 0;
                 break;
             default:
@@ -246,7 +251,6 @@ class CheckoutController extends Controller
                 case 'retiro':
                     $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);
 
-                    $order->delivery_service_id = 2;
                     $order->save();
                     break;
         }

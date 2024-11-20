@@ -146,7 +146,7 @@ class OrderService
             'user_id' => $user->id,
             'payment_method_id' => PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
             'total' => $total,
-            'delivery_service_id' => DeliveryService::where('name', 'oca')->first()->id,
+            'delivery_service_id' => DeliveryService::where('name', 'Retiro en el Local')->first()->id,
             'delivery_price' => $shippingCosts,
             'address_id' => $address->id,
             'order_status_id' => 1,
