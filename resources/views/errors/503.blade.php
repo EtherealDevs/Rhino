@@ -2,7 +2,7 @@
 
 @section('title', __('Service Unavailable'))
 @section('code', '503')
-@section('message'˝)
+@section('message')
     <div style="text-align: center; margin-top: 50px;">
         <h1 style="font-size: 4rem;">Error 503</h1>
         <h1 style="font-size: 4rem;">Servicio no disponible</h1>
