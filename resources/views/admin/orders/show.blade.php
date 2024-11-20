@@ -77,7 +77,9 @@
 
                     <div class="mt-4">
                         <p class="text-lg text-gray-600"><strong class="font-medium">Provincia:</strong> {{ $order->address->province->name }}</p>
+                        @if ($order->address->city != null)
                         <p class="text-lg text-gray-600"><strong class="font-medium">Ciudad:</strong> {{ $order->address->city->name }}</p>
+                        @endif
                     </div>
                 </div>
                 @endif
