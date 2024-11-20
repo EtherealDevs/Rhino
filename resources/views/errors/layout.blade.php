@@ -124,13 +124,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Polígonos -->
-    <div class="polygon-container">
-        <div class="polygon polygon1"></div>
-        <div class="polygon polygon2"></div>
-        <div class="polygon polygon3"></div>
-    </div>
 </body>
 
 </html>
