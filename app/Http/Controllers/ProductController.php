@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    public $product;
     public function index()
     {
         return view('products.index');
@@ -36,16 +37,17 @@ class ProductController extends Controller
 
     public function show(Product $product, $id)
     {
+
+        $this->product = $product;
         // Obtener las variedades de talla del producto
         $itemVariations = ProductSize::where('product_item_id', $id)->get();
         if ($itemVariations == null || $itemVariations->isEmpty()) {
             return abort(404);
         }
-        // Calcular el promedio de estrellas
-        $averageRating = $product->reviews()->avg('rating');
 
-        // Redondear a la estrella más cercana
-        $averageRating = round($averageRating * 2) / 2;
+        $averageRating = $product->reviews()->avg('rating');
+        $averageRating = round($averageRating * 2) / 2; // Redondear al valor más cercano de media estrella
+
 
         $item = ProductItem::with(['product' => ['items' => ['color', 'sizes'], 'category'], 'sizes', 'images'])
             ->where('id', $id)
@@ -59,7 +61,9 @@ class ProductController extends Controller
             }
         });
         $colors = $item->colors();
-        $reviews = Reviews::with('user', 'product')->get();
+        $reviews = Reviews::with('user', 'product')
+            ->where('product_id', $product->id) // Filtrar por el producto actual
+            ->get();
 
         // Obtener productos relacionados
         $relatedProducts = Product::with(['items.images'])
@@ -68,15 +72,15 @@ class ProductController extends Controller
             ->take(4) // Limitar a 4 productos relacionados
             ->get();
 
-        return view('products.show', compact('item', 'productVariations', 'colors', 'itemVariations', 'reviews', 'averageRating', 'relatedProducts'));
+        return view('products.show', compact('item', 'productVariations', 'product', 'colors', 'itemVariations', 'reviews', 'averageRating', 'relatedProducts'));
     }
 
     public function filter(Request $request)
     {
         $selectedCategories = $request->input('categories', []);
         $selectedSizes = $request->input('sizes', []);
-        $minPrice = $request->input('minprice', 0)*100;
-        $maxPrice = $request->input('maxprice', 300000)*100;
+        $minPrice = $request->input('minprice', 0) * 100;
+        $maxPrice = $request->input('maxprice', 300000) * 100;
 
         $productsQuery = Product::query();
 

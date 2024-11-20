@@ -2,53 +2,42 @@
 
 namespace App\Livewire;
 
-use App\Models\Review;  // Importamos el modelo Review
-use App\Models\Reviews;
 use Livewire\Component;
+use App\Models\Reviews;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class RatingStars extends Component
 {
-    public $products = [];
-    public $selectedProduct;
+    public $productId;
+    public $rating;
     public $reviewText;
-    public $value;
 
-    // Método para cargar productos desde la base de datos
-    public function mount() {
-        // Cargar productos desde la base de datos
-        $this->loadProducts();
-    }
+    public $product; // Producto específico
 
-    public function loadProducts()
+    public function mount(Product $product)
     {
-        // Aquí cargamos todos los productos desde la base de datos
-        $this->products = Product::all(); 
+        $this->product = $product;
     }
+
+    protected $rules = [
+        'rating' => 'required|integer|min:1|max:5',
+        'reviewText' => 'required|string|max:500',
+    ];
 
     public function submitReview()
     {
-        // Validación de los datos
-        $this->validate([
-            'selectedProduct' => 'required|exists:products,id',
-            'value' => 'required|integer|min:1|max:5',
-            'reviewText' => 'required|string|max:500',
-        ]);
+        $this->validate();
 
-        // Crear la reseña en la base de datos
         Reviews::create([
-            'user_id' => Auth::id(), // ID del usuario autenticado
-            'product_id' => $this->selectedProduct,
-            'rating' => $this->value,
+            'product_id' => $this->productId,
+            'user_id' => Auth::id(),
             'content' => $this->reviewText,
+            'rating' => $this->rating,
         ]);
 
-        // Puedes resetear los valores si lo deseas
-        $this->reset(['selectedProduct', 'reviewText', 'value']);
-        // Indicar que la reseña fue enviada
         $this->dispatchBrowserEvent('review-submitted');
+        $this->reset(['rating', 'reviewText']);
     }
 
     public function render()

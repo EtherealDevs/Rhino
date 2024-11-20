@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reviews;
-use App\Models\Product;
 
 class ReviewController extends Controller
 {
@@ -17,12 +16,12 @@ class ReviewController extends Controller
         ]);
 
         Reviews::create([
-            'user_id' => auth()->id(),
             'product_id' => $validated['product_id'],
+            'user_id' => auth()->id(),
             'content' => $validated['content'],
             'rating' => $validated['rating'],
         ]);
 
-        return back()->with('success', 'Reseña guardada con éxito.');
+        return redirect()->back()->with('success', '¡Gracias por tu reseña!');
     }
 }

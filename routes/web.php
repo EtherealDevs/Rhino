@@ -90,10 +90,9 @@ Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 
 Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
-Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth');
-Route::post('/submit-review', [RatingStars::class, 'submitReview'])
-    ->middleware('auth');
-// Route::get('/products-api', [ProductController::class, 'api']);
+Route::middleware('auth')->group(function () {
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+});
 
 
 /* Autenticacion */

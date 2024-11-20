@@ -39,16 +39,28 @@
                 @endif
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="flex justify-between items-center mb-4">
+                <div class="block lg:flex justify-between items-center mb-4">
                     <h2 class="text-3xl font-josefin font-bold">{{ $item->product->name }}</h2>
-                    <span class="text-xl text-yellow-500">
+                    <span class="text-xl flex h-6 text-yellow-500">
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($i <= floor($averageRating))
-                                <i class="ri-star-fill"></i>
-                            @elseif ($i == ceil($averageRating))
-                                <i class="ri-star-half-fill"></i>
+                                <!-- Estrella completa -->
+                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="m7.69 18.346l1.614-5.33L5.115 10h5.216L12 4.462L13.67 10h5.215l-4.189 3.016l1.614 5.33L12 15.07z" />
+                                </svg>
+                            @elseif ($i == floor($averageRating) + 1 && $averageRating - floor($averageRating) >= 0.5)
+                                <!-- Estrella media -->
+                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="m15.15 16.85l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4v7.8zm-7.825 2.073l1.24-5.313l-4.123-3.571l5.431-.472L12 4.557l2.127 5.01l5.43.472l-4.123 3.57l1.241 5.314L12 16.102z" />
+                                </svg>
                             @else
-                                <i class="ri-star-line"></i> <!-- Estrella vacía -->
+                                <!-- Estrella vacía -->
+                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M9.6 15.65L12 13.8l2.4 1.85l-.9-3.05l2.25-1.6h-2.8L12 7.9l-.95 3.1h-2.8l2.25 1.6zm-1.91 2.696l1.614-5.33L5.115 10h5.216L12 4.462L13.67 10h5.215l-4.189 3.016l1.614 5.33L12 15.07zM12 11.775" />
+                                </svg>
                             @endif
                         @endfor
                     </span>
@@ -197,39 +209,45 @@
                     <div x-show="activeTab === 'reviews'">
                         <h3 class="text-2xl font-bold font-josefin mb-4">Reseñas y Calificaciones</h3>
                         <div class="flex justify-center items-center h-full">
-                            <div class="max-w-[720px] mx-auto">
+                            <div class="w-full mx-auto">
+                                @livewire('rating-stars', ['product' => $product])
                                 @foreach ($reviews as $review)
                                     <div
-                                        class="relative mb-6 flex items-start gap-4 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1480&q=80"
-                                            alt="{{ $review->user->name }}"
-                                            class="h-16 w-16 rounded-full object-cover border-2 border-gray-300" />
-                                        <div class="flex flex-col w-full">
-                                            <div class="flex items-center justify-between">
-                                                <h5 class="text-lg font-semibold text-blue-gray-900">
-                                                    {{ $review->user->name }}
-                                                </h5>
-                                                <div class="flex items-center">
-                                                    @for ($i = 0; $i < $review->rating; $i++)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                            fill="currentColor" class="w-5 h-5 text-yellow-700">
-                                                            <path fill-rule="evenodd"
-                                                                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                                                clip-rule="evenodd"></path>
-                                                        </svg>
-                                                    @endfor
+                                        class="relative mb-6  bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                        <div class="flex items-start gap-4 p-6">
+                                            <img class="h-10 rounded-full"
+                                                src="{{ $review->user->avatar ?: $review->user->profile_photo_url }}"
+                                                alt="Avatar">
+                                            <div class="flex flex-col w-full">
+                                                <div class="flex items-center justify-between">
+                                                    <h5 class="text-lg font-semibold text-blue-gray-900">
+                                                        {{ $review->user->name }}
+                                                    </h5>
+                                                    <div class="flex items-center">
+                                                        @for ($i = 0; $i < $review->rating; $i++)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" class="w-5 h-5 text-yellow-500">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                                                                    clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        @endfor
+                                                    </div>
+                                                </div>
+                                                <div class="justify-end">
+                                                    <p class="text-xs text-gray-600">
+                                                        {{ $review->created_at->timezone('America/Argentina/Buenos_Aires')->format('d/m/Y H:i:s') }}
+
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <p class="mt-1 text-sm text-gray-600">
-                                                {{ $review->product->name }}
-                                                <!-- Asegúrate de que tengas la relación definida -->
+                                        </div>
+
+                                        <div class="p-4 mb-4 bg-gray-50 rounded-b-lg">
+                                            <p class="text-base text-gray-800 italic">
+                                                "{{ $review->content }}"
                                             </p>
                                         </div>
-                                    </div>
-                                    <div class="p-4 mb-4 bg-gray-50 rounded-lg">
-                                        <p class="text-base text-gray-800 italic">
-                                            "{{ $review->content }}"
-                                        </p>
                                     </div>
                                 @endforeach
                             </div>
@@ -269,12 +287,13 @@
                                     <p class="text-gray-500 truncate text-sm">{{ $relatedProduct->description }}</p>
                                     {{-- Precio desactivado --}}
                                 </div>
-                                <div class="bg-gray-100 items-center justify-center flex px-4 py-2 text-center font-semibold text-sm text-gray-800">
+                                <div
+                                    class="bg-gray-100 items-center justify-center flex px-4 py-2 text-center font-semibold text-sm text-gray-800">
                                     <p class="">
                                         Ver más detalles
                                     </p>
-                                    <svg class="h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                        viewBox="0 0 16 16">
+                                    <svg class="h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
+                                        height="1em" viewBox="0 0 16 16">
                                         <path fill="currentColor"
                                             d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.042-.018a.75.75 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06" />
                                     </svg>
