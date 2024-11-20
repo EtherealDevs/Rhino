@@ -132,10 +132,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkout/delivery', [CheckoutController::class, 'showCheckoutDeliveryPage'])->name('checkout.delivery');
     Route::get('/checkout/payment', [CheckoutController::class, 'showCheckoutPaymentPage'])->name('checkout.payment');
     Route::post('/payment/handle', [CheckoutController::class, 'handlePayment'])->name('checkout.handlePayment');
+    Route::get('/payment/handle', [CheckoutController::class, 'handleMercadoPagoPayment'])->name('checkout.handleMercadoPagoPayment');
     // Route::get('/payment/status/{id}', [CheckoutController::class, 'handlePayment'])->name('checkout.payment.handle');
     Route::post('checkout/delivery', [CheckoutController::class, 'validateAddressAndSaveToDatabase'])->name('checkout.delivery.address');
     Route::post('/process_payment', [CheckoutController::class, 'processPayment'])->name('checkout.processPayment');
 });
+Route::get('payment/failure', [CheckoutController::class, 'showPaymentFailure'])->name('payment.failure');
 
 /* Ruta para almacenar los comprobantes */
 Route::post('/comprobante', [ComprobanteController::class, 'store'])->name('comprobante.store');

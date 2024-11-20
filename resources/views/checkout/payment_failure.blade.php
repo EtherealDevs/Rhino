@@ -1,1 +1,3 @@
-Payment Failure.
+<div>
+    {{$paymentJson}}
+</div>

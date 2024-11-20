@@ -33,6 +33,7 @@ use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use MercadoPago\MercadoPagoConfig;
+use MercadoPago\Resources\Payment;
 
 class CheckoutController extends Controller
 {
@@ -123,23 +124,29 @@ class CheckoutController extends Controller
 
         // Unknown
         $appUrl = config('app.url');
+        $selectedMethod = $request->selectedMethod;
 
         // MercadoPago Client and Preference initialization
         $client = new PreferenceClient();
         try {
             $preference = $client->create([
                 "items" => $items,
+                "binary_mode" => true,
+                "shipments" => [
+                    "cost" => $shippingCosts
+                ],
                 "back_urls" => [
-                    "success" => "{$appUrl}/",
-                    "failure" => "{$appUrl}/payment_failure",
-                    "pending" => "{$appUrl}/payment_pending"
-                ]
+                    "success" => "{$appUrl}/payment/handle?payment_method={$selectedMethod}",
+                    "failure" => "{$appUrl}/payment/failure",
+                    "pending" => "{$appUrl}/payment/failure"
+                ],
+                "auto_return" => "approved",
             ]);
         }
         catch (MPApiException $e) {
             dd($e, $items);
         }
-        $selectedMethod = $request->selectedMethod;
+        
 
         return view('checkout.payment', ['cart' => $cart, 'pref' => $preference, 'items' => $items, 'colors' => $colors, 'address' => $address, 'cartItems' => $cartItems, 'shippingCosts' => $shippingCosts, 'total' => $total, 'cartTotal' => $cartTotal, 'clientToken' => $mpClientToken, 'delivery_service' => $deliveryService, 'sucursal' => $sucursal, 'selectedMethod' => $selectedMethod]);
     }
@@ -183,11 +190,10 @@ class CheckoutController extends Controller
 
         $client = new PaymentClient();
 
-
-
         try {
             $payment = $client->create([
                 "transaction_amount" => $request->transaction_amount,
+                "binary_mode" => true,
                 "token" => $request->token,
                 "installments" => $request->installments,
                 "payment_method_id" => $request->payment_method_id,
@@ -216,7 +222,6 @@ class CheckoutController extends Controller
     {
         $shippingService = new ShippingService();
         $orderService = new OrderService();
-
         $request->validate([
             'mp_order_id' => 'required',
             'selectedMethod' => 'required|in:domicilio,sucursal,retiro',
@@ -229,6 +234,10 @@ class CheckoutController extends Controller
         $client = new PaymentClient();
         $id = $request->mp_order_id;
         $payment = $client->get($id);
+
+        if ($payment->status != "approved") {
+            return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+        }
 
         $order = null;
 
@@ -257,5 +266,62 @@ class CheckoutController extends Controller
 
 
         return redirect()->route('orders.show', ['id' => $order->id]);
+    }
+    public function handleMercadoPagoPayment(Request $request)
+    {
+        $shippingService = new ShippingService();
+        $orderService = new OrderService();
+
+        $request->validate([
+            'payment_id' => 'required',
+            'selectedMethod' => 'required|in:domicilio,sucursal,retiro',
+            'delivery_price' => 'nullable|numeric',
+        ]);
+
+        $user = Auth::user();
+        $items = $user->cart->contents;
+
+        $client = new PaymentClient();
+        $id = $request->payment_id;
+        $payment = $client->get($id);
+
+        if ($payment->status != "approved") {
+            return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+        }
+        $order = null;
+
+        switch ($request->selectedMethod) {
+            case 'domicilio':
+                $request->validate([
+                    'address_id' => 'nullable|exists:addresses,id',
+                ]);
+                $order = $orderService->createDeliveryOrder($payment, $user, Address::find($request->address_id), (float)$request->delivery_price);
+                break;
+            case 'sucursal':
+                $sucursalesIds = $shippingService->getSucursalesIds($request->zip_code);
+                $sucursalesCollection = collect($shippingService->getSucursales($request->zip_code));
+                $sucursal = $sucursalesCollection->firstWhere('IdCentroImposicion', '=', $request->sucursal);
+                $request->validate([
+                        'sucursal' => ['nullable', 'numeric', Rule::in($sucursalesIds)]
+                    ]);
+                $order = $orderService->createSucursalOrder($payment, $user, $sucursal, (float)$request->delivery_price);
+                break;
+                case 'retiro':
+                    $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);
+                    $order->save();
+                    break;
+        }
+
+
+        return redirect()->route('orders.show', ['id' => $order->id]);
+    }
+    public function showPaymentFailure(Request $request)
+    {
+        $client = new PaymentClient();
+        $id = $request->payment_id;
+        $payment = $client->get($id);
+
+        $paymentJson = json_encode($payment);
+        return view('checkout.payment_failure', compact('paymentJson'));
     }
 }

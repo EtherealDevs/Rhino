@@ -201,7 +201,7 @@
                     },
                     shipping: { // opcional
                         costs: shippingCosts, // opcional
-                        shippingMode: "Retiro en sucursal",
+                        shippingMode: "Retiro en sucursal OCA",
                         description: "El paquete se envia a una sucursal de OCA de tu eleccion, donde podes ir a retirarlo", // opcional
                         receiverAddress: {
                             streetName: sucursal.Calle,
@@ -349,7 +349,7 @@
                     shipping: { // opcional
                         costs: 0, // opcional
                         shippingMode: "Retiro en local de Rino",
-                        description: "Tu pedido te va a estar esperando en el local de Rino.", // opcional
+                        description: "Tu pedido te va a estar esperando en el local de Rino. Acordate de llevar tu DNI con el que hiciste la compra para poder retirarlo.", // opcional
                         receiverAddress: {
                             streetName: 'Milán',
                             streetNumber: '1201',
