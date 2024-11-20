@@ -6,6 +6,7 @@ use App\Http\Cart\CartManager;
 use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\Order;
 use App\Models\ProductItem;
 use App\Models\Category;
 use App\Models\Size;
@@ -18,9 +19,11 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class ProductController extends Controller
 {
     public $product;
+    public $canReview = false;
     public function index()
     {
         return view('products.index');
@@ -39,6 +42,7 @@ class ProductController extends Controller
     {
 
         $this->product = $product;
+        $this->canReview = $this->userHasPurchasedProduct();
         // Obtener las variedades de talla del producto
         $itemVariations = ProductSize::where('product_item_id', $id)->get();
         if ($itemVariations == null || $itemVariations->isEmpty()) {
@@ -72,8 +76,44 @@ class ProductController extends Controller
             ->take(4) // Limitar a 4 productos relacionados
             ->get();
 
-        return view('products.show', compact('item', 'productVariations', 'product', 'colors', 'itemVariations', 'reviews', 'averageRating', 'relatedProducts'));
+        return view('products.show', compact(
+            'item',
+            'productVariations',
+            'product',
+            'colors',
+            'itemVariations',
+            'reviews',
+            'averageRating',
+            'canReview',
+            'relatedProducts'
+        ));
     }
+
+    public function userHasPurchasedProduct()
+    {
+        // Verificar si el usuario está autenticado
+        if (Auth::check()) {
+            // Obtenemos el usuario autenticado
+            $user = Auth::user();
+
+            $order = Order::with('details', 'orderStatus')
+                ->where('user_id', $user->id)
+                ->where('order_status_id', 4)->get();
+
+            $hasOrdered = Order::where('user_id', $user->id)
+                ->whereHas('details', function ($query) {
+                    $query->whereHas('productItem', function ($query) {
+                        $query->where('product_id', $this->product->id);
+                    });
+                })
+                ->exists();
+        }
+
+        // Si el usuario no está autenticado, devolver false
+        return false;
+    }
+
+
 
     public function filter(Request $request)
     {

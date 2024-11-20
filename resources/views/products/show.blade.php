@@ -45,19 +45,22 @@
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($i <= floor($averageRating))
                                 <!-- Estrella completa -->
-                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                    viewBox="0 0 24 24">
                                     <path fill="currentColor"
                                         d="m7.69 18.346l1.614-5.33L5.115 10h5.216L12 4.462L13.67 10h5.215l-4.189 3.016l1.614 5.33L12 15.07z" />
                                 </svg>
                             @elseif ($i == floor($averageRating) + 1 && $averageRating - floor($averageRating) >= 0.5)
                                 <!-- Estrella media -->
-                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                    viewBox="0 0 24 24">
                                     <path fill="currentColor"
                                         d="m15.15 16.85l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4v7.8zm-7.825 2.073l1.24-5.313l-4.123-3.571l5.431-.472L12 4.557l2.127 5.01l5.43.472l-4.123 3.57l1.241 5.314L12 16.102z" />
                                 </svg>
                             @else
                                 <!-- Estrella vacía -->
-                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                                <svg class="h-12" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                    viewBox="0 0 24 24">
                                     <path fill="currentColor"
                                         d="M9.6 15.65L12 13.8l2.4 1.85l-.9-3.05l2.25-1.6h-2.8L12 7.9l-.95 3.1h-2.8l2.25 1.6zm-1.91 2.696l1.614-5.33L5.115 10h5.216L12 4.462L13.67 10h5.215l-4.189 3.016l1.614 5.33L12 15.07zM12 11.775" />
                                 </svg>
@@ -210,7 +213,16 @@
                         <h3 class="text-2xl font-bold font-josefin mb-4">Reseñas y Calificaciones</h3>
                         <div class="flex justify-center items-center h-full">
                             <div class="w-full mx-auto">
-                                @livewire('rating-stars', ['product' => $product])
+                                <div>
+                                    @if ($canReview)
+                                        <!-- Si el usuario ha comprado el producto, mostrar el componente de reseñas -->
+                                        @livewire('rating-stars', ['product' => $product])
+                                    @else
+                                        <!-- Si el usuario no ha comprado el producto, mostrar un mensaje o algo apropiado -->
+                                        <p>Para dejar una reseña, debes haber comprado este producto.</p>
+                                    @endif
+                                </div>
+
                                 @foreach ($reviews as $review)
                                     <div
                                         class="relative mb-6  bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">

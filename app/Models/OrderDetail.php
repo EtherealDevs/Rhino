@@ -31,6 +31,7 @@ class OrderDetail extends Model
         $item = ProductItem::withTrashed()->find($variation->product_item_id);
         return $item;
     }
+
     public function itemVariation()
     {
         $variation = DB::table('products_sizes')->find($this->variation_id);
