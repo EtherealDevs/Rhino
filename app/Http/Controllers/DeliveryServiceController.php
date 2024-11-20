@@ -89,7 +89,7 @@ class DeliveryServiceController extends Controller
         return $response->throw();
     }
 
-    public function track($sendNum)
+    public static function track($sendNum)
     {
         // URL de la API de OCA
         $url = "http://webservice.oca.com.ar/epak_tracking/Oep_TrackEPak.asmx/Tracking_Pieza_ConIdEstado";

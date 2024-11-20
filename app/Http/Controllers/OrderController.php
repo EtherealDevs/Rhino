@@ -35,9 +35,10 @@ class OrderController extends Controller
 
         // Obtener la información de transferencia
         $transferInfo = TransferInfo::first(); // Obtiene la primera entrada
+        $tracking = DeliveryServiceController::track($order->send_number);
 
         // Pasar el pedido y la información de transferencia a la vista
-        return view('orders.show', compact('order', 'transferInfo'));
+        return view('orders.show', compact('order', 'transferInfo','tracking'));
     }
 }
 

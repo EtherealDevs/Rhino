@@ -61,7 +61,15 @@
                                     <label for="file"
                                         class="w-full flex items-center justify-center border border-gray-300 rounded py-4 cursor-pointer">
                                         <!-- SVG que representa el ícono de carga de archivo -->
-                                        <svg class="h-6 w-6 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 6h10M7 9h10m-8 8h6"/><path d="M3 12h-.4a.6.6 0 0 0-.6.6v8.8a.6.6 0 0 0 .6.6h18.8a.6.6 0 0 0 .6-.6v-8.8a.6.6 0 0 0-.6-.6H21M3 12V2.6a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6.6V12M3 12h18"/></g></svg>
+                                        <svg class="h-6 w-6 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                            width="1em" height="1em" viewBox="0 0 24 24">
+                                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M7 6h10M7 9h10m-8 8h6" />
+                                                <path
+                                                    d="M3 12h-.4a.6.6 0 0 0-.6.6v8.8a.6.6 0 0 0 .6.6h18.8a.6.6 0 0 0 .6-.6v-8.8a.6.6 0 0 0-.6-.6H21M3 12V2.6a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6.6V12M3 12h18" />
+                                            </g>
+                                        </svg>
                                         <span class="text-gray-700">Cargar archivo</span>
                                         <!-- Input hidden, el cual activará el cuadro de diálogo de carga al hacer clic en el label -->
                                         <input type="file" id="file" name="file" accept="image/*,.pdf"
@@ -102,6 +110,28 @@
                             </svg>
                             <p class="p-2 text-lg font-bold">Pactar retiro con Rino</p>
                         </button>
+                    </div>
+                </div>
+            @endif
+            @if ($order->delivery_service_id === 1)
+                <div class="w-1/2 mb-10 mt-12">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Envío a domicilio</h2>
+                    <div class="mt-4">
+                        <p class="text-lg font-semibold text-gray-700">Informacion de Envio:</p>
+                        @isset($order->send_number)
+                            @if (is_array($tracking))
+                                @foreach ($tracking as $item)
+                                    <div class="p-2">
+                                        <p class="text-lg font-semibold text-gray-700">Numero de seguimiento:
+                                            {{ $item['NumeroEnvio'] }}</p>
+                                        <p class="text-lg font-semibold text-gray-700">Estado:
+                                            {{ $item['Estado'] }}</p>
+                                        <p class="text-lg font-semibold text-gray-700">Fecha de envio:
+                                            {{ date_format(now()->parse($item['Fecha']), 'd/m/Y') }}</p>
+                                    </div>
+                                @endforeach
+                            @endif
+                        @endisset
                     </div>
                 </div>
             @endif
