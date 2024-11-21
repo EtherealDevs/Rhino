@@ -12,29 +12,17 @@ class ZipCode extends Model
 {
     use HasFactory;
 
-    /**
-     * Get the province that owns the ZipCode
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function province(): BelongsTo
     {
         return $this->belongsTo(Province::class);
     }
-    /**
-     * Get the city that owns the ZipCode
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
-    /**
-     * Get all of the addresses for the ZipCode
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);

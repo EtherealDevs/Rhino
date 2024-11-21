@@ -10,11 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait CascadesDeletes
 {
-    /**
-     * Use the boot function to setup model event listeners.
-     *
-     * @return void
-     */
     public static function bootCascadesDeletes()
     {
         // Setup the 'deleting' event listener.
@@ -102,23 +97,11 @@ trait CascadesDeletes
         return property_exists($this, 'cascadeDeletes') ? $this->cascadeDeletes : [];
     }
 
-    /**
-     * Set the cascadeDeletes attribute.
-     *
-     * @param  mixed  $cascadeDeletes
-     *
-     * @return void
-     */
     public function setCascadeDeletes($cascadeDeletes)
     {
         $this->cascadeDeletes = $cascadeDeletes;
     }
 
-    /**
-     * Get an array of cascading relation names.
-     *
-     * @return array
-     */
     public function getCascadeDeletesRelationNames()
     {
         $deletes = $this->getCascadeDeletes();
@@ -126,11 +109,6 @@ trait CascadesDeletes
         return array_filter(is_array($deletes) ? $deletes : [$deletes]);
     }
 
-    /**
-     * Get an array of the cascading relation names mapped to their relation types.
-     *
-     * @return array
-     */
     public function getCascadeDeletesRelations()
     {
         $names = $this->getCascadeDeletesRelationNames();
@@ -142,13 +120,6 @@ trait CascadesDeletes
         }, $names));
     }
 
-    /**
-     * Get an array of the invalid cascading relation names.
-     *
-     * @param  array|null  $relations
-     *
-     * @return array
-     */
     public function getInvalidCascadeDeletesRelations(array $relations = null)
     {
         // This will get the array keys for any item in the array where the
@@ -157,13 +128,6 @@ trait CascadesDeletes
         return array_keys($relations ?: $this->getCascadeDeletesRelations(), null);
     }
 
-    /**
-     * Get the relationship query to use for the specified relation.
-     *
-     * @param  string  $relation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\Relation
-     */
     public function getCascadeDeletesRelationQuery($relation)
     {
         $query = $this->$relation();
@@ -178,11 +142,6 @@ trait CascadesDeletes
         return $query;
     }
 
-    /**
-     * Check if this cascading delete is a force delete.
-     *
-     * @return boolean
-     */
     public function isCascadeDeletesForceDeleting()
     {
         return property_exists($this, 'forceDeleting') && $this->forceDeleting;

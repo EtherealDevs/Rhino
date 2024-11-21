@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Http\Validators\AddressValidator;
@@ -11,16 +12,6 @@ use Exception;
 
 class AddressService
 {
-    /**
-     * This function is responsible for saving or updating an address record in the database.
-     *
-     * @param array $data An associative array containing the address data.
-     * @param User $user The user object associated with the address.
-     *
-     * @return Address The saved or updated address record.
-     *
-     * @throws Exception If any required data is missing or if the associated models cannot be found.
-     */
     public function saveOrUpdate(array $data, User $user)
     {
         // Validate and prepare the address fields
@@ -39,13 +30,13 @@ class AddressService
             'street2' => $data['street2'],
             'observation' => $data['observation'] ?? null,
         ];
-    
+
         // Save or update the address record
         $address = Address::updateOrCreate(
             ['user_id' => $user->id],
             $fields
         );
-    
+
         return $address;
     }
     public function getAddressFromZipCode($zipCode)
@@ -64,11 +55,9 @@ class AddressService
         if (!$provinceModel) {
             throw new Exception('Invalid zip code or associated province not found');
         }
-        
+
         // Fetch the address record from the database based on the zip code
         $address = Address::where('zip_code_id', $zipCodeModel->id)->first();
         return $address;
     }
 }
-
-?>

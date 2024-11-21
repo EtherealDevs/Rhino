@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Http\Cart\CartCombo;
@@ -18,23 +19,15 @@ class CheckoutService
         $this->cartService = new CartService();
         $this->productItemService = new ProductItemService();
     }
-    /**
-    * Builds checkout items from the given cart.
-    *
-    * @param Cart $cart The cart to build checkout items from.
-    *
-    * @return array An array containing two elements:
-    *               - An array of items formatted for checkout.
-    *               - An array of cart items formatted for checkout.
-    */
+
     public function buildItems(Cart $cart)
     {
-        
+
         $items = [];
         $cartItems = [];
         // Code to build checkout items
         foreach ($cart->contents as $item) {
-            
+
             if ($item['type'] == CartItem::DEFAULT_TYPE) {
                 // $sizeModel = Size::where('name', $item['size'])->first();
                 $itemModel = ProductItem::where('id', $item['item_id'])->first();
@@ -89,5 +82,3 @@ class CheckoutService
         return [$items, $cartItems];
     }
 }
-
-?>

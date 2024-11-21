@@ -27,17 +27,6 @@ class ShippingService
         $this->addressService = new AddressService();
         $this->addressValidator = new AddressValidator();
     }
-    /**
-     * Get the shipping costs for a delivery to specified addressOrZipCode.
-     *
-     * @param Address|string|int $addressOrZipCode Either an address model or a zip code.
-     * @param int $operativa The operation code.
-     * @param bool $sucursal Determines if the shipping costs should be calculated by sucursal or domicilio.
-     *
-     * @return float $price The calculated shipping price.
-     *
-     * @throws Exception If any required data is missing, failed validation, or if the associated models cannot be found.
-     */
     public function getShippingCosts(Address|string|int $addressOrZipCode, int $operativa)
     {
 
@@ -61,7 +50,7 @@ class ShippingService
         $weight = $props['weight'] ?? 0;
         $volume = $props['volume'] ?? 0;
         $total = $props['total'] ?? 0;
-        
+
         $params = ['operativa' => $operativa, 'peso' => $weight / 1000, 'volumen' => $volume / 1000000, 'cP' => (int) config('app.delivery_service.origin_zipcode'), 'cPDes' => $cpDest, 'cantidad' => 1, 'valor' => (int) ($total / 100)];
         $price = DeliveryServiceController::obtenerTarifas($params);
         return (float) $price;

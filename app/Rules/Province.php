@@ -8,11 +8,6 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class Province implements ValidationRule
 {
-    /**
-     * Run the validation rule.
-     *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
-     */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $province = $value;
@@ -25,8 +20,7 @@ class Province implements ValidationRule
                     break;
                 }
             }
-        } else if (is_int($province))
-        {
+        } else if (is_int($province)) {
             $provinceModel = $provinceModels->find($province);
             if ($provinceModel != null) {
                 $province = $provinceModel;

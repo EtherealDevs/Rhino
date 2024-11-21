@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Http\Cart\CartCombo;
@@ -15,25 +16,12 @@ use MercadoPago\Resources\Payment;
 
 class OrderService
 {
-    /**
-     * Create an order based on a MercadoPago order. Delivery
-     *
-     * @param \MercadoPago\Resources\Payment $mpOrder The MercadoPago order.
-     * @param \App\Models\User $user The user model.
-     * @param \App\Models\Address $address The address model.
-     * @param float $shippingCosts The price of the shipping services' delivery.
-     * 
-     * @return \App\Models\Order $order.
-     */
     public function createDeliveryOrder(Payment $mpOrder, User $user, Address $address, float $shippingCosts)
     {
-        
         $orderDetailService = new OrderDetailService();
         $items = collect(json_decode($user->cart->contents));
-
-        $shippingCosts = (int) ($shippingCosts * 100);
+        +$shippingCosts = (int) ($shippingCosts * 100);
         $total = (int) ($mpOrder->transaction_amount * 100);
-        
         $order = Order::create([
             'user_id' => $user->id,
             'payment_method_id' => PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
@@ -54,24 +42,13 @@ class OrderService
                     $productItem = ProductItem::find($comboItem->item_id);
                     $orderDetailService->createOrderDetail($order->id, $comboItem, $productItem->price(), $item);
                 }
-            }
-            else {
+            } else {
                 $productItem = $productItems->find($item->item_id);
                 $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
             }
         }
         return $order;
     }
-    /**
-     * Create an order based on a MercadoPago order. Sucursal
-     *
-     * @param \MercadoPago\Resources\Payment $mpOrder The MercadoPago order.
-     * @param \App\Models\User $user The user model.
-     * @param array $sucursal The sucursal.
-     * @param float $shippingCosts The price of the shipping services' delivery.
-     * 
-     * @return \App\Models\Order $order.
-     */
     public function createSucursalOrder(Payment $mpOrder, User $user, array $sucursal, float $shippingCosts)
     {
         $orderDetailService = new OrderDetailService();
@@ -95,7 +72,7 @@ class OrderService
             'department' => $sucursal['Depto'] == null ? 'null' : $sucursal['Depto'],
             'observation' => $observation,
         ]);
-        
+
         $payment_methods = ['credit_card' => 4, 'debit_card' => 3];
         $order = Order::create([
             'user_id' => $user->id,
@@ -116,27 +93,17 @@ class OrderService
                     $productItem = $productItems->find($comboItem->item_id);
                     $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
                 }
-            }
-            else {
+            } else {
                 $productItem = $productItems->find($item->item_id);
                 $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
             }
         }
         return $order;
     }
-    /**
-     * Create an order based on a MercadoPago order. Retiro
-     *
-     * @param \MercadoPago\Resources\Payment $mpOrder The MercadoPago order.
-     * @param \App\Models\User $user The user model.
-     * 
-     * @return \App\Models\Order $order.
-     */
     public function createRetiroOrder(Payment $mpOrder, User $user)
     {
         $orderDetailService = new OrderDetailService();
         $items = collect(json_decode($user->cart->contents));
-
         $shippingCosts = 0;
         $total = (int) ($mpOrder->transaction_amount * 100);
         $admin = User::where('name', '=', 'Ethereal')->first();
@@ -161,8 +128,7 @@ class OrderService
                     $productItem = $productItems->find($comboItem->item_id);
                     $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
                 }
-            }
-            else {
+            } else {
                 $productItem = $productItems->find($item->item_id);
                 $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
             }
@@ -170,5 +136,3 @@ class OrderService
         return $order;
     }
 }
-
-?>

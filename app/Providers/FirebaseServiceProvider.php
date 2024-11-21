@@ -8,11 +8,6 @@ use Kreait\Firebase\ServiceAccount;
 
 class FirebaseServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
     public function register()
     {
         $this->app->singleton('firebase', function ($app) {
@@ -30,11 +25,6 @@ class FirebaseServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
     public function boot()
     {
         //

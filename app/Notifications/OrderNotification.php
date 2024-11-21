@@ -20,8 +20,8 @@ class OrderNotification extends Notification
     public function __construct(
         private readonly Cart $order,
         private readonly User $user,
-        private readonly array $chanels)
-    {
+        private readonly array $chanels
+    ) {
         //
     }
 
@@ -41,9 +41,9 @@ class OrderNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -54,8 +54,8 @@ class OrderNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'order_id'=>$this->order->id,
-            'user_id'=>$this->user->id,
+            'order_id' => $this->order->id,
+            'user_id' => $this->user->id,
         ];
     }
 }

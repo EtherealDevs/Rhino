@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProductItemService
 {
-    /**
-     * Get the item variation based on the provided item and size.
-     *
-     * @param ProductItem $item The product item model.
-     * @param int|string $size The size of the item. Can be an integer (size ID) or a string (size name).
-     * @return \Illuminate\Database\Eloquent\Model|object|null The pivot table record for the item variation.
-     */
     public function getItemVariation(ProductItem $item, int|string $size)
     {
         if (is_numeric($size)) {
