@@ -90,7 +90,7 @@ class ProductController extends Controller
         ));
     }
 
-    public function userHasPurchasedProduct()
+    /* public function userHasPurchasedProduct()
     {
         // Verificar si el usuario está autenticado
         if (Auth::check()) {
@@ -112,7 +112,7 @@ class ProductController extends Controller
 
         // Si el usuario no está autenticado, devolver false
         return false;
-    }
+    } */
 
 
 
