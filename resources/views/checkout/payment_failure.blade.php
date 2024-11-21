@@ -6,37 +6,92 @@
         <p class="font-semibold text-xl">¡Error en el pago!</p>
     </div>
     <div class="mt-4">
-        <p><strong>Estado:</strong> {{ $paymentJson->status }}</p>
-        <p><strong>Detalle:</strong> {{ $paymentJson->status_detail }}</p>
-        <p><strong>Método de Pago:</strong> {{ ucfirst($paymentJson->payment_method->type) }} - {{ ucfirst($paymentJson->payment_method->id) }}</p>
-        <p><strong>Monto:</strong> ${{ number_format($paymentJson->transaction_amount / 100, 2) }}</p>
+        <!-- Estado -->
+        <p><strong>Estado del Pago:</strong>
+            @switch($payment->status)
+                @case('rejected')
+                    Pago rechazado
+                    @break
+                @case('approved')
+                    Pago aprobado
+                    @break
+                @case('pending')
+                    Pago pendiente de confirmación
+                    @break
+                @default
+                    Estado desconocido
+            @endswitch
+        </p>
 
-        @if($paymentJson->status_detail == 'cc_rejected_high_risk')
-            <p><em>El pago fue rechazado debido a un alto riesgo. Por favor, intente con otro método de pago.</em></p>
+        <!-- Detalle del estado -->
+        <p><strong>Detalle:</strong>
+            @switch($payment->status_detail)
+                @case('cc_rejected_high_risk')
+                    El pago fue rechazado debido a un alto riesgo. Por favor, intente con otro método de pago.
+                    @break
+                @case('cc_rejected_insufficient_amount')
+                    El pago fue rechazado debido a fondos insuficientes. Verifique su saldo y vuelva a intentar.
+                    @break
+                @case('cc_rejected')
+                    El pago fue rechazado. Intente con otro método de pago.
+                    @break
+                @default
+                    Detalle desconocido
+            @endswitch
+        </p>
+
+        <!-- Método de pago -->
+        <p><strong>Método de Pago:</strong> {{ ucfirst($payment->payment_method->type) }} - {{ ucfirst($payment->payment_method->id) }}</p>
+
+        <!-- Monto -->
+        <p><strong>Monto:</strong> ${{ number_format($payment->transaction_amount / 100, 2) }}</p>
+
+        <!-- Fechas -->
+        <p><strong>Fecha de Creación:</strong> {{ \Carbon\Carbon::parse($payment->date_created)->format('d/m/Y H:i') }}</p>
+        <p><strong>Fecha de Última Actualización:</strong> {{ \Carbon\Carbon::parse($payment->date_last_updated)->format('d/m/Y H:i') }}</p>
+
+        <!-- Información del pagador -->
+        @if($payment->payer->id)
+            <p><strong>ID del Pagador:</strong> {{ $payment->payer->id }}</p>
+        @endif
+        @if($payment->payer->phone->number)
+            <p><strong>Teléfono del Pagador:</strong> {{ $payment->payer->phone->number }}</p>
         @endif
 
-        <p><strong>Fecha de Creación:</strong> {{ \Carbon\Carbon::parse($paymentJson->date_created)->format('d/m/Y H:i') }}</p>
-        <p><strong>Fecha de Última Actualización:</strong> {{ \Carbon\Carbon::parse($paymentJson->date_last_updated)->format('d/m/Y H:i') }}</p>
+        <!-- Información de la tarjeta -->
+        <p><strong>Últimos 4 dígitos de la tarjeta:</strong> {{ $payment->card->last_four_digits }}</p>
 
-        @if($paymentJson->payer->id)
-            <p><strong>ID del Pagador:</strong> {{ $paymentJson->payer->id }}</p>
+        <!-- Información de cuotas -->
+        @if($payment->transaction_details->installment_amount)
+            <p><strong>Cantidad de Cuotas:</strong> {{ $payment->installments }}</p>
+            <p><strong>Monto por Cuota:</strong> ${{ number_format($payment->transaction_details->installment_amount / 100, 2) }}</p>
         @endif
 
-        @if($paymentJson->payer->phone->number)
-            <p><strong>Teléfono del Pagador:</strong> {{ $paymentJson->payer->phone->number }}</p>
-        @endif
+        <!-- Moneda -->
+        <p><strong>Moneda:</strong> {{ $payment->currency_id }}</p>
 
-        <p><strong>Últimos 4 dígitos de la tarjeta:</strong> {{ $paymentJson->card->last_four_digits }}</p>
+        <!-- Tipo de tarjeta -->
+        <p><strong>Tipo de Tarjeta:</strong> {{ ucfirst($payment->payment_method->type) }}</p>
 
-        @if($paymentJson->transaction_details->installment_amount)
-            <p><strong>Cantidad de Cuotas:</strong> {{ $paymentJson->installments }}</p>
-            <p><strong>Monto por Cuota:</strong> ${{ number_format($paymentJson->transaction_details->installment_amount / 100, 2) }}</p>
-        @endif
+        <!-- Procesador de pago -->
+        <p><strong>Procesador de Pago:</strong> {{ ucfirst($payment->transaction_details->payment_method_reference_id ?? 'No disponible') }}</p>
 
-        <p><strong>Moneda:</strong> {{ $paymentJson->currency_id }}</p>
-        <p><strong>Tipo de Tarjeta:</strong> {{ ucfirst($paymentJson->payment_method->type) }}</p>
-        <p><strong>Procesador de Pago:</strong> {{ ucfirst($paymentJson->transaction_details->payment_method_reference_id ?? 'N/A') }}</p>
-
-        <p><strong>Estado de Liberación de Dinero:</strong> {{ $paymentJson->money_release_status ?? 'Pendiente' }}</p>
+        <!-- Estado de liberación de dinero -->
+        <p><strong>Estado de Liberación de Dinero:</strong>
+            @if($payment->money_release_status)
+                @switch($payment->money_release_status)
+                    @case('pending')
+                        Dinero aún en proceso de liberación.
+                        @break
+                    @case('released')
+                        El dinero ya fue liberado.
+                        @break
+                    @default
+                        Estado desconocido
+                @endswitch
+            @else
+                En espera de confirmación.
+            @endif
+        </p>
     </div>
 </div>
