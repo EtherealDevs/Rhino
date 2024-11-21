@@ -235,7 +235,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -254,7 +253,6 @@
                                             class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                                             <p
                                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-
                                             </p>
                                         </th>
                                         <th
@@ -346,15 +344,11 @@
                                 </div>
                             </td>
 
-                            <!-- Repite la estructura de los <td> con las demás celdas, siguiendo el mismo patrón. -->
-
                             <td class="p-4 border-b border-gray-300 md:table-cell flex-1">
                                 <p class="font-sans text-sm font-semibold text-gray-800">
                                     ${{ number_format($newDeletedProductItem->price() / 100, 2, ',', '.') }}
                                 </p>
                             </td>
-
-                            <!-- Continúa con las celdas para cada dato necesario -->
 
                             <td class="p-4 border-b border-gray-300 md:table-cell flex-1">
                                 <p class="font-sans text-sm font-semibold text-gray-800">

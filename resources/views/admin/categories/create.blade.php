@@ -81,22 +81,6 @@
                                 <input class="hidden" type="text" name="parent_id" id="parent_id"
                                     value={{ $id }}>
                             @endif
-
-                            {{-- <div class="relative z-0 w-full mb-5">
-                                <select name="parent_id" id=""
-                                    onclick="this.setAttribute('value', this.value);"
-                                    class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200">
-                                    <option value={{null}} >No tiene padre</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="select"
-                                    class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el
-                                    padre</label>
-                                <span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
-                            </div> --}}
-
                             <div class="mb-8">
                                 <label for="image"
                                     class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] py-12 text-center">
@@ -122,7 +106,6 @@
                                 </label>
 
                                 <div id="preview-container" class="mt-4 grid grid-cols-2 gap-4"></div>
-
                                 {{-- Mostrar mensajes de error de validación si las imágenes no cumplen los requisitos --}}
                                 @error('images')
                                     <div class="mt-2 text-red-500 text-sm">

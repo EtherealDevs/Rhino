@@ -24,7 +24,6 @@
         </div>
 
         <!-- Modal -->
-        <!-- Modal -->
         <div id="modal" class="fixed inset-0 backdrop-blur-xl hidden items-center justify-center z-50">
             <div
                 class="bg-white rounded-xl p-6 w-full max-w-lg transform -translate-x-1/2 -translate-y-1/2 relative left-1/2 top-1/2">
@@ -75,7 +74,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Estadísticas Principales -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">

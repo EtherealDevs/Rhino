@@ -91,7 +91,6 @@
                                                 class="block antialiased font-sans p-2 rounded-full font-bold text-md text-blue-600 px-3 leading-normal">
                                                 {{ $order->deliveryService->name }}
                                             </p>
-
                                             @if ($order->delivery_service == 1)
                                                 <p
                                                     class="block antialiased font-sans text-sm leading-normal text-green-700 font-bold">

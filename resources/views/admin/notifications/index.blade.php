@@ -20,7 +20,6 @@
             </div>
         </div>
 
-
         <div class="p-6 mx-6 static">
             <section class="relative flex flex-col justify-center overflow-hidden antialiased">
                 <div class="w-full max-w-6xl mx-auto px-4 md:px-6 ">
@@ -251,7 +250,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
