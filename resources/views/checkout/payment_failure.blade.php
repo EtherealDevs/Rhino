@@ -98,11 +98,11 @@
                     <p><strong>Moneda:</strong> {{ $payment->currency_id }}</p>
 
                     <!-- Tipo de tarjeta -->
-                    <p><strong>Tipo de Tarjeta:</strong> {{ ucfirst($payment->payment_method->type) }}</p>
+                    <p><strong>Tipo de Tarjeta:</strong> {{ ucfirst(__($payment->payment_method->type)) }}</p>
 
                     <!-- Procesador de pago -->
                     <p><strong>Procesador de Pago:</strong>
-                        {{ ucfirst(__($payment->transaction_details->payment_method_reference_id ?? 'No disponible')) }}
+                        {{ ucfirst($payment->transaction_details->payment_method_reference_id ?? 'No disponible') }}
                     </p>
 
                     <!-- Estado de liberación de dinero -->
