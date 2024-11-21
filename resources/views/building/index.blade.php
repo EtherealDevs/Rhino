@@ -18,7 +18,9 @@
                         <div class="text-center">
                             <h1 class="text-4xl font-bold text-gray-900 sm:text-6xl">Bienvenidos a RINO
                                 Indumentaria</h1>
-                            <p class="mt-6 text-lg text-gray-600">Muy pronto, podrás explorar nuestra tienda llena de moda increíble y diseños exclusivos. ¡Mantente atento y no te pierdas nuestra gran inauguración!</p>
+                            <p class="mt-6 text-lg text-gray-600">Muy pronto, podrás explorar nuestra tienda llena de moda
+                                increíble y diseños exclusivos. ¡Mantente atento y no te pierdas nuestra gran inauguración!
+                            </p>
                         </div>
                     </div>
                     <div class="mt-12 mb-12" id="loader"></div>
@@ -33,7 +35,6 @@
                             <p class="font-bold text-white">Ver Catalogo de Whatsapp</p>
                         </button>
                     </a>
-                    
                 </div>
             </div>
             <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"

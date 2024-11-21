@@ -117,12 +117,12 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
-//     'providers' => [
-//     // Otros proveedores...
-//     Laravel\Socialite\SocialiteServiceProvider::class,
-// ],
+    //     'providers' => [
+    //     // Otros proveedores...
+    //     Laravel\Socialite\SocialiteServiceProvider::class,
+    // ],
 
-// 'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+    // 'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
 
     'maintenance' => [
@@ -132,7 +132,6 @@ return [
 
     'mp_access_token' => env('MERCADOPAGO_ACCESS_TOKEN'),
     'mp_client_token' => env('MERCADOPAGO_CLIENT_TOKEN'),
-    
     'mp_access_token_test' => env('MERCADOPAGO_ACCESS_TOKEN_TEST'),
     'mp_client_token_test' => env('MERCADOPAGO_CLIENT_TOKEN_TEST'),
 
@@ -140,7 +139,7 @@ return [
     'product_images_directory' => env('PRODUCT_IMAGES_DIRECTORY'),
     'delivery_service' => [
         'origin_zipcode' => env('DELIVERY_SERVICE_ORIGIN_ZIPCODE'),
-        'sucursal_a_puerta' => env('SUCURSAL_A_PUERTA'), 
+        'sucursal_a_puerta' => env('SUCURSAL_A_PUERTA'),
         'sucursal_a_sucursal' => env('SUCURSAL_A_SUCURSAL'),
     ]
 

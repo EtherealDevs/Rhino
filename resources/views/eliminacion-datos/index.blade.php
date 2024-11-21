@@ -28,28 +28,29 @@
                                 siguiente manera.
                             </p>
 
-                            <p class="mt-12">  
-                                <ul class="list-decimal list-inside mt-2">
-                                    <li>
-                                        Ingresa a tu cuenta de Facebook y haz clic en “Configuración y privacidad”. Después haz clic en “Configuración”.
-                                    </li>
-                                    <li>
-                                        Ve a la sección de “Apps y sitios web”, aquí podrás ver toda tu actividad relacionada a aplicaciones y páginas web registradas en tu cuenta de Facebook.
-                                    </li>
-                                    *** Imagen ***
-                                    <li>
-                                        Selecciona la casilla correspondiente a RINO Indumentaria y haz clic en “Eliminar”.
-                                    </li>
-                                    *** Imagen ***
-                                    <li>
-                                        Selecciona las casillas de acuerdo a tu preferencia y haz clic en “Eliminar”.
-                                    </li>
-                                    *** Imagen ***
-                                    <li>
-                                        ¡Listo! Eliminaste a RINO Indumentaria de tus actividades de manera exitosa.
-                                    </li>
-                                </ul>
-                              
+                            <p class="mt-12">
+                            <ul class="list-decimal list-inside mt-2">
+                                <li>
+                                    Ingresa a tu cuenta de Facebook y haz clic en “Configuración y privacidad”. Después haz
+                                    clic en “Configuración”.
+                                </li>
+                                <li>
+                                    Ve a la sección de “Apps y sitios web”, aquí podrás ver toda tu actividad relacionada a
+                                    aplicaciones y páginas web registradas en tu cuenta de Facebook.
+                                </li>
+                                *** Imagen ***
+                                <li>
+                                    Selecciona la casilla correspondiente a RINO Indumentaria y haz clic en “Eliminar”.
+                                </li>
+                                *** Imagen ***
+                                <li>
+                                    Selecciona las casillas de acuerdo a tu preferencia y haz clic en “Eliminar”.
+                                </li>
+                                *** Imagen ***
+                                <li>
+                                    ¡Listo! Eliminaste a RINO Indumentaria de tus actividades de manera exitosa.
+                                </li>
+                            </ul>
                             </p>
                         </div>
                     </div>

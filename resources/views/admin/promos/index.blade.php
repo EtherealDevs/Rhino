@@ -42,13 +42,11 @@
         </div>
 
         <div class="p-6 mt-6 bg-white rounded-xl overflow-scroll">
-
             <div class="flex justify-between w-full mb-5">
                 <div class="justify-start">
                     <h2 class="font-josefin font-bold italic text-2xl">
                         Promociones
                 </div>
-
                 <div class="justify-end">
                     <button class="bg-blue-500 rounded-xl p-2 px-4">
                         <a class="text-white font-bold" href={{ route('admin.promos.create') }}>Nueva Campaña</a>
@@ -57,7 +55,6 @@
             </div>
 
             <table class="mt-1 w-full min-w-max table-auto text-left">
-
                 <thead>
                     <tr>
                         <th
@@ -98,10 +95,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @php
-                $total=0;
-            @endphp
-            @foreach ($orders as $order) --}}
                     <tr>
                         <td class="p-4 border-b border-blue-gray-50">
                             <div class="flex items-center gap-3">
@@ -122,11 +115,6 @@
                                         class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
                                         39</p>
                                 </div>
-                                {{-- @php
-                            $subtotal=$orderDetail->price * $orderDetail->amount;
-                            $total=$total+$subtotal;
-                        @endphp
-                        @endforeach --}}
                             </div>
                         </td>
                         <td class="p-4 border-b border-blue-gray-50">

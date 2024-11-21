@@ -71,7 +71,6 @@
                                     <div class="relative">
                                         <img src="{{ url(Storage::url($image->url)) }}" alt="Imagen del producto"
                                             class="w-full h-auto rounded-md border border-gray-300">
-
                                         <form method="POST"
                                             action="{{ route('admin.productItems.images.delete', $image->id) }}">
                                             @csrf
@@ -81,7 +80,6 @@
                                                 Eliminar
                                             </button>
                                         </form>
-
                                     </div>
                                 @endforeach
                             </div>
@@ -90,7 +88,6 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="text" class="hidden" value="{{ $size->id }}" name="size_id">
-
                                 <div class="relative z-0 w-full mb-5">
                                     <div class="grid grid-cols-10 gap-2">
                                         <div class="col-span-9">
@@ -194,7 +191,6 @@
                                                         class="block ml-2 text-white text-sm bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-3 py-2 text-center"
                                                         type="button">Seleccionar color existente</button>
                                                 </div>
-
                                                 @error('color_name')
                                                     <span class="text-sm text-red-600">{{ $message }}</span>
                                                 @enderror

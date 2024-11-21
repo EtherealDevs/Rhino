@@ -20,7 +20,7 @@
             </div>
             <div class="col-span-2 grid grid-rows-2 ml-2">
                 <p class="font-josefin font-bold text-2xl sm:text-3xl text-white">Total</p>
-                @if($total != 0)
+                @if ($total != 0)
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">
                         ${{ number_format($total / 100 + ($sendPrice ?? 0), 2, ',', '.') }}
                         <!-- Usar 0 si sendPrice es null -->
@@ -29,7 +29,6 @@
                     <p class="font-josefin font-bold text-2xl sm:text-3xl text-[#6BE64C]">NO DATA</p>
                 @endif
             </div>
-
 
             <div class="col-span-2">
                 <a href="{{ url()->previous() }}">

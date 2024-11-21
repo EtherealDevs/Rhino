@@ -10,11 +10,9 @@
 @section('content')
     <div class="static justify-center bg-white w-full">
         <div class="grid grid-cols-1 h-full lg:grid-cols-3 lg:grid-rows-2 gap-0 lg:gap-6 ">
-
             {{-- Seccion Bienvenida y Ofertas --}}
             <div class=" lg:col-span-3 mx-0 lg:mx-6 bg-black h-full rounded-none lg:rounded-b-3xl">
                 <div class="grid grid-cols-1 lg:grid-cols-5 justify-between h-full gap-0">
-
                     {{-- Seccion de Bienvenida --}}
                     <div class="col-span-2 px-8 mb-6 my-32 lg:mb-0 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
                         <div class="text-center">
@@ -37,7 +35,6 @@
                     {{-- Carrousel --}}
                     <div class="col-span-3 h-full flex">
                         <div class="max-w-7xl w-full justify-end">
-
                             <div id="default-carousel" class="relative h-full" data-carousel="active">
                                 <!-- Carousel wrapper -->
                                 <div class="overflow-hidden relative h-48 sm:h-96 lg:h-[580px]">
@@ -63,7 +60,6 @@
                                         <img src="/img/banners/banner4.png"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="Banner de tienda física">
-
                                         <!-- Botón que redirige a Google Maps -->
                                         <div class="absolute bottom-10 z-50 left-1/2 transform -translate-x-1/2">
                                             <a href="https://maps.app.goo.gl/ejFFD1789TdA8fuj9" target="_blank"
@@ -84,7 +80,6 @@
                                                 </svg>
                                             </a>
                                         </div>
-
                                     </div>
 
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -182,10 +177,8 @@
                                 Nuevos Ingresos
                             </p>
                         </div>
-
                         <div class="mt-4 flex justify-end pr-6"> <!-- Añadir "flex justify-end pr-6" aquí -->
                             <a href="/products">
-
                                 <button
                                     class="rounded-full p-1 lg:p-3 px-4 mt-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors hover:text-blue-900"
                                     style="

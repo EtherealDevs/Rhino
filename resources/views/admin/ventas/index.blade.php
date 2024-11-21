@@ -4,7 +4,6 @@
     <div class="p-6 pt-20">
         <!-- component -->
         <div class="p-6 bg-white rounded-xl overflow-scroll">
-
             <div class="flex justify-between w-full mb-5">
                 <div class="justify-start">
                     <h2 class="font-josefin font-bold italic text-2xl">
@@ -14,7 +13,6 @@
             </div>
 
             <table class="mt-1 w-full min-w-max table-auto text-left">
-
                 <thead>
                     <tr>
                         <th
@@ -97,7 +95,8 @@
                                     @foreach ($order->details as $detail)
                                         <p
                                             class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {{ $detail->productItem()->product->name }} - {{ $detail->amount }} x ${{ number_format($detail->price / 100, 2, ',', '.') }}
+                                            {{ $detail->productItem()->product->name }} - {{ $detail->amount }} x
+                                            ${{ number_format($detail->price / 100, 2, ',', '.') }}
                                         </p>
                                     @endforeach
                                 </div>
@@ -137,7 +136,6 @@
                         </tr>
                     @endforelse
                 </tbody>
-
             </table>
         </div>
     </div>

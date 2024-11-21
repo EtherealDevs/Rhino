@@ -2,13 +2,13 @@
 
     <div
         class="relative min-h-screen flex items-center justify-center bg-center py-12 px-4 sm:px-6 lg:px-8 bg-transparent">
-        <div class="absolute inset-x-0 -top-40 -z-10 lg:z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+        <div class="absolute inset-x-0 -top-40 -z-10 lg:z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true">
             <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#0051ff] to-[#bb94b7] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                 style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
             </div>
         </div>
         <div class="lg:grid lg:grid-cols-3 w-full lg:w-3/4">
-
             {{-- Formulario --}}
             <div
                 class="max-w-xl col-span-1 lg:col-span-2 h-full space-y-8 w-full p-10 bg-transparent rounded-xl shadow-lg z-50">
@@ -28,47 +28,51 @@
                                 <x-checkout.text-input name="last_name" label="Apellido" wire:model.blur="last_name"
                                     class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg h-10 px-4" />
 
-                                    <div class="w-full max-w-sm min-w-[200px] mt-4 sm:col-span-2">
-                                        <label class="block mb-1 text-sm text-gray-800">Número de Teléfono</label>
-                                        <div class="relative mt-2">
-                                            <div class="absolute top-2 left-0 flex items-center pl-3">
-                                                <!-- Dropdown para seleccionar código de país -->
-                                                <button type="button" id="dropdownButton" onclick="toggleCountryCodeDropdown()"
-                                                    class="h-full text-sm flex justify-center items-center bg-transparent text-gray-700 focus:outline-none">
-                                                    <span id="dropdownSpan">+54</span> <!-- Valor inicial del código de país -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="h-4 w-4 ml-1">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                                    </svg>
-                                                </button>
-                                                <div id="countryCodeDropdown" class="absolute z-10 bg-white border rounded shadow-md hidden">
-                                                    <ul>
-                                                        <li onclick="selectCountryCode('+1')">+1</li>
-                                                        <li onclick="selectCountryCode('+54')">+54</li>
-                                                        <li onclick="selectCountryCode('+44')">+44</li>
-                                                        <!-- Agrega más opciones de códigos de país según sea necesario -->
-                                                    </ul>
-                                                </div>
-                                                <div class="h-6 border-l border-gray-200 ml-2"></div>
+                                <div class="w-full max-w-sm min-w-[200px] mt-4 sm:col-span-2">
+                                    <label class="block mb-1 text-sm text-gray-800">Número de Teléfono</label>
+                                    <div class="relative mt-2">
+                                        <div class="absolute top-2 left-0 flex items-center pl-3">
+                                            <!-- Dropdown para seleccionar código de país -->
+                                            <button type="button" id="dropdownButton"
+                                                onclick="toggleCountryCodeDropdown()"
+                                                class="h-full text-sm flex justify-center items-center bg-transparent text-gray-700 focus:outline-none">
+                                                <span id="dropdownSpan">+54</span>
+                                                <!-- Valor inicial del código de país -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="h-4 w-4 ml-1">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                                </svg>
+                                            </button>
+                                            <div id="countryCodeDropdown"
+                                                class="absolute z-10 bg-white border rounded shadow-md hidden">
+                                                <ul>
+                                                    <li onclick="selectCountryCode('+1')">+1</li>
+                                                    <li onclick="selectCountryCode('+54')">+54</li>
+                                                    <li onclick="selectCountryCode('+44')">+44</li>
+                                                    <!-- Agrega más opciones de códigos de país según sea necesario -->
+                                                </ul>
                                             </div>
-
-                                            <!-- Campo de entrada para el número de teléfono con formateo -->
-                                            <input maxlength="11" id="formattedPhone" type="text" placeholder="3794-895167"
-                                                class="w-full h-10 pl-20 bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-400 shadow-sm focus:shadow-md"
-                                                oninput="formatPhone()" wire:model.blur="formattedNumber" value="{{ $formattedNumber }}" />
-
-                                            <!-- Campo oculto para guardar el número sin formato + código de país -->
-                                            <input type="hidden" name="phone_number" id="unformattedPhone" wire:model.live="phone_number" value="{{$phone_number}}" />
+                                            <div class="h-6 border-l border-gray-200 ml-2"></div>
                                         </div>
+                                        <!-- Campo de entrada para el número de teléfono con formateo -->
+                                        <input maxlength="11" id="formattedPhone" type="text"
+                                            placeholder="3794-895167"
+                                            class="w-full h-10 pl-20 bg-transparent placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-400 shadow-sm focus:shadow-md"
+                                            oninput="formatPhone()" wire:model.blur="formattedNumber"
+                                            value="{{ $formattedNumber }}" />
 
-                                        @error('phone_number')
-                                            <div class="mt-2 text-red-500 text-xs">
-                                                <span class="error">{{ $message }}</span>
-                                            </div>
-                                        @enderror
+                                        <!-- Campo oculto para guardar el número sin formato + código de país -->
+                                        <input type="hidden" name="phone_number" id="unformattedPhone"
+                                            wire:model.live="phone_number" value="{{ $phone_number }}" />
                                     </div>
-
-
+                                    @error('phone_number')
+                                        <div class="mt-2 text-red-500 text-xs">
+                                            <span class="error">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
 
                                 <div class="mb-4 col-span-1 sm:col-span-2 grid grid-cols-2 grid-rows-2">
                                     <div class="col-span-2">
@@ -101,12 +105,12 @@
                                                 @endif
                                             </option>
                                             @foreach ($cities as $city2)
-                                            @php
-                                                $value = $city2->id;
-                                            @endphp
-                                            <option @if ($value == $city) selected @endif
-                                                value="{{ $city2->id }}">
-                                                {{ $city2->name }}
+                                                @php
+                                                    $value = $city2->id;
+                                                @endphp
+                                                <option @if ($value == $city) selected @endif
+                                                    value="{{ $city2->id }}">
+                                                    {{ $city2->name }}
                                             @endforeach
                                         </select>
                                         @error('city')
@@ -166,51 +170,49 @@
                             <div class="max-w-md mx-auto space-y-6">
                                 <div class="space-y-4">
                                     @if ($addresses->isNotEmpty())
+                                        @foreach ($addresses as $address)
+                                            <div class="relative">
+                                                <input wire:model.live="selectedAddressId" type="radio"
+                                                    name="selectedAddressId" id="option{{ $address->id }}"
+                                                    value="{{ $address->id }}"
+                                                    data-address='@json($address)' class="hidden peer">
+                                                <label for="option{{ $address->id }}"
+                                                    class="inline-flex items-center justify-between w-full p-3 bg-transparent border-2 rounded-lg cursor-pointer group border-neutral-200/70 text-neutral-600 peer-checked:border-blue-400 peer-checked:text-neutral-900 peer-checked:bg-blue-200/50 hover:text-neutral-900 hover:border-neutral-300">
+                                                    <div class="flex items-center space-x-3">
+                                                        <!-- Reducir el tamaño del SVG -->
+                                                        <svg class="w-8 h-auto" xmlns="http://www.w3.org/2000/svg"
+                                                            width="1em" height="1em" viewBox="0 0 24 24">
+                                                            <path fill="currentColor"
+                                                                d="M12 21.02q-3.525-3.118-5.31-5.815q-1.786-2.697-1.786-4.909q0-3.173 2.066-5.234Q9.037 3 12 3q.617 0 1.213.093t1.143.293L9.5 8.268V12.5h4.233l4.894-4.894q.225.63.347 1.292t.122 1.398q0 2.212-1.785 4.909q-1.786 2.697-5.311 5.814m-.115-10.903v-.87l5.277-5.277l.869.87l-5.277 5.276zm6.846-5.978l-.87-.869l.547-.546q.16-.16.363-.189q.204-.028.344.112l.239.238q.14.141.111.345t-.188.363z" />
+                                                        </svg>
+                                                        <div class="flex flex-col justify-start">
+                                                            <!-- Reducir el tamaño de texto -->
+                                                            <div class="w-full text-base font-semibold">
+                                                                {{ $address->name }} {{ $address->last_name }}
+                                                            </div>
+                                                            <div class="w-full text-sm opacity-60">
+                                                                {{ $address->address }}, {{ $address->number }}<br>
+                                                                {{ $address->province->name }}<br>
+                                                                {{ $address->zipCode->code }}<br>
+                                                                @php
 
-
-                                    @foreach ($addresses as $address)
-                                        <div class="relative">
-                                            <input wire:model.live="selectedAddressId" type="radio"
-                                                name="selectedAddressId" id="option{{ $address->id }}"
-                                                value="{{ $address->id }}"
-                                                data-address='@json($address)' class="hidden peer">
-                                            <label for="option{{ $address->id }}"
-                                                class="inline-flex items-center justify-between w-full p-3 bg-transparent border-2 rounded-lg cursor-pointer group border-neutral-200/70 text-neutral-600 peer-checked:border-blue-400 peer-checked:text-neutral-900 peer-checked:bg-blue-200/50 hover:text-neutral-900 hover:border-neutral-300">
-                                                <div class="flex items-center space-x-3">
-                                                    <!-- Reducir el tamaño del SVG -->
-                                                    <svg class="w-8 h-auto" xmlns="http://www.w3.org/2000/svg"
-                                                        width="1em" height="1em" viewBox="0 0 24 24">
-                                                        <path fill="currentColor"
-                                                            d="M12 21.02q-3.525-3.118-5.31-5.815q-1.786-2.697-1.786-4.909q0-3.173 2.066-5.234Q9.037 3 12 3q.617 0 1.213.093t1.143.293L9.5 8.268V12.5h4.233l4.894-4.894q.225.63.347 1.292t.122 1.398q0 2.212-1.785 4.909q-1.786 2.697-5.311 5.814m-.115-10.903v-.87l5.277-5.277l.869.87l-5.277 5.276zm6.846-5.978l-.87-.869l.547-.546q.16-.16.363-.189q.204-.028.344.112l.239.238q.14.141.111.345t-.188.363z" />
-                                                    </svg>
-                                                    <div class="flex flex-col justify-start">
-                                                        <!-- Reducir el tamaño de texto -->
-                                                        <div class="w-full text-base font-semibold">
-                                                            {{ $address->name }} {{ $address->last_name }}
-                                                        </div>
-                                                        <div class="w-full text-sm opacity-60">
-                                                            {{ $address->address }}, {{ $address->number }}<br>
-                                                            {{ $address->province->name }}<br>
-                                                            {{ $address->zipCode->code }}<br>
-                                                            @php
-
-                                                                // Check if the length is greater than 4
-                                                                if (strlen($address->phone_number) > 4) {
-                                                                    // Insert a dash after the first 4 numbers
-                                                                    $cleaned =
-                                                                        substr($address->phone_number, 0, 4) .
-                                                                        '-' .
-                                                                        substr($address->phone_number, 4);
-                                                                }
-                                                            @endphp
-                                                            Tel:
-                                                            {{ $cleaned }}
+                                                                    // Check if the length is greater than 4
+                                                                    if (strlen($address->phone_number) > 4) {
+                                                                        // Insert a dash after the first 4 numbers
+                                                                        $cleaned =
+                                                                            substr($address->phone_number, 0, 4) .
+                                                                            '-' .
+                                                                            substr($address->phone_number, 4);
+                                                                    }
+                                                                @endphp
+                                                                Tel:
+                                                                {{ $cleaned }}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    @endforeach
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     @endif
                                 </div>
                             </div>
@@ -225,8 +227,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <div class="absolute inset-x-0 top-[calc(100%-13rem)] z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"

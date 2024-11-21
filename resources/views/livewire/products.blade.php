@@ -18,8 +18,6 @@
             </div>
         </div>
 
-
-
         {{-- Main content with sidebar and products --}}
         <div class="justify-between md:flex relative">
             <div class="xl:w-1/4 2xl:w-[310px] left-2 md:mt-10 xl:mb-4 xl:mt-6 z-40 md:z-0 sticky top-28">
@@ -29,7 +27,6 @@
             {{-- Content (Productos) --}}
             <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8 overflow-hidden">
                 @if ($combos->isNotEmpty())
-
                     <div
                         class="bg-center bg-contain w-[420px] xl:w-[990px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
                         <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">

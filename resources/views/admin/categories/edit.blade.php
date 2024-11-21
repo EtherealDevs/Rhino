@@ -85,7 +85,6 @@
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                 <label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Nombre
                                     de Categoria</label>
-
                                 <!-- Error message for name -->
                                 @error('name')
                                     <span class="text-sm text-red-600">{{ $message }}</span>
@@ -98,7 +97,6 @@
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200" />
                                 <label for="slug" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Slug
                                     Amigable</label>
-
                                 <!-- Error message for slug -->
                                 @error('slug')
                                     <span class="text-sm text-red-600">{{ $message }}</span>
@@ -111,7 +109,6 @@
                                     class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200">{{ old('description', $category->description) }}</textarea>
                                 <label for="description"
                                     class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripción</label>
-
                                 <!-- Error message for description -->
                                 @error('description')
                                     <span class="text-sm text-red-600">{{ $message }}</span>
@@ -133,7 +130,6 @@
                                 <label for="parent_id"
                                     class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccionar el
                                     padre</label>
-
                                 <!-- Error message for parent_id -->
                                 @error('parent_id')
                                     <span class="text-sm text-red-600">{{ $message }}</span>

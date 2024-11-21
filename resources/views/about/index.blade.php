@@ -69,7 +69,6 @@
                         </div>
                     </div>
 
-
                     <!-- Línea de tiempo optimizada -->
                     <div class="ml-0 md:ml-12 lg:w-2/3 backdrop-blur-3xl lg:backdrop-blur-none">
                         <div class="relative wrap overflow-hidden p-10 h-full">

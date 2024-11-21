@@ -81,7 +81,6 @@
 
         {{-- Item Title and add cart --}}
         <div class="grid grid-cols-1 gap-0 px-2 lg:p-4">
-
             {{-- Title --}}
             <div class="grid grid-cols-6 bg-black h-20 rounded-t-xl p-3 text-white relative">
                 @foreach ($combo_items as $combo_item)
@@ -110,7 +109,8 @@
                 <form method="POST" action="{{ route('cart.addCombo') }}">
                     @csrf
                     <input type="hidden" name="comboId" value="{{ $combo_items->first()->id }}">
-                    <input type="hidden" name="sizes" value="{{ json_encode($combo_items->first()->combo->getItemsSizesByMinimumStockValue()) }}">
+                    <input type="hidden" name="sizes"
+                        value="{{ json_encode($combo_items->first()->combo->getItemsSizesByMinimumStockValue()) }}">
 
                     <button type="submit" class="w-full flex justify-center">
                         <p class="ml-2 font-sans font-bold text-base text-white">

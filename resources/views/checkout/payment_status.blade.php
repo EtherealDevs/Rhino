@@ -10,10 +10,7 @@
         var csrf = "{{ csrf_token() }}";
     </script>
 
-
-
     <div id="statusScreenBrick_container"></div>
-
 
     <script>
         const renderStatusScreenBrick = async (bricksBuilder) => {
@@ -24,8 +21,8 @@
                 callbacks: {
                     onReady: () => {
                         /*
-                          Callback llamado cuando Brick está listo.
-                          Aquí puede ocultar cargamentos de su sitio, por ejemplo.
+                        Callback llamado cuando Brick está listo.
+                        Aquí puede ocultar cargamentos de su sitio, por ejemplo.
                         */
                     },
                     onError: (error) => {

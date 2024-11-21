@@ -81,7 +81,6 @@
                                                 @endif
                                             </p>
 
-
                                             <!-- Botones de acción -->
                                             <div class="grid grid-cols-2 gap-4 items-center">
                                                 <!-- Botón Crear Subcategoría -->

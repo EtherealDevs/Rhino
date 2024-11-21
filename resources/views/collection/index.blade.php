@@ -9,8 +9,6 @@
                 </div>
             </div>
 
-
-
             <div class="w-screen h-2/6">
                 @if ($category->images->isNotEmpty())
                     <div class="container mx-auto relative bg-black/50 rounded-b-2xl flex flex-col h-[500px] w-full bg-cover bg-center"
@@ -54,8 +52,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <!-- Muestra los productos de las categorías hijas -->
             <div class="w-full -translate-y-64">

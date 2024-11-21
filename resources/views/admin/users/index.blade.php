@@ -17,13 +17,12 @@
                 <div class="flex justify-center items-center">
                     <div
                         class="mb-3 flex w-full max-w-screen-xl transform cursor-pointer flex-col justify-between rounded-md bg-white bg-opacity-75 p-6 text-slate-800 transition duration-500 ease-in-out hover:-translate-y-1 hover:shadow-lg lg:flex-row lg:p-4">
-
                         <div class="flex w-full flex-row lg:w-3/12">
                             <div class="relative flex flex-col">
                                 <div
                                     class="flex h-12 w-12 flex-shrink-0 flex-col justify-center rounded-full bg-slate-200 bg-opacity-50 dark:bg-slate-600">
-                                        <img class="z-10 h-12 w-12 rounded-full object-cover shadow hover:shadow-xl" src="{{ auth()->user()->profile_photo_url }}"
-                                            alt="">
+                                    <img class="z-10 h-12 w-12 rounded-full object-cover shadow hover:shadow-xl"
+                                        src="{{ auth()->user()->profile_photo_url }}" alt="">
                                 </div>
                             </div>
 
@@ -39,7 +38,8 @@
 
                         <div class="w-full self-center pt-4 lg:w-1/6 lg:pt-0">
                             <div class="ml-1">
-                                <div class="text-xl text-black font-extrabold leading-5 tracking-tight">{{ $user->rol }}</div>
+                                <div class="text-xl text-black font-extrabold leading-5 tracking-tight">{{ $user->rol }}
+                                </div>
                             </div>
                         </div>
 

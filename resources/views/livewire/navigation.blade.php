@@ -64,8 +64,7 @@
                                                     @if ($images->isNotEmpty())
                                                         @php
                                                             // Construir la URL de la imagen
-                                                            $imageUrl = asset( $images[0]->url,
-                                                            );
+                                                            $imageUrl = asset($images[0]->url);
                                                         @endphp
                                                         <img src="{{ $imageUrl }}"
                                                             class="w-12 h-12 object-cover rounded-lg"
@@ -98,10 +97,8 @@
                                                         @else
                                                             <p class="text-gray-500">Agregar Productos a la lista</p>
                                                         @endif
-
                                                     </div>
                                                 </div>
-
 
                                                 <button wire:click="removeFromFavorites({{ $favorite->id }})"
                                                     class="text-red-500 hover:text-red-700">
@@ -114,7 +111,6 @@
                                         @endforelse
                                     </div>
                                 </div>
-
                             </div>
 
 
@@ -292,7 +288,6 @@
                                                     <img class="h-6 rounded-full"
                                                         src="{{ auth()->user()->avatar ?: auth()->user()->profile_photo_url }}"
                                                         alt="Avatar">
-
                                                 </button>
                                             </div>
 
@@ -340,7 +335,6 @@
                     </div>
                 </div>
             </div>
-
     </nav>
     <style>
         .underline-navbar {
@@ -377,7 +371,6 @@
                     underlineBar.style.transform = `translateX(${offsetLeft}px)`;
                 });
             });
-
             document.querySelector('.flex.justify-start').addEventListener('mouseleave', () => {
                 underlineBar.style.width = `0`;
             });

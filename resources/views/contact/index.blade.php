@@ -8,7 +8,6 @@
     </header>
 
     <div class="absolute grid grid-cols-3 grid-rows-3 h-screen w-full gap-24 z-20">
-
         {{-- Primer Row --}}
         <div class="col-span-3 mb-12">
             <h2
@@ -96,7 +95,6 @@
                     <h2 class="text-2xl text-white font-josefin font-bold mb-4">¡¡Siguenos en nuestras redes!!
                     </h2>
                     <ul class="flex">
-
                         {{-- Whatsapp --}}
                         <li class="">
                             <a href="https://wa.me/c/5493794316606" target="_blank">
@@ -238,7 +236,6 @@
                 </div>
             </div>
         </div>
-
 
     </div>
     <div class="h-screen ">

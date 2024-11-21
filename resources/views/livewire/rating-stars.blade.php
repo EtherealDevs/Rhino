@@ -17,7 +17,8 @@
             </button>
 
             <h2 class="text-gray-800 text-2xl mb-4 font-josefin font-bold">¿Qué te pareció el producto?</h2>
-            <h3 class="text-gray-800 text-lg mb-4 font-josefin font-medium">La calificacion se vera proyectada en estrellas</h3>
+            <h3 class="text-gray-800 text-lg mb-4 font-josefin font-medium">La calificacion se vera proyectada en
+                estrellas</h3>
             <div x-data="{ value: 0 }">
                 <!-- Única instancia para las estrellas -->
                 <ul class="flex space-x-4 mb-4">
@@ -31,7 +32,6 @@
                 </ul>
                 <input type="hidden" name="rating" x-ref="rating" :value="value">
             </div>
-
 
             <!-- Reseña -->
             <textarea name="content" x-model="reviewText"

@@ -11,7 +11,6 @@
                         Pedidos
                     </h2>
                 </div>
-
                 <div class="justify-end">
                     <button class="bg-blue-500 rounded-xl p-2 px-4">
                         <a class="text-white font-bold" href={{ route('admin.stock.index') }}>Ver Stock</a>
@@ -100,7 +99,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
                                 <div class="flex flex-col">
@@ -160,7 +158,6 @@
                         </tr>
                     @endforelse
                 </tbody>
-
             </table>
         </div>
     </div>

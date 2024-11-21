@@ -4,8 +4,6 @@
         <div class="rounded-none lg:rounded-3xl w-full bg-gradient-to-b from-[#343678] to-[#273053]">
             <div
                 class="flex flex-col w-full rounded-lg shadow-lg px-4 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-20 justify-between">
-
-
                 <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]"
                     x-data="{
                         step: 1,
@@ -192,7 +190,6 @@
                         <div class="radio-section">
                             <div class="radio-list">
                                 <h1>Seleccionemoslo aquí 👇🏼</h1>
-
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
                                     <input type="radio" id="mercado_pago" name="paymentMethod"
@@ -209,10 +206,6 @@
                             </div>
                         </div>
 
-                        <!-- Información para Transferencia -->
-
-
-                        <!-- Botón para avanzar sin necesidad de comprobante -->
                         <button @click="step = 3"
                             class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 transition rounded-lg mt-2 sm:mt-0">
                             <p class="font-josefin text-lg text-white font-bold py-1 px-4">Continuar</p>
@@ -274,7 +267,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div>
         @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'selectedMethod' => $selectedMethod])

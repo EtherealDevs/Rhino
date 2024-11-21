@@ -16,9 +16,7 @@
                     </button>
                 </div>
             </div>
-
             <table class="mt-1 w-full min-w-max table-auto text-left">
-
                 <thead>
                     <tr>
                         <th
