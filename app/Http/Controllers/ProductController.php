@@ -47,7 +47,7 @@ class ProductController extends Controller
         $this->product = $product;
 
         /* Verificación para habilitación de Reseñas */
-        $this->canReview = $this->userHasPurchasedProduct(Auth::id(), $product->id);
+        $canReview = $this->userHasPurchasedProduct(Auth::id(), $product->id) ?? false;
 
         // Obtener las variedades de talla del producto
         $itemVariations = ProductSize::where('product_item_id', $id)->get();
@@ -108,9 +108,6 @@ class ProductController extends Controller
         })->whereHas('alternativeItemRelation', function ($query) use ($productId) {
             $query->where('product_items.id', $productId); // Especificar explícitamente la tabla y columna
         })->get();
-
-        // Mostrar los detalles encontrados
-        dd($retail);
 
         return $retail->isNotEmpty(); // Retornar verdadero si hay resultados
     }
