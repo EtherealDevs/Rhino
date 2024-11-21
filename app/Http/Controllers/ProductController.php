@@ -49,6 +49,7 @@ class ProductController extends Controller
             return abort(404);
         }
 
+
         $averageRating = $product->reviews()->avg('rating');
         $averageRating = round($averageRating * 2) / 2; // Redondear al valor más cercano de media estrella
 
