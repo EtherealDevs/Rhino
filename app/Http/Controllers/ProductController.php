@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     public $product;
-    public $canReview = false;
+   /*  public $canReview = false; */
     public function index()
     {
         return view('products.index');
@@ -42,7 +42,7 @@ class ProductController extends Controller
     {
 
         $this->product = $product;
-        $this->canReview = $this->userHasPurchasedProduct();
+       /*  $this->canReview = $this->userHasPurchasedProduct(); */
         // Obtener las variedades de talla del producto
         $itemVariations = ProductSize::where('product_item_id', $id)->get();
         if ($itemVariations == null || $itemVariations->isEmpty()) {
@@ -84,7 +84,7 @@ class ProductController extends Controller
             'itemVariations',
             'reviews',
             'averageRating',
-            'canReview',
+            /* 'canReview', */
             'relatedProducts'
         ));
     }
