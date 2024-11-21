@@ -51,7 +51,7 @@ class CheckoutController extends Controller
     }
     public function showCheckoutDeliveryPage(Request $request)
     {
-        
+
         $user = User::where('id', auth()->user()->id)->with('address')->first();
         return view('checkout.delivery', ['user' => $user, 'zip_code' => $request->zip_code, 'province' => $request->province, 'city' => $request->city]);
     }
@@ -146,7 +146,7 @@ class CheckoutController extends Controller
         catch (MPApiException $e) {
             dd($e, $items);
         }
-        
+
 
         return view('checkout.payment', ['cart' => $cart, 'pref' => $preference, 'items' => $items, 'colors' => $colors, 'address' => $address, 'cartItems' => $cartItems, 'shippingCosts' => $shippingCosts, 'total' => $total, 'cartTotal' => $cartTotal, 'clientToken' => $mpClientToken, 'delivery_service' => $deliveryService, 'sucursal' => $sucursal, 'selectedMethod' => $selectedMethod]);
     }
@@ -322,6 +322,6 @@ class CheckoutController extends Controller
         $payment = $client->get($id);
 
         $paymentJson = json_encode($payment);
-        return view('checkout.payment_failure', compact('paymentJson'));
+        return view('checkout.payment_failure', compact('paymentJson', 'payment'));
     }
 }
