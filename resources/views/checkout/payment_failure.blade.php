@@ -53,7 +53,7 @@
                 </p>
 
                 <!-- Método de pago -->
-                <p><strong>Método de Pago:</strong> {{ ucfirst($payment->payment_method->type) }} - {{ ucfirst($payment->payment_method->id) }}</p>
+                <p><strong>Método de Pago:</strong> {{ ucfirst(__($payment->payment_method->type)) }} - {{ ucfirst($payment->payment_method->id) }}</p>
 
                 <!-- Monto -->
                 <p><strong>Monto:</strong> ${{ number_format($payment->transaction_amount / 100, 2) }}</p>
