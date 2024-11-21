@@ -7,12 +7,15 @@ use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\ProductItem;
 use App\Models\Category;
 use App\Models\Size;
 use App\Models\Combo;
 use App\Models\ProductSize;
 use App\Models\Reviews;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\User;
 use App\Notifications\OrderNotification;
 use Exception;
@@ -23,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     public $product;
-   /*  public $canReview = false; */
+    public $canReview = false;
     public function index()
     {
         return view('products.index');
@@ -42,13 +45,15 @@ class ProductController extends Controller
     {
 
         $this->product = $product;
-       /*  $this->canReview = $this->userHasPurchasedProduct(); */
+
+        /* Verificación para habilitación de Reseñas */
+        $this->canReview = $this->userHasPurchasedProduct(Auth::id(), $product->id);
+
         // Obtener las variedades de talla del producto
         $itemVariations = ProductSize::where('product_item_id', $id)->get();
         if ($itemVariations == null || $itemVariations->isEmpty()) {
             return abort(404);
         }
-
 
         $averageRating = $product->reviews()->avg('rating');
         $averageRating = round($averageRating * 2) / 2; // Redondear al valor más cercano de media estrella
@@ -85,34 +90,31 @@ class ProductController extends Controller
             'itemVariations',
             'reviews',
             'averageRating',
-            /* 'canReview', */
+            'canReview',
             'relatedProducts'
         ));
     }
 
-    /* public function userHasPurchasedProduct()
+    public function userHasPurchasedProduct($userId, $productId)
     {
-        // Verificar si el usuario está autenticado
-        if (Auth::check()) {
-            // Obtenemos el usuario autenticado
-            $user = Auth::user();
-
-            $order = Order::with('details', 'orderStatus')
-                ->where('user_id', $user->id)
-                ->where('order_status_id', 4)->get();
-
-            $hasOrdered = Order::where('user_id', $user->id)
-                ->whereHas('details', function ($query) {
-                    $query->whereHas('productItem', function ($query) {
-                        $query->where('product_id', $this->product->id);
-                    });
-                })
-                ->exists();
+        if (!Auth::check()) {
+            return false;
         }
 
-        // Si el usuario no está autenticado, devolver false
-        return false;
-    } */
+        // Buscar en los detalles de las órdenes relacionadas con el usuario autenticado
+        $retail = OrderDetail::whereHas('order', function ($query) use ($userId) {
+            $query->where('user_id', $userId) // Filtrar órdenes por el usuario
+                ->where('order_status_id', 4); // Estado "completado"
+        })->whereHas('alternativeItemRelation', function ($query) use ($productId) {
+            $query->where('product_items.id', $productId); // Especificar explícitamente la tabla y columna
+        })->get();
+
+        // Mostrar los detalles encontrados
+        dd($retail);
+
+        return $retail->isNotEmpty(); // Retornar verdadero si hay resultados
+    }
+
 
 
 

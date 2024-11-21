@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\DB;
 
 class OrderDetail extends Model
@@ -36,5 +37,17 @@ class OrderDetail extends Model
     {
         $variation = DB::table('products_sizes')->find($this->variation_id);
         return ProductSize::find($this->variation_id);
+    }
+
+    public function alternativeItemRelation(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            ProductItem::class,      // Modelo final
+            ProductSize::class,      // Modelo intermedio
+            'id',                    // Llave primaria de ProductSize
+            'id',                    // Llave primaria de ProductItem
+            'variation_id',          // Llave foránea en OrderDetail que apunta a ProductSize
+            'product_item_id'        // Llave foránea en ProductSize que apunta a ProductItem
+        );
     }
 }

@@ -214,13 +214,15 @@
                         <div class="flex justify-center items-center h-full">
                             <div class="w-full mx-auto">
                                 <div>
-                                   {{--  @if ($canReview) --}}
-                                        <!-- Si el usuario ha comprado el producto, mostrar el componente de reseñas -->
+                                    @if ($canReview)
+                                        <!-- Mostrar el componente de reseñas -->
                                         @livewire('rating-stars', ['product' => $product])
-                                    {{-- @else --}}
-                                        <!-- Si el usuario no ha comprado el producto, mostrar un mensaje o algo apropiado -->
-                                       {{--  <p>Para dejar una reseña, debes haber comprado este producto.</p>
-                                    @endif --}}
+                                    @else
+                                        <!-- Mostrar mensaje si no puede reseñar -->
+                                        <p class="text-gray-600">
+                                            Para dejar una reseña, debes haber comprado este producto.
+                                        </p>
+                                    @endif
                                 </div>
 
                                 @foreach ($reviews as $review)
