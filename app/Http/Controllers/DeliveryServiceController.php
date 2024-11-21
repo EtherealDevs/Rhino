@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Http;
 
 class DeliveryServiceController extends Controller
 {
-
     // Método para obtener tarifas desde la API
     public static function obtenerTarifas($params)
     {
@@ -43,13 +42,6 @@ class DeliveryServiceController extends Controller
         return $response->throw();
     }
 
-    /**
-     * Obtiene las sucursales de OCA que tienen el servicio de entrega de paquetes para un código postal dado.
-     *
-     * @param string|int $cp Código postal para el cual se buscarán las sucursales.
-     * @return array|Illuminate\Http\Client\Response Un array con las sucursales que tienen el servicio de entrega,
-     * o una respuesta de excepción en caso de error.
-     */
     public static function obtenerSucursales($cp){
         $addressValidator = new AddressValidator();
         $cp = $addressValidator->validateZipCode($cp);
@@ -99,7 +91,6 @@ class DeliveryServiceController extends Controller
             'NumeroEnvio' => $sendNum,
         ]);
 
-
         // Verificar si la solicitud fue exitosa
         if ($response->successful()) {
             // Obtener el contenido de la respuesta XML
@@ -117,7 +108,6 @@ class DeliveryServiceController extends Controller
             // Eliminar atributos específicos que causan errores (como msdata:IsDataSet, diffgr:id, etc.)
             $xmlContent = preg_replace('/\s+(msdata|diffgr):[^=]+="[^"]*"/i', '', $xmlContent);
 
-
             // Cargar el XML en un objeto SimpleXMLElement
             $xml = simplexml_load_string($xmlContent, "SimpleXMLElement", LIBXML_NOCDATA);
 
@@ -129,7 +119,6 @@ class DeliveryServiceController extends Controller
             // Convertir el objeto XML a JSON para manejarlo más fácilmente
             $json = json_encode($xml);
             $array = json_decode($json, true);
-
 
             // Acceder a los datos específicos dentro del array
             if (isset($array['diffgram']['NewDataSet']['Table'])) {

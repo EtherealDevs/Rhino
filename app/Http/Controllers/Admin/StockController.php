@@ -18,9 +18,6 @@ class StockController extends Controller
         return view('admin.stock.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.stock.create');
@@ -48,11 +45,6 @@ class StockController extends Controller
         return redirect()->route('admin.stock.index');
     }
 
-    /**
-     *
-     *
-     * @param Request $request
-     */
     public function without()
     {
         // Filtrar productos con stock total igual a cero en todos los tamaños

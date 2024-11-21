@@ -15,17 +15,11 @@ class OrderDetail extends Model
 
     protected $fillable = ['order_id', 'variation_id', 'amount', 'price'];
 
-    /**
-     * Get the order that owns the OrderDetail.
-     */
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }
 
-    /**
-     * Get the product item associated with the OrderDetail.
-     */
     public function productItem()
     {
         $variation = DB::table('products_sizes')->find($this->variation_id);

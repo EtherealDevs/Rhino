@@ -2,11 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Product;
-use App\Models\ProductItem;
 use App\Models\ProductSize;
-use App\Models\Size;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Products extends Component

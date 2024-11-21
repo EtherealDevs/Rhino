@@ -10,9 +10,6 @@ use App\Models\Image;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         // Eager load de las relaciones parentCategory y subCategories
@@ -20,11 +17,6 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Category::all();
@@ -35,9 +27,6 @@ class CategoryController extends Controller
         return view('admin.categories.create', compact('categories', 'id'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // Validar los datos
@@ -75,17 +64,11 @@ class CategoryController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Category $category)
     {
         $parent = Category::where('id', $category->parent_id)->first();
@@ -93,9 +76,6 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category', 'categories', 'parent'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Category $category)
     {
         // Validación
@@ -130,9 +110,6 @@ class CategoryController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
         if (isset($category->images)) {

@@ -27,9 +27,6 @@ class CartItem
         $this->pivotModel = ProductSize::where('product_item_id', $productItem->id)->where('size_id', $size_id)->first();
         $this->productItemModel = $productItem;
         $this->sizeModel = $productItem->sizes()->find($size_id);
-
-        
-
         $this->id = self::DEFAULT_TYPE . $this->pivotModel->id;
         $this->variation_id = $this->pivotModel->id;
         $this->max_stock = $this->pivotModel->stock;
@@ -39,17 +36,7 @@ class CartItem
         $this->item_id = $this->productItemModel->id;
         $this->quantity = $quantity;
     }
-    /**
-     * Increases the quantity of the product item in the cart.
-     *
-     * If the new quantity exceeds the available stock, the function calculates the maximum quantity that can be added
-     * and flashes a message to the session.
-     *
-     * @param int $quantityInCart The quantity of the product item currently in the cart.
-     *
-     * @return int The new quantity of the product item in the cart. If the new quantity exceeds the available stock,
-     *              returns the maximum stock.
-     */
+
     public function increaseQuantity($quantityInCart)
     {
         $newQuantity = $this->quantity + $quantityInCart;
@@ -62,13 +49,6 @@ class CartItem
         }
     }
 
-    /**
-     * Calculates the quantity that can be added to the cart without exceeding the available stock.
-     *
-     * @param int $quantityInCart The quantity of the product item currently in the cart.
-     *
-     * @return int The quantity that can be added to the cart. If the remaining stock is less than or equal to 0, returns 0.
-     */
     public function getAddableQuantity($quantityInCart)
     {
         $remainingStock = $this->max_stock - $quantityInCart;

@@ -17,9 +17,6 @@ class ComboController extends Controller
         return view('admin.combos.index', compact('combos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories=Category::all();

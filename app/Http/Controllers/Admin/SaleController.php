@@ -21,9 +21,6 @@ class SaleController extends Controller
         return view('admin.sales.index', compact('sales'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories= Category::all();

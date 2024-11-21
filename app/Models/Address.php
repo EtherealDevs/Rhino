@@ -16,29 +16,17 @@ class Address extends Model
     {
         return $this->belongsTo(User::class);
     }
-    /**
-     * Get the zipCode that owns the Address
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function zipCode(): BelongsTo
     {
         return $this->belongsTo(ZipCode::class);
     }
-    /**
-     * Get the province that owns the Address
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function province(): BelongsTo
     {
         return $this->belongsTo(Province::class);
     }
-    /**
-     * Get the city that owns the Address
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);

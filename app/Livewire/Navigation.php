@@ -16,9 +16,6 @@ class Navigation extends Component
 
     public function mount()
     {
-        // Cargar el contenido del carrito al montar el componente
-        // $this->cartContents = CartManager::getCartContents() ?? []; // Asegurar que es un array
-
         // Cargar los favoritos
         $this->loadFavorites();
     }
@@ -69,7 +66,7 @@ class Navigation extends Component
             ->where('user_id', Auth::id())
             ->get();
     }
-    
+
 
     public function addToFavorites($productId)
     {

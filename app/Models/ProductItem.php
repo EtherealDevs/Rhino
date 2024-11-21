@@ -3,13 +3,10 @@
 namespace App\Models;
 
 use App\Traits\CascadesDeletes;
-use Gloudemans\Shoppingcart\Contracts\Buyable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,18 +22,17 @@ class ProductItem extends Model
     protected $fillable = ['product_id', 'original_price', 'sale_price', 'color_id'];
     protected $cascadeDeletes = ['sizes'];
 
-    public function price() : int
+    public function price(): int
     {
         if (optional($this->product)->sale && optional($this->product->sale)->sale && optional($this->product->sale->sale)->discount) {
             $price = $this->original_price * ($this->product->sale->sale->discount / 100);
             $price = $this->original_price - $price;
             return $price;
-        } else
-        {
+        } else {
             return $this->original_price;
         }
     }
-    public function product() : BelongsTo
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
@@ -44,11 +40,11 @@ class ProductItem extends Model
     {
         return $this->product->category;
     }
-    public function color() : BelongsTo
+    public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
-    public function colors() : Collection
+    public function colors(): Collection
     {
         $colors = collect([]);
         foreach ($this->product->items as $key => $item) {
@@ -56,7 +52,7 @@ class ProductItem extends Model
         }
         return $colors;
     }
-    public function sizes() : BelongsToMany
+    public function sizes(): BelongsToMany
     {
         return $this->belongsToMany(Size::class, 'products_sizes')->using(ProductSize::class)->withPivot('id', 'stock', 'created_at', 'updated_at', 'deleted_at');
     }
@@ -78,21 +74,13 @@ class ProductItem extends Model
         if (is_string($size)) {
             $size_id = Size::where('name', $size)->first()->getKey();
             return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
-        }
-        else if (is_numeric($size)) {
+        } else if (is_numeric($size)) {
             $size_id = Size::where('name', $size)->first()->id;
             return $this->sizes()->wherePivot('size_id', $size_id)->first()->pivot;
         }
         return $this->sizes()->wherePivot('size_id', $size->id)->first()->pivot;
     }
-    /**
-     * Get the product items that are available for purchase.
-     *
-     * Retrieves all product items associated with their sizes / variations.
-     * It filters out the product items where all their sizes are either deleted or out of stock.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+
     public static function getAvailable()
     {
         $productItems = ProductItem::with('sizes')->orderBy('created_at', 'desc')->get();
@@ -117,22 +105,23 @@ class ProductItem extends Model
         });
         dd($test->take(3));
     }
-    public function images() : MorphMany
+    public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function users() : BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favorites', 'product_item_id', 'user_id')->as('favorites')->withTimestamps();
     }
 
-    public function sale_price():float {
+    public function sale_price(): float
+    {
         $discount = $this->product->sale->sale->discount;
-        $price= $this->price() - ($this->price() * ($discount/100));
-        return $price ;
+        $price = $this->price() - ($this->price() * ($discount / 100));
+        return $price;
     }
-    public function combo() : HasOne
+    public function combo(): HasOne
     {
         return $this->hasOne(Combo_items::class);
     }

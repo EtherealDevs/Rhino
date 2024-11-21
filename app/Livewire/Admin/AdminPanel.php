@@ -17,7 +17,6 @@ class AdminPanel extends Component
         // Obtener los pedidos pendientes y cargar la relación address
         $this->pendingOrders = Order::with('address')->where('order_status_id', 1)->get();
     }
-    
 
     public function render()
     {

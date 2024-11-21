@@ -70,7 +70,6 @@ class ProductCard extends Component
             ->exists();
     }
 
-
     public function render()
     {
         return view('livewire.product-card');

@@ -88,17 +88,15 @@ class DeliveryForm extends Component
         $this->cityModels = City::all();
 
         $this->user = $user;
-          // Obtener las direcciones del usuario autenticado
-          $this->addressModels = Address::where('user_id', Auth::id())->get();
-          if ($this->addressModels->isNotEmpty()) {
-              $this->addressModels = $this->addressModels->load('province', 'city', 'zipCode');
-    
-              $this->selectedAddressId = $this->addressModels->first()->id;
-              $this->addressModel = $this->addressModels->where('id', $this->selectedAddressId)->first();
-              $this->updatedSelectedAddressId($this->selectedAddressId);
-          }
-          else
-          {
+        // Obtener las direcciones del usuario autenticado
+        $this->addressModels = Address::where('user_id', Auth::id())->get();
+        if ($this->addressModels->isNotEmpty()) {
+            $this->addressModels = $this->addressModels->load('province', 'city', 'zipCode');
+
+            $this->selectedAddressId = $this->addressModels->first()->id;
+            $this->addressModel = $this->addressModels->where('id', $this->selectedAddressId)->first();
+            $this->updatedSelectedAddressId($this->selectedAddressId);
+        } else {
             if ($zip_code != null) {
                 $this->zip_code = $zip_code;
                 $this->updatedZipCode($this->zip_code);
@@ -107,9 +105,7 @@ class DeliveryForm extends Component
                 $this->city = $city;
                 $this->updatedCity($this->city);
             }
-          }
-        
-        
+        }
     }
 
 
@@ -151,7 +147,7 @@ class DeliveryForm extends Component
     {
         $addressValidator = new AddressValidator();
         $addressValidator->validateZipCode($zipCode);
-        
+
         $zipCodeModel = $this->zipCodeModels->where('code', '=', $zipCode)->first();
         $this->province = $zipCodeModel->province->name;
         $this->selectedCity = null; // Reset city selection when province changes
@@ -195,25 +191,6 @@ class DeliveryForm extends Component
         $this->selectedCity = $this->addressModel->city->id;
         $this->city = $this->addressModel->city->id;
     }
-
-    // Nuevo método para rellenar el formulario con datos del cliente
-    // public function fillFormWithUserData()
-    // {
-    //     $this->fill($this->user->only('name', 'last_name', 'phone_number', 'address', 'street', 'number', 'department', 'street1', 'street2', 'observation'));
-
-    //     if ($this->this->addressModel) {
-    //         $this->zip_code = $this->this->addressModel->zipCode->code;
-    //         $this->province = $this->this->addressModel->province->name;
-    //         $this->city = $this->this->addressModel->city_id;
-    //         $this->cities = City::where('province_id', $this->this->addressModel->province_id)->get()->sortBy('name');
-    //     }
-    // }
-
-    // public function confirmFill()
-    // {
-    //     $this->fillFormWithUserData();
-    //     $this->showConfirmationModal = false; // Oculta el modal después de confirmar
-    // }
 
     public function render()
     {

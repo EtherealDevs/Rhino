@@ -13,7 +13,6 @@ class SessionCartManager
 
     public $total;
     public $contents;
-    
     public function __construct()
     {
         $cart = session(self::CART_NAME) ? session(self::CART_NAME) : session()->put(self::CART_NAME, collect());
@@ -30,63 +29,30 @@ class SessionCartManager
         $contents = $this->getCartContents();
         return $contents->sum('quantity');
     }
-    /**
-     * Retrieves the contents of the shopping cart from the session.
-     *
-     * @return Illuminate\Support\Collection The contents of the shopping cart.
-     */
+
     public function getCartContents()
     {
         return session(self::CART_NAME) ? collect(json_decode(session(self::CART_NAME))) : session()->put(self::CART_NAME, collect());
     }
-    /**
-     * Retrieves the total cost of the shopping cart from the session.
-     *
-     * @return float The total cost of the shopping cart.
-     */
+
     public function getCartTotal()
     {
         return session(self::CART_TOTAL) ? session(self::CART_TOTAL) : session()->put(self::CART_TOTAL, 0);
     }
-    /**
-     * Sets the total cost of the shopping cart in the session.
-     *
-     * @param float $total The new total cost of the shopping cart.
-     *
-     * @return void
-     */
+
     public function setCartTotal($total)
     {
         $this->total = $total;
         session()->put(self::CART_TOTAL, $this->total);
     }
-    /**
-     * Updates the contents of the shopping cart and recalculates the total cost.
-     *
-     * @param Illuminate\Support\Collection $contents The new contents of the shopping cart.
-     *
-     * @return void
-     *
-     * @throws Exception If the provided contents are not an instance of Illuminate\Support\Collection.
-     *
-     * @see updateCartContents()
-     * @see updateCartTotal()
-     */
+
     public function updateCart($contents)
     {
         $contents = $contents->sortBy('type');
         $this->updateCartContents($contents);
         $this->updateCartTotal();
     }
-    /**
-     * Updates the contents of the shopping cart by storing them in the session.
-     *
-     * @param Illuminate\Support\Collection $contents The new contents of the shopping cart.
-     *
-     * @return void
-     *
-     * @throws Exception If the provided contents are not an instance of Illuminate\Support\Collection.
-     */
+
     public function updateCartContents($contents)
     {
         if (!$contents instanceof \Illuminate\Support\Collection) {
@@ -95,11 +61,7 @@ class SessionCartManager
 
         session()->put(self::CART_NAME, $contents);
     }
-    /**
-     * Updates the total cost of the shopping cart by iterating through each item and calculating the price.
-     *
-     * @return void
-     */
+
     public function updateCartTotal()
     {
         $contents = $this->getCartContents();
@@ -139,15 +101,7 @@ class SessionCartManager
         // Update the total cost of the cart in the database
         $this->setCartTotal($total);
     }
-    /**
-     * Removes an item from the session's cart.
-     *
-     * @param string $cartItemId The unique identifier of the item to be removed.
-     *
-     * @return void
-     *
-     * @throws Exception If the item with the given ID does not exist in the cart.
-     */
+
     public function removeItem($cartItemId)
     {
         $contents = $this->getCartContents();
@@ -163,15 +117,7 @@ class SessionCartManager
         // Update the cart contents and total
         $this->updateCart($contents);
     }
-    /**
-     * Adds an item to the user's cart.
-     *
-     * @param CartItem $cartItem The item to be added to the cart.
-     *
-     * @return void
-     *
-     * @throws Exception If the item with the given ID already exists in the cart and cannot be increased in quantity.
-     */
+
     public function addItem(CartItem $cartItem, $quantity = 1)
     {
         $contents = $this->getCartContents();
@@ -193,15 +139,7 @@ class SessionCartManager
             $this->updateCart($contents);
         }
     }
-    /**
-     * Updates the quantity of an item in the cart.
-     *
-     * @param string $cartItemId The unique identifier of the item in the cart.
-     * @param string $mode The mode of update (add, subtract, update).
-     * @param int $quantity The quantity to update the item with. Default is 1.
-     *
-     * @return void
-     */
+
     public function updateQuantity($cartItemId, $mode, $quantity = 1)
     {
         $contents = $this->getCartContents();
@@ -217,14 +155,7 @@ class SessionCartManager
                 break;
         }
     }
-    /**
-     * Adds a combo item to the shopping cart.
-     *
-     * @param CartCombo $combo The combo item to add.
-     * @param int $quantity The quantity of the combo item to add. Default is 1.
-     *
-     * @return void
-     */
+
     public function addCombo(CartCombo $combo, $quantity = 1)
     {
         $contents = $this->getCartContents();
@@ -247,22 +178,13 @@ class SessionCartManager
             $this->updateCart($contents);
         }
     }
-    /**
-     * Updates the quantity of an item in the cart.
-     *
-     * @param object $itemInCart The item in the cart to update.
-     * @param string $mode The mode of update (add, subtract, update).
-     * @param Illuminate\Support\Collection $contents The current contents of the cart.
-     * @param int $quantity The quantity to update the item with. Default is 1.
-     *
-     * @return void
-     */
+
     public function updateItemQuantity($itemInCart, $mode, $contents, $quantity = 1)
     {
         $itemVariation = DB::table('products_sizes')->find($itemInCart->variation_id);
         $cartItemId = $this->getCartItemId($itemInCart);
         $success = null;
-        
+
         switch ($mode) {
             case 'add':
                 $newQuantity = $itemInCart->quantity + $quantity;
@@ -297,16 +219,7 @@ class SessionCartManager
             $this->updateCart($contents);
         }
     }
-    /**
-     * Updates the quantity of a combo item in the shopping cart.
-     *
-     * @param object $itemInCart The combo item in the cart to update.
-     * @param string $mode The mode of update (add, subtract, update).
-     * @param Illuminate\Support\Collection $contents The current contents of the shopping cart.
-     * @param int $quantity The quantity to update the item to. Default is 1.
-     *
-     * @return void
-     */
+
     public function updateComboQuantity($itemInCart, $mode, $contents, $quantity = 1)
     {
         $cartItemId = $this->getCartItemId($itemInCart);
@@ -349,12 +262,7 @@ class SessionCartManager
                 $this->updateCart($contents);
             }
     }
-    /**
-     * Generate a unique identifier for an item in the shopping cart.
-     *
-     * @param object $itemInCart The item in the cart to generate an identifier for.
-     * @return string The unique identifier for the item in the cart.
-     */
+
     public function getCartItemId($itemInCart)
     {
         switch ($itemInCart->type) {
@@ -367,12 +275,7 @@ class SessionCartManager
         }
         return $cartItemId;
     }
-    /**
-     * Update the maximum stock for a combo item based on its item sizes.
-     *
-     * @param object $itemInCart The combo item in the cart to update.
-     * @return int The maximum stock for the combo item.
-     */
+
     public function updateComboMaxStockBasedOnItemSize($itemInCart)
     {
         $stocks = collect();

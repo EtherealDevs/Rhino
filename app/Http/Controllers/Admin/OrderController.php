@@ -66,7 +66,6 @@ class OrderController extends Controller
         $mpAccessToken = config('app.mp_access_token');
         MercadoPagoConfig::setAccessToken($mpAccessToken);
         $client = new PaymentClient();
-        
         $order = Order::with('user', 'details', 'orderStatus', 'paymentMethod', 'deliveryService', 'address')
             ->findOrFail($id);
             $mpOrder = null;

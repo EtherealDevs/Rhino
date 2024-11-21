@@ -1,12 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Cart\CartManager;
-use App\Models\Cart;
-use App\Models\Color;
 use App\Models\Product;
-use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductItem;
 use App\Models\Category;
@@ -14,11 +9,6 @@ use App\Models\Size;
 use App\Models\Combo;
 use App\Models\ProductSize;
 use App\Models\Reviews;
-use Illuminate\Support\Facades\DB;
-
-use App\Models\User;
-use App\Notifications\OrderNotification;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -111,8 +101,6 @@ class ProductController extends Controller
 
         return $retail->isNotEmpty(); // Retornar verdadero si hay resultados
     }
-
-
 
 
     public function filter(Request $request)

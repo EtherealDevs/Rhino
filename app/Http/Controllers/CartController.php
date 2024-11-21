@@ -39,13 +39,6 @@ class CartController extends Controller
         }
     }
 
-
-
-    /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
     public function index(){
         $productItems = ProductItem::all();
         $cartItems = $this->cartManager->getCartContents();
@@ -66,24 +59,11 @@ class CartController extends Controller
                 }
             }
         }
-        
 
-            // $cartItems = CartManager::getCartContents();
-        // $groupedCartItems = $cartItems->groupBy(function($item) {
-        //     return $item['item']->product->combo->combo->id ?? null; // Asumiendo que `combo_id` es el identificador del combo
-        // });
-        // return view('cart.index', ['productItems' => $productItems, 'groupedCartItems' => $groupedCartItems]);
         return view('cart.index', ['combos' => $combos, 'items' => $items, 'cartTotal' => $cartTotal]);
     }
 
-    /**
-     * Adds a product item to the shopping cart.
-     *
-     * @param Request $request The incoming request containing the necessary parameters.
-     * @return \Illuminate\Http\RedirectResponse Redirects to the shopping cart page with success or failure message.
-     *
-     * @throws \Exception If the product item or size is not found.
-     */
+
     public function addToCart(Request $request)
     {
         $request->validate([
@@ -116,7 +96,6 @@ class CartController extends Controller
     }
     public function removeFromCart(Request $request)
     {
-        
         $validator = Validator::make(['cartItemId' => $request->cartItemId], [
             'cartItemId' =>'required|string|alpha_num'
         ]);
@@ -124,23 +103,7 @@ class CartController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
         $this->cartManager->removeItem($request->cartItemId);
-        // $size = $request->size;
-        // // $item = ProductItem::where('id', json_decode($request->item)->id)->first();
 
-        // if (auth()->check()) {
-        //     $user = User::where('id', auth()->user()->id)->first();
-        //     CartManager::removeItem($item, $size, $user);
-        // } else{
-        //     CartManager::removeItem($item, $size);
-        // }
-        // if (!session()->has('cart')) {
-        //     session()->forget('cart');
-        //     if (auth()->user()){
-        //         $cart = Cart::where('user_id', auth()->user()->id);
-        //         $cart->delete();
-        //     }
-        //     return redirect('/');
-        // }
         return redirect()->route('cart')->with('success');
     }
     public function updateFromCart(Request $request)

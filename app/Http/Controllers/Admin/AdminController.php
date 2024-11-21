@@ -29,7 +29,6 @@ class AdminController extends Controller
         $deliveredOrdersCount = Order::where('order_status_id', 4)->count();
         $totalStock = DB::table('products_sizes')->where('stock', 0)->count();
 
-
         return view('admin.index', compact('user', 'pendingOrders', 'totalGanancias', 'pendingOrdersCount', 'deliveredOrdersCount', 'totalStock'));
     }
 

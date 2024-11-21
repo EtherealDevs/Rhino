@@ -10,29 +10,16 @@ class Province extends Model
 {
     use HasFactory;
 
-    /**
-     * Get all of the zipCodes for the Province
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function zipCodes(): HasMany
     {
         return $this->hasMany(ZipCode::class);
     }
-    /**
-     * Get all of the cities for the Province
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
     }
-    /**
-     * Get all of the addresses for the Province
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);

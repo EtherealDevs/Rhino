@@ -166,11 +166,6 @@ class ProductItemController extends Controller
 }
 
 
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($productSizeId)
     {
         $variation = ProductSize::find($productSizeId);
@@ -180,7 +175,7 @@ class ProductItemController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-        
+
         // $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
 
         // if (!$productSize) {

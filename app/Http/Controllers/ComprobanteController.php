@@ -43,7 +43,7 @@ class ComprobanteController extends Controller
         $order->save();
         $comprobante = Comprobante::where('user_id', Auth::id())
                                   ->where('status', 'pending') // Comprobantes pendientes
-                                  ->first();
+                                    ->first();
 
         if ($comprobante) {
             $comprobante->order_id = $order->id;

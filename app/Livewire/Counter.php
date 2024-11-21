@@ -9,7 +9,7 @@ class Counter extends Component
 {
     public $stock;
     public $count = 0;
- 
+
     #[On('change-livewire-component')]
     public function setStock($stock)
     {
@@ -25,14 +25,14 @@ class Counter extends Component
             $this->count++;
         }
     }
- 
+
     public function decrement()
     {
         if ($this->count > 1) {
             $this->count--;
         }
     }
- 
+
     public function render()
     {
         return view('livewire.counter');

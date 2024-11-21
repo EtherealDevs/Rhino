@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $deletedProducts = Product::onlyTrashed()->get();
@@ -36,10 +33,6 @@ class ProductController extends Controller
 
         return view('admin.products.index', compact('products', 'deletedProducts', 'deletedProductItems', 'deletedProductItemVariations', 'categories', 'colors', 'brands'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
 
     public function create()
     {
@@ -109,9 +102,6 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
         // foreach ($product->items() as $item) {

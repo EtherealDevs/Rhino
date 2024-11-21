@@ -2,25 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Cart\CartCombo;
-use App\Http\Cart\CartItem;
 use App\Http\Validators\AddressValidator;
 use App\Http\Validators\CartValidator;
 use App\Http\Validators\PaymentValidator;
 use App\Services\ProductItemService;
 use App\Models\Address;
 use App\Models\Cart;
-use App\Models\City;
 use App\Models\Color;
 use App\Models\DeliveryService;
-use App\Models\Order;
-use App\Models\ProductItem;
-use App\Models\ProductSize;
-use App\Models\Province;
-use App\Models\Size;
 use App\Models\User;
 use App\Models\ZipCode as ModelsZipCode;
-use App\Rules\ZipCode;
 use App\Services\AddressService;
 use App\Services\CheckoutService;
 use App\Services\OrderService;
@@ -28,12 +19,10 @@ use App\Services\ShippingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use MercadoPago\Client\Common\RequestOptions;
 use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use MercadoPago\MercadoPagoConfig;
-use MercadoPago\Resources\Payment;
 
 class CheckoutController extends Controller
 {
@@ -160,15 +149,6 @@ class CheckoutController extends Controller
         return redirect()->route('checkout.payment', ['address_id' => $address->id, 'selectedMethod' => $request->selectedMethod]);
     }
 
-    /**
-     * Processes a payment using MercadoPago API.
-     *
-     * @param Request $request The request object containing payment details.
-     *
-     * @return array The payment response from MercadoPago API.
-     *
-     * @throws MPApiException If there is an error processing the payment.
-     */
     public function processPayment(Request $request)
     {
         $validator = new PaymentValidator($request);

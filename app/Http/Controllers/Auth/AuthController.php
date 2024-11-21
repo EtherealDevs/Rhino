@@ -52,7 +52,6 @@ class AuthController extends Controller
             ]
         );
 
-
         // Iniciar sesión
         Auth::login($user);
 
