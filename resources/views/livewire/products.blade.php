@@ -114,7 +114,7 @@
                 @endif
                 <div class="xl:ml-[1px] xl:mt-4 2xl:ml-0 flex w-full justify-center lg:justify-end">
                     <div
-                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
 
                         @foreach ($products as $product)
                             @livewire('product-card', ['product' => $product, 'item' => $product->items->first()])
