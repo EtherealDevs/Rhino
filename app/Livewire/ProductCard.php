@@ -18,13 +18,11 @@ class ProductCard extends Component
     {
         // Verifica si el producto existe en la tabla product_items
         $productItem = ProductItem::find($productId);
-
         // Si el producto no existe, muestra un error o retorna
         if (!$productItem) {
             notify()->error('Este producto no existe.');
             return;
         }
-
         // Si el producto existe, agrega a favoritos
         Favorite::create([
             'user_id' => Auth::id(),
