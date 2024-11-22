@@ -3,8 +3,8 @@
     onmouseout="resetImage(this, '{{ url(Storage::url($item->images->first()->url)) }}')">
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
         <div class="h-[200px] w-full">
-            <img src="{{ url(Storage::url($item->images->first()->url)) }}"
-                alt="Producto" class="product-image h-full w-full object-cover" />
+            <img data-src="{{ url(Storage::url($item->images->first()->url)) }}"
+                alt="Producto" class="product-image h-full w-full object-cover lazyload" />
         </div>
         @if ($product->sale)
             <div
