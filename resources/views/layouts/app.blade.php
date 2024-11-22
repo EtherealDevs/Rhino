@@ -45,12 +45,12 @@
 
 <body class="font-sans antialiased">
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NK82L3HG" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
+    {{-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NK82L3HG" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript> --}}
     <!-- End Google Tag Manager (noscript) -->
 
     <div id="contain-loader"
-        class="fixed  z-50 flex h-screen w-screen backdrop-blur-2xl justify-center items-center bg-black/25">
+        class="fixed z-50 flex h-screen w-screen backdrop-blur-2xl justify-center items-center bg-black/25">
         <div id="loader" class="h-18 mx-auto mt-12"></div>
     </div>
 
