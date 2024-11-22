@@ -1,4 +1,3 @@
-{{-- Sidebar --}}
 <div class="w-2/3 left-2 md:w-1/4 xl:w-[271px] md:mt-10 xl:mb-4 xl:mt-6 lg:w-1/6 z-40 md:z-0 sticky top-28"
     x-data="{ open: window.innerWidth >= 768 }" x-init="$watch('open', value => { if (window.innerWidth >= 768) open = false })">
 
@@ -19,7 +18,8 @@
 
     <!-- Contenido del sidebar -->
     <div x-show="open" x-on:click.away="if(window.innerWidth < 768) open = false"
-        class="sticky top-16 xl:top-[80px] h-[80vh] lg:h-[65vh] overflow-y-auto md:h-screen 2xl:h-[90vh] bg-white md:bg-white/50 rounded-lg shadow-xl p-4">
+        class="sticky top-16 xl:top-[80px] h-[80vh] lg:h-[65vh] overflow-y-auto md:h-screen 2xl:h-[90vh] bg-white md:bg-white/50 rounded-lg shadow-xl p-4"
+        style="height: 566px;">
         <form action="{{ route('products.filter') }}" method="GET">
             <!-- Contenido del formulario de categorías -->
             <h2 class="font-bold text-xl font-josefin text-center">Categorías</h2>
@@ -30,7 +30,11 @@
                             class="text-lg flex font-extrabold font-josefin leading-snug text-gray-300 py-2 px-1 cursor-pointer hover:text-black transition duration-200 ease-in-out">
                             {{ $category->name }}
                             <span class="ml-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1024 1024"><path fill="currentColor" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8l316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                    viewBox="0 0 1024 1024">
+                                    <path fill="currentColor"
+                                        d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8l316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496" />
+                                </svg>
                             </span>
                         </h3>
 
@@ -42,7 +46,8 @@
                                         <input type="checkbox" name="categories[]" value="{{ $child->id }}"
                                             class="form-checkbox h-5 w-5 rounded-full border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out shadow-md hover:ring-2 hover:ring-blue-300"
                                             @if (in_array($child->id, request('categories', []))) checked @endif>
-                                        <span class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
+                                        <span
+                                            class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
                                             {{ $child->name }} ({{ count($child->products) }})
                                         </span>
                                     </label>
@@ -58,7 +63,8 @@
                                                         value="{{ $grandchild->id }}"
                                                         class="form-checkbox h-5 w-5 rounded-full border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out shadow-md hover:ring-2 hover:ring-blue-300"
                                                         @if (in_array($grandchild->id, request('categories', []))) checked @endif>
-                                                    <span class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
+                                                    <span
+                                                        class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
                                                         {{ $grandchild->name }} ({{ count($grandchild->products) }})
                                                     </span>
                                                 </label>
@@ -124,7 +130,7 @@
 
             </div>
             <!-- Botón de filtrar -->
-            <div class="sticky bottom-0 left-0 w-full bg-white p-4 drop-shadow-lg rounded-xl">
+            <div class="sticky z-40 bottom-0 left-0 w-full bg-white p-4 drop-shadow-lg rounded-xl">
                 <button type="submit"
                     class="w-full text-base text-center border font-josefin font-medium text-white py-2 px-2 bg-blue-800 border-blue-800 hover:bg-blue-700 rounded-md transition duration-150 ease-in-out">
                     <span>Filtrar</span>

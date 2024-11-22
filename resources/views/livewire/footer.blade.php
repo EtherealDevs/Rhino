@@ -9,26 +9,24 @@
                 </div>
                 <div>
                     <p class="font-medium text-gray-100">
-                        Productos
+                        Navegacion
                     </p>
                     <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-100">
-                        <a class="hover:opacity-75" href>Remeras</a>
-                        <a class="hover:opacity-75" href>Buzos</a>
-                        <a class="hover:opacity-75" href>Pantalones</a>
-                        <a class="hover:opacity-75" href>Camisas</a>
-                        <a class="hover:opacity-75" href>Zapatillas</a>
-
-                        <a href="/eliminacion-datos" class="hover:opacity-75" href>Eliminacion Datos</a>
+                        <a href="/" class="hover:opacity-75" href>Inicio</a>
+                        <a href="/about" class="hover:opacity-75" href>Nosotros</a>
+                        <a href="/products" class="hover:opacity-75" href>Productos</a>
+                        <a href="/contact" class="hover:opacity-75" href>Contactanos</a>
                     </nav>
                 </div>
                 <div>
                     <p class="font-medium text-gray-100">
-                        Navegacion
+                        Terminos y Condiciones
                     </p>
                     <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-100">
-                        <a class="hover:opacity-75" href>Inicio</a>
-                        <a class="hover:opacity-75" href>Contactanos</a>
-                        <a class="hover:opacity-75" href>Productos</a>
+                        <a href="/privacy" class="hover:opacity-75">Politica de privacidad</a>
+                        <a href="/eliminacion-datos" class="hover:opacity-75" href>Eliminacion de Datos</a>
+                        <a href="/terms" class="hover:opacity-75">Terminos y condiciones</a>
+                        <a href="/terms" class="hover:opacity-75">Politica de Privacidad</a>
                     </nav>
                 </div>
                 <div>
@@ -57,8 +55,13 @@
                 </div>
             </div>
         </div>
-        <p class="mt-8 text-xs text-gray-100 text-center">
+        <p class="mt-8 text-xs text-gray-500 text-center">
             Rino Indumentaria © 2024
         </p>
+        <a href="/">
+            <p class="mt-4 text-xs text-gray-600 text-center">
+                Hecho por Ethereal Devs
+            </p>
+        </a>
     </div>
 </footer>
