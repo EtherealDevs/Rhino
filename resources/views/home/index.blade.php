@@ -79,7 +79,7 @@
                                             class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                         <!-- Botón que redirige a Google Maps -->
-                                        <div class="absolute bottom-10 z-50 left-1/2 transform -translate-x-1/2">
+                                        <div class="absolute bottom-10 z-50 left-1/2 transform -translate-y-3/4 -translate-x-1/2">
                                             <a href="https://maps.app.goo.gl/ejFFD1789TdA8fuj9" target="_blank"
                                                 class="flex items-center justify-center w-12 h-12 bg-white text-white hover:scale-125 rounded-full focus:ring-4 focus:ring-blue-300 transition">
                                                 <!-- Icono SVG de Google Maps -->
