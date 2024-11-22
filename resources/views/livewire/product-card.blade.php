@@ -22,7 +22,7 @@
             </div>
         @endif
         <div class="absolute top-2 right-2 flex flex-col space-y-2">
-            <button wire:click="toggleFavorite({{ $product->id }})"
+            <button aria-label="" wire:click="toggleFavorite({{ $product->id }})"
                 class="bg-black/20 text-gray-600 hover:bg-red-200 hover:text-white p-3 rounded-full transition {{ $this->isFavorite($product->id) ? 'bg-black text-red-500' : 'bg-black text-white' }}">
                 <svg width="18" height="16" viewBox="0 0 17 16" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@
                         value="{{ $item->sizes()->wherePivot('deleted_at', '=', null)->wherePivot('stock', '>', 0)->first()->name }}">
 
                     <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
+                    <button aria-label="" type="submit" class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
