@@ -12,7 +12,7 @@ class Order extends Model
     use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
-    protected $fillable = ['user_id', 'payment_method_id', 'total', 'delivery_service_id', 'delivery_price', 'address_id', 'order_status_id', 'mp_order_id'];
+    protected $fillable = ['user_id', 'payment_method_id', 'total', 'delivery_service_id', 'delivery_price', 'send_number', 'address_id', 'order_status_id', 'mp_order_id'];
 
     public function paymentMethod()
     {

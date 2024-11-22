@@ -12,28 +12,39 @@
         <div class="grid grid-cols-1 h-full lg:grid-cols-3 lg:grid-rows-2 gap-0 lg:gap-6 ">
             {{-- Seccion Bienvenida y Ofertas --}}
             <div class=" lg:col-span-3 mx-0 lg:mx-6 bg-black h-full rounded-none lg:rounded-b-3xl">
-                <div class="grid grid-cols-1 lg:grid-cols-5 justify-between h-full gap-0">
+                <div class="grid grid-cols-1 lg:grid-cols-6 justify-between h-full gap-0">
                     {{-- Seccion de Bienvenida --}}
-                    <div class="col-span-2 px-8 mb-6 my-32 lg:mb-0 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
+                    <div class="col-span-2 px-8 mb-6 my-24 lg:mb-0 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
                         <div class="text-center">
                             <h1 class="text-4xl lg:text-5xl font-extrabold font-josefin text-white mb-4">
-                                Bienvenidos a
+                                Bienvenido a
                             </h1>
-                            <img class="mx-auto rounded-xl shadow-lg lg:w-3/4 w-3/5 mt-6 " src="/img/rino.png"
+
+                            <img class="mx-auto rounded-xl shadow-lg lg:w-3/4 w-full mt-6 " src="/img/rino.png"
                                 alt="Your Company">
                         </div>
                         <div class="mt-6 mx-12 text-center">
-                            <h2 class="text-lg italic font-josefin text-white leading-relaxed">
-                                Aca vas a encontrar una selección cuidada de prendas y accesorios diseñados para resaltar tu
-                                estilo y personalidad. <span class="font-bold">¡Explora nuestra colección y descubre lo que
-                                    te hace único!</span>
-                            </h2>
+                            <p class="text-sm lg:py-2 py-12 lg:text-lg italic font-josefin text-white leading-relaxed">
+                                Aca vas a encontrar una selección cuidada de prendas para resaltar tu estilo <span class="font-bold">¡Explora la colección y descubre lo que te hace único!</span>
+                            </p>
+                            <a class="justify-center flex w-full lg:mt-6" href="/products">
+                                <button
+                                    class="mr-6 mb-6 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors p-3 px-4 flex items-center space-x-2">
+                                    <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
+                                            fill="white" />
+                                    </svg>
+                                    <p class="">Ver Productos</p>
+                                </button>
+                            </a>
                         </div>
                     </div>
 
 
                     {{-- Carrousel --}}
-                    <div class="col-span-3 h-full flex">
+                    <div class="col-span-4 h-full flex">
                         <div class="max-w-7xl w-full justify-end">
                             <div id="default-carousel" class="relative h-full" data-carousel="active">
                                 <!-- Carousel wrapper -->
@@ -169,7 +180,7 @@
 
             {{-- Seccion Nuevos Ingresos --}}
             <div
-                class=" lg:col-span-2 lg:ml-6 bg-center bg-contain bg-[url(/public/img/new.png)] h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class=" lg:col-span-2 lg:ml-6 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700 h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
@@ -263,12 +274,12 @@
                     <div class="flex items-end justify-center">
                         <a href="/promos">
                             <button
-                                class="mr-6 rounded-full bg-blue-400 text-white hover:bg-white transition-colors hover:text-blue-900 p-3 px-4 flex items-center space-x-2">
+                                class="mr-6 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors p-3 px-4 flex items-center space-x-2">
                                 <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
-                                        fill="#290880" />
+                                        fill="white" />
                                 </svg>
                                 <p class="">Descubrelas Aqui</p>
                             </button>

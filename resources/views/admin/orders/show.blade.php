@@ -2,134 +2,238 @@
 
 @section('content')
     <div class="p-6">
-        <div class="container mx-auto mt-14 p-12 bg-white rounded-lg shadow-lg">
+        <div class="container mx-auto mt-14 lg:p-12 p-4 bg-white rounded-lg shadow-lg">
             <h1 class="text-3xl font-semibold text-gray-800 mb-6">Detalle del Pedido #{{ $order->id }}</h1>
 
-            <!-- Información del Usuario -->
-            <div class="mb-10">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Información del Usuario</h2>
-                <p class="text-lg text-gray-600"><strong class="font-medium">Nombre:</strong> {{ $order->user->name }}</p>
-                <p class="text-lg text-gray-600"><strong class="font-medium">Email:</strong> {{ $order->user->email }}</p>
-                <p class="text-lg text-gray-600"><strong class="font-medium">Teléfono:</strong>
-                    {{ $order->user->phone_number }}
-                </p>
-            </div>
+            <div class="grid lg:grid-cols-6 grid-cols-1">
 
-            <!-- Estado y Método de Pago -->
-            <div class="mb-10">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Estado y Método de Pago</h2>
-                <p class="text-lg text-gray-600">
-                    <strong class="font-medium">Estado del Pedido:</strong>
-                    <span
-                        class="inline-flex items-center justify-center text-xs font-semibold uppercase px-2 py-1 rounded-full
+                <div class="col-span-1 lg:col-span-3">
+                    <!-- Información del Usuario -->
+                    <div class="mb-10">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Información del Usuario</h2>
+                        <p class="text-lg text-gray-600"><strong class="font-medium">Nombre:</strong> {{ $order->user->name }}
+                        </p>
+                        <p class="text-lg text-gray-600"><strong class="font-medium">Email:</strong>
+                            {{ $order->user->email }}</p>
+                        <p class="text-lg text-gray-600"><strong class="font-medium">Teléfono:</strong>
+                            {{ $order->user->phone_number }}
+                        </p>
+                    </div>
+
+                    <!-- Estado y Método de Pago -->
+                    <div class="mb-10">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Estado y Método de Pago</h2>
+                        <p class="text-lg text-gray-600">
+                            <strong class="font-medium">Estado del Pedido:</strong>
+                            <span
+                                class="inline-flex items-center justify-center text-xs font-semibold uppercase px-2 py-1 rounded-full
                     @if ($order->orderStatus->id == 5) text-red-500 bg-red-100
                     @elseif ($order->orderStatus->id == 1)
                         text-yellow-600 bg-yellow-300
                     @else
                         text-emerald-600 bg-emerald-100 @endif">
-                        {{ $order->orderStatus->name }}
-                    </span>
-                </p>
-                <p class="text-lg text-gray-600"><strong class="font-medium">Método de Pago:</strong>
-                    {{ __($order->paymentMethod->payment_method) }}</p>
-                <p class="text-lg mb-6 text-gray-600"><strong class="font-medium">Fecha de Creación:</strong>
-                    {{ $order->created_at->format('d-m-Y H:i') }}</p>
-            </div>
-
-            <!-- Datos de Mercadopago -->
-            <div class="mb-10">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Datos de Mercadopago</h2>
-                <p class="text-lg text-gray-600">
-                    {{ $mpOrder }}
-                </p>
-            </div>
-
-            <!-- Información de Entrega -->
-            <div class="mb-10">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>
-
-                @if ($order->deliveryService)
-                    <div class="mb-6">
-                        <div class="flex items-center mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                            </svg>
-                            <h3 class="text-lg font-semibold text-gray-800">Servicio de Entrega</h3>
-                        </div>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Servicio:</strong>
-                            {{ $order->deliveryService->name }}</p>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Costo:</strong>
-                            ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
+                                {{ $order->orderStatus->name }}
+                            </span>
+                        </p>
+                        <p class="text-lg text-gray-600"><strong class="font-medium">Método de Pago:</strong>
+                            {{ __($order->paymentMethod->payment_method) }}</p>
+                        <p class="text-lg mb-6 text-gray-600"><strong class="font-medium">Fecha de Creación:</strong>
+                            {{ $order->created_at->format('d-m-Y H:i') }}</p>
                     </div>
-                @endif
 
-                @if ($order->address)
-                    <div class="">
-                        <div class="flex items-center mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                            </svg>
-                            <h3 class="text-lg font-semibold text-gray-800">Dirección de Entrega</h3>
-                        </div>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Dirección:</strong>
-                            {{ $order->address->address }}</p>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Calle:</strong>
-                            {{ $order->address->street }}</p>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Número:</strong>
-                            {{ $order->address->number }}</p>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Departamento:</strong>
-                            {{ $order->address->department ?? 'No disponible' }}</p>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Detalles:</strong>
-                            {{ $order->address->observation }}</p>
 
-                        <div class="mt-4">
-                            <p class="text-lg text-gray-600"><strong class="font-medium">Provincia:</strong>
-                                {{ $order->address->province->name }}</p>
-                            @if ($order->address->city != null)
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Ciudad:</strong>
-                                    {{ $order->address->city->name }}</p>
-                            @endif
+                    <!-- Información de Entrega -->
+                    <div class="mb-10">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>
+
+                        @if ($order->deliveryService)
+                            <div class="mb-6">
+                                <div class="flex items-center mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M20 12H4" />
+                                    </svg>
+                                    <h3 class="text-lg font-semibold text-gray-800">Servicio de Entrega</h3>
+                                </div>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Servicio:</strong>
+                                    {{ $order->deliveryService->name }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Costo:</strong>
+                                    ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
+                            </div>
+
+                            @livewire('admin.shipping-number-form')
+                        @endif
+
+                        @if ($order->address)
+                            <div class="">
+                                <div class="flex items-center mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M20 12H4" />
+                                    </svg>
+                                    <h3 class="text-lg font-semibold text-gray-800">Dirección de Entrega</h3>
+                                </div>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Dirección:</strong>
+                                    {{ $order->address->address }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Calle:</strong>
+                                    {{ $order->address->street }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Número:</strong>
+                                    {{ $order->address->number }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Departamento:</strong>
+                                    {{ $order->address->department ?? 'No disponible' }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Detalles:</strong>
+                                    {{ $order->address->observation }}</p>
+
+                                <div class="mt-4">
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Provincia:</strong>
+                                        {{ $order->address->province->name }}</p>
+                                    @if ($order->address->city != null)
+                                        <p class="text-lg text-gray-600"><strong class="font-medium">Ciudad:</strong>
+                                            {{ $order->address->city->name }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                </div>
+                <div class="col-span-1 lg:col-span-3 w-full">
+                    <div class="w-full flex lg:items-start justify-center">
+                        <div class="bg-gray-100 text-gray-800 p-6 rounded-lg shadow-lg w-full">
+
+                            <!-- Título principal -->
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-4">Detalles de Mercado Pago</h3>
+
+                            <!-- Información básica del pedido -->
+                            <div class="text-gray-600">
+                                <p><strong>ID de Pedido:</strong> {{ $mpOrder->id ?? 'No disponible' }}</p>
+                                <p><strong>Estado del Pedido:</strong>
+                                    <span class="font-semibold">
+                                        @switch($mpOrder->status ?? 'unknown')
+                                            @case('approved')
+                                                Aprobado
+                                            @break
+
+                                            @case('rejected')
+                                                Rechazado
+                                            @break
+
+                                            @case('pending')
+                                                Pendiente
+                                            @break
+
+                                            @default
+                                                Desconocido
+                                        @endswitch
+                                    </span>
+                                </p>
+                            </div>
+                            {{-- {{ $mpOrderJson }} --}}
+
+                            <!-- Detalle del pago -->
+                            <div class="mt-6">
+                                <h4 class="text-lg font-medium text-gray-700 mb-2">Detalle del Pago:</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                                    <li><strong>Estado del Pago:</strong> {{ $mpOrder->payment_status ?? 'No disponible' }}
+                                    </li>
+                                    <li><strong>Detalle:</strong> {{ $mpOrder->status_detail ?? 'No disponible' }}</li>
+                                    <li><strong>Monto Total Pagado:</strong>
+                                        ${{ number_format($mpOrder->transaction_details->total_paid_amount ?? 0, 2) }}</li>
+                                    <li><strong>Monto Neto Recibido:</strong>
+                                        ${{ number_format($mpOrder->transaction_details->net_received_amount ?? 0, 2) }}
+                                    </li>
+                                    <li><strong>Monto por Cuota:</strong>
+                                        ${{ number_format($mpOrder->transaction_details->installment_amount ?? 0, 2) }}
+                                    </li>
+                                    <li><strong>Últimos 4 dígitos de la tarjeta:</strong>
+                                        {{ $mpOrder->card->last_four_digits ?? 'No disponible' }}</li>
+                                    <li><strong>Nombre del Titular de la Tarjeta:</strong>
+                                        {{ $mpOrder->card->cardholder->name ?? 'No disponible' }}</li>
+                                    <li><strong>Cuotas:</strong> {{ $mpOrder->installments ?? 'Pago único' }}</li>
+                                    <li><strong>Moneda:</strong> {{ $mpOrder->currency_id ?? 'No disponible' }}</li>
+                                </ul>
+                            </div>
+
+                            <!-- Información adicional del pedido -->
+                            <div class="mt-6">
+                                <h4 class="text-lg font-medium text-gray-700 mb-2">Información Adicional:</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                                    <li><strong>Email del Pagador:</strong> {{ $mpOrder->payer->email ?? 'No disponible' }}
+                                    </li>
+                                    <li><strong>Identificación del Pagador:</strong>
+                                        {{ $mpOrder->payer->identification->number ?? 'No disponible' }}</li>
+                                    <li><strong>Descripción en el Estado de Cuenta:</strong>
+                                        {{ $mpOrder->statement_descriptor ?? 'No disponible' }}</li>
+                                    <li><strong>Fecha de Creación:</strong>
+                                        {{ \Carbon\Carbon::parse($mpOrder->created_at ?? now())->format('d/m/Y H:i') }}
+                                    </li>
+                                    <li><strong>Método de Pago:</strong>
+                                        {{ is_string($mpOrder->payment_method ?? null) ? ucfirst($mpOrder->payment_method) : 'No disponible' }}
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Detalle de los costos de Mercado Pago -->
+                            <div class="mt-6">
+                                <h4 class="text-lg font-medium text-gray-700 mb-2">Costos de Mercado Pago:</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                                    <li><strong>Monto Total Pagado:</strong>
+                                        ${{ number_format($mpOrder->transaction_details->total_paid_amount ?? 0, 2) }}</li>
+                                    <li><strong>Monto Neto Recibido:</strong>
+                                        ${{ number_format($mpOrder->transaction_details->net_received_amount ?? 0, 2) }}
+                                    </li>
+                                    <li><strong>Comisión de Mercado Pago:</strong>
+                                        ${{ number_format(($mpOrder->transaction_details->total_paid_amount ?? 0) - ($mpOrder->transaction_details->net_received_amount ?? 0), 2) }}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                @endif
+                </div>
             </div>
 
 
             <!-- Total del Pedido -->
-            <div class="mb-10">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Detalle de Pedido</h2>
-                <h3>Total Venta:</h3>
-                <h3>Comision Mercado Pago</h3>
-                <p class="text-xl text-gray-800 font-semibold"><strong>Total:</strong>
+            <div class="mb-10 mt-6 rounded-lg bg-gray-100 p-6">
+                <!-- Detalles del Pedido -->
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Productos</h3>
+                <!-- Detalles del Pedido -->
+                <ul class="space-y-4">
+                    @foreach ($order->details as $detail)
+                        <li class="flex flex-col lg:flex-row items-center justify-between bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-4 mb-2 lg:mb-0">
+                                <img class="lg:w-14 w-12 h-12 rounded-full border-gray-200 border transform hover:scale-110 transition duration-150"
+                                    src="{{ url(Storage::url($detail->productItem()->images->first()->url)) }}"
+                                    alt="{{ $detail->productItem()->name }}">
+                                <div class="text-center lg:text-left">
+                                    <p class="text-lg font-medium text-gray-700">
+                                        {{ $detail->productItem()->product->name }}</p>
+                                    <p class="text-sm text-gray-500">Cantidad: {{ $detail->amount }}</p>
+                                    <p class="text-sm text-gray-500">Talle: {{ $detail->itemVariation()->size->name }}</p>
+                                    <p class="text-sm text-gray-500">Color: {{ $detail->productItem()->color->name }}</p>
+                                </div>
+                            </div>
+                            <p class="text-lg font-semibold text-gray-700 text-center lg:text-right mt-2 lg:mt-0">
+                                ${{ number_format($detail->price / 100, 2, ',', '.') }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+                <h2 class="text-2xl font-semibold text-gray-600 mt-10 mb-4">Detalle de Pedido</h2>
+                <li><strong>Comisión de Mercado Pago:</strong>
+                    ${{ number_format(($mpOrder->transaction_details->total_paid_amount ?? 0) - ($mpOrder->transaction_details->net_received_amount ?? 0), 2) }}
+                </li>
+                @if ($order->deliveryService)
+                    <li><strong>Costo Envio:</strong>
+                        ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</li>
+                @endif
+                <p class="text-xl mt-4 text-gray-800 font-semibold"><strong>Total:</strong>
                     ${{ number_format($order->total / 100, 2, ',', '.') }}
                 </p>
             </div>
 
-            <!-- Detalles del Pedido -->
-            <h3 class="text-2xl font-semibold text-gray-800 mb-4">Detalles del Pedido</h3>
-            <!-- Detalles del Pedido -->
-            <ul class="space-y-4">
-                @foreach ($order->details as $detail)
-                    <li class="flex flex-col lg:flex-row items-center justify-between bg-gray-100 p-4 rounded-lg">
-                        <div class="flex items-center space-x-4 mb-2 lg:mb-0">
-                            <img class="lg:w-14 w-12 h-12 rounded-full border-gray-200 border transform hover:scale-110 transition duration-150"
-                                src="{{ url(Storage::url($detail->productItem()->images->first()->url)) }}"
-                                alt="{{ $detail->productItem()->name }}">
-                            <div class="text-center lg:text-left">
-                                <p class="text-lg font-medium text-gray-700">
-                                    {{ $detail->productItem()->product->name }}</p>
-                                <p class="text-sm text-gray-500">Cantidad: {{ $detail->amount }}</p>
-                                <p class="text-sm text-gray-500">Talle: {{ $detail->itemVariation()->size->name }}</p>
-                                <p class="text-sm text-gray-500">Color: {{ $detail->productItem()->color->name }}</p>
-                            </div>
-                        </div>
-                        <p class="text-lg font-semibold text-gray-700 text-center lg:text-right mt-2 lg:mt-0">
-                            ${{ number_format($detail->price / 100, 2, ',', '.') }}</p>
-                    </li>
-                @endforeach
-            </ul>
+
 
             <!-- Acciones -->
             <div x-data="{ open: false }" class="flex flex-col lg:flex-row items-center mt-6 gap-6">

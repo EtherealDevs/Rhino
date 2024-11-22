@@ -66,7 +66,7 @@ class OrderController extends Controller
         $mpAccessToken = config('app.mp_access_token');
         MercadoPagoConfig::setAccessToken($mpAccessToken);
         $client = new PaymentClient();
-        
+
         $order = Order::with('user', 'details', 'orderStatus', 'paymentMethod', 'deliveryService', 'address')
             ->findOrFail($id);
             $mpOrder = null;
@@ -78,8 +78,7 @@ class OrderController extends Controller
                     dd($th);
                 }
             }
-        $mpOrder = json_encode($mpOrder);
-
-        return view('admin.orders.show', compact('order', 'mpOrder'));
+            $mpOrderJson = json_encode($mpOrder);
+        return view('admin.orders.show', compact('order', 'mpOrderJson' ,'mpOrder'));
     }
 }
