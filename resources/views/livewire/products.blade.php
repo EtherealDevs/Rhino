@@ -132,7 +132,7 @@
                                 @endforeach
                             @endforeach
 
-                            @if ($product->variations->isNotEmpty())
+                            @if ($product->variations->isNotEmpty() && $notDeletedItems->isNotEmpty())
                                 @livewire('product-card', ['product' => $product, 'item' => $notDeletedItems->first()])
                             @endif
                         @endif

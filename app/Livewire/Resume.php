@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
+use Livewire\Attributes\Reactive;
+
 use App\Http\Validators\AddressValidator;
 use App\Models\Province as ModelsProvince;
 use App\Models\ZipCode as ModelsZipCode;
@@ -22,6 +24,10 @@ class Resume extends Component
     #[Validate]
     public $province;
 
+    #[Reactive]
+    public $payment;
+
+    public $original_total = 0;
     public $total = 0;
 
     public $sucursal = null;
@@ -55,7 +61,7 @@ class Resume extends Component
     }
 
 
-    public function mount($zip_code, $province = null, $city = null, $selectedMethod = null)
+    public function mount($zip_code, $province = null, $city = null, $selectedMethod = null, $payment = null)
     {
         // Carga de dirección de usuario
         $addressValidator = new AddressValidator();
@@ -76,6 +82,24 @@ class Resume extends Component
             $this->zip_code = $addressValidator->validateZipCode($zip_code);
             $this->calculateSendPrice();
         }
+        if ($payment != null) {
+            $this->payment = $payment;
+            if ($this->payment == "mercado_pago" && $this->total != 0) {
+                $this->total += $this->total * 0.06;
+            }
+        }
+    }
+    #[On('updatedPayment')]
+    public function updatedPayment($payment)
+    {
+        $this->payment = $payment;
+            if ($this->payment == "mercado_pago" && $this->total != 0) {
+                $this->total += $this->total * 0.06;
+            }
+            else if ($this->payment == "transferencia")
+            {
+                $this->total = $this->original_total;
+            }
     }
     public function rules()
     {
@@ -115,6 +139,7 @@ class Resume extends Component
         $cartService = new CartService();
         $props = $cartService->getCartItemsProperties();
         $this->total = $props['total'] ?? 0;
+        $this->original_total = $props['total'] ?? 0;
         $this->itemCount = $props['count'] ?? 0;
     }
     #[On('updatedSucursal')]
