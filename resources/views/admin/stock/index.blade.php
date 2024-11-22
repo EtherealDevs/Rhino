@@ -63,52 +63,53 @@
                                         <!-- Modal content -->
                                         <div
                                             class="absolute max-h-full overflow-y-auto overflow-x-hidden left-1/4 top-12 bg-white h-[650px] w-[750px] rounded-lg shadow ">
-                                            <form action="{{ route('admin.stock.store') }}" method="POST"
-                                                class="p-4 md:p-5">
-                                                <!-- Modal header -->
-                                                <div class="sticky top-0 z-10 bg-white border-b rounded-t">
-                                                    <div class="flex items-center justify-between p-4 md:p-5">
-                                                        <h3 class="text-lg font-semibold font-josefin italic text-black">
-                                                            Stock
-                                                            de {{ $product->name }}</h3>
-                                                        <button type="submit"
-                                                            class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">Guardar</button>
-                                                        <button type="button"
-                                                            class="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                                            onclick="toggleModal('stock-modal')">
-                                                            <svg class="w-3 h-3" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2"
-                                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                            </svg>
-                                                            <span class="sr-only">Cerrar modal</span>
-                                                        </button>
-                                                    </div>
+                                            <!-- Modal header -->
+                                            <div class="sticky top-0 z-10 bg-white border-b rounded-t">
+                                                <div class="flex items-center justify-between p-4 md:p-5">
+                                                    <h3 class="text-lg font-semibold font-josefin italic text-black">
+                                                        Stock
+                                                        de {{ $product->name }}</h3>
+                                                    <button type="button"
+                                                        class="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                                        onclick="toggleModal('stock-modal')">
+                                                        <svg class="w-3 h-3" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                        </svg>
+                                                        <span class="sr-only">Cerrar modal</span>
+                                                    </button>
                                                 </div>
-                                                <!-- Modal body -->
+                                            </div>
+                                            <!-- Modal body -->
 
-                                                @csrf
-                                                <table class="w-full text-sm text-left text-gray-500">
-                                                    <thead class="text-xs sticky top-20 z-40 text-gray-700 uppercase bg-gray-50">
-                                                        <tr>
-                                                            <th scope="col" class="py-3 px-6">Talle</th>
-                                                            <th scope="col" class="py-3 px-6">Color</th>
-                                                            <th scope="col" class="py-3 px-6">Cantidad</th>
-                                                            <th scope="col" class="py-3 px-6">Habilitado</th>
-                                                            <th scope="col" class="py-3 px-6">Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($product->items as $item)
-                                                            @foreach ($item->sizes as $size)
-                                                                <tr class="bg-white border-b">
+
+                                            <table class="w-full text-sm text-left text-gray-500">
+                                                <thead
+                                                    class="text-xs sticky top-20 z-40 text-gray-700 uppercase bg-gray-50">
+                                                    <tr>
+                                                        <th scope="col" class="py-3 px-6">Talle</th>
+                                                        <th scope="col" class="py-3 px-6">Color</th>
+                                                        <th scope="col" class="py-3 px-6">Cantidad</th>
+                                                        <th scope="col" class="py-3 px-6">Habilitado</th>
+                                                        <th scope="col" class="py-3 px-6">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($product->items as $item)
+                                                        @foreach ($item->sizes as $size)
+                                                            <tr class="bg-white border-b">
+                                                                <form action="{{ route('admin.stock.store') }}"
+                                                                    method="POST">
+                                                                    @csrf
                                                                     <td class="py-4 px-6">{{ $size->name }}</td>
                                                                     <input type="hidden" name="size_id"
                                                                         value="{{ $size->id }}">
                                                                     <td class="py-4 px-6">{{ $item->color->name }}
-                                                                        <span class="block border-4 border-[{{ $item->color->color }}]">
+                                                                        <span
+                                                                            class="block border-4 border-[{{ $item->color->color }}]">
                                                                     </td>
                                                                     <input type="hidden" name="product_id"
                                                                         value="{{ $item->id }}">
@@ -118,6 +119,7 @@
                                                                             type="number" name="stock"
                                                                             class="w-16 h-8 text-sm border-none"
                                                                             placeholder="{{ $size->pivot->stock }}"
+                                                                            value="{{ old('stock', $size->pivot->stock) }}"
                                                                             disabled />
                                                                     </td>
                                                                     <td class="py-4 px-6">
@@ -126,8 +128,9 @@
                                                                     @php $stock += $size->pivot->stock; @endphp
                                                                     <td class="flex justify-center items-center mt-3">
                                                                         <button type="button"
+                                                                            id="button-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}"
                                                                             class="py-2 px-4 bg-gray-50 text-gray-600 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out"
-                                                                            onclick="edit('input-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}')"><svg
+                                                                            onclick="edit('{{ $product->id }}-{{ $item->id }}-{{ $size->id }}')"><svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 fill="none" viewBox="0 0 24 24"
                                                                                 stroke-width="1.5" stroke="currentColor"
@@ -137,13 +140,23 @@
                                                                                     d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                                                             </svg>
                                                                         </button>
+                                                                        <button type="submit"
+                                                                            id="submit-{{ $product->id }}-{{ $item->id }}-{{ $size->id }}"
+                                                                            class="hidden py-2 px-4 bg-gray-50 text-gray-600 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out text-xl"><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="1em" height="1em"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path fill="currentColor"
+                                                                                    d="m20.71 9.29l-6-6a1 1 0 0 0-.32-.21A1.1 1.1 0 0 0 14 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-8a1 1 0 0 0-.29-.71M9 5h4v2H9Zm6 14H9v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1Zm4-1a1 1 0 0 1-1 1h-1v-3a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v3H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.41l4 4Z" />
+                                                                            </svg>
+                                                                        </button>
                                                                     </td>
-                                                                </tr>
-                                                            @endforeach
+                                                                </form>
+                                                            </tr>
                                                         @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </form>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -176,17 +189,20 @@
 
     <script>
         function edit(e) {
-            let input = document.getElementById(e);
+            let input = document.getElementById('input-' + e);
+            let button = document.getElementById('button-' + e);
+            let submit = document.getElementById('submit-' + e);
             input.disabled = false;
             input.classList.remove('border-none');
             input.classList.add('border');
+            button.classList.add('hidden');
+            submit.classList.remove('hidden');
         }
 
         function toggleModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.classList.toggle('hidden');
         }
-
         let elements = document.querySelectorAll("[data-menu]");
         elements.forEach(element => {
             element.addEventListener("click", function() {

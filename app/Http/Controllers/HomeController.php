@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductItem;
-use App\Models\Combo;
-use App\Models\Product;
-use App\Models\ProductSize;
 use App\Models\Sale;
 use Carbon\Carbon;
 
@@ -17,7 +14,6 @@ class HomeController extends Controller
         // Obtener los tres últimos ProductItem
         // $latestProductItems = ProductItem::orderBy('created_at', 'desc')->get();
         $latestProductItems = ProductItem::getAvailable()->orderBy('created_at', 'desc')->get()->unique('product_id')->take(3);
-        $combos = Combo::all();
         $sales = Sale::all();
 
         // Configurar la zona horaria
@@ -31,6 +27,6 @@ class HomeController extends Controller
             }
         }
         // Pasar los datos a la vista
-        return view('home.index', compact('latestProductItems', 'sales', 'combos'));
+        return view('home.index', compact('latestProductItems', 'sales'));
     }
 }

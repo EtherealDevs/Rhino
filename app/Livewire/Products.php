@@ -10,33 +10,24 @@ use Livewire\Component;
 
 class Products extends Component
 {
-    public $search;
-    public $filter = [""];
-    public $products = [];
-    public $selectedCategory = null;
 
-    public function mount()
-    {
-        // Cargar todos los productos inicialmente
-        $this->products = Product::all();
-    }
-
-    public function selectCategory($categoryId)
-    {
-        $this->selectedCategory = $categoryId;
-        // Filtrar productos por categoría
-        $this->products = Product::where('category_id', $categoryId)->get();
-    }
 
     public function render()
     {
         $sizes = Size::all();
         $categories = Category::all();
         $combos = Combo::all();
+        $products = Product::with([
+            'items.sizes' => function ($query) {
+                $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
+                      ->where('products_sizes.stock', '>', 0);
+            },
+            'variations',
+        ])->paginate(10);
 
         // Pasar $this->products a la vista correctamente
         return view('livewire.products', [
-            'products' => $this->products,
+            'products' => $products,
             'categories' => $categories,
             'sizes' => $sizes,
             'combos' => $combos,

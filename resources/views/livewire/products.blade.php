@@ -114,133 +114,117 @@
                 @endif
                 <div class="xl:ml-[1px] xl:mt-4 2xl:ml-0 flex w-full justify-center lg:justify-end">
                     <div
-                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
+
                         @foreach ($products as $product)
-                            @php
-                                $notDeletedItems = collect();
-                            @endphp
-
-                            @if ($product->items->first())
-                                @foreach ($product->items as $item)
-                                    @foreach ($item->sizes as $size)
-                                        @if ($size->pivot->deleted_at == null && $size->pivot->stock > 0)
-                                            @php
-                                                $notDeletedItems->push($item);
-                                            @endphp
-                                        @break;
-                                    @endif
-                                @endforeach
-                            @endforeach
-
-                            @if ($product->variations->isNotEmpty() && $notDeletedItems->isNotEmpty())
-                                @livewire('product-card', ['product' => $product, 'item' => $notDeletedItems->first()])
-                            @endif
-                        @endif
-                    @endforeach
+                            @livewire('product-card', ['product' => $product, 'item' => $product->items->first()])
+                        @endforeach
+                    </div>
+                </div>
+                <div class="p-5">
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<style>
-    input[type=range]::-webkit-slider-thumb {
-        pointer-events: all;
-        width: 24px;
-        height: 24px;
-        -webkit-appearance: none;
-        /* @apply w-6 h-6 appearance-none pointer-events-auto; */
-    }
-
-    .collection-item {
-        position: relative;
-        cursor: pointer;
-        width: 50%;
-        border-right: 2px;
-        padding-bottom: 4px;
-        /* Espacio */
-    }
-
-    .underline-bar {
-        position: absolute;
-        bottom: 10;
-        left: 0;
-        height: 4px;
-        background-color: #000;
-        transition: all 0.3s ease;
-        will-change: transform, width;
-    }
-</style>
-
-<script>
-    function range() {
-        return {
-            min: 1, // Valor mínimo del rango
-            max: 300000,
-            minprice: 1,
-            maxprice: 300000,
-            minthumb: 0, // Inicialmente 0 pero será ajustado por mintrigger
-            maxthumb: 100,
-            mintrigger() {
-                if (this.minprice < this.min) { // Verifica que no sea menor al mínimo permitido
-                    this.minprice = this.min;
-                }
-                this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
-            },
-            maxtrigger() {
-                if (this.maxprice < this.min) { // Verifica que no sea menor al mínimo permitido
-                    this.maxprice = this.min;
-                }
-                this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+        <style>
+            input[type=range]::-webkit-slider-thumb {
+                pointer-events: all;
+                width: 24px;
+                height: 24px;
+                -webkit-appearance: none;
+                /* @apply w-6 h-6 appearance-none pointer-events-auto; */
             }
-        }
-    }
 
+            .collection-item {
+                position: relative;
+                cursor: pointer;
+                width: 50%;
+                border-right: 2px;
+                padding-bottom: 4px;
+                /* Espacio */
+            }
 
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('slider', () => ({
-            currentIndex: 1,
-            images: [
-                'https://source.unsplash.com/1600x900/?beach',
-                'https://source.unsplash.com/1600x900/?cat',
-                'https://source.unsplash.com/1600x900/?dog',
-                'https://source.unsplash.com/1600x900/?lego',
-                'https://source.unsplash.com/1600x900/?textures&patterns'
-            ],
-            back() {
-                if (this.currentIndex > 1) {
-                    this.currentIndex = this.currentIndex - 1;
+            .underline-bar {
+                position: absolute;
+                bottom: 10;
+                left: 0;
+                height: 4px;
+                background-color: #000;
+                transition: all 0.3s ease;
+                will-change: transform, width;
+            }
+        </style>
+
+        <script>
+            function range() {
+                return {
+                    min: 1, // Valor mínimo del rango
+                    max: 300000,
+                    minprice: 1,
+                    maxprice: 300000,
+                    minthumb: 0, // Inicialmente 0 pero será ajustado por mintrigger
+                    maxthumb: 100,
+                    mintrigger() {
+                        if (this.minprice < this.min) { // Verifica que no sea menor al mínimo permitido
+                            this.minprice = this.min;
+                        }
+                        this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
+                    },
+                    maxtrigger() {
+                        if (this.maxprice < this.min) { // Verifica que no sea menor al mínimo permitido
+                            this.maxprice = this.min;
+                        }
+                        this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+                    }
                 }
-            },
-            next() {
-                if (this.currentIndex < this.images.length) {
-                    this.currentIndex = this.currentIndex + 1;
-                } else if (this.currentIndex <= this.images.length) {
-                    this.currentIndex = this.images.length - this.currentIndex + 1
-                }
-            },
-        }))
-    })
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const items = document.querySelectorAll('.collection-item');
-        const underlineBar = document.querySelector('.underline-bar');
+            }
 
-        items.forEach(item => {
-            item.addEventListener('mouseover', (e) => {
-                const {
-                    offsetLeft,
-                    offsetWidth
-                } = e.target.closest('.collection-item');
-                underlineBar.style.width = `${offsetWidth}px`;
-                underlineBar.style.transform = `translateX(${offsetLeft}px)`;
+
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('slider', () => ({
+                    currentIndex: 1,
+                    images: [
+                        'https://source.unsplash.com/1600x900/?beach',
+                        'https://source.unsplash.com/1600x900/?cat',
+                        'https://source.unsplash.com/1600x900/?dog',
+                        'https://source.unsplash.com/1600x900/?lego',
+                        'https://source.unsplash.com/1600x900/?textures&patterns'
+                    ],
+                    back() {
+                        if (this.currentIndex > 1) {
+                            this.currentIndex = this.currentIndex - 1;
+                        }
+                    },
+                    next() {
+                        if (this.currentIndex < this.images.length) {
+                            this.currentIndex = this.currentIndex + 1;
+                        } else if (this.currentIndex <= this.images.length) {
+                            this.currentIndex = this.images.length - this.currentIndex + 1
+                        }
+                    },
+                }))
+            })
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const items = document.querySelectorAll('.collection-item');
+                const underlineBar = document.querySelector('.underline-bar');
+
+                items.forEach(item => {
+                    item.addEventListener('mouseover', (e) => {
+                        const {
+                            offsetLeft,
+                            offsetWidth
+                        } = e.target.closest('.collection-item');
+                        underlineBar.style.width = `${offsetWidth}px`;
+                        underlineBar.style.transform = `translateX(${offsetLeft}px)`;
+                    });
+                });
+
+                document.querySelector('.grid').addEventListener('mouseleave', () => {
+                    underlineBar.style.width = `0`;
+                });
             });
-        });
-
-        document.querySelector('.grid').addEventListener('mouseleave', () => {
-            underlineBar.style.width = `0`;
-        });
-    });
-</script>
+        </script>
 </section>
