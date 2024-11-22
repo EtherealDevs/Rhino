@@ -186,20 +186,21 @@
                     <!-- Paso 2: Selección del método de pago -->
                     <div x-show="step === 2" class="w-full h-auto m-auto flex flex-col p-8">
                         <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago? 💰</h2>
-
                         <div class="radio-section">
                             <div class="radio-list">
+                                
                                 <h1>Seleccionemoslo aquí 👇🏼</h1>
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
-                                    <input type="radio" id="mercado_pago" name="paymentMethod"
+                                    
+                                    <input wire:model.live="payment" type="radio" id="mercado_pago" name="paymentMethod"
                                         x-model="paymentMethod" value="mercado_pago" />
-                                    <label class="text-white" for="mercado_pago">Mercado Pago</label>
+                                    <label class="text-white" for="mercado_pago">Mercado Pago</label><small class="text-gray-400">6% de recargo</small>
                                 </div>
 
                                 <!-- Radio Button Transferencia -->
                                 <div class="radio-item">
-                                    <input type="radio" id="transferencia" name="paymentMethod"
+                                    <input wire:model.live="payment" type="radio" id="transferencia" name="paymentMethod"
                                         x-model="paymentMethod" value="transferencia" />
                                     <label class="text-white" for="transferencia">Transferencia</label>
                                 </div>
@@ -269,7 +270,7 @@
         </div>
     </div>
     <div>
-        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'selectedMethod' => $selectedMethod])
+        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'selectedMethod' => $selectedMethod, 'payment' => $payment])
     </div>
 
 

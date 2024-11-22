@@ -26,6 +26,8 @@ class CheckoutConfig extends Component
     public $addressModels;
     public $addressModel;
 
+    public $payment;
+
     public $user;
     #[Validate]
     public $zip_code;
@@ -55,6 +57,7 @@ class CheckoutConfig extends Component
 
     public function mount()
     {
+        $this->payment = "mercado_pago";
         $this->selectedMethod = 'domicilio';
     }
     public function save()
@@ -164,6 +167,10 @@ class CheckoutConfig extends Component
     {
 
         $this->dispatch('updatedSucursal', [])->to(Resume::class);
+    }
+    public function updatedPayment($payment)
+    {
+        $this->dispatch('updatedPayment', $payment)->to(Resume::class);
     }
 
     public function updatedCity($cityId)

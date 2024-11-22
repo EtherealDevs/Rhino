@@ -2,5 +2,6 @@
     "tarjeta_credito" : "Tarjeta de Credito",
     "credit_card": "Tarjeta de Credito",
     "debit_card": "Tarjeta de Debito",
-    "cash": "Efectivo"
+    "cash": "Efectivo",
+    "prepaid_card": "Tarjeta Prepaga"
 }
