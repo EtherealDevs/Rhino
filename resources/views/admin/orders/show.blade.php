@@ -41,85 +41,100 @@
                             {{ $order->created_at->format('d-m-Y H:i') }}</p>
                     </div>
 
+                    {{-- @if ($order->comprobante)
+                        <div class="mt-4 bg-gray-200 p-4 rounded w-full sm:w-auto flex flex-col items-center">
+                            <img src="{{ asset('storage/' . $order->comprobante->url) }}"
+                                alt="Comprobante de pago del pedido #{{ $order->id }}"
+                                class="w-full sm:w-64 h-auto object-cover rounded mb-4">
 
-                    <!-- Información de Entrega -->
-                    <div class="mb-10 border-b border-blue-gray-50">
-                        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>
-
-                        @if ($order->deliveryService)
-                            <div class="mb-6">
-                                <div class="flex items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M20 12H4" />
-                                    </svg>
-                                    <h3 class="text-lg font-semibold text-gray-800">Servicio de Entrega</h3>
-                                </div>
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Servicio:</strong>
-                                    {{ $order->deliveryService->name }}</p>
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Costo:</strong>
-                                    ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
-                            </div>
-
-                            <div class="p-4">
-                                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="relative">
-                                        <select name="order_status_id"
-                                            class="form-select mt-1 block w-full mr-10 p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
-                                            @foreach ($orderStatuses as $status)
-                                                <option value="{{ $status->id }}"
-                                                    {{ $status->id == $order->order_status_id ? 'selected' : '' }}>
-                                                    {{ $status->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <button type="submit"
-                                            class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-blue-500 text-white rounded-lg px-3 py-1 text-xs font-semibold shadow hover:bg-blue-600 transition">
-                                            Actualizar
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                            @if ($order->order_status_id == 3 && $order->deliveryService->id != 2)
-                                @livewire('admin.shipping-number-form', ['orderId' => $order->id])
+                            @if (in_array($order->orderStatus->id, [1, 2]))
+                                <p class="text-sm text-gray-700 font-semibold">Pago: {{ $order->orderStatus->name }}</p>
+                            @else
+                                <button
+                                    class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                    Ver mi pedido
+                                </button>
                             @endif
-                        @endif
+                        </div>
+                    @else --}}
+                        <!-- Información de Entrega -->
+                        <div class="mb-10 border-b border-blue-gray-50">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>
 
-                        @if ($order->address)
-                            <div class="">
-                                <div class="flex items-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M20 12H4" />
-                                    </svg>
-                                    <h3 class="text-lg font-semibold text-gray-800">Dirección de Entrega</h3>
+                            @if ($order->deliveryService)
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M20 12H4" />
+                                        </svg>
+                                        <h3 class="text-lg font-semibold text-gray-800">Servicio de Entrega</h3>
+                                    </div>
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Servicio:</strong>
+                                        {{ $order->deliveryService->name }}</p>
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Costo:</strong>
+                                        ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
                                 </div>
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Dirección:</strong>
-                                    {{ $order->address->address }}</p>
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Calle:</strong>
-                                    {{ $order->address->street }}</p>
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Número:</strong>
-                                    {{ $order->address->number }}</p>
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Departamento:</strong>
-                                    {{ $order->address->department ?? 'No disponible' }}</p>
-                                <p class="text-lg text-gray-600"><strong class="font-medium">Detalles:</strong>
-                                    {{ $order->address->observation }}</p>
 
-                                <div class="mt-4">
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Provincia:</strong>
-                                        {{ $order->address->province->name }}</p>
-                                    @if ($order->address->city != null)
-                                        <p class="text-lg text-gray-600"><strong class="font-medium">Ciudad:</strong>
-                                            {{ $order->address->city->name }}</p>
-                                    @endif
+                                <div class="p-4">
+                                    <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="relative">
+                                            <select name="order_status_id"
+                                                class="form-select mt-1 block w-full mr-10 p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
+                                                @foreach ($orderStatuses as $status)
+                                                    <option value="{{ $status->id }}"
+                                                        {{ $status->id == $order->order_status_id ? 'selected' : '' }}>
+                                                        {{ $status->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <button type="submit"
+                                                class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-blue-500 text-white rounded-lg px-3 py-1 text-xs font-semibold shadow hover:bg-blue-600 transition">
+                                                Actualizar
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                        @endif
-                    </div>
+                                @if ($order->order_status_id == 3 && $order->deliveryService->id != 2)
+                                    @livewire('admin.shipping-number-form', ['orderId' => $order->id])
+                                @endif
+                            @endif
+
+                            @if ($order->address)
+                                <div class="">
+                                    <div class="flex items-center mb-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M20 12H4" />
+                                        </svg>
+                                        <h3 class="text-lg font-semibold text-gray-800">Dirección de Entrega</h3>
+                                    </div>
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Dirección:</strong>
+                                        {{ $order->address->address }}</p>
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Calle:</strong>
+                                        {{ $order->address->street }}</p>
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Número:</strong>
+                                        {{ $order->address->number }}</p>
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Departamento:</strong>
+                                        {{ $order->address->department ?? 'No disponible' }}</p>
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Detalles:</strong>
+                                        {{ $order->address->observation }}</p>
+
+                                    <div class="mt-4">
+                                        <p class="text-lg text-gray-600"><strong class="font-medium">Provincia:</strong>
+                                            {{ $order->address->province->name }}</p>
+                                        @if ($order->address->city != null)
+                                            <p class="text-lg text-gray-600"><strong class="font-medium">Ciudad:</strong>
+                                                {{ $order->address->city->name }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
 
                 </div>
                 <div class="col-span-1 lg:col-span-3 w-full">

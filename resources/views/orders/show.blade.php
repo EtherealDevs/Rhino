@@ -76,6 +76,15 @@
                                             class="hidden" />
                                     </label>
 
+                                    <div id="preview-container" class="mt-4 hidden">
+                                        <img id="image-preview"
+                                            class="w-full max-w-xs mx-auto rounded border border-gray-300" />
+                                        <button id="remove-preview" type="button"
+                                            class="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded-lg transition duration-200">
+                                            Eliminar
+                                        </button>
+                                    </div>
+
                                     <!-- Input oculto con el ID del pedido -->
                                     <input type="hidden" id="order_id" name="order_id" value="{{ $order->id }}">
 
@@ -90,6 +99,49 @@
                                     Subir Comprobante
                                 </button>
                             </form>
+
+                            <script>
+                                // Manejar la carga de archivos
+                                document.getElementById('file').addEventListener('change', function(event) {
+                                    const file = event.target.files[0]; // Obtener el archivo seleccionado
+                                    const previewContainer = document.getElementById('preview-container');
+                                    const imagePreview = document.getElementById('image-preview');
+
+                                    if (file) {
+                                        const reader = new FileReader();
+
+                                        // Leer el archivo como una URL de datos
+                                        reader.onload = function(e) {
+                                            // Mostrar la previsualización
+                                            imagePreview.src = e.target.result;
+                                            previewContainer.classList.remove('hidden');
+                                        };
+
+                                        // Verificar si el archivo es una imagen antes de intentar leerlo
+                                        if (file.type.startsWith('image/')) {
+                                            reader.readAsDataURL(file);
+                                        } else {
+                                            // Ocultar previsualización si no es una imagen
+                                            previewContainer.classList.add('hidden');
+                                        }
+                                    }
+                                });
+
+                                // Manejar la eliminación de la imagen seleccionada
+                                document.getElementById('remove-preview').addEventListener('click', function() {
+                                    const fileInput = document.getElementById('file');
+                                    const previewContainer = document.getElementById('preview-container');
+                                    const imagePreview = document.getElementById('image-preview');
+
+                                    // Restablecer el input de archivo
+                                    fileInput.value = "";
+                                    // Ocultar el contenedor de previsualización
+                                    previewContainer.classList.add('hidden');
+                                    // Limpiar el src de la imagen de previsualización
+                                    imagePreview.src = "";
+                                });
+                            </script>
+
                         </div>
                     @endif
                 </div>

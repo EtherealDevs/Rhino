@@ -45,6 +45,12 @@
                                 <p class="text-2xl sm:text-3xl lg:text-4xl text-gray-300 mt-24 mb-24">No tenes productos en
                                     tu carrito
                                 </p>
+
+                                <a href="/products">
+                                    <button type="submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 rounded-lg mt-2 sm:mt-0">
+                                        <p class="font-josefin text-lg text-white font-bold py-1 px-4">Ver Productos</p>
+                                    </button>
+                                </a>
                             @endif
                         </ul>
                     @endif

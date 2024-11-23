@@ -15,13 +15,19 @@ class ComprobanteController extends Controller
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $url=Storage::put('comprobante', $file);
+            $url = Storage::put('comprobante', $file);
             $comprobante = new Comprobante();
             $comprobante->dni = $request->input('dni');
             $comprobante->url = $url;
             $comprobante->order_id = $request->input('order_id');
             $comprobante->save();
-            return redirect()->route('oder.index');
+
+            $user = Auth::user();
+            // Obtener solo los pedidos que pertenecen al usuario logueado
+            $orders = Order::with('details', 'orderStatus')
+                ->where('user_id', $user->id)
+                ->get();
+            return view('orders.index', compact('orders'));
         }
     }
 
@@ -42,8 +48,8 @@ class ComprobanteController extends Controller
         $order->status = 'processing';
         $order->save();
         $comprobante = Comprobante::where('user_id', Auth::id())
-                                  ->where('status', 'pending') // Comprobantes pendientes
-                                    ->first();
+            ->where('status', 'pending') // Comprobantes pendientes
+            ->first();
 
         if ($comprobante) {
             $comprobante->order_id = $order->id;
