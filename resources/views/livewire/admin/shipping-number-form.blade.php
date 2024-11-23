@@ -45,7 +45,7 @@
     </style>
 
     <div class="mt-6 mb-12">
-        <button onclick="openModal()" class='bg-blue-600 px-4 text-white p-2 font-josefin rounded-full text-xl font-bold'>Cargar numero de envio</button>
+        <button onclick="openModal()" class='bg-blue-600 px-4 flex text-white p-2 font-josefin rounded-full text-xl font-bold'>Nro Envio <svg xmlns="http://www.w3.org/2000/svg" class="items-center flex font-bold mt-[0.8px] ml-2 h-6 w-6" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/></svg></button>
     </div>
 
     <div>

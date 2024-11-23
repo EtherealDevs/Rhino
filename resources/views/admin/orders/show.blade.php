@@ -21,7 +21,7 @@
                     </div>
 
                     <!-- Estado y Método de Pago -->
-                    <div class="mb-10">
+                    <div class="mb-10 border-b border-blue-gray-50">
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Estado y Método de Pago</h2>
                         <p class="text-lg text-gray-600">
                             <strong class="font-medium">Estado del Pedido:</strong>
@@ -83,7 +83,7 @@
                                     </div>
                                 </form>
                             </div>
-                            @if ($order->order_status_id == 3)
+                            @if ($order->order_status_id == 3 && $order->deliveryService->id != 2)
                                 @livewire('admin.shipping-number-form', ['orderId' => $order->id])
                             @endif
                         @endif
