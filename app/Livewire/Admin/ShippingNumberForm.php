@@ -16,8 +16,12 @@ class ShippingNumberForm extends Component
         $this->orderId = $orderId;
 
         // Obtener la orden desde la base de datos
-        $order = Order::findOrFail($this->orderId);
-        $this->sendNumber = $order->send_number;  // Cargar el número de envío
+        $order = Order::find($this->orderId);
+        if ($order) {
+            $this->sendNumber = $order->send_number;  // Cargar el número de envío si existe
+        } else {
+            session()->flash('error', 'La orden no existe.');
+        }
     }
 
     // Método para actualizar el número de envío
@@ -27,13 +31,17 @@ class ShippingNumberForm extends Component
             'sendNumber' => 'required|string',  // Validar que el número de envío no esté vacío
         ]);
 
-        // Buscar la orden y actualizar el número de envío
-        $order = Order::findOrFail($this->orderId);
-        $order->update([
-            'send_number' => $this->sendNumber,
-        ]);
+        try {
+            // Buscar la orden y actualizar el número de envío
+            $order = Order::findOrFail($this->orderId);
+            $order->update([
+                'send_number' => $this->sendNumber,
+            ]);
 
-        session()->flash('message', 'Número de envío actualizado correctamente.');  // Mensaje de éxito
+            session()->flash('message', 'Número de envío actualizado correctamente.');  // Mensaje de éxito
+        } catch (\Exception $e) {
+            session()->flash('error', 'Hubo un error al actualizar el número de envío.');
+        }
     }
 
     public function render()

@@ -9,13 +9,13 @@
 
                 <div class="col-span-1 lg:col-span-3">
                     <!-- Información del Usuario -->
-                    <div class="mb-10">
+                    <div class="mb-10 border-b border-blue-gray-50">
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Información del Usuario</h2>
                         <p class="text-lg text-gray-600"><strong class="font-medium">Nombre:</strong> {{ $order->user->name }}
                         </p>
                         <p class="text-lg text-gray-600"><strong class="font-medium">Email:</strong>
                             {{ $order->user->email }}</p>
-                        <p class="text-lg text-gray-600"><strong class="font-medium">Teléfono:</strong>
+                        <p class="text-lg mb-4 text-gray-600"><strong class="font-medium">Teléfono:</strong>
                             {{ $order->user->phone_number }}
                         </p>
                     </div>
@@ -43,7 +43,7 @@
 
 
                     <!-- Información de Entrega -->
-                    <div class="mb-10">
+                    <div class="mb-10 border-b border-blue-gray-50">
                         <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>
 
                         @if ($order->deliveryService)
@@ -62,7 +62,30 @@
                                     ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
                             </div>
 
-                            @livewire('admin.shipping-number-form')
+                            <div class="p-4">
+                                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="relative">
+                                        <select name="order_status_id"
+                                            class="form-select mt-1 block w-full mr-10 p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
+                                            @foreach ($orderStatuses as $status)
+                                                <option value="{{ $status->id }}"
+                                                    {{ $status->id == $order->order_status_id ? 'selected' : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit"
+                                            class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-blue-500 text-white rounded-lg px-3 py-1 text-xs font-semibold shadow hover:bg-blue-600 transition">
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            @if ($order->order_status_id == 3)
+                                @livewire('admin.shipping-number-form', ['orderId' => $order->id])
+                            @endif
                         @endif
 
                         @if ($order->address)

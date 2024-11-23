@@ -60,7 +60,8 @@
                     </div>
 
                     <div>
-                        <label for="holder_name" class="block text-gray-700 font-bold mb-2">Descuento para transferencias</label>
+                        <label for="holder_name" class="block text-gray-700 font-bold mb-2">Descuento para
+                            transferencias</label>
                         <input type="text" name="discount" id="holder_name"
                             class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Ej: 30%"
                             value="{{ $transferInfo->discount ?? old('discount') }}" required>
@@ -88,11 +89,15 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             <div class="p-6 bg-gray-50 rounded-xl shadow-lg">
                 <p class="text-gray-700 text-lg font-semibold">Ventas últimos 30 días</p>
-                <h3 class="text-xl text-green-500 font-bold mt-2">${{ number_format($salesLast30Days, 2) }}</h3>
+                <h3 class="text-xl text-green-500 font-bold mt-2">
+                    ${{ number_format($salesLast30Days, 2, ',', '.') }}
+                </h3>
             </div>
             <div class="p-6 bg-gray-50 rounded-xl shadow-lg">
                 <p class="text-gray-700 text-lg font-semibold">Ventas últimos 6 meses</p>
-                <h3 class="text-xl text-green-500 font-bold mt-2">${{ number_format($salesLast6Months, 2) }}</h3>
+                <h3 class="text-xl text-green-500 font-bold mt-2">
+                    ${{ number_format($salesLast6Months, 2, ',', '.') }}
+                </h3>
             </div>
             <div class="p-6 bg-gray-50 rounded-xl shadow-lg">
                 <p class="text-gray-700 text-lg font-semibold">Productos vendidos en total</p>
@@ -103,6 +108,7 @@
                 <h3 class="text-xl text-purple-500 font-bold">{{ $loggedUsers }}</h3>
             </div>
         </div>
+
 
         <!-- Gráfico de Categorías -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

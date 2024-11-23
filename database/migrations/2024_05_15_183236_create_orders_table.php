@@ -20,7 +20,9 @@ return new class extends Migration
             $table->foreignId('delivery_service_id')->nullable()->references('id')->on('delivery_services');
             $table->string('delivery_price')->nullable();
             $table->foreignId('address_id')->nullable()->references('id')->on('addresses');
-            
+            $table->string('send_number')->nullable();
+
+
             $table->foreignId('order_status_id')->references('id')->on('order_statuses');
 
             $table->timestamps();
