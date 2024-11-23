@@ -9,5 +9,5 @@ class TransferInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['alias', 'cbu', 'holder_name'];
+    protected $fillable = ['alias', 'cbu', 'discount', 'holder_name'];
 }

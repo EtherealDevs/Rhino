@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('alias');
             $table->string('cbu');
             $table->string('holder_name');
+            $table->string('discount');
             $table->timestamps();
         });
     }

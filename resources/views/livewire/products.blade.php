@@ -4,7 +4,7 @@
         <div class="w-full grid grid-cols-8 justify-between p-14 overflow-x-hidden">
             <div class="mx-auto col-span-8 relative">
                 <h2 class="w-12 border-b-2 text-2xl font-extrabold font-josefin italic border-gray-500">Colección</h2>
-                <div class="grid grid-cols-2 lg:grid-cols-4 mt-3 relative">
+                <div class="grid grid-cols-2 lg:grid-cols-6 mt-3 relative">
                     @foreach ($categories as $category)
                         @if (is_null($category->parent_id))
                             <a href="{{ route('collection.index', ['category' => $category->id]) }}"
@@ -138,7 +138,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="p-5">
+                <div class="p-5 bg-red-700 py-42">
                     {{ $products->links() }}
                 </div>
             </div>

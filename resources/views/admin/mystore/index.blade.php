@@ -10,6 +10,8 @@
                     <p class="text-gray-600"><strong>Alias:</strong> {{ $transferInfo->alias }}</p>
                     <p class="text-gray-600"><strong>CBU:</strong> {{ $transferInfo->cbu }}</p>
                     <p class="text-gray-600"><strong>Nombre:</strong> {{ $transferInfo->holder_name }}</p>
+
+                    <p class="text-gray-600 mt-6"><strong>Porcentaje de descuento:</strong> {{ $transferInfo->discount }}</p>
                 </div>
             @else
                 <div class="mb-4">
@@ -55,6 +57,13 @@
                         <input type="text" name="holder_name" id="holder_name"
                             class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Ej: Tu Nombre"
                             value="{{ $transferInfo->holder_name ?? old('holder_name') }}" required>
+                    </div>
+
+                    <div>
+                        <label for="holder_name" class="block text-gray-700 font-bold mb-2">Descuento para transferencias</label>
+                        <input type="text" name="discount" id="holder_name"
+                            class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Ej: 30%"
+                            value="{{ $transferInfo->discount ?? old('discount') }}" required>
                     </div>
 
                     <!-- Botón de Envío -->

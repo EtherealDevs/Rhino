@@ -101,6 +101,7 @@ class MyStoreController extends Controller
         $validated = $request->validate([
             'alias' => 'required|string|max:255',
             'cbu' => 'required|string|max:22', // CBU tiene 22 caracteres
+            'discount' => 'required|string|max:22',
             'holder_name' => 'required|string|max:255',
         ]);
 
