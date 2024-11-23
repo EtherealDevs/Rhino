@@ -138,7 +138,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="p-5 bg-red-700 py-42">
+                <div class="p-5 py-42">
                     {{ $products->links() }}
                 </div>
             </div>
