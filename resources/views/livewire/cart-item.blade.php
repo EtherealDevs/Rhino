@@ -1,7 +1,7 @@
 <li class="py-4 px-4 mb-3 bg-white rounded-lg shadow-lg lg:flex flex-col grid grid-cols-2 sm:flex-row sm:items-center">
     <div class="flex-shrink-0 mx-auto sm:mx-0">
         <img class="h-24 lg:h-16 w-24 lg:w-16 rounded-full border-2 border-white object-cover shadow hover:shadow-xl"
-            src="{{url(Storage::url($cartItem->images[0]->url))}}" alt="Product image">
+            src="{{ url(Storage::url($cartItem->images[0]->url)) }}" alt="Product image">
     </div>
     <div class="sm:w-1/3 text-center mt-4 ml-5 lg:mt-0 sm:text-left">
         <p class="text-xl font-bold text-gray-900 truncate">{{ $cartItem->product->name }}</p>
@@ -27,34 +27,34 @@
             <p class="font-semibold text-gray-600">Cantidad</p>
             <p class="font-bold text-gray-900">
 
-                <div class="col-span-1 lg:col-span-1 flex flex-col items-center justify-center">
-                    <div class="w-1/2 gap-4 flex">
-                        <form method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}"
-                            class="inline">
-                            @csrf
-                            @method('post')
-                            <input value="subtract" type="hidden" name="mode">
-                            <button type="submit">
-                                -
-                            </button>
-                        </form>
-                        <div class="text-xl font-extrabold text-green-500">
+            <div class="col-span-1 lg:col-span-1 flex flex-col items-center justify-center">
+                <div class="w-1/2 gap-4 flex">
+                    <form method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}"
+                        class="inline">
+                        @csrf
+                        @method('post')
+                        <input value="subtract" type="hidden" name="mode">
+                        <button type="submit">
+                            -
+                        </button>
+                    </form>
+                    <div class="text-xl font-extrabold text-green-500">
 
-                            {{ $quantity }}
+                        {{ $quantity }}
 
-                        </div>
-                        <form method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}"
-                            class="inline">
-                            @csrf
-                            @method('post')
-                            <input value="add" type="hidden" name="mode">
-                            <button type="submit">
-                                +
-                            </button>
-                        </form>
                     </div>
-
+                    <form method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}"
+                        class="inline">
+                        @csrf
+                        @method('post')
+                        <input value="add" type="hidden" name="mode">
+                        <button type="submit">
+                            +
+                        </button>
+                    </form>
                 </div>
+
+            </div>
 
             {{-- <form method="POST" action="{{ route('cart.updateItem', ['cartItemId' => $cartItemId]) }}" class="inline">
                 @csrf
@@ -97,8 +97,18 @@
         </div>
     </div>
     <div class="col-span-2">
-        <button type="submit" class="lg:hidden block w-full sm:w-auto bg-[#f84e4e] rounded-lg mt-2 sm:mt-0">
-            <p class="font-josefin text-lg text-white font-bold py-1 px-4">Eliminar</p>
-        </button>
+        <div class="">
+            <form method="POST" action="{{ route('cart.removeItem', ['cartItemId' => $cartItemId]) }}"
+                class="mt-4 sm:mt-0">
+                @csrf
+                @method('delete')
+                <input value="{{ $size }}" type="hidden" name="size">
+
+                <button type="submit" class="lg:hidden block w-full sm:w-auto bg-[#f84e4e] rounded-lg mt-2 sm:mt-0">
+                    <p class="font-josefin text-lg text-white font-bold py-1 px-4">Eliminar</p>
+                </button>
+            </form>
+        </div>
+
     </div>
 </li>

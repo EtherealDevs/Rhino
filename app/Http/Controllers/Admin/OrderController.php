@@ -51,7 +51,7 @@ class OrderController extends Controller
             'order_status_id' => $request->input('order_status_id'),
         ]);
 
-        return redirect()->route('admin.orders.index');
+        return redirect()->back();
     }
 
     public function create()
