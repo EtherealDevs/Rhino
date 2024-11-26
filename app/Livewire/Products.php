@@ -21,6 +21,10 @@ class Products extends Component
             $query->where('products_sizes.stock', '>', 0) // Filter stock > 0 on the pivot table
                   ->whereNull('products_sizes.deleted_at'); // Ensure products_sizes is not soft deleted
         })->with([
+            'items.sizes' => function ($query) {
+                $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
+                      ->where('products_sizes.stock', '>', 0);
+            },
             'variations' => function ($query) {
                 $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
                       ->where('products_sizes.stock', '>', 0);

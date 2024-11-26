@@ -136,8 +136,7 @@
                                 }
                             }
                         @endphp --}}
-
-                            @livewire('product-card', ['product' => $product, 'item' => $product->variations->first()])
+                            @livewire('product-card', ['product' => $product, 'item' => $product->items->first()])
                         @endforeach
                     </div>
                 </div>
