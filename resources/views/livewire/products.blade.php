@@ -117,7 +117,7 @@
                         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
 
                         @foreach ($products as $product)
-                        @if ($product->variations == null || $product->variations->isEmpty())
+                        {{-- @if ($product->variations == null || $product->variations->isEmpty())
                             @continue
                         @endif
                         
@@ -135,9 +135,9 @@
                                     }
                                 }
                             }
-                        @endphp
+                        @endphp --}}
 
-                            @livewire('product-card', ['product' => $product, 'item' => $validItem])
+                            @livewire('product-card', ['product' => $product, 'item' => $product->variations->first()])
                         @endforeach
                     </div>
                 </div>
