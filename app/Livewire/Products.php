@@ -22,7 +22,10 @@ class Products extends Component
                 $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
                       ->where('products_sizes.stock', '>', 0);
             },
-            'variations',
+            'variations' => function ($query) {
+                $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
+                      ->where('products_sizes.stock', '>', 0);
+            },
         ])->paginate(10);
 
         // Pasar $this->products a la vista correctamente
