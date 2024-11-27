@@ -52,30 +52,29 @@
                                 <div class="overflow-hidden relative h-48 sm:h-96 lg:h-[580px]">
                                     <!-- Item 1 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/banner.png"
+                                        <img src="/img/banners/1.webp"
                                             class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 3 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/banner2.png"
+                                        <img src="/img/banners/2.webp"
                                             class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 2 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/banner3.png"
+                                        <img src="/img/banners/3.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/banner4.png"
+                                        <img src="/img/banners/4.webp"
                                             class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="Banner de tienda física">
                                     </div>
-
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/banner5.png"
+                                        <img src="/img/banners/5.webp"
                                             class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                         <!-- Botón que redirige a Google Maps -->
@@ -100,15 +99,15 @@
                                         </div>
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/banner6.png"
+                                        <img src="/img/banners/4.webp"
                                             class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
-                                    {{-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/banner7.png"
+                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        <img src="/img/banners/6.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
                                 <!-- Slider controls -->

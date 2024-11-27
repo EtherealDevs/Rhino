@@ -27,46 +27,47 @@
                             </p>
                         </div>
                         <!-- component -->
-                        <div class="flex justify-center items-center">
-                            <div class="w-full mx-8 space-y-8 p-16">
-                                <div class="grid grid-cols-6 gap-6">
+                        <div class="flex justify-center items-center bg-gray-100 py-12">
+                            <div class="w-full mx-8 space-y-12 px-8">
+                                <div class="grid grid-cols-6 gap-8">
                                     <!-- Imagen 1 -->
-                                    <div class="overflow-hidden rounded-xl col-span-3 max-h-[28rem]">
-                                        <img class="h-full w-full object-contain" src="img/about.jpg" alt="">
+                                    <div class="overflow-hidden rounded-2xl col-span-3 max-h-[36rem]">
+                                        <img class="h-full w-full object-cover" src="img/about.jpg" alt="">
                                     </div>
                                     <!-- Imagen 2 -->
-                                    <div class="overflow-hidden rounded-xl col-span-3 max-h-[28rem]">
+                                    <div class="overflow-hidden rounded-2xl col-span-3 max-h-[36rem]">
                                         <img class="h-full w-full object-cover"
-                                            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1399&q=80"
+                                            src="img/about/jufacu.webp"
                                             alt="">
                                     </div>
                                     <!-- Imagen 3 -->
-                                    <div class="overflow-hidden rounded-xl col-span-2 max-h-[20rem]">
+                                    <div class="overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
                                         <img class="h-full w-full object-cover"
-                                            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                            alt="">
+                                        src="img/about/jufacu2.webp"
+                                        alt="">
                                     </div>
                                     <!-- Imagen 4 -->
-                                    <div class="overflow-hidden rounded-xl col-span-2 max-h-[20rem]">
+                                    <div class="overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
                                         <img class="h-full w-full object-cover"
-                                            src="https://images.unsplash.com/photo-1503602642458-232111445657?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                                            src="img/about/rino.webp"
                                             alt="">
                                     </div>
                                     <!-- Imagen 5 -->
-                                    <div class="relative overflow-hidden rounded-xl col-span-2 max-h-[20rem]">
+                                    <div class="relative overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
                                         <div
-                                            class="text-white text-2xl absolute inset-0 bg-slate-900/80 flex justify-center items-center">
-                                            <a href="#">
+                                            class="text-white text-2xl absolute inset-0 bg-black/60 flex justify-center items-center">
+                                            <a href="#" class="hover:underline">
                                                 <p>Ver más</p>
                                             </a>
                                         </div>
                                         <img class="h-full w-full object-cover"
-                                            src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
+                                            src="img/about/rino1.webp"
                                             alt="">
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- Línea de tiempo optimizada -->
@@ -133,10 +134,61 @@
                             @endforeach
                         </div>
                     </div>
-
                 </div>
-            </div>
 
+                <section>
+                    <div class="relative px-6 pt-16 lg:px-8">
+                        <!-- Sección de publicaciones de Instagram -->
+                        <div class="mb-16">
+                            <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">Últimas publicaciones de Instagram</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="overflow-hidden rounded-lg shadow-md bg-white">
+                                    <img src="/path-to-placeholder-image.jpg" alt="Instagram post" class="w-full h-48 object-cover">
+                                    <div class="p-4">
+                                        <p class="text-gray-700 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <a href="#" target="_blank" class="text-blue-500 hover:underline mt-2 block text-sm">Ver en Instagram</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección de capturas de mensajes -->
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">Mensajes de Clientes Satisfechos</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
+                                    <img src="img/about/recomend1.webp" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
+                                    <div class="p-4 w-2/3">
+                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                                    </div>
+                                </div>
+                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
+                                    <img src="img/about/recomend1.webp" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
+                                    <div class="p-4 w-2/3">
+                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                                    </div>
+                                </div>
+                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
+                                    <img src="img/about/recomend1.jpeg" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
+                                    <div class="p-4 w-2/3">
+                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                                    </div>
+                                </div>
+                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
+                                    <img src="img/about/recomend1.jpeg" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
+                                    <div class="p-4 w-2/3">
+                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
             <!-- Fondo inferior optimizado -->
             <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
