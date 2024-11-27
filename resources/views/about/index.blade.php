@@ -47,11 +47,11 @@
                                         <img class="h-[150px] lg:h-[220px] w-full object-cover" src="img/about/rino.webp" alt="">
                                     </div>
                                     <!-- Imagen 5 -->
-                                    <div class="relative overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
+                                    <div class="relative py-12 overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
                                         <div
-                                            class="text-white text-2xl absolute inset-0 bg-black/60 flex justify-center items-center">
+                                            class="text-white text-2xl absolute inset-0 h-[150px] lg:h-[220px] bg-black/60 flex justify-center items-center">
                                             <a href="https://www.instagram.com/rino.indumentaria/" class="hover:underline">
-                                                <p class="font-josefin leading text-sm px-6">¡¡Seguinos en Instagram!!</p>
+                                                <p class="font-josefin leading text-lg px-6">¡¡Seguinos en Instagram!!</p>
                                             </a>
                                         </div>
                                         <img class="h-[150px] lg:h-[220px] w-full object-cover" src="img/about/rino1.webp" alt="">
