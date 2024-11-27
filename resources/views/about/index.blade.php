@@ -136,7 +136,7 @@
                     </div>
                 </div>
 
-                <section>
+                {{-- <section>
                     <div class="relative px-6 pt-16 lg:px-8">
                         <!-- Sección de publicaciones de Instagram -->
                         <div class="mb-16">
@@ -187,7 +187,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> --}}
             </div>
 
             <!-- Fondo inferior optimizado -->
