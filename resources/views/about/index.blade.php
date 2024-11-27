@@ -27,7 +27,7 @@
                             </p>
                         </div>
                         <!-- component -->
-                        <div class="flex justify-center items-center">
+                        <div class="flex justify-center items-center pb-32">
                             <div class="w-full px-1">
                                 <div class="grid grid-cols-6 gap-2">
                                     <!-- Imagen 1 -->
@@ -47,7 +47,7 @@
                                         <img class="h-[150px] lg:h-[220px] w-full object-cover" src="img/about/rino.webp" alt="">
                                     </div>
                                     <!-- Imagen 5 -->
-                                    <div class="relative py-12 overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
+                                    <div class="relative overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
                                         <div
                                             class="text-white text-2xl absolute inset-0 h-[150px] lg:h-[220px] bg-black/60 flex justify-center items-center">
                                             <a href="https://www.instagram.com/rino.indumentaria/" class="hover:underline">
