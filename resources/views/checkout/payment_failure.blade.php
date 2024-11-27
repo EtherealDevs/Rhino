@@ -57,7 +57,7 @@
                         {{ ucfirst($payment->payment_method->id) }}</p>
 
                     <!-- Monto -->
-                    <p><strong>Monto:</strong> ${{ number_format($payment->transaction_amount / 100, 2) }}</p>
+                    <p><strong>Monto:</strong> ${{ number_format($payment->transaction_amount / 100, 2, ',', '.') }}</p>
 
                     <!-- Fechas -->
                     <p><strong>Fecha de Creación:</strong>
@@ -79,8 +79,7 @@
                     <!-- Información de cuotas -->
                     @if ($payment->transaction_details->installment_amount)
                         <p><strong>Cantidad de Cuotas:</strong> {{ $payment->installments }}</p>
-                        <p><strong>Monto por Cuota:</strong>
-                            ${{ number_format($payment->transaction_details->installment_amount / 100, 2) }}</p>
+                        <p><strong>Monto por Cuota:</strong> ${{ number_format($payment->transaction_details->installment_amount / 100, 2, ',', '.') }}</p>
                     @endif
 
                     <!-- Moneda -->
