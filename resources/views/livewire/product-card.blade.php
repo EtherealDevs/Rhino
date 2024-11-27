@@ -1,4 +1,4 @@
-<div class="relative z-10 flex w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
+<div class="relative z-10 flex w-44 lg:w-56 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
     onmouseover="changeImage(this, '{{ url(Storage::url($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
     onmouseout="resetImage(this, '{{ url(Storage::url($item->images->first()->url)) }}')">
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
@@ -55,7 +55,7 @@
     <div class="h-[90px] bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
         <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}" class="h-fulll">
             <div class="grid grid-cols-1 content-around h-full">
-                <p class="block font-sans font-bold text-base leading-5 uppercase text-white antialiased text-center">
+                <p class="block font-sans font-bold truncate text-sm lg:text-base leading-5 uppercase text-white antialiased text-center">
                     {{ $product->name }}
                 </p>
                 <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">

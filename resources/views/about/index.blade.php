@@ -2,7 +2,7 @@
 
 @section('content')
     <section>
-        <div class="relative isolate px-6 pt-16 lg:px-8">
+        <div class="relative isolate px-2 pt-16 lg:px-8">
             <!-- Fondo superior optimizado -->
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true">
@@ -11,12 +11,12 @@
                 </div>
             </div>
 
-            <div class="text-black font-sans antialiased py-4">
+            <div class="text-black font-sans antialiased">
                 <div class="container mx-auto flex flex-col items-start md:flex-row my-12 md:my-24">
                     <!-- Sección de bienvenida optimizada -->
-                    <div class="flex flex-col w-full lg:w-2/3 mt-4 md:mt-16 px-16 sticky top-0 relative overflow-hidden">
+                    <div class="flex flex-col w-full lg:w-2/3 md:mt-12 mt-12 px-16 sticky top-0 relative overflow-hidden">
                         <!-- Div de la imagen con efecto pintura -->
-                        <div class="relative text-center py-8 mt-32 z-10">
+                        <div class="relative text-center py-8 mt-12 z-10">
                             <h1 class="text-3xl lg:text-6xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
                                 Nuestra Historia
                             </h1>
@@ -27,42 +27,34 @@
                             </p>
                         </div>
                         <!-- component -->
-                        <div class="flex justify-center items-center bg-gray-100 py-12">
-                            <div class="w-full mx-8 space-y-12 px-8">
-                                <div class="grid grid-cols-6 gap-8">
+                        <div class="flex justify-center items-center">
+                            <div class="w-full px-1">
+                                <div class="grid grid-cols-6 gap-2">
                                     <!-- Imagen 1 -->
-                                    <div class="overflow-hidden rounded-2xl col-span-3 max-h-[36rem]">
-                                        <img class="h-full w-full object-cover" src="img/about.jpg" alt="">
+                                    <div class="overflow-hidden rounded-2xl col-span-4">
+                                        <img class="w-full object-cover h-[150px] lg:h-[320px]" src="img/about/jufacu3.webp" alt="">
                                     </div>
                                     <!-- Imagen 2 -->
-                                    <div class="overflow-hidden rounded-2xl col-span-3 max-h-[36rem]">
-                                        <img class="h-full w-full object-cover"
-                                            src="img/about/jufacu.webp"
-                                            alt="">
+                                    <div class="overflow-hidden rounded-2xl col-span-2">
+                                        <img class="w-full object-cover h-[150px] lg:h-[320px]" src="img/about/jufacu.webp" alt="">
                                     </div>
                                     <!-- Imagen 3 -->
-                                    <div class="overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
-                                        <img class="h-full w-full object-cover"
-                                        src="img/about/jufacu2.webp"
-                                        alt="">
+                                    <div class="overflow-hidden rounded-2xl col-span-2">
+                                        <img class="h-[150px] lg:h-[220px] w-full object-cover" src="img/about/jufacu2.webp" alt="">
                                     </div>
                                     <!-- Imagen 4 -->
-                                    <div class="overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
-                                        <img class="h-full w-full object-cover"
-                                            src="img/about/rino.webp"
-                                            alt="">
+                                    <div class="overflow-hidden rounded-2xl col-span-2">
+                                        <img class="h-[150px] lg:h-[220px] w-full object-cover" src="img/about/rino.webp" alt="">
                                     </div>
                                     <!-- Imagen 5 -->
                                     <div class="relative overflow-hidden rounded-2xl col-span-2 max-h-[28rem]">
                                         <div
                                             class="text-white text-2xl absolute inset-0 bg-black/60 flex justify-center items-center">
-                                            <a href="#" class="hover:underline">
-                                                <p>Ver más</p>
+                                            <a href="https://www.instagram.com/rino.indumentaria/" class="hover:underline">
+                                                <p class="font-josefin leading text-sm px-6">¡¡Seguinos en Instagram!!</p>
                                             </a>
                                         </div>
-                                        <img class="h-full w-full object-cover"
-                                            src="img/about/rino1.webp"
-                                            alt="">
+                                        <img class="h-[150px] lg:h-[220px] w-full object-cover" src="img/about/rino1.webp" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +118,7 @@
                                     <div class="w-5/12 px-1 py-4 text-{{ $event['side'] === 'right' ? 'right' : 'left' }}">
                                         <p class="mb-3 text-sm md:text-base text-black">{{ $event['date'] }}</p>
                                         <h4 class="mb-3 font-bold text-lg md:text-2xl">{{ $event['title'] }}</h4>
-                                        <p class="text-xs md:text-base leading-snug text-black text-opacity-100">
+                                        <p class="text-md md:text-base leading text-black text-opacity-100">
                                             {{ $event['description'] }}
                                         </p>
                                     </div>
@@ -136,58 +128,76 @@
                     </div>
                 </div>
 
-                {{-- <section>
-                    <div class="relative px-6 pt-16 lg:px-8">
+                <section>
+                    <div class="relative px-2 py-6 pt-12 sm:px-6 lg:px-8 bg-blue-600 rounded-3xl">
                         <!-- Sección de publicaciones de Instagram -->
-                        <div class="mb-16">
-                            <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">Últimas publicaciones de Instagram</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div class="overflow-hidden rounded-lg shadow-md bg-white">
-                                    <img src="/path-to-placeholder-image.jpg" alt="Instagram post" class="w-full h-48 object-cover">
+                       {{--  <div class="mb-16">
+                            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">Últimas publicaciones de
+                                Instagram</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                                <!-- Placeholder de publicaciones dinámicas -->
+                                <div
+                                    class="overflow-hidden rounded-lg shadow-lg bg-white hover:scale-105 transition-transform">
+                                    <img src="/path-to-placeholder-image.jpg" alt="Instagram post"
+                                        class="w-full h-60 object-cover">
                                     <div class="p-4">
-                                        <p class="text-gray-700 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        <a href="#" target="_blank" class="text-blue-500 hover:underline mt-2 block text-sm">Ver en Instagram</a>
+                                        <p class="text-gray-700 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                            elit.</p>
+                                        <a href="#" target="_blank"
+                                            class="text-blue-600 hover:underline mt-3 block text-sm">Ver en Instagram</a>
                                     </div>
                                 </div>
+                                <!-- Más publicaciones pueden ser añadidas aquí -->
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- Sección de capturas de mensajes -->
-                        <div>
-                            <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">Mensajes de Clientes Satisfechos</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
-                                    <img src="img/about/recomend1.webp" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
-                                    <div class="p-4 w-2/3">
-                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
-                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                        <div class="">
+                            <h2 class="text-3xl font-extrabold text-white text-center mb-12">Mensajes de Clientes
+                                Satisfechos</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-2">
+                                <!-- Mensaje individual -->
+                                <div
+                                    class="overflow-hidden rounded-xl shadow-lg bg-white hover:scale-105 transition-transform">
+                                    <img src="img/about/recomend1.webp" alt="Mensaje de cliente"
+                                        class="w-full h-[500px] object-cover">
+                                    <div class="p-4">
+                                        <p class="text-gray-700 font-josefin font-bold text-sm">"Me probe y me quedo de diez. Gracias por las calcos"</p>
+                                        <span class="text-gray-500 text-xs block mt-2"></span>
                                     </div>
                                 </div>
-                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
-                                    <img src="img/about/recomend1.webp" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
-                                    <div class="p-4 w-2/3">
-                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
-                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                                <div
+                                    class="overflow-hidden rounded-xl shadow-lg bg-white hover:scale-105 transition-transform">
+                                    <img src="img/about/recomend2.webp" alt="Mensaje de cliente"
+                                        class="w-full h-[500px] object-cover">
+                                    <div class="p-4">
+                                        <p class="text-gray-700 font-josefin font-bold text-sm">"Premio del sorteo de los mejores"</p>
+                                        <span class="text-gray-500 text-xs block mt-2">— Adrian</span>
                                     </div>
                                 </div>
-                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
-                                    <img src="img/about/recomend1.jpeg" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
-                                    <div class="p-4 w-2/3">
-                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
-                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                                <div
+                                    class="overflow-hidden rounded-xl shadow-lg bg-white hover:scale-105 transition-transform">
+                                    <img src="img/about/recomend3.webp" alt="Mensaje de cliente"
+                                        class="w-full h-[500px] object-cover">
+                                    <div class="p-4">
+                                        <p class="text-gray-700 font-josefin font-bold text-sm">"La mejor ropa y atencion siempre..."</p>
+                                        <span class="text-gray-500 text-xs block mt-2">— Alejandro</span>
                                     </div>
                                 </div>
-                                <div class="overflow-hidden rounded-lg shadow-md bg-white flex items-center">
-                                    <img src="img/about/recomend1.jpeg" alt="Mensaje de cliente" class="w-1/3 h-48 object-cover">
-                                    <div class="p-4 w-2/3">
-                                        <p class="text-gray-700 text-sm">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
-                                        <span class="text-gray-500 text-xs block mt-2">— John Doe</span>
+                                <div
+                                    class="overflow-hidden rounded-xl shadow-lg bg-white hover:scale-105 transition-transform">
+                                    <img src="img/about/recomend4.webp" alt="Mensaje de cliente"
+                                        class="w-full h-[500px] object-cover">
+                                    <div class="p-4">
+                                        <p class="text-gray-700 font-josefin font-bold text-sm">"Estan espectaculares, de lujo..."</p>
+                                        {{-- <span class="text-gray-500 text-xs block mt-2">— John Doe</span> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section> --}}
+                </section>
+
             </div>
 
             <!-- Fondo inferior optimizado -->
