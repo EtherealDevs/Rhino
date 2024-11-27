@@ -53,13 +53,13 @@
                                     <!-- Item 1 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/1.webp"
-                                            class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 3 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/2.webp"
-                                            class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 2 -->
@@ -70,12 +70,12 @@
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/4.webp"
-                                            class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="Banner de tienda física">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/5.webp"
-                                            class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                         <!-- Botón que redirige a Google Maps -->
                                         <div class="absolute bottom-10 z-50 left-1/2 transform -translate-y-3/4 -translate-x-1/2">
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/4.webp"
-                                            class="lazyload block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
