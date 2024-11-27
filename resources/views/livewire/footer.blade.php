@@ -5,7 +5,7 @@
         <div class="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-8 lg:grid-cols-4">
                 <div class="h-full w-full grid place-content-center">
-                    <img src="/img/rino.webp" class="w-full" alt="logo">
+                    <img src="/img/rino.webp" class="w-full" alt="logo" width="300" height="100">
                 </div>
                 <div>
                     <p class="font-medium text-gray-100">
