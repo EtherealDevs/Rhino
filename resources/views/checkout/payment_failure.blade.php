@@ -1,17 +1,17 @@
 @extends('layouts.app')
 @section('content')
     <div
-        class="w-full h-screen items-center justify-center space-y-16 lg:space-y-0 space-x-8 2xl:space-x-0">
-        <div class="w-full lg:w-1/2 flex flex-col items-center justify-center lg:px-2 xl:px-0 text-center">
-            <p class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-gray-300 mt-2">Pago Rechazado</p>
+        class="flex flex-col items-center justify-center w-full h-screen space-y-8 p-6 bg-gray-100">
+        <div class="w-full lg:w-1/2 text-center">
+            <p class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-red-500">Pago Rechazado</p>
         </div>
-        <div class="w-1/2 lg:h-full flex lg:items-end justify-center p-4">
+        <div class="w-full lg:w-2/3 xl:w-1/2 p-6 bg-white shadow-xl rounded-xl">
             <!-- Aquí empieza la información del pago -->
-            <div class="p-6 bg-red-100 text-red-800 rounded-lg shadow-lg">
-                <div class="flex items-center">
-                    <p class="font-semibold text-xl">¡Error en el pago!</p>
+            <div class="p-6 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-md">
+                <div class="flex items-center mb-4">
+                    <p class="font-bold text-xl">¡Error en el pago!</p>
                 </div>
-                <div class="mt-4">
+                <div class="space-y-2">
                     <!-- Estado -->
                     <p><strong>Estado del Pago:</strong>
                         @switch($payment->status)
@@ -115,16 +115,17 @@
                     </p>
                 </div>
             </div>
-            <a href="/"
-                class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded-xl transition duration-150"
-                title="Return Home">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-                <span>Volver a Inicio</span>
-            </a>
+            <div class="mt-6 text-center">
+                <a href="/"
+                    class="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-md transition duration-150">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Volver a Inicio</span>
+                </a>
+            </div>
             <!-- Fin de la información del pago -->
         </div>
     </div>
