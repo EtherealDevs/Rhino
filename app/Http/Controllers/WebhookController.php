@@ -29,7 +29,7 @@ class WebhookController extends Controller
 
         // Generate HMAC signature
         $computedSignature = hash_hmac('sha256', $template, $secretKey);
-
+        dd($ts, $v1, $data, $template, $computedSignature);
         // Compare the computed signature with the one from the header
         if (!hash_equals($computedSignature, $v1)) {
             abort(403, 'Signature mismatch');
