@@ -170,7 +170,7 @@ Route::post('/cartCombo', [CartController::class, 'addComboToCart'])->name('cart
 Route::delete('/cart/{cartItemId}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
 Route::delete('/cart', [CartController::class, 'dropCart'])->name('cart.dropCart');
 
-Route::post('/webhooks', [WebhookController::class, 'handle']);
+Route::post('/webhooks', [WebhookController::class, 'handle'])->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
 
 Route::get('/products/show', function () {
     return view('products.show');
