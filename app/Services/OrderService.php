@@ -39,7 +39,7 @@ class OrderService
             $total = (int) ($mpOrder->transaction_amount * 100);
         }
         else{
-            $total = (int) $user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100);
+            $total = (int) ($user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100));
         }
 
         $order = Order::create([
@@ -86,7 +86,7 @@ class OrderService
             $total = (int) ($mpOrder->transaction_amount * 100);
         }
         else{
-            $total = (int) $user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100);
+            $total = (int) ($user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100));
         }
 
         $provinces = Province::all();
@@ -150,7 +150,7 @@ class OrderService
             $total = (int) ($mpOrder->transaction_amount * 100);
         }
         else{
-            $total = (int) $user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100);
+            $total = (int) ($user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100));
         }
 
         $admin = User::where('name', '=', 'Ethereal')->first();
