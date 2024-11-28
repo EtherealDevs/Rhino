@@ -84,8 +84,8 @@ class Resume extends Component
         }
         if ($payment != null) {
             $this->payment = $payment;
-            if ($this->payment == "mercado_pago" && $this->total != 0) {
-                $this->total += $this->total * 0.06;
+            if ($this->payment == "transferencia" && $this->total != 0) {
+                $this->total -= $this->total * 0.06;
             }
         }
     }
@@ -93,10 +93,10 @@ class Resume extends Component
     public function updatedPayment($payment)
     {
         $this->payment = $payment;
-            if ($this->payment == "mercado_pago" && $this->total != 0) {
-                $this->total += $this->total * 0.06;
+            if ($this->payment == "transferencia" && $this->total != 0) {
+                $this->total -= $this->total * 0.06;
             }
-            else if ($this->payment == "transferencia")
+            else if ($this->payment == "mercado_pago")
             {
                 $this->total = $this->original_total;
             }

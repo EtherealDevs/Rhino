@@ -11,29 +11,33 @@ class WebhookController extends Controller
 {
     public function handle(Request $request)
     {
-        // Log the webhook payload for debugging (optional)
-        Log::info('Webhook received: ', $request->all());
+        
+        $xSignature = $request->header('X-Signature');
+        $xRequestId = $request->header('X-Request-ID');
+        $payload = $request->getContent(); // Raw payload of the notification
+        $secretKey = config('app.mp_notification_secret'); // Store your webhook secret in your .env file
 
-        // Verify the source of the webhook
-        $data = $request->all();
+        // Split the X-Signature into components
+        preg_match('/ts=(\d+),v1=(.+)/', $xSignature, $matches);
+        $ts = $matches[1] ?? null;
+        $v1 = $matches[2] ?? null;
 
-        // Example: Process the payment
-        if (isset($data['type']) && $data['type'] === 'payment') {
-            $paymentId = $data['data']['id'];
+        // Construct the template
+        $data = json_decode($payload, true);
+        $template = sprintf('id:%s;request-id:%s;ts:%s;', $data['id'] ?? '', $xRequestId, $ts);
 
-            // Fetch payment details from MercadoPago API (optional)
-            $accessToken = config('app.mp_access_token');
-            $client = new PaymentClient();
-            $payment = $client->get($paymentId);
+        // Generate HMAC signature
+        $computedSignature = hash_hmac('sha256', $template, $secretKey);
 
-            if ($payment->status === 'approved') {
-                // Handle the approved payment
-                // Example: Mark order as paid in your database
-                Log::info("Payment $paymentId approved.");
-            }
+        // Compare the computed signature with the one from the header
+        if (!hash_equals($computedSignature, $v1)) {
+            abort(403, 'Signature mismatch');
         }
 
-        // Respond with HTTP 200 to acknowledge receipt
-        return response()->json(['status' => 'received'], 200);
+        // If the verification passes, process the webhook data
+        $data = $request->all();
+        Log::info('Webhook verified and processed: ', $data);
+
+        return response()->json(['status' => 'verified'], 200);
     }
 }

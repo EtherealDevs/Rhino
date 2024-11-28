@@ -20,6 +20,7 @@
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $user->id }}">
                             <input type="hidden" name="selectedMethod" value="domicilio">
+                            <input type="hidden" name="paymentMethod" value="{{$paymentMethod}}">
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <x-checkout.text-input name="name" label="Nombre" wire:model.blur="name"
@@ -223,7 +224,7 @@
                 {{-- Resumen de la compra sumada al envio --}}
                 <div class="w-full z-40 bottom-2">
                     <div class="justify-center">
-                        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'selectedMethod' => $selectedMethod])
+                        @livewire('resume', ['zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'selectedMethod' => $selectedMethod, 'payment' => $paymentMethod])
                     </div>
                 </div>
             </div>

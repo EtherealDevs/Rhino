@@ -8,7 +8,6 @@
         const bricksBuilder = mp.bricks();
 
         var total = {{ $total }};
-        total = {{$total + round($total * 0.06, 2)}}
         var cartTotal = {{ $cartTotal }};
         var cart = {!! json_encode($cart) !!};
         var shippingCosts = {{ $shippingCosts }};

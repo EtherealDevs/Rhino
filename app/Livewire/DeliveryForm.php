@@ -80,8 +80,11 @@ class DeliveryForm extends Component
     #[Validate]
     public $selectedMethod;
 
-    public function mount(User $user, $zip_code = null, $province = null, $city = null)
+    public $paymentMethod;
+
+    public function mount(User $user, $zip_code = null, $province = null, $city = null, $payment)
     {
+        $this->paymentMethod = $payment;
         $this->selectedMethod = 'domicilio';
         $this->zipCodeModels = ModelsZipCode::all();
         $this->provinceModels = Province::all();

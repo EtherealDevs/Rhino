@@ -67,7 +67,7 @@ class CheckoutConfig extends Component
                 $this->validateOnly('zip_code');
                 $this->validateOnly('province');
                 $this->validateOnly('city');
-                $this->redirectRoute('checkout.delivery', ['selectedMethod' => 'domicilio', 'zip_code' => $this->zip_code, 'province' => $this->province, 'city' => $this->city]);
+                $this->redirectRoute('checkout.delivery', ['selectedMethod' => 'domicilio', 'paymentMethod' => $this->payment, 'zip_code' => $this->zip_code, 'province' => $this->province, 'city' => $this->city]);
                 break;
             case 'sucursal':
                 $this->validateOnly('zip_code');
@@ -78,10 +78,10 @@ class CheckoutConfig extends Component
                         break;
                     }
                 }
-                $this->redirectRoute('checkout.payment', ['selectedMethod' => 'sucursal', 'sucursal' => $this->sucursalArray]);
+                $this->redirectRoute('checkout.payment', ['selectedMethod' => 'sucursal', 'sucursal' => $this->sucursalArray, 'paymentMethod' => $this->payment]);
                 break;
             case 'retiro':
-                $this->redirectRoute('checkout.payment', ['selectedMethod' => 'retiro']);
+                $this->redirectRoute('checkout.payment', ['selectedMethod' => 'retiro', 'paymentMethod' => $this->payment]);
                 break;
         }
     }

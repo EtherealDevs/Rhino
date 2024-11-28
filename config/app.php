@@ -134,6 +134,7 @@ return [
     'mp_client_token' => env('MERCADOPAGO_CLIENT_TOKEN'),
     'mp_access_token_test' => env('MERCADOPAGO_ACCESS_TOKEN_TEST'),
     'mp_client_token_test' => env('MERCADOPAGO_CLIENT_TOKEN_TEST'),
+    'mp_notification_secret' => env('MERCADOPAGO_NOTIFICATION_SECRET'),
 
     'images_directory' => env('IMAGES_DIRECTORY'),
     'product_images_directory' => env('PRODUCT_IMAGES_DIRECTORY'),

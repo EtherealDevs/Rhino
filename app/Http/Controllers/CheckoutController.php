@@ -10,8 +10,10 @@ use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Color;
 use App\Models\DeliveryService;
+use App\Models\Province;
 use App\Models\User;
 use App\Models\ZipCode as ModelsZipCode;
+use App\Rules\ZipCode;
 use App\Services\AddressService;
 use App\Services\CheckoutService;
 use App\Services\OrderService;
@@ -40,16 +42,29 @@ class CheckoutController extends Controller
     }
     public function showCheckoutDeliveryPage(Request $request)
     {
-
+        try {
+            $zipCode = ModelsZipCode::where('code', '=', $request->zip_code)->firstOrFail();
+            $province = Province::where('name', '=', $request->province)->firstOrFail();
+            $city = Province::findOrFail($request->city);
+        } catch (\Throwable $th) {
+            redirect()->route('cart');
+        }
+        $request->validate([
+            'zip_code' => ['required'],
+            'province' => ['required'],
+            'city' => ['required']
+        ]);
         $user = User::where('id', auth()->user()->id)->with('address')->first();
-        return view('checkout.delivery', ['user' => $user, 'zip_code' => $request->zip_code, 'province' => $request->province, 'city' => $request->city]);
+        return view('checkout.delivery', ['user' => $user, 'zip_code' => $request->zip_code, 'province' => $request->province, 'city' => $request->city, 'paymentMethod' => $request->paymentMethod]);
     }
 
     public function showCheckoutPaymentPage(Request $request)
     {
         $request->validate([
-            'selectedMethod' => ['string', 'alpha', Rule::in(['domicilio', 'sucursal', 'retiro'])]
+            'selectedMethod' => ['string', 'alpha', Rule::in(['domicilio', 'sucursal', 'retiro'])],
+            'paymentMethod' => ['string', 'alpha', Rule::in(['mercado_pago', 'transferencia'])]
         ]);
+        $paymentMethod = $request->paymentMethod;
         $sucursal = null;
         //MercadoPago initialization
         $mpAccessToken = MercadoPagoConfig::getAccessToken();
@@ -58,10 +73,25 @@ class CheckoutController extends Controller
         // User, address, and linked cart. Colors
         $user = User::where('id', auth()->user()->id)->with('address')->first();
         $cart = Cart::where('user_id', $user->id)->first();
+
+        $cartValidator = new CartValidator($user->cart);
+        $redirect = $cartValidator->validateCart();
+        if ($redirect) {
+            // Set session flash message
+            session()->flash('cartError', 'Se eliminaron del carrito algunos productos que ya no estaban disponibles.');
+            // Return a JSON response with the redirect URL
+            return response()->json([
+                'status' => 'error',
+                'redirect_url' => route('cart'),
+                'message' => 'Se eliminaron del carrito algunos productos que ya no estaban disponibles.'
+            ], 400);
+        }
         $colors = Color::all();
         if ($cart == null) {
             return redirect('/')->with('error', 'Invalid Data');
         }
+        $orderService = new OrderService();
+        $shippingService = new ShippingService();
         switch ($request->selectedMethod) {
             case 'domicilio':
                 $address = null;
@@ -77,14 +107,28 @@ class CheckoutController extends Controller
                 $address->load('zipCode', 'city', 'province');
                 $deliveryService = DeliveryService::where('name', '=', 'oca')->first();
                 $shippingCosts = $this->shippingService->getShippingCosts($address, config('app.delivery_service.sucursal_a_puerta'));
+                if ($paymentMethod == 'transferencia') {
+                    $order = $orderService->createDeliveryOrder(null, $user, $address, (float)$shippingCosts, false);
+                    return redirect()->route('orders.show', ['id' => $order->id]);
+                }
                 break;
             case 'sucursal':
                 $address = null;
                 $sucursal = $request->sucursal;
                 $deliveryService = DeliveryService::where('name', '=', 'oca')->first();
                 $shippingCosts = $this->shippingService->getShippingCosts($sucursal['CodigoPostal'], config('app.delivery_service.sucursal_a_sucursal'));
+                if ($paymentMethod == 'transferencia') {
+                    $sucursalesCollection = collect($shippingService->getSucursales($sucursal['CodigoPostal']));
+                    $sucursal = $sucursalesCollection->firstWhere('IdCentroImposicion', '=', $sucursal['IdCentroImposicion']);
+                    $order = $orderService->createSucursalOrder(null, $user, $sucursal, (float)$shippingCosts, false);
+                    return redirect()->route('orders.show', ['id' => $order->id]);
+                }
                 break;
             case 'retiro':
+                if ($paymentMethod == 'transferencia') {
+                    $order = $orderService->createRetiroOrder(null, $user, false);
+                    return redirect()->route('orders.show', ['id' => $order->id]);
+                }
                 $admin = User::where('name', '=', 'Ethereal')->first();
                 $rinoZipCode = ModelsZipCode::where('code', '=', '3400')->first();
                 $rinoProvince = $rinoZipCode->province;
@@ -145,8 +189,12 @@ class CheckoutController extends Controller
         $addressService = new AddressService();
         $validatedFields = $validator->validateRequest($request);
         $address = $addressService->saveOrUpdate($validatedFields, User::find($request->user_id));
-
-        return redirect()->route('checkout.payment', ['address_id' => $address->id, 'selectedMethod' => $request->selectedMethod]);
+        if ($request->paymentMethod) {
+            $request->validate([
+                'paymentMethod' => [Rule::in(['mercado_pago', 'transferencia'])],
+            ]);
+        }
+        return redirect()->route('checkout.payment', ['address_id' => $address->id, 'selectedMethod' => $request->selectedMethod, 'paymentMethod' => $request->paymentMethod]);
     }
 
     public function processPayment(Request $request)
@@ -218,6 +266,18 @@ class CheckoutController extends Controller
         if ($payment->status != "approved") {
             return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
         }
+        $cartValidator = new CartValidator($user->cart);
+        $redirect = $cartValidator->validateCart();
+        if ($redirect) {
+            // Set session flash message
+            session()->flash('cartError', 'Se eliminaron del carrito algunos productos que ya no estaban disponibles.');
+            // Return a JSON response with the redirect URL
+            return response()->json([
+                'status' => 'error',
+                'redirect_url' => route('cart'),
+                'message' => 'Se eliminaron del carrito algunos productos que ya no estaban disponibles.'
+            ], 400);
+    }
 
         $order = null;
 
@@ -239,8 +299,6 @@ class CheckoutController extends Controller
                 break;
                 case 'retiro':
                     $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);
-
-                    $order->save();
                     break;
         }
 
@@ -288,7 +346,6 @@ class CheckoutController extends Controller
                 break;
                 case 'retiro':
                     $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);
-                    $order->save();
                     break;
         }
 

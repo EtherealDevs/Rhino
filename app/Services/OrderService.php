@@ -10,31 +10,50 @@ use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\ProductItem;
 use App\Models\Province;
+use App\Models\TransferInfo;
 use App\Models\User;
 use App\Models\ZipCode;
+use Exception;
 use MercadoPago\Resources\Payment;
 
 class OrderService
 {
-    public function createDeliveryOrder(Payment $mpOrder, User $user, Address $address, float $shippingCosts)
+    public $transferInfo;
+    public function __construct()
+    {
+        $this->transferInfo = TransferInfo::where('holder_name', '=', 'FACUNDO BERNARD LAGARDE')->first();
+    }
+    public function createDeliveryOrder(Payment|null $mpOrder, User $user, Address $address, float $shippingCosts, bool $mercadoPago = true)
     {
         $orderDetailService = new OrderDetailService();
         $items = collect(json_decode($user->cart->contents));
-        +$shippingCosts = (int) ($shippingCosts * 100);
-        $total = (int) ($mpOrder->transaction_amount * 100);
+        $shippingCosts = (int) ($shippingCosts * 100);
+
+        // throw exception if mp is true and mporder is null
+        if ($mpOrder == null && $mercadoPago)
+        {
+            throw new Exception("mpOrder is null or empty");
+        }
+
+        if ($mpOrder != null && $mercadoPago) {
+            $total = (int) ($mpOrder->transaction_amount * 100);
+        }
+        else{
+            $total = (int) $user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100);
+        }
+
         $order = Order::create([
             'user_id' => $user->id,
-            'payment_method_id' => PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
+            'payment_method_id' => $mercadoPago == false ? PaymentMethod::firstOrCreate(['payment_method' => 'transferencia'])->id : PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
             'total' => $total,
             'delivery_service_id' => DeliveryService::where('name', 'oca')->first()->id,
             'delivery_price' => $shippingCosts,
             'address_id' => $address->id,
             'order_status_id' => 1,
-            'mp_order_id' => $mpOrder->id
+            'mp_order_id' => $mpOrder != null ? $mpOrder->id : null
         ]);
 
         $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
-        // dd($productItems, $items);
 
         foreach ($items as $item) {
             if ($item->type == CartCombo::DEFAULT_TYPE) {
@@ -47,15 +66,29 @@ class OrderService
                 $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
             }
         }
+        $user->cart->delete();
         return $order;
     }
-    public function createSucursalOrder(Payment $mpOrder, User $user, array $sucursal, float $shippingCosts)
+    public function createSucursalOrder(Payment|null $mpOrder, User $user, array $sucursal, float $shippingCosts, bool $mercadoPago = true)
     {
         $orderDetailService = new OrderDetailService();
         $items = collect(json_decode($user->cart->contents));
 
         $shippingCosts = (int) ($shippingCosts * 100);
-        $total = (int) ($mpOrder->transaction_amount * 100);
+
+        // throw exception if mp is true and mporder is null
+        if ($mpOrder == null && $mercadoPago)
+        {
+            throw new Exception("mpOrder is null or empty");
+        }
+
+        if ($mpOrder != null && $mercadoPago) {
+            $total = (int) ($mpOrder->transaction_amount * 100);
+        }
+        else{
+            $total = (int) $user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100);
+        }
+
         $provinces = Province::all();
         $zipCode = ZipCode::where('code', '=', $sucursal['CodigoPostal'])->first()->load('province');
         $observation = "Torre:" . ($sucursal['Torre'] == null ? "Null" : $sucursal['Torre']) . " Piso:" . ($sucursal['Piso'] == null ? "Null" : $sucursal['Piso']) . " Localidad:" . $sucursal['Localidad'] . " Latitud:" . $sucursal['Latitud'] . " Longitud:" . $sucursal['Longitud'] . " TipoAgencia:" . $sucursal['TipoAgencia'] ?? "Null" . " HorarioAtencion:" . $sucursal['HorarioAtencion'] ?? "Null";
@@ -76,13 +109,13 @@ class OrderService
         $payment_methods = ['credit_card' => 4, 'debit_card' => 3];
         $order = Order::create([
             'user_id' => $user->id,
-            'payment_method_id' => PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
+            'payment_method_id' => $mercadoPago == false ? PaymentMethod::firstOrCreate(['payment_method' => 'transferencia'])->id : PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
             'total' => $total,
             'delivery_service_id' => DeliveryService::where('name', 'oca')->first()->id,
             'delivery_price' => $shippingCosts,
             'address_id' => $address->id,
             'order_status_id' => 1,
-            'mp_order_id' => $mpOrder->id
+            'mp_order_id' => $mpOrder != null ? $mpOrder->id : null
         ]);
 
         $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
@@ -98,26 +131,40 @@ class OrderService
                 $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
             }
         }
+        $user->cart->delete();
         return $order;
     }
-    public function createRetiroOrder(Payment $mpOrder, User $user)
+    public function createRetiroOrder(Payment|null $mpOrder, User $user, bool $mercadoPago = true)
     {
         $orderDetailService = new OrderDetailService();
         $items = collect(json_decode($user->cart->contents));
         $shippingCosts = 0;
-        $total = (int) ($mpOrder->transaction_amount * 100);
+
+        // throw exception if mp is true and mporder is null
+        if ($mpOrder == null && $mercadoPago)
+        {
+            throw new Exception("mpOrder is null or empty");
+        }
+
+        if ($mpOrder != null && $mercadoPago) {
+            $total = (int) ($mpOrder->transaction_amount * 100);
+        }
+        else{
+            $total = (int) $user->cart->total - $user->cart->total * ($this->transferInfo->discount / 100);
+        }
+
         $admin = User::where('name', '=', 'Ethereal')->first();
         $address = Address::firstOrCreate(['name' => 'rino'], ['user_id' => $admin->id, 'last_name' => 'indumentaria', 'phone_number' => '379 4316606', 'zip_code_id' => 1526, 'province_id' => 5, 'address' => 'Milan 1201', 'street' => 'Milan', 'number' => '1201']);
 
         $order = Order::create([
             'user_id' => $user->id,
-            'payment_method_id' => PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
+            'payment_method_id' => $mercadoPago == false ? PaymentMethod::firstOrCreate(['payment_method' => 'transferencia'])->id : PaymentMethod::firstOrCreate(['payment_method' => $mpOrder->payment_method->type])->id,
             'total' => $total,
             'delivery_service_id' => DeliveryService::where('name', 'Retiro en el Local')->first()->id,
             'delivery_price' => $shippingCosts,
             'address_id' => $address->id,
             'order_status_id' => 1,
-            'mp_order_id' => $mpOrder->id
+            'mp_order_id' => $mpOrder != null ? $mpOrder->id : null
         ]);
 
         $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
@@ -133,6 +180,7 @@ class OrderService
                 $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
             }
         }
+        $user->cart->delete();
         return $order;
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @livewire('DeliveryForm', ['user' => $user, 'zip_code' => $zip_code, 'province' => $province, 'city' => $city], key($user->id))
+    @livewire('DeliveryForm', ['user' => $user, 'zip_code' => $zip_code, 'province' => $province, 'city' => $city, 'payment' => $paymentMethod], key($user->id))
     {{-- <form method="POST" action="">
         <input type="hidden" name="cart" value="{{session('cart')}}">
 
