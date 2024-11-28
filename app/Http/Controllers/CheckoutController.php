@@ -60,12 +60,10 @@ class CheckoutController extends Controller
 
     public function showCheckoutPaymentPage(Request $request)
     {
-        
         $request->validate([
             'selectedMethod' => ['string', 'alpha', Rule::in(['domicilio', 'sucursal', 'retiro'])],
             'paymentMethod' => ['string', Rule::in(['mercado_pago', 'transferencia'])]
         ]);
-        dd($request);   
         $paymentMethod = $request->paymentMethod;
         $sucursal = null;
         //MercadoPago initialization
