@@ -168,12 +168,13 @@ class CheckoutController extends Controller
                 "shipments" => [
                     "cost" => $shippingCosts
                 ],
+                "external_reference" => "wallet",
+                'notification_url' => "$appUrl/webhooks",
                 "back_urls" => [
-                    "success" => "{$appUrl}/payment/handle?payment_method={$selectedMethod}",
+                    "success" => "{$appUrl}/orders",
                     "failure" => "{$appUrl}/payment/failure",
                     "pending" => "{$appUrl}/payment/failure"
                 ],
-                "auto_return" => "approved",
             ]);
         }
         catch (MPApiException $e) {
