@@ -21,15 +21,13 @@ class WebhookController extends Controller
         $queryParams = $request->query();
 
         // Extract "data.id" from query params
+        $data = json_decode($payload, true);
         $dataID = $data['id'] ?? '';
 
         // Split the X-Signature into components
         preg_match('/ts=(\d+),v1=(.+)/', $xSignature, $matches);
         $ts = $matches[1] ?? null;
         $v1 = $matches[2] ?? null;
-
-        // Construct the template
-        $data = json_decode($payload, true);
 
         // Create the manifest string
         $manifest = "id:$dataID;request-id:$xRequestId;ts:$ts;";
