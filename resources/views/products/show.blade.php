@@ -202,7 +202,7 @@
                         @foreach ($item->images as $image)
                             @if (!$image->is_active)
                                 <li class="glide__slide">
-                                    <img class="w-full h-64 lg:h-96 object-cover"
+                                    <img class="w-full h-64 lg:h-[240px] object-cover"
                                         src="{{ url(Storage::url($image->url)) }}" alt="">
                                 </li>
                             @endif
