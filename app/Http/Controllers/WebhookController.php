@@ -19,6 +19,7 @@ class WebhookController extends Controller
         $secretKey = config('app.mp_notification_secret'); // Store your webhook secret in your .env file
 
         $queryParams = $request->query();
+        Log::info('query params', ['Query Params' => $queryParams]);
 
         // Extract "data.id" from query params
         $data = json_decode($payload, true);
