@@ -11,7 +11,7 @@ class WebhookController extends Controller
 {
     public function handle(Request $request)
     {
-        Log::info('Webhook received');
+        Log::info('Webhook received', ['rawContent' => $request->getContent()]);
         
         $xSignature = $request->header('X-Signature');
         $xRequestId = $request->header('X-Request-ID');
