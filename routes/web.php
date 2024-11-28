@@ -27,6 +27,7 @@ use App\Http\Controllers\ReviewController;
 use App\Livewire\RatingStars;
 use App\Livewire\ShippingCost;
 use App\Http\Controllers\ComprobanteController;
+use App\Http\Controllers\WebhookController;
 
 /* Route::get('/', function () {
     $productItem = ProductItem::first();
@@ -168,6 +169,8 @@ Route::post('/cart/{cartItemId}', [CartController::class, 'updateFromCart'])->na
 Route::post('/cartCombo', [CartController::class, 'addComboToCart'])->name('cart.addCombo');
 Route::delete('/cart/{cartItemId}', [CartController::class, 'removeFromCart'])->name('cart.removeItem');
 Route::delete('/cart', [CartController::class, 'dropCart'])->name('cart.dropCart');
+
+Route::post('/webhooks', [WebhookController::class, 'handle']);
 
 Route::get('/products/show', function () {
     return view('products.show');
