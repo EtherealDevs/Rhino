@@ -1,9 +1,9 @@
-<div class="flex flex-col w-full lg:block justify-center place-content-center bg-transparent">
+<div class="flex flex-col w-full lg:block justify-center place-content-center bg-transparent lg:mb-12">
     <div class="place-content-center w-full lg:w-11/12 translate-x-0 translate-y-0 lg:translate-x-2 lg:translate-y-2 rounded-none lg:rounded-3xl bg-slate-900/30"
         id="cart">
         <div class="rounded-none lg:rounded-3xl w-full bg-gradient-to-b from-[#343678] to-[#273053]">
             <div
-                class="flex flex-col w-full rounded-lg shadow-lg px-4 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-20 justify-between">
+                class="flex flex-col w-full rounded-lg shadow-lg px-2 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-20 justify-between">
                 <div class="w-full max-w-md flex flex-col mx-auto text-center bg-white rounded-xl h-[470px]"
                     x-data="{
                         step: 1,
@@ -188,11 +188,11 @@
                         <h2 class="text-[#2E3366] text-3xl font-bold mb-6">¿Cual será el método de pago? 💰</h2>
                         <div class="radio-section">
                             <div class="radio-list">
-                                
+
                                 <h1>Seleccionemoslo aquí 👇🏼</h1>
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
-                                    
+
                                     <input wire:model.live="payment" type="radio" id="mercado_pago" name="paymentMethod"
                                         x-model="paymentMethod" value="mercado_pago" />
                                     <label class="text-white" for="mercado_pago">Mercado Pago</label><small class="text-gray-400">6% de recargo</small>
