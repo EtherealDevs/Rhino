@@ -21,7 +21,7 @@ class WebhookController extends Controller
         $queryParams = $request->query();
 
         // Extract "data.id" from query params
-        $dataID = $queryParams['data.id'] ?? '';
+        $dataID = $data['id'] ?? '';
 
         // Split the X-Signature into components
         preg_match('/ts=(\d+),v1=(.+)/', $xSignature, $matches);
@@ -40,13 +40,13 @@ class WebhookController extends Controller
         // Verify the HMAC signature
         if ($sha === $v1) {
             // HMAC verification passed
-            Log::info("Webhook HMAC verification passed for data ID: $dataID");
+            Log::info("Webhook HMAC verification passed for data ID: $dataID", [$v1, $sha, $manifest, $data]);
 
             // Handle the webhook data as needed (e.g., process payment)
             return response()->json(['message' => 'Webhook processed successfully'], 200);
         } else {
             // HMAC verification failed
-            Log::warning("Webhook HMAC verification failed for data ID: $dataID");
+            Log::warning("Webhook HMAC verification failed for data ID: $dataID", [$v1, $sha, $manifest, $data]);
 
             return response()->json(['error' => 'HMAC verification failed'], 401);
         }
