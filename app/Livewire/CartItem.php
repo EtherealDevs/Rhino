@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductItem;
+use App\Models\ProductSize;
+use App\Models\Size;
 use Livewire\Component;
 
 class CartItem extends Component
@@ -24,7 +26,8 @@ class CartItem extends Component
         $this->cartItem = $this->productItem;
         $this->quantity = $cartItem->quantity;
         $this->size = $cartItem->size;
-        $this->itemVariation = $this->productItem->getItemPivotModel($cartItem->size);
+        $size_id = Size::where('name', '=', $this->size)->first()->id;
+        $this->itemVariation = ProductSize::where('product_item_id', $$cartItem->item_id)->where('size_id', $size_id)->first();;
         $this->product = $this->productItem->product;
         $this->images = $this->productItem->images;
     }

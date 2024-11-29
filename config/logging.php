@@ -51,7 +51,11 @@ return [
     */
 
     'channels' => [
-
+        'webhook' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/webhook.log'),
+            'level' => 'debug',
+        ],
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', env('LOG_STACK', 'single')),
