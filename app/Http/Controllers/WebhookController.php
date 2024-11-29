@@ -23,7 +23,7 @@ class WebhookController extends Controller
         Log::channel('webhook')->info('query params', ['Query Params' => $queryParams]);
 
         // Extract the "data.id" from the query params
-        $dataID = isset($queryParams['data.id']) ? $queryParams['data.id'] : '';
+        $dataID = isset($queryParams['data_id']) ? $queryParams['data_id'] : '';
         $data = json_decode($payload, true);
 
         // Split the X-Signature into components
