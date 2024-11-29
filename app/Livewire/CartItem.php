@@ -26,8 +26,7 @@ class CartItem extends Component
         $this->cartItem = $this->productItem;
         $this->quantity = $cartItem->quantity;
         $this->size = $cartItem->size;
-        $size_id = Size::where('name', '=', $this->size)->first()->id;
-        $this->itemVariation = ProductSize::where('product_item_id', $$cartItem->item_id)->where('size_id', $size_id)->first();;
+        $this->itemVariation = $this->productItem->getItemPivotModel($cartItem->size);
         $this->product = $this->productItem->product;
         $this->images = $this->productItem->images;
     }
