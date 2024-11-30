@@ -11,7 +11,7 @@ class WebhookController extends Controller
 {
     public function handle(Request $request)
     {
-        Log::channel('webhook')->info('Webhook received', ['rawContent' => $request->getContent()]);
+        Log::channel('webhook')->info('Webhook received', ['all' => json_encode($request->all())]);
         
         $xSignature = $request->header('X-Signature');
         $xRequestId = $request->header('X-Request-ID');
@@ -39,14 +39,33 @@ class WebhookController extends Controller
 
         // Verify the HMAC signature
         if ($sha === $v1) {
-            // HMAC verification passed
-            Log::channel('webhook')->info("Webhook HMAC verification passed for data ID: $dataID", [$v1, $sha, $manifest, $data]);
+            Log::channel('webhook')->info("Webhook verification passed", ['data_id' => $dataID]);
 
-            // Handle the webhook data as needed (e.g., process payment)
-            return response()->json(['message' => 'Webhook processed successfully'], 200);
+            // Process the webhook data
+            $data = json_decode($payload, true);
+            if ($dataID) {
+                // Example: Save the order to the database
+                // $this->processOrder($dataID, $data);
+                Log::channel('webhook')->info("Order processed successfully for data ID: $dataID");
+
+                return response()->json(['message' => 'Webhook processed successfully',
+                    'received_hash' => $v1,
+                    'generated_hash' => $sha,
+                    'manifest' => $manifest,
+                    'data' => $data
+                ], 200);
+            } else {
+                Log::channel('webhook')->warning("Missing data ID in webhook");
+                return response()->json(['error' => 'Missing data ID'], 400);
+            }
         } else {
             // HMAC verification failed
-            Log::channel('webhook')->warning("Webhook HMAC verification failed for data ID: $dataID", [$v1, $sha, $manifest, $data]);
+            Log::channel('webhook')->warning("Webhook verification failed", [
+                'received_hash' => $v1,
+                'generated_hash' => $sha,
+                'manifest' => $manifest,
+                'data' => $data
+            ]);
 
             return response()->json(['error' => 'HMAC verification failed'], 401);
         }
