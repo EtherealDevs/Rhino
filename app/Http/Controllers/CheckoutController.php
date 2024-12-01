@@ -169,7 +169,6 @@ class CheckoutController extends Controller
                     "cost" => $shippingCosts
                 ],
                 "external_reference" => "wallet",
-                'notification_url' => "$appUrl/webhooks",
                 "back_urls" => [
                     "success" => "{$appUrl}/orders",
                     "failure" => "{$appUrl}/payment/failure",
