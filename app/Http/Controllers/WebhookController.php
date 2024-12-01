@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\WebhookService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use MercadoPago\Client\Payment\PaymentClient;
@@ -39,25 +40,21 @@ class WebhookController extends Controller
 
         // Verify the HMAC signature
         if ($sha === $v1) {
+            // HMAC verification passed
             Log::channel('webhook')->info("Webhook verification passed", ['data_id' => $dataID]);
+
+            // Send a response to the webhook to confirm the delivery
+            response()->json([], 200)->send();
+            fastcgi_finish_request();
 
             // Process the webhook data
             $data = json_decode($payload, true);
-            if ($dataID) {
+                $webhookService = new WebhookService();
                 // Example: Save the order to the database
-                // $this->processOrder($dataID, $data);
+                $order = $webhookService->handleWebhookOrders($data->id, $data);
                 Log::channel('webhook')->info("Order processed successfully for data ID: $dataID");
 
-                return response()->json(['message' => 'Webhook processed successfully',
-                    'received_hash' => $v1,
-                    'generated_hash' => $sha,
-                    'manifest' => $manifest,
-                    'data' => $data
-                ], 200);
-            } else {
-                Log::channel('webhook')->warning("Missing data ID in webhook");
-                return response()->json(['error' => 'Missing data ID'], 400);
-            }
+                return redirect()->route('orders.show', ['id' => $order->id]);
         } else {
             // HMAC verification failed
             Log::channel('webhook')->warning("Webhook verification failed", [
@@ -67,7 +64,7 @@ class WebhookController extends Controller
                 'data' => $data
             ]);
 
-            return response()->json(['error' => 'HMAC verification failed'], 401);
+            return response()->json(['error' => 'HMAC verification failed'], 401)->send();
         }
     }
 }

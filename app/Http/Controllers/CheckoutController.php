@@ -168,7 +168,7 @@ class CheckoutController extends Controller
                 "shipments" => [
                     "cost" => $shippingCosts
                 ],
-                "external_reference" => "wallet",
+                "external_reference" => "wallet-{$address->id}-{$sucursal['IdCentroImposicion']}-{$sucursal['CodigoPostal']}",
                 "back_urls" => [
                     "success" => "{$appUrl}/orders",
                     "failure" => "{$appUrl}/payment/failure",
