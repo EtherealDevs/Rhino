@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Address;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Resources\Payment;
@@ -23,6 +24,9 @@ class WebhookService {
             $payment = $client->get($id);
     
             if ($payment->status != "approved") {
+                return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+            }
+            if (Order::where('mp_order_id', '=', $payment->id)->exists()) {
                 return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
             }
             $order = null;
