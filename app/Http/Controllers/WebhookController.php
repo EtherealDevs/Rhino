@@ -45,7 +45,8 @@ class WebhookController extends Controller
 
             // Send a response to the webhook to confirm the delivery
             response()->json([], 200)->send();
-            fastcgi_finish_request();
+            $finishRequest = fastcgi_finish_request();
+            Log::channel('webhook')->info("Finish request?: {$finishRequest}", ['data_id' => $dataID]);
 
             // Process the webhook data
             $data = json_decode($payload, true);
