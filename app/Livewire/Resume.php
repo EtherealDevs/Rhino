@@ -89,7 +89,7 @@ class Resume extends Component
             $this->payment = $payment;
             
             if ($this->payment == "transferencia" && $this->total != 0) {
-                $this->total -= $this->total * 0.06;
+                $this->total -= $this->total * ($this->discount / 100);
             }
         }
     }
@@ -98,7 +98,7 @@ class Resume extends Component
     {
         $this->payment = $payment;
             if ($this->payment == "transferencia" && $this->total != 0) {
-                $this->total -= $this->total * 0.06;
+                $this->total -= $this->total * ($this->discount / 100);
             }
             else if ($this->payment == "mercado_pago")
             {
