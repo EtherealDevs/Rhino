@@ -60,11 +60,11 @@ class WebhookService {
             
             if ($payment->status != "approved") {
                 Log::channel('webhook')->info('Payment status is not "approved" ', ['payment' => $payment, 'payment_status' => $payment->status]);
-                return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+                return response()->json([], 400)->send();
             }
             if (Order::where('mp_order_id', '=', $payment->id)->exists()) {
                 Log::channel('webhook')->info('Payment already exists', ['payment' => $payment, 'order_id' => Order::where('mp_order_id', '=', $payment->id)->first()->id ]);
-                return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+                return response()->json([], 400)->send();
             }
             $order = null;
 
