@@ -310,7 +310,7 @@ class CheckoutController extends Controller
                 $order = $orderService->createSucursalOrder($payment, $user, $sucursal, (float)$request->delivery_price);
                 break;
                 case 'retiro':
-                    $order = $orderService->createRetiroOrder($payment, $user, (float)$request->delivery_price);
+                    $order = $orderService->createRetiroOrder($payment, $user);
                     break;
         }
 
