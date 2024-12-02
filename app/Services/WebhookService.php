@@ -22,7 +22,11 @@ class WebhookService {
     
             $client = new PaymentClient();
             $id = $paymentId;
-            $payment = $client->get($id);
+            try {
+                $payment = $client->get($id);
+            } catch (\Throwable $th) {
+                dd($th);
+            }
     
             Log::channel('webhook')->info('Get payment from MP API', ['payment' => $payment, 'user' => $user]);
             if ($payment->status != "approved") {
