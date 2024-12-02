@@ -19,6 +19,7 @@ use App\Services\CartService;
 use App\Services\ShippingService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Models\TransferInfo;
 
 class CheckoutConfig extends Component
 {
@@ -181,6 +182,7 @@ class CheckoutConfig extends Component
 
     public function render()
     {
-        return view('livewire.checkout-config', ['zip_code' => $this->zip_code]);
+        $transferInfo = TransferInfo::first();
+        return view('livewire.checkout-config', compact('transferInfo'), ['zip_code' => $this->zip_code]);
     }
 }

@@ -195,14 +195,17 @@
 
                                     <input wire:model.live="payment" type="radio" id="mercado_pago" name="paymentMethod"
                                         x-model="paymentMethod" value="mercado_pago" />
-                                    <label class="text-white" for="mercado_pago">Mercado Pago</label><small class="text-gray-400">6% de recargo</small>
+                                    <label class="text-white" for="mercado_pago">Mercado Pago</label>
                                 </div>
 
                                 <!-- Radio Button Transferencia -->
                                 <div class="radio-item">
                                     <input wire:model.live="payment" type="radio" id="transferencia" name="paymentMethod"
                                         x-model="paymentMethod" value="transferencia" />
-                                    <label class="text-white" for="transferencia">Transferencia</label>
+                                    <label class="text-white" for="transferencia">
+                                        <p class="">Transferencia</p>
+                                        <small class="text-green-400 text-xs">{{ $transferInfo->discount }}% de Descuento</small>
+                                    </label>
                                 </div>
                             </div>
                         </div>
