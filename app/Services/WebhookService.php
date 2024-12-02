@@ -72,14 +72,14 @@ class WebhookService {
 
             if ($wallet != "wallet") {
                 Log::channel('webhook')->info('Payment is not coming from "wallet" ', ['wallet' => $wallet]);
-                return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+                return response()->json([], 400)->send();
             }
             if ($addressId != null) {
                 Log::channel('webhook')->info('AddressId is not null', ['address_id' => $addressId]);
                 $address = Address::find($addressId);
                 if ($address == null) {
                     Log::channel('webhook')->info('Address model is null', ['adress' => $address]);
-                    return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+                    return response()->json([], 400)->send();
                 }
                 if ($address->name === "rino" && $address->user_id === 12)
                 {
@@ -100,7 +100,7 @@ class WebhookService {
                         $sucursal = $sucursalesCollection->firstWhere('IdCentroImposicion', '=', $sucursalId);
                         if ($sucursal == null) {
                             Log::channel('webhook')->info('Sucursal is null', ['sucursal' => $sucursal]);
-                            return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
+                            return response()->json([], 400)->send();
                         }
                 }
             }
