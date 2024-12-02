@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use MercadoPago\Client\Payment\PaymentClient;
 use Illuminate\Support\Facades\Log;
@@ -19,11 +20,8 @@ class WebhookService {
         Log::channel('webhook')->info('Creating Order', ['paymentId' => $paymentId, 'data' => $data]);
         $shippingService = new ShippingService();
         $orderService = new OrderService();
-    
-    
-            $user = Auth::user();
-    
-            $client = new PaymentClient();
+
+        $client = new PaymentClient();
             $id = $paymentId;
             try {
                 $payment = $client->get($id);
@@ -41,8 +39,25 @@ class WebhookService {
                 ]);
                 dd($e);
             }
-    
-            Log::channel('webhook')->info('Get payment from MP API', ['payment' => $payment, 'user' => $user]);
+            Log::channel('webhook')->info('Get payment from MP API', ['payment' => $payment]);
+
+         // Wallet|other - address ID - Sucursal IdCentroImposicion - Sucursal CodigoPostal - User
+         $dataArray = explode('-', $payment->external_reference);
+         $wallet = $dataArray[0];
+         $addressId = $dataArray[1];
+         $sucursalId = $dataArray[2];
+         $zipCode = $dataArray[3];
+         $userId = $dataArray[4];
+
+         
+         Log::channel('webhook')->info('Turning data from external_reference into array', ['data_array' => $dataArray, 'wallet' => $wallet, 'address_id' => $addressId, 'sucursal_id' => $sucursalId, 'zip_code' => $zipCode, 'user_id' => $userId]);
+         
+         $user = User::find($userId);
+         if ($user == null) {
+            Log::channel('webhook')->error('User does not exist');
+            return response()->json([], 400)->send();
+         }
+            
             if ($payment->status != "approved") {
                 Log::channel('webhook')->info('Payment status is not "approved" ', ['payment' => $payment, 'payment_status' => $payment->status]);
                 return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
@@ -52,15 +67,6 @@ class WebhookService {
                 return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
             }
             $order = null;
-    
-            // Wallet|other - address ID - Sucursal IdCentroImposicion - Sucursal CodigoPostal
-            $dataArray = explode('-', $payment->external_reference);
-            $wallet = $dataArray[0];
-            $addressId = $dataArray[1];
-            $sucursalId = $dataArray[2];
-            $zipCode = $dataArray[3];
-
-            Log::channel('webhook')->info('Turning data from external_reference into array', ['data_array' => $dataArray, 'wallet' => $wallet, 'address_id' => $addressId, 'sucursal_id' => $sucursalId, 'zip_code' => $zipCode]);
 
             $selectedMethod = null;
 
