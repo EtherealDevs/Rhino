@@ -44,9 +44,9 @@ class WebhookController extends Controller
             Log::channel('webhook')->info("Webhook verification passed", ['data_id' => $dataID]);
 
             // Send a response to the webhook to confirm the delivery
-            response()->json([], 200)->send();
-            $finishRequest = fastcgi_finish_request();
-            Log::channel('webhook')->info("Finish request?: {$finishRequest}", ['data_id' => $dataID]);
+            
+            // $finishRequest = fastcgi_finish_request();
+            // Log::channel('webhook')->info("Finish request?: {$finishRequest}", ['data_id' => $dataID]);
 
             // Process the webhook data
             $data = json_decode($payload, true);
@@ -55,6 +55,7 @@ class WebhookController extends Controller
                 $order = $webhookService->handleWebhookOrders($data->id, $data);
                 Log::channel('webhook')->info("Order processed successfully for data ID: $dataID");
 
+                response()->json([], 200)->send();
                 return redirect()->route('orders.show', ['id' => $order->id]);
         } else {
             // HMAC verification failed
@@ -65,7 +66,7 @@ class WebhookController extends Controller
                 'data' => $data
             ]);
 
-            return response()->json(['error' => 'HMAC verification failed'], 401);
+            return response()->json(['error' => 'HMAC verification failed'], 401)->send();
         }
     }
 }
