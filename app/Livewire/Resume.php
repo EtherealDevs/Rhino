@@ -9,6 +9,7 @@ use Livewire\Attributes\Reactive;
 
 use App\Http\Validators\AddressValidator;
 use App\Models\Province as ModelsProvince;
+use App\Models\TransferInfo;
 use App\Models\ZipCode as ModelsZipCode;
 use App\Rules\Province;
 use App\Rules\ZipCode;
@@ -33,6 +34,7 @@ class Resume extends Component
     public $sucursal = null;
     public $cities = [];
 
+    public $discount = null;
     public $itemCount;
 
     public $city;
@@ -63,6 +65,7 @@ class Resume extends Component
 
     public function mount($zip_code, $province = null, $city = null, $selectedMethod = null, $payment = null)
     {
+        $this->discount = TransferInfo::first()->discount;
         // Carga de dirección de usuario
         $addressValidator = new AddressValidator();
 
@@ -84,6 +87,7 @@ class Resume extends Component
         }
         if ($payment != null) {
             $this->payment = $payment;
+            
             if ($this->payment == "transferencia" && $this->total != 0) {
                 $this->total -= $this->total * 0.06;
             }
