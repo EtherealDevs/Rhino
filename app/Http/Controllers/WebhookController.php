@@ -52,11 +52,10 @@ class WebhookController extends Controller
             $data = json_decode($payload, true);
                 $webhookService = new WebhookService();
                 // Example: Save the order to the database
-                $order = $webhookService->handleWebhookOrders($data->id, $data);
+                $order = $webhookService->handleWebhookOrders($data['id'], $data);
                 Log::channel('webhook')->info("Order processed successfully for data ID: $dataID");
 
-                response()->json([], 200)->send();
-                return redirect()->route('orders.show', ['id' => $order->id]);
+                return response()->json([], 200)->send();
         } else {
             // HMAC verification failed
             Log::channel('webhook')->warning("Webhook verification failed", [
