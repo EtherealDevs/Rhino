@@ -65,7 +65,7 @@ class WebhookController extends Controller
                 'data' => $data
             ]);
 
-            return response()->json(['error' => 'HMAC verification failed'], 401)->send();
+            return response()->json(['error' => 'HMAC verification failed'], 401);
         }
     }
 }
