@@ -7,12 +7,15 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use MercadoPago\Client\Payment\PaymentClient;
 use Illuminate\Support\Facades\Log;
+use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Resources\Payment;
 
 class WebhookService {
 
     public function handleWebhookOrders($paymentId, $data)
     {
+        $mpAccessToken = config('app.mp_access_token');
+        MercadoPagoConfig::setAccessToken($mpAccessToken);
         Log::channel('webhook')->info('Creating Order', ['paymentId' => $paymentId, 'data' => $data]);
         $shippingService = new ShippingService();
         $orderService = new OrderService();
