@@ -160,7 +160,7 @@ class CheckoutController extends Controller
         $selectedMethod = $request->selectedMethod;
 
         $sucursalId = null;
-        $sucursalCOdigoPostal = null;
+        $sucursalCodigoPostal = null;
         $addressId = null;
         if ($sucursal != null) {
             $sucursalId = $sucursal['IdCentroImposicion'];
