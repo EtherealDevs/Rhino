@@ -22,13 +22,22 @@
                 <p class="text-lg text-gray-600">
                     <strong class="font-medium">Fecha de Creación:</strong> {{ $order->created_at->format('d-m-Y H:i') }}
                 </p>
+                <p class="text-lg text-gray-600"><strong class="font-medium">Método de Pago:</strong>
+                    <span class="uppercase">
+                        {{ __($order->paymentMethod->payment_method) }}
+                    </span>
+                </p>
+                <p class="text-lg text-gray-600">
+                    <strong class="font-medium">Servicio:</strong>
+                    {{ $order->deliveryService->name }}
+                </p>
             </div>
         </div>
 
         <div class="">
             <!-- Sección de Comprobante y Método de Pago -->
             @if ($order->paymentMethod->id)
-                <div class="w-1/2">
+                <div class="lg:w-3/4 w-full">
                     @if ($order->comprobante)
                         <div class="mt-4 bg-gray-200 p-4 rounded w-full sm:w-auto flex flex-col items-center">
                             <img src="{{ asset('storage/' . $order->comprobante->url) }}"
@@ -149,7 +158,7 @@
 
             <!-- Sección para Pactar Retiro del Pedido -->
             @if ($order->delivery_service_id === 2)
-                <div class="w-1/2 mb-10 mt-12">
+                <div class="w-3/4 mb-10 mt-12">
                     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pactar retiro del pedido</h2>
                     <div class="mt-4">
                         <button onclick="contactRino()"
