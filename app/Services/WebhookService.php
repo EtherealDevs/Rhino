@@ -19,13 +19,12 @@ class WebhookService {
     
     
             $user = Auth::user();
-            $items = $user->cart->contents;
     
             $client = new PaymentClient();
             $id = $paymentId;
             $payment = $client->get($id);
     
-            Log::channel('webhook')->info('Get payment from MP API', ['payment' => $payment]);
+            Log::channel('webhook')->info('Get payment from MP API', ['payment' => $payment, 'user' => $user]);
             if ($payment->status != "approved") {
                 Log::channel('webhook')->info('Payment status is not "approved" ', ['payment' => $payment, 'payment_status' => $payment->status]);
                 return redirect()->route('payment.failure', ['payment_id' => $payment->id]);
