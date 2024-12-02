@@ -24,7 +24,7 @@ class WebhookService {
             $id = $paymentId;
             try {
                 $payment = $client->get($id);
-            } catch (\Throwable $th) {
+            } catch (\MercadoPago\Exceptions\MPApiException $th) {
                 Log::channel('webhook')->error('Error getting payment from MP API', ['payment_id' => $paymentId, 'error' => json_decode($th)]);
                 dd($th);
             }
