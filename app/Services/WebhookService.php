@@ -25,6 +25,7 @@ class WebhookService {
             try {
                 $payment = $client->get($id);
             } catch (\Throwable $th) {
+                Log::channel('webhook')->error('Error getting payment from MP API', ['payment_id' => $paymentId, 'error' => $th]);
                 dd($th);
             }
     
