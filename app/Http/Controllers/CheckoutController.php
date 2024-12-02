@@ -159,6 +159,15 @@ class CheckoutController extends Controller
         $appUrl = config('app.url');
         $selectedMethod = $request->selectedMethod;
 
+        $sucursalId = null;
+        $sucursalCOdigoPostal = null;
+        $addressId = null;
+        if ($sucursal != null) {
+            $sucursalId = $sucursal['IdCentroImposicion'];
+            $sucursalCodigoPostal = $sucursal['IdCentroImposicion'];
+        }
+        $address == null ? null : $addressId = $address->id;
+
         // MercadoPago Client and Preference initialization
         $client = new PreferenceClient();
         try {
@@ -168,7 +177,7 @@ class CheckoutController extends Controller
                 "shipments" => [
                     "cost" => $shippingCosts
                 ],
-                "external_reference" => "wallet-{$address->id}-{$sucursal['IdCentroImposicion']}-{$sucursal['CodigoPostal']}",
+                "external_reference" => "wallet-{$addressId}-{$sucursalId}-{$sucursalCodigoPostal}",
                 "back_urls" => [
                     "success" => "{$appUrl}/orders",
                     "failure" => "{$appUrl}/payment/failure",
