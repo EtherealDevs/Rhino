@@ -100,17 +100,18 @@
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/3.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
+                                            alt="..."
+                                            loading="lazy">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/4.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="Banner de tienda física">
+                                            alt="Banner de tienda física" loading="lazy">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/5.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
+                                            alt="..." loading="lazy">
                                         <!-- Botón que redirige a Google Maps -->
                                         <div
                                             class="absolute bottom-10 z-50 left-1/2 transform -translate-y-3/4 -translate-x-1/2">
@@ -136,12 +137,12 @@
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/4.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
+                                            alt="..." loading="lazy">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/6.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
+                                            alt="..." loading="lazy">
                                     </div>
                                 </div>
                                 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
