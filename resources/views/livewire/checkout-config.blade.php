@@ -193,18 +193,19 @@
                                 <!-- Radio Button Mercado Pago -->
                                 <div class="radio-item">
 
-                                    <input wire:model.live="payment" type="radio" id="mercado_pago" name="paymentMethod"
-                                        x-model="paymentMethod" value="mercado_pago" />
+                                    <input wire:model.live="payment" type="radio" id="mercado_pago"
+                                        name="paymentMethod" x-model="paymentMethod" value="mercado_pago" />
                                     <label class="text-white" for="mercado_pago">Mercado Pago</label>
                                 </div>
 
                                 <!-- Radio Button Transferencia -->
                                 <div class="radio-item">
-                                    <input wire:model.live="payment" type="radio" id="transferencia" name="paymentMethod"
-                                        x-model="paymentMethod" value="transferencia" />
+                                    <input wire:model.live="payment" type="radio" id="transferencia"
+                                        name="paymentMethod" x-model="paymentMethod" value="transferencia" />
                                     <label class="text-white" for="transferencia">
                                         <p class="">Transferencia</p>
-                                        <small class="text-green-400 text-xs">{{ $transferInfo->discount }}% de Descuento</small>
+                                        <small class="text-green-400 text-xs">{{ $transferInfo->discount }}% de
+                                            Descuento</small>
                                     </label>
                                 </div>
                             </div>
@@ -259,14 +260,15 @@
 
                         <!-- Botón para realizar la compra -->
                         <button wire:click="save"
-                            class="w-full bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 shadow-lg mt-auto bottom-4">
-                            <a :href="" class="flex items-center justify-center">
-                                <p class="text-white text-lg font-semibold font-josefin">
+                            class="w-full min-w-[200px] py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 mt-auto bottom-4">
+                            <a :href="" class="flex items-center justify-center h-full">
+                                <p class="text-white text-lg font-semibold font-josefin text-center px-4">
                                     <span
-                                        x-text="paymentMethod === 'transferencia' ? 'Rellenemos Informacion de Envio' : '🛒 Confirmar y pagar con Mercado Pago'"></span>
+                                        x-text="paymentMethod === 'transferencia' ? 'Hacer Pedido 💨' : '🛒 Confirmar y pagar con Mercado Pago'"></span>
                                 </p>
                             </a>
                         </button>
+
                     </div>
                 </div>
             </div>
