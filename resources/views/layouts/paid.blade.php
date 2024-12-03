@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <header>
+    {{-- <header>
         <div class="sticky top-0 min-h-full z-50">
             <nav class="bg-white z-10 h-18 drop-shadow-xl">
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -35,7 +35,7 @@
                 </div>
             </nav>
         </div>
-    </header>
+    </header> --}}
     <main>
         <div class="font-sans text-gray-900 antialiased">
             @yield('content')

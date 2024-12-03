@@ -25,8 +25,18 @@
                                         <div class="mt-4 mr-auto mb-4 ml-auto  max-w-lg">
                                             <div class="flex flex-col items-center pt-6 pr-6 pb-6 pl-6">
                                                 <div class="relative inline-block">
-                                                    <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
-                                                        class="flex-shrink-0 object-cover object-center w-16 h-16 border border-red-500 rounded-full shadow-xl">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
+                                                        viewBox="0 0 24 24"
+                                                        class="flex-shrink-0 w-16 h-16 border border-red-500 rounded-full shadow-xl"
+                                                        fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                                                        <g>
+                                                            <path
+                                                                d="M3.47 4q-.17.129-.322.282C2 5.446 2 7.32 2 11.066v1.987c0 3.746 0 5.62 1.148 6.783C4.297 21 6.145 21 9.841 21h5.881c2.092 0 3.395 0 4.278-.375M18.865 14.5c.087-.215.135-.452.135-.7c0-.994-.77-1.8-1.719-1.8c-.281 0-.546.07-.78.196" />
+                                                            <path
+                                                                d="M18 7c0-.93 0-1.395-.102-1.776a3 3 0 0 0-2.121-2.122C15.395 3 14.93 3 14 3h-4c-.946 0-1.773 0-2.5.018M11.243 7H16c2.828 0 4.243 0 5.121.879C22 8.757 22 10.172 22 13v2c0 .996 0 1.816-.038 2.5M2 2l20 20" />
+                                                        </g>
+                                                    </svg>
                                                     <span
                                                         class="absolute bottom-0 right-0 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center">
                                                         <!-- Ícono de "X" -->
@@ -40,9 +50,8 @@
                                                 </div>
                                                 <p
                                                     class="mt-8 text-2xl font-semibold leading-none text-slate-950 tracking-tighter lg:text-3xl">
-                                                    El pago fue exitoso</p>
-                                                <div class="w-full lg:w-2/3 xl:w-1/2 p-6 bg-white shadow-xl rounded-xl">
-                                                    <!-- Aquí empieza la información del pago -->
+                                                    El pago fue Rechazado</p>
+
                                                     <div
                                                         class="p-6 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-md">
                                                         <div class="flex items-center mb-4">
@@ -98,7 +107,7 @@
 
                                                             <!-- Monto -->
                                                             <p><strong>Monto:</strong>
-                                                                ${{ number_format($payment->transaction_amount / 100, 2, ',', '.') }}
+                                                                ${{ $payment->transaction_amount }}
                                                             </p>
 
                                                             <!-- Fechas -->
@@ -165,6 +174,8 @@
                                                             </p>
                                                         </div>
                                                     </div>
+                                                    <!-- Aquí empieza la información del pago -->
+
                                                     <div class="mt-6 text-center">
                                                         <a href="/"
                                                             class="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-md transition duration-150">
@@ -176,14 +187,7 @@
                                                             </svg>
                                                             <span>Volver a Inicio</span>
                                                         </a>
-                                                    </div>
                                                     <!-- Fin de la información del pago -->
-                                                </div>
-                                                <div class="w-full mt-6">
-                                                    <a href="{{ url('/') }}"
-                                                        class="flex text-center items-center justify-center w-full pt-4 pr-10 pb-4 pl-10 text-base
-                                                        font-medium text-white bg-indigo-600 rounded-xl transition duration-500 ease-in-out transform hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Seguir
-                                                        comprando</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,18 +196,6 @@
                             </div>
                         </div>
                     </div>
-                    <a href="https://wa.me/c/5493794316606">
-                        <button class="p-2 px-2 bg-green-500 text-black rounded-2xl flex items-center space-x-2">
-                            <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
-                                    fill="#FFFFFF" />
-                            </svg>
-                            <p class="font-bold text-white">Ver Catalogo de Whatsapp</p>
-                        </button>
-                    </a>
-
                 </div>
             </div>
             <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
