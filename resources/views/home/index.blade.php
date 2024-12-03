@@ -307,7 +307,7 @@
                         </p>
                     </div>
                     <div class="flex justify-start p-4 mb-12">
-                        <p class="text-center mt-6 text-xl mx-8 font-josefin py-2 px-4 rounded-full shadow-lg">
+                        <p class="text-center mt-6 text-xl mx-8 font-josefin py-2 px-4">
                             Disponibles por tiempo limitado. No dejes pasar esta oportunidad de ahorrar y disfrutar de la
                             mejor
                             calidad al mejor precio.
