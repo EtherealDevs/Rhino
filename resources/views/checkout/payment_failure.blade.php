@@ -28,8 +28,8 @@
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
                                                         viewBox="0 0 24 24"
                                                         class="flex-shrink-0 w-16 h-16 border border-red-500 rounded-full shadow-xl"
-                                                        fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                                                        fill="none" stroke="red" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="1.5" color="red">
                                                         <g>
                                                             <path
                                                                 d="M3.47 4q-.17.129-.322.282C2 5.446 2 7.32 2 11.066v1.987c0 3.746 0 5.62 1.148 6.783C4.297 21 6.145 21 9.841 21h5.881c2.092 0 3.395 0 4.278-.375M18.865 14.5c.087-.215.135-.452.135-.7c0-.994-.77-1.8-1.719-1.8c-.281 0-.546.07-.78.196" />
