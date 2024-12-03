@@ -19,7 +19,7 @@
                             <div class="bg-gray-500 transition-opacity bg-opacity-75"></div>
                             <span class="hidden sm:inline-block sm:align-middle sm:h-screen">​</span>
                             <div
-                                class= "inline-block text-left bg-slate-50 rounded-lg overflow-hidden align-bottom transition-all transform shadow-2xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+                                class= "inline-block text-left backdrop-blur-lg rounded-lg overflow-hidden align-bottom transition-all transform shadow-2xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
                                 <div class="items-center w-full mr-auto ml-auto relative max-w-7xl md:px-12 lg:px-24">
                                     <div class="grid grid-cols-1">
                                         <div class="mt-4 mr-auto mb-4 ml-auto  max-w-lg">
@@ -27,7 +27,7 @@
                                                 <div class="relative inline-block">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
                                                         viewBox="0 0 24 24"
-                                                        class="flex-shrink-0 w-16 h-16 p-6 border border-red-500 rounded-full shadow-xl"
+                                                        class="flex-shrink-0 w-16 h-16 p-2 border border-red-500 rounded-full shadow-xl"
                                                         fill="none" stroke="red" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="1.5" color="red">
                                                         <g>
