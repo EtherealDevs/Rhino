@@ -16,9 +16,43 @@
                     {{-- Seccion de Bienvenida --}}
                     <div class="col-span-2 px-8 mb-6 my-24 lg:mb-0 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
                         <div class="text-center">
-                            <h1 class="text-4xl lg:text-5xl font-extrabold font-josefin text-white mb-4">
+                            <h1 class="neon-text text-4xl lg:text-5xl font-extrabold font-josefin text-white mb-4">
                                 Bienvenido a
                             </h1>
+                            <style>
+                                .neon-text {
+                                    position: relative;
+                                    color: white;
+                                    text-shadow:
+                                        0 0 5px rgb(46, 61, 221),
+                                        /* Color cercano */
+                                        0 0 10px rgb(21, 87, 255),
+                                        /* Resplandor leve */
+                                        0 0 20px #0ff,
+                                        /* Resplandor intermedio */
+                                        0 0 40px #00f,
+                                        /* Resplandor fuerte */
+                                        0 0 80px #00f;
+                                    /* Resplandor extendido */
+                                    font-family: 'Josefin Sans', sans-serif;
+                                    /* Asegúrate de cargar esta fuente */
+                                }
+
+                                /* Efecto adicional al contenedor */
+                                .neon-text::after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: rgba(0, 255, 255, 0.1);
+                                    /* Sutil brillo alrededor */
+                                    filter: blur(10px);
+                                    z-index: -1;
+                                    border-radius: 5px;
+                                }
+                            </style>
 
                             <img class="mx-auto rounded-xl shadow-lg lg:w-3/4 w-full mt-6" src="/img/rino.webp"
                                 alt="Your Company" width="600" height="400">
@@ -191,7 +225,7 @@
                 <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
-                            <p class="text-4xl pb-8 italic font-bold font-josefin mr-6 text-white">
+                            <p class="neon-text text-4xl pb-8 italic font-bold font-josefin mr-6 text-white">
                                 Nuevos Ingresos
                             </p>
                         </div>
@@ -262,13 +296,13 @@
                 <!-- Video con efecto de zoom controlado -->
                 <video autoplay muted loop playsinline
                     class="absolute inset-0 w-full h-full object-cover transform scale-125 rounded-none lg:rounded-3xl">
-                    <source src="/img/nigga.mp4" type="video/mp4">
+                    <source src="/img/Rino.mp4" type="video/mp4">
                 </video>
 
                 <!-- Contenido superpuesto -->
                 <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl mb-8">
                     <div class="flex justify-center">
-                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-blue-100 tracking-wide">
+                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-blue-100 tracking-wide neon-text">
                             ¡No Dejes Pasar Nuestras Ofertas Exclusivas!
                         </p>
                     </div>
