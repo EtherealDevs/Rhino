@@ -27,7 +27,7 @@
                                                 <div class="relative inline-block">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
                                                         viewBox="0 0 24 24"
-                                                        class="flex-shrink-0 w-16 h-16 border border-red-500 rounded-full shadow-xl"
+                                                        class="flex-shrink-0 w-16 h-16 p-6 border border-red-500 rounded-full shadow-xl"
                                                         fill="none" stroke="red" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="1.5" color="red">
                                                         <g>
