@@ -21,8 +21,7 @@ class CartCombo
         $this->max_stock = $combo->getMaximumAddableAmount();
         $items = collect();
         foreach ($sizes as $key => $value) {
-            $size_id = $value;
-            dd($key);
+            $size_id = Size::where('name', $value)->first()->id;
             $item_variation_id = DB::table('products_sizes')->where('product_item_id', $key)->where('size_id', $size_id)->first()->id;
             $items->put("item$item_variation_id", ['item_id' => $key, 'variation_id' => $item_variation_id, 'size' => $value]);
         }

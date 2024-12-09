@@ -17,7 +17,7 @@
                             {{ $product->items->first()->color->name }} </span>
                     </div>
                     <div class="text-sm text-slate-500">
-                        <select name="size" wire:model.change='size_id' id=""
+                        <select name="size" wire:model.change='size' id=""
                             class="block py-2.5 px-6 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                             <option class="my-2 bg-black" value="">Select Size</option>
                             @foreach ($product->items->first()->sizes as $size)
@@ -25,9 +25,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <input type="text" class="hidden" name="sizes[]"
-                        value=" {{ $size->id }}">
-                    <a href="{{ route('products.show', ['product' => $product, 'productItem' => $productItem]) }}">
+                    <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}">
                         <p
                             class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center mt-2">
                             Ver Producto →

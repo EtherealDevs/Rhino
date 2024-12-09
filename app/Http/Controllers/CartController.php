@@ -123,22 +123,24 @@ class CartController extends Controller
     public function addComboToCart(Request $request)
     {
         $comboIds = Combo::getAllComboIds();
+        $request->validate([
+            'comboId' => ['required', 'numeric', Rule::in($comboIds)]
+        ]);
+        $combo = Combo::where('id', $request->comboId)->first();
 
-        $sizesToValidate = $request->sizes;
+        $sizesToValidate = json_decode($request->sizes, true);
         $availableSizes = Size::getSizesNames();
         $rules = [
             'sizes.*' => Rule::in($availableSizes),
         ];
         $validator = Validator::make($sizesToValidate, $rules);
-        if ($validator->fails()) {
+        if ($validator->fails() || $combo->items->count() != count($sizesToValidate)) {
             return redirect()->back();
         }
-        $request->validate([
-            'comboId' => ['required', 'numeric', Rule::in($comboIds)]
-        ]);
-        $combo = Combo::where('id', $request->comboId)->first();
-        $sizes = $request->sizes;
+        
+        $sizes = json_decode($request->sizes, true);
         // Añadir Combo  al carrito de la sesión.
+        
         $cartCombo = new CartCombo($combo, $sizes);
         $this->cartManager->addCombo($cartCombo);
         if (session('cartError')) {

@@ -12,6 +12,7 @@
         <form action="{{route('cart.addCombo')}}" method="POST">
             @csrf
             <input type="" name="comboId" class="hidden" value="{{$combo->id}}">
+            @livewire('handle-combo-sizes')
             <div class="mt-8 max-w-screen-xl mx-auto grid grid-cols-2 gap-2 lg:grid-cols-4 justify-center ">
                 {{-- Se debera agregar el id id="product-{{ $product->id }}" en el segundo div  --}}
                 @foreach ($combo->items as $combo_item)
@@ -60,7 +61,7 @@
     </form>
     </div>
 
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.edit-button').forEach(function(button) {
                 button.addEventListener('click', function() {
@@ -121,5 +122,5 @@
         .product-attribute.hidden {
             display: none;
         }
-    </style>
+    </style> --}}
 @endsection
