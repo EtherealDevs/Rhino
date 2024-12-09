@@ -25,8 +25,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <input type="text" class="hidden" name="items[]"
-                        value="[{{ $productItem->id }}, {{ $size_id }}]">
+                    <input type="text" class="hidden" name="sizes[]"
+                        value=" {{ $size->id }}">
                     <a href="{{ route('products.show', ['product' => $product, 'productItem' => $productItem]) }}">
                         <p
                             class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center mt-2">

@@ -11,6 +11,7 @@
         @endphp
         <form action="{{route('cart.addCombo')}}" method="POST">
             @csrf
+            <input type="" name="comboId" class="hidden" value="{{$combo->id}}">
             <div class="mt-8 max-w-screen-xl mx-auto grid grid-cols-2 gap-2 lg:grid-cols-4 justify-center ">
                 {{-- Se debera agregar el id id="product-{{ $product->id }}" en el segundo div  --}}
                 @foreach ($combo->items as $combo_item)

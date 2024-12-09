@@ -123,7 +123,8 @@ class CartController extends Controller
     public function addComboToCart(Request $request)
     {
         $comboIds = Combo::getAllComboIds();
-        $sizesToValidate = ['sizes' => json_decode($request->sizes, true)];
+
+        $sizesToValidate = $request->sizes;
         $availableSizes = Size::getSizesNames();
         $rules = [
             'sizes.*' => Rule::in($availableSizes),
@@ -136,7 +137,7 @@ class CartController extends Controller
             'comboId' => ['required', 'numeric', Rule::in($comboIds)]
         ]);
         $combo = Combo::where('id', $request->comboId)->first();
-        $sizes = json_decode($request->sizes, true);
+        $sizes = $request->sizes;
         // Añadir Combo  al carrito de la sesión.
         $cartCombo = new CartCombo($combo, $sizes);
         $this->cartManager->addCombo($cartCombo);
