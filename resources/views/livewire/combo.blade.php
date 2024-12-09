@@ -106,21 +106,19 @@
             </div>
             {{-- Add to cart --}}
             <div class="flex justify-center bg-black h-18 rounded-b-xl p-3 text-white">
-                <form method="POST" action="{{ route('cart.addCombo') }}">
-                    @csrf
-                    <input type="hidden" name="comboId" value="{{ $combo_items->first()->id }}">
-                    <input type="hidden" name="sizes"
-                        value="{{ json_encode($combo_items->first()->combo->getItemsSizesByMinimumStockValue()) }}">
+                @csrf
+                <input type="hidden" name="comboId" value="{{ $combo_items->first()->id }}">
+                <input type="hidden" name="sizes"
+                    value="{{ json_encode($combo_items->first()->combo->getItemsSizesByMinimumStockValue()) }}">
 
-                    <button type="submit" class="w-full flex justify-center">
-                        <p class="ml-2 font-sans font-bold text-base text-white">
-                            Ver Contenido del combo
-                        </p>
-                        <span class="text-xl ml-2">
-                            →
-                        </span>
-                    </button>
-                </form>
+                <button class="w-full flex justify-center">
+                    <p class="ml-2 font-sans font-bold text-base text-white">
+                        Ver Contenido del combo
+                    </p>
+                    <span class="text-xl ml-2">
+                        →
+                    </span>
+                </button>
             </div>
         </div>
     </div>

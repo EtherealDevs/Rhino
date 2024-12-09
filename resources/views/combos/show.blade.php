@@ -33,15 +33,15 @@
                     @endphp
                     <div class="col-span-1 md:col-span-1">
                         <p class="text-xl font-semibold">Descuento</p>
-                        <p class="text-2xl font-bold">-${{ number_format($discount, 2, '.', ',') }}</p>
+                        <p class="text-2xl font-bold">-${{ number_format($discount/ 100, 2, ',', '.') }}</p>
                     </div>
                     <div class="col-span-1 md:col-span-1">
                         <p class="text-xl font-semibold">Precio sin descuento</p>
-                        <p class="text-2xl line-through  font-bold text-gray-500">${{ number_format($total, 2, '.', ',') }}</p>
+                        <p class="text-2xl line-through  font-bold text-gray-500">${{ number_format($total/ 100, 2, ',', '.') }}</p>
                     </div>
                     <div class="col-span-1 md:col-span-1">
                         <p class="text-xl font-semibold">Total</p>
-                        <p class="text-2xl text-green-400 font-bold">${{ number_format($totalDiscount, 2, '.', ',') }}</p>
+                        <p class="text-2xl text-green-400 font-bold">${{ number_format($totalDiscount/ 100, 2, ',', '.') }}</p>
                     </div>
                     <div class="col-span-1 m-2">
                         <button type="submit" class="w-full sm:w-auto bg-[#2957de] rounded-lg">
