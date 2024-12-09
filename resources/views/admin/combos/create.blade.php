@@ -55,7 +55,9 @@
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
                                                 @foreach ($category->products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                    @foreach ($product->items as $item)
+                                                        <option value="{{ $item->id }}">{{ $product->name }}({{$item->color->name}})</option>
+                                                    @endforeach
                                                 @endforeach
                                             </optgroup>
                                         @endforeach

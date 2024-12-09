@@ -31,7 +31,7 @@ class ComboController extends Controller
         foreach($request->items as $item){
             Combo_items::create([
                 'combo_id'=> $combo->id,
-                'product_id'=> $item,
+                'item_id'=> $item,
             ]);
         }
         return redirect()->route('admin.combos.index');
@@ -52,7 +52,7 @@ class ComboController extends Controller
         foreach($request->items as $item){
             Combo_items::create([
                 'combo_id'=> $combo->id,
-                'product_id'=> $item,
+                'item_id'=> $item,
             ]);
         }
         return redirect()->route('admin.combos.index');
