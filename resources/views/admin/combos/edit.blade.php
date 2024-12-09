@@ -57,9 +57,9 @@
                                         @foreach ($categories as $category)
                                             <optgroup label="{{ $category->name }}">
                                                 @foreach ($category->products as $product)
-                                                    <option value="{{ $product->id }}" {{ $combo->items->contains('product_id', $product->id) ? 'selected' : '' }}>
-                                                        {{ $product->name }}
-                                                    </option>
+                                                    @foreach ($product->items as $item)
+                                                        <option value="{{ $item->id }}" {{ $combo->items->contains('item_id', $item->id) ? 'selected' : '' }}>{{ $product->name }}({{$item->color->name}})</option>
+                                                    @endforeach
                                                 @endforeach
                                             </optgroup>
                                         @endforeach
