@@ -3,7 +3,7 @@
         <div
             class="relative z-10 flex justify-center w-44 lg:w-56 mt-1 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105">
             <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-clip-border text-gray-700">
-                <img src="{{ url(Storage::url('images/product/' . $product->items->first()->images->first()->url)) }}"
+                <img src="{{ url(Storage::url($item->images->first()->url)) }}"
                     class="product-image h-full w-full object-cover" />
             </div>
             <div class="bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
