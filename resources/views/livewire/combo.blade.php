@@ -65,7 +65,7 @@
             </div>
             <div class="relative col-span-1 sm:col-span-2 lg:col-span-2 flex justify-center items-center">
                 @if ($image && !is_null($image))
-                    <img src="{{ url(Storage::url($image->first()->url)) }}"
+                    <img src="{{ url(Storage::url($combo_items[1]->item->images->first()->url)) }}"
                         class="w-full h-auto object-cover rounded-2xl" />
                 @endif
 
