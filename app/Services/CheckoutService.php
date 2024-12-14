@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Cart\CartCombo;
 use App\Http\Cart\CartItem;
 use App\Models\Cart;
+use App\Models\Combo;
 use App\Models\ProductItem;
 use App\Models\ProductSize;
 use App\Models\Size;
@@ -52,6 +53,8 @@ class CheckoutService
                 array_push($items, $newItem);
                 array_push($cartItems, $cartItem);
             } else if ($item['type'] == CartCombo::DEFAULT_TYPE) {
+                $comboModel = Combo::find($item['combo_id']);
+                $discount = $comboModel->discount / 100;
                 foreach ($item['contents'] as $key => $value) {
                     // $sizeModel = Size::where('name', $value['size'])->first();
                     $itemModel = ProductItem::where('id', $value['item_id'])->first();
@@ -65,11 +68,11 @@ class CheckoutService
                         'category_id' => 'fashion',
                         "quantity" => $item['quantity'],
                         "currency_id" => "ARS",
-                        "unit_price" => $itemModel->price() / 100
+                        "unit_price" => ($itemModel->price() - $itemModel->price() * $discount) / 100
                     ];
                     $cartItem = [
                         'units' => $item['quantity'],
-                        'value' => $itemModel->price() / 100,
+                        'value' => ($itemModel->price() - $itemModel->price() * $discount) / 100,
                         'name' => $itemModel->product->name,
                         'imageURL' => $imageUrl . $itemModel->images[0]->url
                     ];
