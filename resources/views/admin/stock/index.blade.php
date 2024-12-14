@@ -45,7 +45,7 @@
                             <td class="w-1/2">
                                 <div style="width: 30em" class="ml-5">
                                     <div id="mainHeading" class="flex justify-between items-center w-full mt-4">
-                                        <button aria-label="toggler" data-menu
+                                        <button aria-label="toggler" data-menu onclick="toggleModal('stock-modal-{{$product->id}}')"
                                             class="w-full flex py-2 px-4 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
                                             <span
                                                 class="font-bold text-md lg:text-md text-slate-800">{{ $product->name }}</span>
@@ -59,7 +59,7 @@
                                         </button>
                                     </div>
 
-                                    <div id="stock-modal" tabindex="-1" aria-hidden="true"
+                                    <div id="stock-modal-{{$product->id}}" tabindex="-1" aria-hidden="true"
                                         class="hidden fixed z-50 justify-center backdrop-blur-md items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <!-- Modal content -->
                                         <div
@@ -72,7 +72,7 @@
                                                         de {{ $product->name }}</h3>
                                                     <button type="button"
                                                         class="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                                        onclick="toggleModal('stock-modal')">
+                                                        onclick="toggleModal('stock-modal-{{$product->id}}')">
                                                         <svg class="w-3 h-3" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 14 14">
@@ -204,13 +204,15 @@
             const modal = document.getElementById(modalId);
             modal.classList.toggle('hidden');
         }
-        let elements = document.querySelectorAll("[data-menu]");
-        elements.forEach(element => {
-            element.addEventListener("click", function() {
-                let parent = element.closest('div[style="width: 30em"]'); // Adjust the selector as needed
-                toggleModal(
-                    'stock-modal'); // You might want to pass a specific modal ID if you have multiple
+        function openModal(modalId){
+            let elements = document.querySelectorAll("[data-menu]");
+            elements.forEach(element => {
+                element.addEventListener("click", function() {
+                    let parent = element.closest('div[style="width: 30em"]'); // Adjust the selector as needed
+                    toggleModal(
+                        modalId); // You might want to pass a specific modal ID if you have multiple
+                });
             });
-        });
+        }
     </script>
 @endsection

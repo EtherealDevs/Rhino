@@ -25,8 +25,9 @@ class StockController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
+
+       $request->validate([
+            'product_id' => 'required|exists:product_items,id',
             'size_id' => 'required|exists:sizes,id',
             'stock' => 'required|integer|min:0',
         ]);
