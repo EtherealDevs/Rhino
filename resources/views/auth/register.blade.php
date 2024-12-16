@@ -6,7 +6,7 @@
                     alt="Your Company">
             </div>
             <div class="col-span-6 lg:col-span-2 flex-col flex self-center lg:px-8 sm:max-w-4xl xl:max-w-md z-10">
-                <div class="self-start w-full justify-center flex mx-8 lg:flex flex-col text-gray-300">
+                <div class="self-start w-11/12 justify-center flex mx-8 lg:flex flex-col text-gray-300">
                     <h1 class="my-6 mt-12 font-josefin font-semibold text-4xl">¡Bienvenido a Rino Indumentaria!</h1>
                     <p class="pr-3 mb-12 font-josefin font-light text-lg opacity-75">
                         Nos alegra Tenerte en la Tienda.
@@ -15,9 +15,9 @@
                     </p>
                 </div>
             </div>
-            <div class="col-span-6 lg:col-span-4 flex justify-center self-center m-6 z-10">
+            <div class="col-span-6 w-5/6 lg:col-span-4 flex justify-center self-center m-8 z-10">
                 <div class="bg-blue-800/70 rounded-3xl h-full translate-x-3 translate-y-3">
-                    <div class="p-12 -translate-x-3 -translate-y-3 bg-white mx-auto rounded-3xl w-96 ">
+                    <div class="p-12 -translate-x-3 -translate-y-3 bg-white mx-auto rounded-3xl w-96">
                         <div class="mb-7">
                             <h3 class="font-semibold text-2xl text-gray-800">Registrate</h3>
                             <p class="text-gray-400">ya tienes una Cuenta?

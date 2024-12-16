@@ -6,7 +6,7 @@
                 <img class="xl:w-46 lg:w-48 w-36 lg:h-24 mt-12" src="/img/rino-white.png" alt="Your Company">
             </div>
             <div class="col-span-6 lg:col-span-2 flex-col flex self-center lg:px-8 sm:max-w-4xl xl:max-w-md z-10">
-                <div class="self-start w-full justify-center flex mx-8 lg: lg:flex flex-col text-gray-300">
+                <div class="self-start w-11/12 justify-center flex mx-8 lg: lg:flex flex-col text-gray-300">
                     <h1 class="my-3 font-semibold text-4xl">Hola de Nuevo!!</h1>
                     <p class="pr-3 text-lg opacity-75">Nos alegra verte de nuevo en Rino. Inicia sesión para acceder a
                         todas
