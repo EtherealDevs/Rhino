@@ -24,10 +24,10 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div id="contain-loader"
+   {{--  <div id="contain-loader"
         class="fixed z-50 flex h-screen w-screen backdrop-blur-2xl justify-center items-center bg-black/25">
         <div id="loader" class="h-18 mx-auto mt-12"></div>
-    </div>
+    </div> --}}
 
     <div class="fixed z-50 bottom-14 right-10">
         <a href="https://wa.me/c/5493794316606" class="">
