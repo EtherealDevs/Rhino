@@ -209,7 +209,8 @@ class SessionCartManager
                 }
                 break;
             case 'update':
-                // $this->updateItemQuantity($cartItemId, $quantity);
+                $itemInCart->quantity = $quantity;
+                $success = true;
                 break;
         }
 
@@ -224,7 +225,6 @@ class SessionCartManager
     {
         $cartItemId = $this->getCartItemId($itemInCart);
         $max_stock = $this->updateComboMaxStockBasedOnItemSize($itemInCart);
-        $cartItemId = "$itemInCart->type" . "$itemInCart->combo_id";
 
         $success = null;
         switch ($mode) {
@@ -253,7 +253,8 @@ class SessionCartManager
                 }
                 break;
             case 'update':
-                // $this->updateItemQuantity($cartItemId, $quantity);
+                $itemInCart->quantity = $quantity;
+                $success = true;
                 break;
             }
             if ($success)

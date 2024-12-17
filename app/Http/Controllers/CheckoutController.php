@@ -169,6 +169,10 @@ class CheckoutController extends Controller
         }
         $address == null ? null : $addressId = $address->id;
         $user == null ? null : $userId = $user->id;
+        $addressIdOrNull = $addressId == null ? "null" : $addressId;
+        $sucursalIdOrNull = $sucursalId == null ? "null" : $sucursalId;
+        $sucursalCodigoPostalOrNull = $sucursalCodigoPostal == null ? "null" : $sucursalCodigoPostal;
+        $userIdOrNull = $userId == null ? "null" : $userId;
 
         // MercadoPago Client and Preference initialization
         $client = new PreferenceClient();
@@ -179,7 +183,7 @@ class CheckoutController extends Controller
                 "shipments" => [
                     "cost" => $shippingCosts
                 ],
-                "external_reference" => "wallet-{$addressId}-{$sucursalId}-{$sucursalCodigoPostal}-{$userId}",
+                "external_reference" => "wallet-{$addressIdOrNull}-{$sucursalIdOrNull}-{$sucursalCodigoPostalOrNull}-{$userIdOrNull}",
                 'notification_url' => "$appUrl/webhooks",
                 "back_urls" => [
                     "success" => "{$appUrl}/orders",

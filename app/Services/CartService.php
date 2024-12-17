@@ -46,7 +46,7 @@ class CartService
                 foreach ($item->contents as $value) {
                     $sizes[$value->item_id] = $value->size;
                 }
-                $combo = new CartCombo($comboModel, $sizes);
+                $combo = new CartCombo($comboModel, $sizes, $item->size);
                 $cartManager->addCombo($combo, $item->quantity);
             }
         }
