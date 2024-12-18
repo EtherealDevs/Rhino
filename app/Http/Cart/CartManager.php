@@ -17,9 +17,14 @@ class CartManager
     public $user;
     public $contents;
 
-    public function __construct()
+    public function __construct($user = null)
     {
-        $this->user = Auth::user();
+        if ($user == null) {
+            $this->user = Auth::user();
+        }
+        else {
+            $this->user = $user;
+        }
         if (is_null($this->user->cart)) {
             $this->databaseCart = new CartModel(['contents' => null, 'total' => 0, 'user_id' => $this->user->id]);
             $this->databaseCart->save();

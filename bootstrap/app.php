@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SaveCartFromSessionIntoDatabase;
 use App\Http\Middleware\SecurityMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;

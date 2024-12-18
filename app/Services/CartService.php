@@ -26,7 +26,7 @@ class CartService
     }
     public function transferCart()
     {
-        $cartManager = new CartManager();
+        $cartManager = new CartManager($this->user);
         $sessionManager = new SessionCartManager();
 
         $sessionCartContents = $sessionManager->getCartContents();
