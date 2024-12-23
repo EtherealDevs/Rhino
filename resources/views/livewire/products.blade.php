@@ -28,13 +28,13 @@
             <div class="col-span-5 ml-0 xl:ml-4 z-10 mb-8 overflow-hidden">
                 @if ($combos->isNotEmpty())
                     <div
-                        class="bg-center bg-contain w-[420px] xl:w-[990px] 2xl:w-[1350px] bg-[url(/public/img/new.png)] lg:rounded-3xl">
+                        class="bg-center bg-contain w-full lg:h-[800px] xl:w-[990px] 2xl:w-[1350px] h-[700px] bg-blue-600 lg:rounded-3xl">
                         <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
-                            <div class="flex flex-col lg:flex-row lg:items-center ">
+                            <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-0 items-center p-8">
                                 <!-- Contenido de texto -->
-                                <div class="flex-1 lg:mr-6 mt-12 lg:mt-0">
+                                <div class="lg:col-span-4 text-center lg:text-left mt-6 lg:mt-0">
                                     <h2
-                                        class="text-blue-100 font-bold p-4 px-10 font-josefin text-2xl lg:text-4xl italic leading-tight">
+                                        class="text-blue-100 font-bold px-4 font-josefin text-2xl lg:text-4xl italic leading-tight">
                                         Estilo y Ahorro: <br>
                                         <span class="text-blue-200 font-light not-italic">
                                             Descubre Nuestros <span class="italic">Combos de Ropa</span>
@@ -43,10 +43,10 @@
                                 </div>
 
                                 <!-- Botón -->
-                                <div class="mt-12 lg:mt-0 lg:w-1/2 flex justify-center">
+                                <div class="lg:col-span-1 flex justify-center lg:justify-start">
                                     <a href="/combos">
                                         <button
-                                            class="rounded-full p-3 px-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors text-white hover:text-blue-900">
+                                            class="rounded-full py-3 px-6 bg-black flex items-center space-x-2 hover:bg-white transition-colors text-white hover:text-blue-900">
                                             <svg width="25" height="20" viewBox="0 0 25 20" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -64,7 +64,7 @@
                                 <div id="default-carousel" class="relative" data-carousel="static">
                                     <!-- Carousel wrapper -->
                                     <div
-                                        class="overflow-hidden relative h-[900px] sm:h-56 md:h-64 lg:h-72 xl:h-[550px] 2xl:h-[590px] rounded-lg">
+                                        class="overflow-hidden relative h-[400px] sm:h-56 md:h-64 lg:h-72 xl:h-[550px] 2xl:h-[590px] rounded-lg">
                                         <!-- Item 1 -->
                                         @foreach ($combos as $combo)
                                             <!-- Item -->
@@ -117,7 +117,7 @@
                         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-x-16 w-full mx-4 sm:mx-8 md:mx-12 lg:mx-20 xl:ml-0">
 
                         @foreach ($products as $product)
-                        {{-- @if ($product->variations == null || $product->variations->isEmpty())
+                            {{-- @if ($product->variations == null || $product->variations->isEmpty())
                             @continue
                         @endif
 
