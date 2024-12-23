@@ -29,7 +29,7 @@ class Products extends Component
                 $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
                       ->where('products_sizes.stock', '>', 0);
             }
-            ])->paginate(10);
+            ])->paginate(16);
 
         // Pasar $this->products a la vista correctamente
         return view('livewire.products', [
