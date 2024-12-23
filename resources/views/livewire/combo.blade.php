@@ -35,7 +35,7 @@
             </div>
 
             {{-- Contenido central --}}
-            <div class="col-span-1 flex flex-col justify-center items-center text-center space-y-2">
+            <div class="col-span-1 hidden lg:flex flex-col justify-center items-center text-center space-y-2">
                 <div class="my-1 lg:my-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="1em" viewBox="0 0 32 32">
                         <path fill="black"
