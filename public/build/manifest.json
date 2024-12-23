@@ -3,12 +3,8 @@
     "file": "assets/contact-QKgZdF7W.png",
     "src": "public/img/contact.png"
   },
-  "public/img/new.png": {
-    "file": "assets/new-CHRaMmtc.png",
-    "src": "public/img/new.png"
-  },
   "resources/css/app.css": {
-    "file": "assets/app-BXuKR0cv.css",
+    "file": "assets/app-OBZDowYn.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
