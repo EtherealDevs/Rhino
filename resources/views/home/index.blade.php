@@ -134,11 +134,6 @@
                                         </div>
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/4.webp"
-                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..." loading="lazy">
-                                    </div>
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/6.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
@@ -150,11 +145,6 @@
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/8.webp"
-                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..." loading="lazy">
-                                    </div>
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="/img/banners/9.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
                                     </div>
