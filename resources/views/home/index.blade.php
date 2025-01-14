@@ -100,8 +100,7 @@
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/3.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..."
-                                            loading="lazy">
+                                            alt="..." loading="lazy">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/4.webp"
@@ -146,6 +145,16 @@
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/7.webp"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            alt="..." loading="lazy">
+                                    </div>
+                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        <img src="/img/banners/8.webp"
+                                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                                            alt="..." loading="lazy">
+                                    </div>
+                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        <img src="/img/banners/9.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
                                     </div>
@@ -227,13 +236,34 @@
 
             {{-- Seccion Nuevos Ingresos --}}
             <div
-                class=" lg:col-span-2 lg:ml-6 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700 h-full rounded-none lg:rounded-3xl text-white font-extrabold">
+                class=" lg:col-span-2 lg:ml-6 bg-gradient-to-r from-black  via-gray-900 to-neutral-800 h-full rounded-none lg:rounded-3xl text-white font-extrabold">
                 <div class="backdrop-blur-2xl h-full w-full py-14 rounded-none lg:rounded-3xl">
                     <div class="grid grid-cols-2">
                         <div class="flex mt-5 ml-6 lg:ml-16 justify-start">
                             <p class="neon-text text-4xl pb-8 italic font-bold font-josefin mr-6 text-white">
                                 Nuevos Ingresos
                             </p>
+
+                            <style>
+                                .neon-text {
+                                    color: #ffffff;
+                                    /* Color base del texto (blanco) */
+                                    text-shadow:
+                                        0 0 5px #1323ff,
+                                        /* Resplandor interno */
+                                        0 0 10px #1323ff,
+                                        0 0 20px #1323ff,
+                                        0 0 40px #1323ff,
+                                        0 0 80px #1323ff,
+                                        /* Resplandor más externo */
+                                        0 0 120px #0066ff;
+                                    /* Toque adicional para profundidad */
+                                    font-family: 'Josefin Sans', sans-serif;
+                                    /* Fuente personalizada */
+                                    font-style: italic;
+                                    /* Estilo en cursiva */
+                                }
+                            </style>
                         </div>
                         <div class="mt-4 flex justify-end pr-6"> <!-- Añadir "flex justify-end pr-6" aquí -->
                             <a href="/products">
@@ -308,7 +338,8 @@
                 <!-- Contenido superpuesto -->
                 <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl mb-8">
                     <div class="flex justify-center">
-                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-blue-100 tracking-wide neon-text">
+                        <p
+                            class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-white tracking-wide">
                             ¡No Dejes Pasar Nuestras Ofertas Exclusivas!
                         </p>
                     </div>

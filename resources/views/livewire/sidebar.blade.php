@@ -18,8 +18,8 @@
 
     <!-- Contenido del sidebar -->
     <div x-show="open" x-on:click.away="if(window.innerWidth < 768) open = false"
-        class="sticky top-16 xl:top-[80px] h-[80vh] lg:h-[65vh] overflow-y-auto md:h-screen 2xl:h-[90vh] bg-white md:bg-white/50 rounded-lg shadow-xl p-4"
-        style="height: 566px;">
+        class="sticky top-16 xl:top-[80px] h-[90vh] lg:h-[80vh] overflow-y-auto bg-white md:bg-white/50 rounded-lg shadow-xl p-4"
+        style="height: calc(100vh - 80px);">
         <form action="{{ route('products.filter') }}" method="GET">
             <!-- Contenido del formulario de categorías -->
             <h2 class="font-bold text-xl font-josefin text-center">Categorías</h2>
@@ -48,7 +48,7 @@
                                             @if (in_array($child->id, request('categories', []))) checked @endif>
                                         <span
                                             class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
-                                            {{ $child->name }} ({{ count($child->products) }})
+                                            {{ Str::title(Str::lower($child->name)) }}
                                         </span>
                                     </label>
                                 </div>
@@ -65,7 +65,7 @@
                                                         @if (in_array($grandchild->id, request('categories', []))) checked @endif>
                                                     <span
                                                         class="text-md leading-snug text-gray-500 py-2 px-1 hover:text-black transition duration-200 ease-in-out">
-                                                        {{ $grandchild->name }} ({{ count($grandchild->products) }})
+                                                        {{ Str::title(Str::lower($grandchild->name)) }}
                                                     </span>
                                                 </label>
                                             </div>
@@ -82,7 +82,7 @@
 
             <!-- Resto del contenido del formulario -->
             <h2 class="font-bold text-xl font-josefin text-center mt-10">Talles</h2>
-            <div class="flex flex-col">
+            <div class="grid grid-cols-2 gap-4">
                 @foreach ($sizes as $size)
                     <div>
                         <label class="flex items-center font-josefin space-x-3 cursor-pointer">
