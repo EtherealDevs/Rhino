@@ -16,6 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
         rel="stylesheet">
 
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="WSFPFCKE" defer></script>
+    <!-- / Fathom -->
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -24,7 +28,7 @@
 </head>
 
 <body class="font-sans antialiased">
-   {{--  <div id="contain-loader"
+    {{--  <div id="contain-loader"
         class="fixed z-50 flex h-screen w-screen backdrop-blur-2xl justify-center items-center bg-black/25">
         <div id="loader" class="h-18 mx-auto mt-12"></div>
     </div> --}}
@@ -47,7 +51,7 @@
             @yield('content')
         </main>
 
-       {{--  <div class="z-40">
+        {{--  <div class="z-40">
             @livewire('banner')
         </div> --}}
 
