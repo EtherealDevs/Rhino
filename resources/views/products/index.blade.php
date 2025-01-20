@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Productos')
+@section('title', 'Nuestras Prendas')
 
 @section('meta_description', 'Descubre la moda del futuro hoy mismo. Ropa de hombre y adolescente innovadora y exclusiva, diseñada para los que buscan un estilo único. Compra online las últimas tendencias y renueva tu armario sin salir de casa. #modainnovadora #ropasonline #estilopropio')
 @section('content')

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Bienvenidos a Rino Indumentaria | Moda Única')
+@section('title', 'Rino Indumentaria | Moda Única')
 
 @section('meta_description',
     'Descubre la última moda para hombres y adolescentes en nuestra tienda online. Desde ropa
