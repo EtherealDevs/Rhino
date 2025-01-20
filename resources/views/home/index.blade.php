@@ -84,19 +84,19 @@
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/1.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..." loading="lazy">
+                                            alt="Banner principal">
                                     </div>
                                     <!-- Item 3 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/2.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..." loading="lazy">
+                                            alt="Banner principal" loading="lazy">
                                     </div>
                                     <!-- Item 2 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/3.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..." loading="lazy">
+                                            alt="Banner principal" loading="lazy">
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/4.webp"
@@ -106,7 +106,7 @@
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/5.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..." loading="lazy">
+                                            alt="Banner principal" loading="lazy">
                                         <!-- Botón que redirige a Google Maps -->
                                         {{-- <div
                                             class="absolute bottom-10 z-50 left-1/2 transform -translate-y-3/4 -translate-x-1/2">
@@ -132,7 +132,7 @@
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/6.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="..." loading="lazy">
+                                            alt="Banner principal" loading="lazy">
                                     </div>
                                     {{-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/7.webp"
