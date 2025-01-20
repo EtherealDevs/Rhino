@@ -17,7 +17,7 @@
                     <div class="col-span-2 px-8 mb-6 my-24 lg:mb-0 bg-black rounded-none lg:rounded-bl-3xl shadow-lg">
                         <div class="text-center">
                             <h1 class="neon-text text-4xl lg:text-5xl font-extrabold font-josefin text-white mb-4">
-                                Bienvenido a
+                                Bienvenido a <span class="hidden">Rino Indumentaria</span>
                             </h1>
                             <style>
                                 .neon-text {
@@ -58,10 +58,10 @@
                                 alt="Your Company" width="600" height="400">
                         </div>
                         <div class="mt-6 mx-12 text-center">
-                            <p class="text-sm lg:py-2 py-12 lg:text-lg italic font-josefin text-white leading-relaxed">
+                            <h2 class="text-sm lg:py-2 py-12 lg:text-lg italic font-josefin text-white leading-relaxed">
                                 Aca vas a encontrar una selección cuidada de prendas para resaltar tu estilo <span
                                     class="font-bold">¡Explora la colección y descubre lo que te hace único!</span>
-                            </p>
+                            </h2>
                             <a class="justify-center flex w-full lg:mt-6" href="/products">
                                 <button
                                     class="mr-6 mb-6 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors p-3 px-4 flex items-center space-x-2">

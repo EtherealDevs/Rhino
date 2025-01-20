@@ -6,8 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <title>@yield('title', 'Rino Indumentaria | La mejor ropa online')</title>
+    <meta name="description" content="@yield('meta_description', 'Descubre la mejor selección de ropa para hombres y adolescentes. Moda casual, elegante y de temporada.')">
+    <meta name="author" content="Rino Indumentaria">
+    <meta name="keywords" content="@yield('meta_keywords', 'moda masculina, ropa online, tendencias 2025')">
+
+
     <title>{{ config('app.name', 'Rino Indumentaria') }}</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
