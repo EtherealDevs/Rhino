@@ -201,10 +201,10 @@
                         <h3 class="text-2xl font-bold font-josefin mb-4">Tamaños y Medidas</h3>
                         @foreach ($item->images as $image)
                             @if (!$image->is_active)
-                                <li class="glide__slide">
+                                <div class="glide__slide">
                                     <img class="w-full h-64 lg:h-[240px] object-cover"
                                         src="{{ url(Storage::url($image->url)) }}" alt="">
-                                </li>
+                                </div>
                             @endif
                         @endforeach
                     </div>
