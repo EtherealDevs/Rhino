@@ -23,16 +23,7 @@
                                 .neon-text {
                                     position: relative;
                                     color: white;
-                                    text-shadow:
-                                        0 0 5px rgb(46, 61, 221),
-                                        /* Color cercano */
-                                        0 0 10px rgb(21, 87, 255),
-                                        /* Resplandor leve */
-                                        0 0 20px #0ff,
-                                        /* Resplandor intermedio */
-                                        0 0 40px #00f,
-                                        /* Resplandor fuerte */
-                                        0 0 80px #00f;
+                                    text-shadow: 0 0 5px rgb(46, 61, 221), 0 0 10px rgb(21, 87, 255), 0 0 20px #0ff, 0 0 40px #00f, 0 0 80px #00f;
                                     /* Resplandor extendido */
                                     font-family: 'Josefin Sans', sans-serif;
                                     /* Asegúrate de cargar esta fuente */
@@ -53,6 +44,11 @@
                                     border-radius: 5px;
                                 }
                             </style>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    document.querySelector('.neon-text').classList.add('neon-active');
+                                });
+                            </script>
 
                             <img class="mx-auto rounded-xl shadow-lg lg:w-3/4 w-full mt-6" src="/img/rino.webp"
                                 alt="Your Company" width="600" height="400">
@@ -112,7 +108,7 @@
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
                                         <!-- Botón que redirige a Google Maps -->
-                                        <div
+                                        {{-- <div
                                             class="absolute bottom-10 z-50 left-1/2 transform -translate-y-3/4 -translate-x-1/2">
                                             <a href="https://maps.app.goo.gl/ejFFD1789TdA8fuj9" target="_blank"
                                                 class="flex items-center justify-center w-12 h-12 bg-white text-white hover:scale-125 rounded-full focus:ring-4 focus:ring-blue-300 transition">
@@ -131,14 +127,14 @@
                                                         d="M12.612 188.892S0 164.194 0 128.414c0-33.817 13.146-63.377 30.015-82.649l60.318 50.759z" />
                                                 </svg>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/6.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
                                     </div>
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    {{-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/7.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
@@ -147,7 +143,7 @@
                                         <img src="/img/banners/8.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
                                 <!-- Slider controls -->
@@ -328,8 +324,7 @@
                 <!-- Contenido superpuesto -->
                 <div class="relative bg-black/30 w-full h-full rounded-none lg:rounded-3xl mb-8">
                     <div class="flex justify-center">
-                        <p
-                            class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-white tracking-wide">
+                        <p class="text-3xl p-12 mr-6 mt-6 italic font-extrabold font-josefin text-white tracking-wide">
                             ¡No Dejes Pasar Nuestras Ofertas Exclusivas!
                         </p>
                     </div>
