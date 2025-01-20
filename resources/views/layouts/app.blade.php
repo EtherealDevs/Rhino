@@ -20,6 +20,9 @@
     <script src="https://cdn.usefathom.com/script.js" data-site="WSFPFCKE" defer></script>
     <!-- / Fathom -->
 
+    {{-- OVERTRACKING --}}
+    <script defer src="https://cdn.overtracking.com/t/tRpAKbbvYnlAXze3h/"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
