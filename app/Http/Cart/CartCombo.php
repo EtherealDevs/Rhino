@@ -23,7 +23,7 @@ class CartCombo
         foreach ($sizes as $key => $value) {
             $size_id = Size::where('name', $value)->first()->id;
             $item_variation_id = DB::table('products_sizes')->where('product_item_id', $key)->where('size_id', $size_id)->first()->id;
-            $items->put("item$item_variation_id", ['item_id' => $key, 'variation_id' => $item_variation_id, 'size' => $value]);
+            $items->put("item$item_variation_id", ['id' => "item$item_variation_id", 'item_id' => $key, 'variation_id' => $item_variation_id, 'size' => $value]);
         }
         $this->contents = $items;
 
