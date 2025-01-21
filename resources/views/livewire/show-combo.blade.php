@@ -14,13 +14,13 @@
                     </p>
                     <div class="text-sm text-slate-500">
                         <span class="product-attribute" data-attribute="color">
-                            {{ $product->items->first()->color->name }} </span>
+                            {{ $item->color->name }} </span>
                     </div>
                     <div class="text-sm text-slate-500">
                         <select name="size" wire:model.change='size' id=""
                             class="block py-2.5 px-6 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                             <option class="my-2 bg-black" value="">Select Size</option>
-                            @foreach ($product->items->first()->sizes as $size)
+                            @foreach ($item->sizes as $size)
                                 <option class="my-2 bg-black" value="{{ $size->id }}">{{ $size->name }}</option>
                             @endforeach
                         </select>
