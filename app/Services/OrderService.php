@@ -69,6 +69,7 @@ class OrderService
         $user->cart->delete();
         return $order;
     }
+
     public function createSucursalOrder(Payment|null $mpOrder, User $user, array $sucursal, float $shippingCosts, bool $mercadoPago = true)
     {
         $orderDetailService = new OrderDetailService();
@@ -167,16 +168,15 @@ class OrderService
             'mp_order_id' => $mpOrder != null ? $mpOrder->id : null
         ]);
 
-        $productItems = ProductItem::whereIn('id', $items->pluck('item_id'))->get();
-
         foreach ($items as $item) {
             if ($item->type == CartCombo::DEFAULT_TYPE) {
                 foreach ($item->contents as $comboItem) {
-                    $productItem = $productItems->find($comboItem->item_id);
-                    $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
+                    $productItem = ProductItem::find($comboItem->item_id);
+                    $orderDetailService->createOrderDetail($order->id, $comboItem, $productItem->price(), $item);
+
                 }
             } else {
-                $productItem = $productItems->find($item->item_id);
+                $productItem = ProductItem::find($item->item_id);
                 $orderDetailService->createOrderDetail($order->id, $item, $productItem->price());
             }
         }

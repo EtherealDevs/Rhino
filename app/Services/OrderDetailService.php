@@ -27,6 +27,7 @@ class OrderDetailService
             'amount' => $quantity,
             'price' => $price,
         ]);
+
         $variationModel = DB::table('products_sizes')->where('id', $item->variation_id)->first();
         if (($variationModel->stock - $detail->amount) >= 0) {
             DB::transaction(function () use ($variationModel, $detail) {
