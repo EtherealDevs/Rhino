@@ -40,198 +40,212 @@
                         <p class="text-lg mb-6 text-gray-600"><strong class="font-medium">Fecha de Creación:</strong>
                             {{ $order->created_at->format('d-m-Y H:i') }}</p>
                     </div>
+                    <!-- Información de Entrega -->
+                    <div class="mb-10 border-b border-blue-gray-50">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>
 
-                    {{-- @if ($order->comprobante)
-                        <div class="mt-4 bg-gray-200 p-4 rounded w-full sm:w-auto flex flex-col items-center">
-                            <img src="{{ asset('storage/' . $order->comprobante->url) }}"
-                                alt="Comprobante de pago del pedido #{{ $order->id }}"
-                                class="w-full sm:w-64 h-auto object-cover rounded mb-4">
-
-                            @if (in_array($order->orderStatus->id, [1, 2]))
-                                <p class="text-sm text-gray-700 font-semibold">Pago: {{ $order->orderStatus->name }}</p>
-                            @else
-                                <button
-                                    class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                                    Ver mi pedido
-                                </button>
-                            @endif
-                        </div>
-                    @else --}}
-                        <!-- Información de Entrega -->
-                        <div class="mb-10 border-b border-blue-gray-50">
-                            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Información de Entrega</h2>
-
-                            @if ($order->deliveryService)
-                                <div class="mb-6">
-                                    <div class="flex items-center mb-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M20 12H4" />
-                                        </svg>
-                                        <h3 class="text-lg font-semibold text-gray-800">Servicio de Entrega</h3>
-                                    </div>
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Servicio:</strong>
-                                        {{ $order->deliveryService->name }}</p>
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Costo:</strong>
-                                        ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
+                        @if ($order->deliveryService)
+                            <div class="mb-6">
+                                <div class="flex items-center mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M20 12H4" />
+                                    </svg>
+                                    <h3 class="text-lg font-semibold text-gray-800">Servicio de Entrega</h3>
                                 </div>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Servicio:</strong>
+                                    {{ $order->deliveryService->name }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Costo:</strong>
+                                    ${{ number_format($order->delivery_price / 100, 2, ',', '.') }}</p>
+                            </div>
 
-                                <div class="p-4">
-                                    <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="relative">
-                                            <select name="order_status_id"
-                                                class="form-select mt-1 block w-full mr-10 p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
-                                                @foreach ($orderStatuses as $status)
-                                                    <option value="{{ $status->id }}"
-                                                        {{ $status->id == $order->order_status_id ? 'selected' : '' }}>
-                                                        {{ $status->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <button type="submit"
-                                                class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-blue-500 text-white rounded-lg px-3 py-1 text-xs font-semibold shadow hover:bg-blue-600 transition">
-                                                Actualizar
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                                @if ($order->order_status_id == 3 && $order->deliveryService->id != 2)
-                                    @livewire('admin.shipping-number-form', ['orderId' => $order->id])
-                                @endif
-                            @endif
-
-                            @if ($order->address)
-                                <div class="">
-                                    <div class="flex items-center mb-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M20 12H4" />
-                                        </svg>
-                                        <h3 class="text-lg font-semibold text-gray-800">Dirección de Entrega</h3>
+                            <div class="p-4">
+                                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="relative">
+                                        <select name="order_status_id"
+                                            class="form-select mt-1 block w-full mr-10 p-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700">
+                                            @foreach ($orderStatuses as $status)
+                                                <option value="{{ $status->id }}"
+                                                    {{ $status->id == $order->order_status_id ? 'selected' : '' }}>
+                                                    {{ $status->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit"
+                                            class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-blue-500 text-white rounded-lg px-3 py-1 text-xs font-semibold shadow hover:bg-blue-600 transition">
+                                            Actualizar
+                                        </button>
                                     </div>
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Dirección:</strong>
-                                        {{ $order->address->address }}</p>
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Calle:</strong>
-                                        {{ $order->address->street }}</p>
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Número:</strong>
-                                        {{ $order->address->number }}</p>
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Departamento:</strong>
-                                        {{ $order->address->department ?? 'No disponible' }}</p>
-                                    <p class="text-lg text-gray-600"><strong class="font-medium">Detalles:</strong>
-                                        {{ $order->address->observation }}</p>
-
-                                    <div class="mt-4">
-                                        <p class="text-lg text-gray-600"><strong class="font-medium">Provincia:</strong>
-                                            {{ $order->address->province->name }}</p>
-                                        @if ($order->address->city != null)
-                                            <p class="text-lg text-gray-600"><strong class="font-medium">Ciudad:</strong>
-                                                {{ $order->address->city->name }}</p>
-                                        @endif
-                                    </div>
-                                </div>
+                                </form>
+                            </div>
+                            @if ($order->order_status_id == 3 && $order->deliveryService->id != 2)
+                                @livewire('admin.shipping-number-form', ['orderId' => $order->id])
                             @endif
-                        </div>
+                        @endif
 
+                        @if ($order->address)
+                            <div class="">
+                                <div class="flex items-center mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-6 h-6 mr-4"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M20 12H4" />
+                                    </svg>
+                                    <h3 class="text-lg font-semibold text-gray-800">Dirección de Entrega</h3>
+                                </div>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Dirección:</strong>
+                                    {{ $order->address->address }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Calle:</strong>
+                                    {{ $order->address->street }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Número:</strong>
+                                    {{ $order->address->number }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Departamento:</strong>
+                                    {{ $order->address->department ?? 'No disponible' }}</p>
+                                <p class="text-lg text-gray-600"><strong class="font-medium">Detalles:</strong>
+                                    {{ $order->address->observation }}</p>
+
+                                <div class="mt-4">
+                                    <p class="text-lg text-gray-600"><strong class="font-medium">Provincia:</strong>
+                                        {{ $order->address->province->name }}</p>
+                                    @if ($order->address->city != null)
+                                        <p class="text-lg text-gray-600"><strong class="font-medium">Ciudad:</strong>
+                                            {{ $order->address->city->name }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
+
+
+
                 <div class="col-span-1 lg:col-span-3 w-full">
                     <div class="w-full flex lg:items-start justify-center">
                         <div class="bg-gray-100 text-gray-800 p-6 rounded-lg shadow-lg w-full">
+                            @if ($order->payment_method_id == 2)
+                                <!-- Título principal -->
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Detalles de Mercado Pago</h3>
 
-                            <!-- Título principal -->
-                            <h3 class="text-2xl font-semibold text-gray-800 mb-4">Detalles de Mercado Pago</h3>
+                                <!-- Información básica del pedido -->
+                                <div class="text-gray-600">
+                                    <p><strong>ID de Pedido:</strong> {{ $mpOrder->id ?? 'No disponible' }}</p>
+                                    <p><strong>Estado del Pedido:</strong>
+                                        <span class="font-semibold">
+                                            @switch($mpOrder->status ?? 'unknown')
+                                                @case('approved')
+                                                    Aprobado
+                                                @break
 
-                            <!-- Información básica del pedido -->
-                            <div class="text-gray-600">
-                                <p><strong>ID de Pedido:</strong> {{ $mpOrder->id ?? 'No disponible' }}</p>
-                                <p><strong>Estado del Pedido:</strong>
-                                    <span class="font-semibold">
-                                        @switch($mpOrder->status ?? 'unknown')
-                                            @case('approved')
-                                                Aprobado
-                                            @break
+                                                @case('rejected')
+                                                    Rechazado
+                                                @break
 
-                                            @case('rejected')
-                                                Rechazado
-                                            @break
+                                                @case('pending')
+                                                    Pendiente
+                                                @break
 
-                                            @case('pending')
-                                                Pendiente
-                                            @break
+                                                @default
+                                                    Desconocido
+                                            @endswitch
+                                        </span>
+                                    </p>
+                                </div>
+                                {{-- {{ $mpOrderJson }} --}}
 
-                                            @default
-                                                Desconocido
-                                        @endswitch
-                                    </span>
-                                </p>
-                            </div>
-                            {{-- {{ $mpOrderJson }} --}}
+                                <!-- Detalle del pago -->
+                                <div class="mt-6">
+                                    <h4 class="text-lg font-medium text-gray-700 mb-2">Detalle del Pago:</h4>
+                                    <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                                        <li><strong>Estado del Pago:</strong>
+                                            {{ $mpOrder->payment_status ?? 'No disponible' }}
+                                        </li>
+                                        <li><strong>Detalle:</strong> {{ $mpOrder->status_detail ?? 'No disponible' }}</li>
+                                        <li><strong>Monto Total Pagado:</strong>
+                                            ${{ number_format($mpOrder->transaction_details->total_paid_amount ?? 0, 2) }}
+                                        </li>
+                                        <li><strong>Monto Neto Recibido:</strong>
+                                            ${{ number_format($mpOrder->transaction_details->net_received_amount ?? 0, 2) }}
+                                        </li>
+                                        <li><strong>Monto por Cuota:</strong>
+                                            ${{ number_format($mpOrder->transaction_details->installment_amount ?? 0, 2) }}
+                                        </li>
+                                        <li><strong>Últimos 4 dígitos de la tarjeta:</strong>
+                                            {{ $mpOrder->card->last_four_digits ?? 'No disponible' }}</li>
+                                        <li><strong>Nombre del Titular de la Tarjeta:</strong>
+                                            {{ $mpOrder->card->cardholder->name ?? 'No disponible' }}</li>
+                                        <li><strong>Cuotas:</strong> {{ $mpOrder->installments ?? 'Pago único' }}</li>
+                                        <li><strong>Moneda:</strong> {{ $mpOrder->currency_id ?? 'No disponible' }}</li>
+                                    </ul>
+                                </div>
 
-                            <!-- Detalle del pago -->
-                            <div class="mt-6">
-                                <h4 class="text-lg font-medium text-gray-700 mb-2">Detalle del Pago:</h4>
-                                <ul class="list-disc pl-6 space-y-2 text-gray-600">
-                                    <li><strong>Estado del Pago:</strong> {{ $mpOrder->payment_status ?? 'No disponible' }}
-                                    </li>
-                                    <li><strong>Detalle:</strong> {{ $mpOrder->status_detail ?? 'No disponible' }}</li>
-                                    <li><strong>Monto Total Pagado:</strong>
-                                        ${{ number_format($mpOrder->transaction_details->total_paid_amount ?? 0, 2) }}</li>
-                                    <li><strong>Monto Neto Recibido:</strong>
-                                        ${{ number_format($mpOrder->transaction_details->net_received_amount ?? 0, 2) }}
-                                    </li>
-                                    <li><strong>Monto por Cuota:</strong>
-                                        ${{ number_format($mpOrder->transaction_details->installment_amount ?? 0, 2) }}
-                                    </li>
-                                    <li><strong>Últimos 4 dígitos de la tarjeta:</strong>
-                                        {{ $mpOrder->card->last_four_digits ?? 'No disponible' }}</li>
-                                    <li><strong>Nombre del Titular de la Tarjeta:</strong>
-                                        {{ $mpOrder->card->cardholder->name ?? 'No disponible' }}</li>
-                                    <li><strong>Cuotas:</strong> {{ $mpOrder->installments ?? 'Pago único' }}</li>
-                                    <li><strong>Moneda:</strong> {{ $mpOrder->currency_id ?? 'No disponible' }}</li>
-                                </ul>
-                            </div>
+                                <!-- Información adicional del pedido -->
+                                <div class="mt-6">
+                                    <h4 class="text-lg font-medium text-gray-700 mb-2">Información Adicional:</h4>
+                                    <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                                        <li><strong>Email del Pagador:</strong>
+                                            {{ $mpOrder->payer->email ?? 'No disponible' }}
+                                        </li>
+                                        <li><strong>Identificación del Pagador:</strong>
+                                            {{ $mpOrder->payer->identification->number ?? 'No disponible' }}</li>
+                                        <li><strong>Descripción en el Estado de Cuenta:</strong>
+                                            {{ $mpOrder->statement_descriptor ?? 'No disponible' }}</li>
+                                        <li><strong>Fecha de Creación:</strong>
+                                            {{ \Carbon\Carbon::parse($mpOrder->created_at ?? now())->format('d/m/Y H:i') }}
+                                        </li>
+                                        <li><strong>Método de Pago:</strong>
+                                            {{ is_string($mpOrder->payment_method ?? null) ? ucfirst($mpOrder->payment_method) : 'No disponible' }}
+                                        </li>
+                                    </ul>
+                                </div>
 
-                            <!-- Información adicional del pedido -->
-                            <div class="mt-6">
-                                <h4 class="text-lg font-medium text-gray-700 mb-2">Información Adicional:</h4>
-                                <ul class="list-disc pl-6 space-y-2 text-gray-600">
-                                    <li><strong>Email del Pagador:</strong> {{ $mpOrder->payer->email ?? 'No disponible' }}
-                                    </li>
-                                    <li><strong>Identificación del Pagador:</strong>
-                                        {{ $mpOrder->payer->identification->number ?? 'No disponible' }}</li>
-                                    <li><strong>Descripción en el Estado de Cuenta:</strong>
-                                        {{ $mpOrder->statement_descriptor ?? 'No disponible' }}</li>
-                                    <li><strong>Fecha de Creación:</strong>
-                                        {{ \Carbon\Carbon::parse($mpOrder->created_at ?? now())->format('d/m/Y H:i') }}
-                                    </li>
-                                    <li><strong>Método de Pago:</strong>
-                                        {{ is_string($mpOrder->payment_method ?? null) ? ucfirst($mpOrder->payment_method) : 'No disponible' }}
-                                    </li>
-                                </ul>
-                            </div>
+                                <!-- Detalle de los costos de Mercado Pago -->
+                                <div class="mt-6">
+                                    <h4 class="text-lg font-medium text-gray-700 mb-2">Costos de Mercado Pago:</h4>
+                                    <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                                        <li><strong>Monto Total Pagado:</strong>
+                                            ${{ number_format($mpOrder->transaction_details->total_paid_amount ?? 0, 2) }}
+                                        </li>
+                                        <li><strong>Monto Neto Recibido:</strong>
+                                            ${{ number_format($mpOrder->transaction_details->net_received_amount ?? 0, 2) }}
+                                        </li>
+                                        <li><strong>Comisión de Mercado Pago:</strong>
+                                            ${{ number_format(($mpOrder->transaction_details->total_paid_amount ?? 0) - ($mpOrder->transaction_details->net_received_amount ?? 0), 2) }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
+                            @if ($order->paymentMethod->id == 7)
+                                @if ($order->comprobante)
+                                    <div class="mt-4 bg-gray-50 p-4 rounded w-full sm:w-auto flex flex-col items-center">
+                                        <img src="{{ asset('img/' . $order->comprobante->url) }}"
+                                            alt="Comprobante de pago del pedido #{{ $order->id }}"
+                                            class="w-full sm:w-64 h-auto object-cover rounded mb-4">
 
-                            <!-- Detalle de los costos de Mercado Pago -->
-                            <div class="mt-6">
-                                <h4 class="text-lg font-medium text-gray-700 mb-2">Costos de Mercado Pago:</h4>
-                                <ul class="list-disc pl-6 space-y-2 text-gray-600">
-                                    <li><strong>Monto Total Pagado:</strong>
-                                        ${{ number_format($mpOrder->transaction_details->total_paid_amount ?? 0, 2) }}</li>
-                                    <li><strong>Monto Neto Recibido:</strong>
-                                        ${{ number_format($mpOrder->transaction_details->net_received_amount ?? 0, 2) }}
-                                    </li>
-                                    <li><strong>Comisión de Mercado Pago:</strong>
-                                        ${{ number_format(($mpOrder->transaction_details->total_paid_amount ?? 0) - ($mpOrder->transaction_details->net_received_amount ?? 0), 2) }}
-                                    </li>
-                                </ul>
-                            </div>
+                                        @if (in_array($order->orderStatus->id, [1, 2]))
+                                            <p class="text-sm text-gray-700 font-semibold">Pago:
+                                                {{ $order->orderStatus->name }}
+                                            </p>
+                                        @else
+                                            <button
+                                                class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                                Ver mi pedido
+                                            </button>
+                                        @endif
+                                    </div>
+                                @else
+                                    <div class="mt-4 bg-gray-50 p-4 rounded w-full sm:w-auto flex flex-col items-center">
+                                        <p class="text-sm text-gray-700 font-semibold">No se ha subido el comprobante de
+                                            pago</p>
+                                    </div>
+                                @endif
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <!-- Total del Pedido -->
             <div class="mb-10 mt-6 rounded-lg bg-gray-100 p-6">
