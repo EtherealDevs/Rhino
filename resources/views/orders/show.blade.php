@@ -40,7 +40,7 @@
                 <div class="lg:w-3/4 w-full">
                     @if ($order->comprobante)
                         <div class="mt-4 bg-gray-200 p-4 rounded w-full sm:w-auto flex flex-col items-center">
-                            <img src="{{ asset('storage/' . $order->comprobante->url) }}"
+                            <img src="{{ asset('img/' . $order->comprobante->url) }}"
                                 alt="Comprobante de pago del pedido #{{ $order->id }}"
                                 class="w-full sm:w-64 h-auto object-cover rounded mb-4">
 

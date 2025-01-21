@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="max-w-7xl h-screen justify-center mx-auto">
+        <div class="max-w-7xl h-full min-h-screen justify-center mx-auto">
             <div class="p-4 w-full bg-white rounded-lg border m-2 xl:m-12 shadow-md sm:p-8">
                 <div class="flex justify-between items-center mb-4">
                     <h1 class="text-2xl font-josefin font-bold leading-none text-gray-900">Mis Pedidos</h1>

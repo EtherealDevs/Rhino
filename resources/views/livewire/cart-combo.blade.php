@@ -193,9 +193,15 @@
 
                 <!-- Eliminar -->
                 <div class="col-span-1 flex items-center justify-end">
-                    <button type="submit" class="text-gray-400 hover:text-red-500 text-xl font-bold">
-                        &times;
-                    </button>
+                    <form method="POST" action="{{ route('cart.removeItem', ['cartItemId' => $cartItemId]) }}"
+                        class="mt-4 sm:mt-0">
+                        @csrf
+                        @method('delete')
+                      {{--   <input value="{{ $size }}" type="hidden" name="size"> --}}
+                        <button type="submit" class="text-gray-400 hover:text-red-500 text-xl font-bold">
+                            &times;
+                        </button>
+                    </form>
                 </div>
             </div>
 
