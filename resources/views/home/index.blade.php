@@ -134,12 +134,12 @@
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="Banner principal" loading="lazy">
                                     </div>
-                                    {{-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/7.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
                                     </div>
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    {{-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/8.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
@@ -147,58 +147,93 @@
                                 </div>
                                 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
                                 <!-- Slider controls -->
-                                <button type="button"
-                                    class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
-                                    data-carousel-prev>
-                                    <span
-                                        class="inline-flex justify-center items-center w-10 h-10 rounded-full sm:w-10 sm:h-10 bg-white/80 text-black hover:bg-white/100 group-focus:ring-4 group-focus:ring-black group-focus:outline-none">
-                                        <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 19l-7-7 7-7"></path>
-                                        </svg>
-                                        <span class="hidden">Previous</span>
-                                    </span>
+                                <!-- Slider controls -->
+                                <button type="button" class="carousel-button carousel-button-prev" data-carousel-prev>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7" />
+                                    </svg>
                                 </button>
-                                <button type="button"
-                                    class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
-                                    data-carousel-next>
-                                    <span
-                                        class="inline-flex justify-center items-center w-10 h-10 rounded-full sm:w-10 sm:h-10 bg-white/80 text-black hover:bg-white/100 group-focus:ring-4 group-focus:ring-black">
-                                        <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                        <span class="hidden">Next</span>
-                                    </span>
+                                <button type="button" class="carousel-button carousel-button-next" data-carousel-next>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
                                 </button>
                             </div>
                             <style>
                                 [data-carousel-item] {
                                     position: absolute;
                                     inset: 0;
-                                    transition: opacity 5s ease-in-out;
+                                    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
                                 }
 
                                 .opacity-0 {
                                     opacity: 0;
+                                    transform: translateX(100%);
                                 }
 
                                 .opacity-100 {
                                     opacity: 1;
+                                    transform: translateX(0);
+                                }
+
+                                .carousel-button {
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    z-index: 30;
+                                    background: rgba(255, 255, 255, 0.8);
+                                    border-radius: 50%;
+                                    width: 40px;
+                                    height: 40px;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    cursor: pointer;
+                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+                                }
+
+                                .carousel-button:hover {
+                                    background: rgba(255, 255, 255, 1);
+                                    transform: scale(1.1);
+                                }
+
+                                .carousel-button-prev {
+                                    left: 10px;
+                                }
+
+                                .carousel-button-next {
+                                    right: 10px;
+                                }
+
+                                .carousel-button svg {
+                                    width: 20px;
+                                    height: 20px;
+                                    color: #000;
                                 }
                             </style>
                             <script>
-                                document.addEventListener('DOMContentLoaded', function() {
+                                document.addEventListener('DOMContentLoaded', function () {
                                     const carousel = document.querySelector('#default-carousel');
                                     const items = carousel.querySelectorAll('[data-carousel-item]');
+                                    const prevButton = carousel.querySelector('[data-carousel-prev]');
+                                    const nextButton = carousel.querySelector('[data-carousel-next]');
                                     let currentIndex = 0;
                                     const intervalTime = 12000; // 12 seconds
 
                                     const showSlide = (index) => {
                                         items.forEach((item, i) => {
-                                            item.classList.toggle('hidden', i !== index);
+                                            if (i === index) {
+                                                item.classList.add('opacity-100');
+                                                item.classList.remove('opacity-0');
+                                            } else {
+                                                item.classList.add('opacity-0');
+                                                item.classList.remove('opacity-100');
+                                            }
                                         });
                                     };
 
@@ -207,11 +242,27 @@
                                         showSlide(currentIndex);
                                     };
 
+                                    const prevSlide = () => {
+                                        currentIndex = (currentIndex - 1 + items.length) % items.length;
+                                        showSlide(currentIndex);
+                                    };
+
                                     // Initialize carousel
                                     showSlide(currentIndex);
 
                                     // Set interval for automatic slide transition
-                                    setInterval(nextSlide, intervalTime);
+                                    const interval = setInterval(nextSlide, intervalTime);
+
+                                    // Add event listeners for buttons
+                                    nextButton.addEventListener('click', () => {
+                                        clearInterval(interval); // Reset the interval when manually navigating
+                                        nextSlide();
+                                    });
+
+                                    prevButton.addEventListener('click', () => {
+                                        clearInterval(interval); // Reset the interval when manually navigating
+                                        prevSlide();
+                                    });
                                 });
                             </script>
                             <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
@@ -259,8 +310,7 @@
                                 height: 42px;
                             >
                                 <svg width="25"
-                                    height="20" viewBox="0 0 25 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                    height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M23.7595 11.4133C24.1224 11.0383 24.3262 10.53 24.3262 9.99996C24.3262 9.46996 24.1224 8.96163 23.7595 8.58663L16.4539 1.0413C16.0904 0.666104 15.5974 0.455322 15.0834 0.455322C14.5694 0.455322 14.0764 0.666104 13.713 1.0413C13.3495 1.41649 13.1453 1.92536 13.1453 2.45596C13.1453 2.98657 13.3495 3.49544 13.713 3.87063L17.712 7.99996L2.81259 7.99996C2.29873 7.99996 1.80592 8.21068 1.44257 8.58575C1.07922 8.96082 0.875088 9.46953 0.875088 9.99996C0.875088 10.5304 1.07922 11.0391 1.44257 11.4142C1.80592 11.7892 2.29873 12 2.81259 12L17.712 12L13.713 16.128C13.533 16.3137 13.3902 16.5343 13.2928 16.777C13.1954 17.0197 13.1453 17.2799 13.1453 17.5426C13.1453 17.8054 13.1954 18.0655 13.2928 18.3082C13.3902 18.551 13.533 18.7715 13.713 18.9573C13.8929 19.1431 14.1066 19.2904 14.3417 19.391C14.5769 19.4915 14.8289 19.5433 15.0834 19.5433C15.3379 19.5433 15.59 19.4915 15.8251 19.391C16.0602 19.2904 16.2739 19.1431 16.4539 18.9573L23.7595 11.4133Z"
                                         fill="#3E68FF" />

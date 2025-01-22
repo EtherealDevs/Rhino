@@ -57,7 +57,11 @@
                         <!-- Información para Transferencia -->
                         <div
                             class="mt-4 bg-white  border border-slate-700 p-6 rounded-xl w-full sm:w-auto flex flex-col items-start space-y-2">
-                            <h3 class="text-gray-700 font-bold">Información para Transferencia</h3>
+                            <h3 class="text-gray-700 font-bold">PASO NUMERO 1: Información para Transferencia</h3>
+                            <p class="text-gray-400 font-semibold">
+                                Transferir a la cuenta de Rino el monto total de tu pedido y luego contactarlo para coordinar el retiro
+                                👇🏼
+                            </p>
                             <p><strong>Alias:</strong> {{ $transferInfo->alias }}</p>
                             <p><strong>CBU:</strong> {{ $transferInfo->cbu }}</p>
                             <p><strong>Nombre:</strong> {{ $transferInfo->holder_name }}</p>
@@ -81,7 +85,7 @@
                                         </svg>
                                         <span class="text-gray-700">Cargar archivo</span>
                                         <!-- Input hidden, el cual activará el cuadro de diálogo de carga al hacer clic en el label -->
-                                        <input type="file" id="file" name="file" accept="image/*,.pdf"
+                                        <input required type="file" id="file" name="file" accept="image/*,.pdf"
                                             class="hidden" />
                                     </label>
 
@@ -98,7 +102,7 @@
                                     <input type="hidden" id="order_id" name="order_id" value="{{ $order->id }}">
 
                                     <!-- Input para el DNI con un diseño mejorado -->
-                                    <input type="number" id="dni" name="dni" placeholder="DNI en el comprobante"
+                                    <input required type="number" id="dni" name="dni" placeholder="DNI en el comprobante"
                                         class="mt-2 w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" />
                                 </div>
 
@@ -160,8 +164,13 @@
             @if ($order->delivery_service_id === 2)
                 <div class="w-3/4 mb-10 mt-12 border-4 border-dashed border-green-500 p-6 rounded-lg bg-green-50 shadow-lg">
                     <h2 class="text-2xl font-extrabold text-green-700 mb-4 text-center uppercase tracking-wide">
-                        Último paso: Pactar retiro con RINO
+                        PASO NUMERO 2: Pactar retiro con RINO
                     </h2>
+
+                    <p class="text-gray-400 font-semibold">
+                        Contactar con
+                        👇🏼
+                    </p>
                     <div class="mt-6 flex justify-center">
                         <button onclick="contactRino()"
                             class="bg-[#25D366] text-white flex items-center px-6 py-3 rounded-2xl hover:bg-[#1EBE57] transition-transform transform hover:scale-105 shadow-md">
