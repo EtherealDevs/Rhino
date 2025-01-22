@@ -66,12 +66,14 @@
                                     <div
                                         class="overflow-hidden relative h-[400px] sm:h-56 md:h-64 lg:h-72 xl:h-[550px] 2xl:h-[590px] rounded-lg">
                                         <!-- Item 1 -->
-                                        @foreach ($combos as $combo)
-                                            <!-- Item -->
-                                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                        @foreach ($combos as $index => $combo)
+                                            <div class="{{ $loop->first ? 'active' : 'hidden' }} duration-700 ease-in-out"
+                                                data-carousel-item>
                                                 <div
                                                     class="absolute top-1/2 left-1/2 text-xl sm:text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2">
-                                                    <a href="{{ route('combos.show', $combo) }}">@livewire('combo', ['id' => $combo->id])</a>
+                                                    <a href="{{ route('combos.show', $combo) }}">
+                                                        @livewire('combo', ['id' => $combo->id])
+                                                    </a>
                                                 </div>
                                             </div>
                                         @endforeach
