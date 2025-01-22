@@ -22,10 +22,6 @@ class Products extends Component
             'items.sizes' => function ($query) {
                 $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
                     ->where('products_sizes.stock', '>', 0);
-            },
-            'variations' => function ($query) {
-                $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
-                    ->where('products_sizes.stock', '>', 0);
             }
         ])->paginate(16);
 

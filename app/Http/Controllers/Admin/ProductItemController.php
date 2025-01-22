@@ -46,17 +46,17 @@ class ProductItemController extends Controller
             'reference_images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             // Otros campos...
         ]);
-        $product_item = ProductItem::where('product_id',$request->product_id)->where('color_id',$request->color_id)->first();
-        if(isset($product_item)){
-                $product_size=$product_item->sizes()->wherePivot('size_id',$request->size_id)->first();
-                if(isset($product_size)){
-                $product_stock=$product_item->sizes()->wherePivot('size_id',$request->size_id)->first()->pivot;
-                $stock=$product_stock->stock+$request->stock;
-                $product_item->sizes()->wherePivot('size_id',$request->size_id)->first()->pivot->update(['stock'=>$stock]);
-                }else{
-                    $product_item->sizes()->attach($request->size_id, ['stock' => $request->stock]);
-                }
-        }else{
+        $product_item = ProductItem::where('product_id', $request->product_id)->where('color_id', $request->color_id)->first();
+        if (isset($product_item)) {
+            $product_size = $product_item->sizes()->wherePivot('size_id', $request->size_id)->first();
+            if (isset($product_size)) {
+                $product_stock = $product_item->sizes()->wherePivot('size_id', $request->size_id)->first()->pivot;
+                $stock = $product_stock->stock + $request->stock;
+                $product_item->sizes()->wherePivot('size_id', $request->size_id)->first()->pivot->update(['stock' => $stock]);
+            } else {
+                $product_item->sizes()->attach($request->size_id, ['stock' => $request->stock]);
+            }
+        } else {
             $product_item = ProductItem::create([
                 'product_id' => $request->product_id,
                 'color_id' => $request->color_id,
@@ -125,57 +125,61 @@ class ProductItemController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $productItemId)
-{
-    $request->validate([
-        'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'reference_images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    {
+        $request->validate([
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'reference_images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    $productItem = ProductItem::findOrFail($productItemId);
+        $productItem = ProductItem::findOrFail($productItemId);
 
-    // Actualizar campos del producto, incluyendo color
-    $productItem->update([
-        'product_id' => $request->product_id,
-        'original_price' => $request->original_price,
-        'sale_price' => $request->sale_price,
-        'color_id' => $request->color_id, // Asigna el color_id
-    ]);
+        // Actualizar campos del producto, incluyendo color
+        $productItem->update([
+            'product_id' => $request->product_id,
+            'original_price' => $request->original_price,
+            'sale_price' => $request->sale_price,
+            'color_id' => $request->color_id, // Asigna el color_id
+        ]);
 
-    $productItem->sizes()->updateExistingPivot($request->size_id, ['stock' => $request->stock]);
+        $productItem->sizes()->updateExistingPivot($request->size_id, ['stock' => $request->stock]);
 
-    if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            $url = Storage::put('images/product', $image);
-            $productItem->images()->create(['url' => $url]);
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $url = Storage::put('images/product', $image);
+                $productItem->images()->create(['url' => $url]);
+            }
         }
-    }
 
-    // Verifica si se han subido imágenes al segundo campo
-    if ($request->hasFile('reference_images')) {
-        foreach ($request->file('reference_images') as $image) {
-            // Almacena la imagen
-            $url = Storage::put('images/product', $image);
-            // Crea una nueva imagen asociada al product_item
-            $productItem->images()->create([
-                'url' => $url,
-                'is_active' => 0, // Marcada como de referencia
-            ]);
+        // Verifica si se han subido imágenes al segundo campo
+        if ($request->hasFile('reference_images')) {
+            foreach ($request->file('reference_images') as $image) {
+                // Almacena la imagen
+                $url = Storage::put('images/product', $image);
+                // Crea una nueva imagen asociada al product_item
+                $productItem->images()->create([
+                    'url' => $url,
+                    'is_active' => 0, // Marcada como de referencia
+                ]);
+            }
         }
+        return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
     }
-    return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
-}
 
 
     public function destroy($productSizeId)
     {
         $variation = ProductSize::find($productSizeId);
+        $productItem = ProductItem::find($variation->product_item_id);
         try {
             $variation->delete();
+            $remainingSizes = $productItem->sizes()->whereNull('products_sizes.deleted_at')->count();
+            if ($remainingSizes === 0) {
+                $productItem->delete();
+            }
             DeletedItemVariation::dispatch($variation);
         } catch (\Throwable $th) {
             throw $th;
         }
-
         // $productSize = DB::table('products_sizes')->where('id', $productSizeId)->first();
 
         // if (!$productSize) {
@@ -203,8 +207,7 @@ class ProductItemController extends Controller
         $productItem = ProductItem::withTrashed()->find($variation->product_item_id);
         $product = Product::withTrashed()->find($productItem->product_id);
         $variation->restore();
-        if ($productItem->trashed())
-        {
+        if ($productItem->trashed()) {
             $productItem->restore();
         }
 
@@ -248,4 +251,3 @@ class ProductItemController extends Controller
         return redirect()->back()->with('success', 'Imagen eliminada correctamente.');
     }
 }
-
