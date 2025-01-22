@@ -147,7 +147,6 @@
                                 </div>
                                 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
                                 <!-- Slider controls -->
-                                <!-- Slider controls -->
                                 <button type="button" class="carousel-button carousel-button-prev" data-carousel-prev>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -167,17 +166,24 @@
                                 [data-carousel-item] {
                                     position: absolute;
                                     inset: 0;
-                                    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-                                }
-
-                                .opacity-0 {
                                     opacity: 0;
                                     transform: translateX(100%);
+                                    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+                                    z-index: 1;
                                 }
 
-                                .opacity-100 {
+                                [data-carousel-item].active {
                                     opacity: 1;
                                     transform: translateX(0);
+                                    z-index: 2;
+                                }
+
+                                [data-carousel-item].slide-left {
+                                    transform: translateX(-100%);
+                                }
+
+                                [data-carousel-item].slide-right {
+                                    transform: translateX(100%);
                                 }
 
                                 .carousel-button {
@@ -217,50 +223,75 @@
                                 }
                             </style>
                             <script>
-                                document.addEventListener('DOMContentLoaded', function () {
+                                document.addEventListener('DOMContentLoaded', function() {
                                     const carousel = document.querySelector('#default-carousel');
                                     const items = carousel.querySelectorAll('[data-carousel-item]');
                                     const prevButton = carousel.querySelector('[data-carousel-prev]');
                                     const nextButton = carousel.querySelector('[data-carousel-next]');
                                     let currentIndex = 0;
-                                    const intervalTime = 12000; // 12 seconds
+                                    const intervalTime = 4000; // Intervalo entre cambios
+                                    let isAnimating = false; // Previene múltiples animaciones simultáneas
 
-                                    const showSlide = (index) => {
-                                        items.forEach((item, i) => {
-                                            if (i === index) {
-                                                item.classList.add('opacity-100');
-                                                item.classList.remove('opacity-0');
-                                            } else {
-                                                item.classList.add('opacity-0');
-                                                item.classList.remove('opacity-100');
-                                            }
-                                        });
+                                    const initializeCarousel = () => {
+                                        // Configura el primer slide como activo
+                                        items[currentIndex].classList.add('active');
+                                    };
+
+                                    const showSlide = (newIndex, direction) => {
+                                        if (isAnimating) return;
+                                        isAnimating = true;
+
+                                        const currentSlide = items[currentIndex];
+                                        const nextSlide = items[newIndex];
+
+                                        // Asegurarnos de limpiar las clases previas
+                                        items.forEach(item => item.classList.remove('active', 'slide-left', 'slide-right'));
+
+                                        // Aplicar clases de animación según la dirección
+                                        if (direction === 'next') {
+                                            currentSlide.classList.add('slide-left');
+                                            nextSlide.classList.add('slide-right');
+                                        } else if (direction === 'prev') {
+                                            currentSlide.classList.add('slide-right');
+                                            nextSlide.classList.add('slide-left');
+                                        }
+
+                                        // Mostrar la nueva diapositiva
+                                        nextSlide.classList.add('active');
+
+                                        // Actualizar el índice actual después de la animación
+                                        setTimeout(() => {
+                                            currentSlide.classList.remove('active', 'slide-left', 'slide-right');
+                                            nextSlide.classList.remove('slide-left', 'slide-right');
+                                            currentIndex = newIndex;
+                                            isAnimating = false;
+                                        }, 200); // Tiempo de animación coincide con el CSS
                                     };
 
                                     const nextSlide = () => {
-                                        currentIndex = (currentIndex + 1) % items.length;
-                                        showSlide(currentIndex);
+                                        const newIndex = (currentIndex + 1) % items.length;
+                                        showSlide(newIndex, 'next');
                                     };
 
                                     const prevSlide = () => {
-                                        currentIndex = (currentIndex - 1 + items.length) % items.length;
-                                        showSlide(currentIndex);
+                                        const newIndex = (currentIndex - 1 + items.length) % items.length;
+                                        showSlide(newIndex, 'prev');
                                     };
 
-                                    // Initialize carousel
-                                    showSlide(currentIndex);
+                                    // Inicia el carrusel automáticamente
+                                    initializeCarousel();
 
-                                    // Set interval for automatic slide transition
+                                    // Intervalo automático
                                     const interval = setInterval(nextSlide, intervalTime);
 
-                                    // Add event listeners for buttons
+                                    // Controles manuales
                                     nextButton.addEventListener('click', () => {
-                                        clearInterval(interval); // Reset the interval when manually navigating
+                                        clearInterval(interval); // Reinicia el temporizador al navegar manualmente
                                         nextSlide();
                                     });
 
                                     prevButton.addEventListener('click', () => {
-                                        clearInterval(interval); // Reset the interval when manually navigating
+                                        clearInterval(interval); // Reinicia el temporizador al navegar manualmente
                                         prevSlide();
                                     });
                                 });
