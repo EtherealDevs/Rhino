@@ -76,12 +76,10 @@
             <div class="grid grid-cols-2">
                 <div class="col-span-1 mr-8">
                     <div class="w-full mb-4 flex justify-end">
-                        <p class="font-bold md:text-lg sm:text-xs sm:text-black md:text-white font-josefin">Av. Rio
-                            Juramento</p>
+                        <p class="font-bold md:text-lg sm:text-xs sm:text-black md:text-white font-josefin">Mila 1201</p>
                     </div>
                     <div class="w-full mb-4 flex justify-end">
-                        <p class="font-bold md:text-lg sm:text-xs sm:text-black md:text-white text-lg font-josefin">+54 9
-                            379 479 8404</p>
+                        <p class="font-bold md:text-lg sm:text-xs sm:text-black md:text-white text-lg font-josefin">+54 9 379 431 6606</p>
                     </div>
                     <div class="w-full mb-4 flex justify-end">
                         <a href="mail">
