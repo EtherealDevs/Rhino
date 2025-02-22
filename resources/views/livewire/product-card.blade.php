@@ -2,9 +2,15 @@
     onmouseover="changeImage(this, '{{ isset($item->images->get(1)->url) ? url(Storage::url($item->images->get(1)->url)) : asset('images/default.png') }}')"
     onmouseout="resetImage(this, '{{ isset($item->images->first()->url) ? url(Storage::url($item->images->first()->url)) : asset('images/default.png') }}')">
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
+        @php
+            $imageUrl =
+                $item->images && $item->images->isNotEmpty()
+                    ? Storage::url($item->images->first()->url)
+                    : asset('images/default.png');
+        @endphp
+
         <div class="h-[200px] w-full">
-            <img src="{{ url(Storage::url($item->images->first()->url)) }}" alt="Producto"
-                class="product-image h-full w-full object-cover lazyload" />
+            <img src="{{ url($imageUrl) }}" alt="Producto" class="product-image h-full w-full object-cover lazyload" />
         </div>
         @if ($product->sale)
             <div
