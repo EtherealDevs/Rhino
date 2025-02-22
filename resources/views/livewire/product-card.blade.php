@@ -1,10 +1,10 @@
 <div class="relative z-10 flex w-44 lg:w-56 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-transform duration-300 hover:scale-105"
-    onmouseover="changeImage(this, '{{ url(Storage::url($item->images->get(1)->url ?? $item->images->first()->url)) }}')"
-    onmouseout="resetImage(this, '{{ url(Storage::url($item->images->first()->url)) }}')">
+    onmouseover="changeImage(this, '{{ isset($item->images->get(1)->url) ? url(Storage::url($item->images->get(1)->url)) : asset('images/default.png') }}')"
+    onmouseout="resetImage(this, '{{ isset($item->images->first()->url) ? url(Storage::url($item->images->first()->url)) : asset('images/default.png') }}')">
     <div class="relative mx-3 mt-3 h-42 overflow-hidden rounded-2xl bg-white bg-clip-border text-gray-700">
         <div class="h-[200px] w-full">
-            <img src="{{ url(Storage::url($item->images->first()->url)) }}"
-                alt="Producto" class="product-image h-full w-full object-cover lazyload" />
+            <img src="{{ url(Storage::url($item->images->first()->url)) }}" alt="Producto"
+                class="product-image h-full w-full object-cover lazyload" />
         </div>
         @if ($product->sale)
             <div
@@ -40,7 +40,8 @@
                         value="{{ $item->sizes()->wherePivot('deleted_at', '=', null)->wherePivot('stock', '>', 0)->first()->name }}">
 
                     <input type="hidden" name="quantity" value="1">
-                    <button aria-label="" type="submit" class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
+                    <button aria-label="" type="submit"
+                        class="bg-black/20 text-gray-600 hover:bg-black p-3 rounded-full transition">
                         <svg width="19" height="18" viewBox="0 0 19 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -55,7 +56,8 @@
     <div class="h-[90px] bg-black rounded-xl mx-3 mt-3 mb-3 p-3">
         <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}" class="h-fulll">
             <div class="grid grid-cols-1 content-around h-full">
-                <p class="block font-sans font-bold truncate text-sm lg:text-base leading-5 uppercase text-white antialiased text-center">
+                <p
+                    class="block font-sans font-bold truncate text-sm lg:text-base leading-5 uppercase text-white antialiased text-center">
                     {{ $product->name }}
                 </p>
                 <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">
