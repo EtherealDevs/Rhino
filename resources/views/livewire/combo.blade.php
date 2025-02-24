@@ -49,6 +49,9 @@
                 @if ($image && !is_null($image))
                     <img src="{{ url(Storage::url($combo_items[1]->item->images->first()->url)) }}"
                         class="w-full h-auto object-cover rounded-2xl" />
+                @else
+                    <img src="{{ asset('images/default.png') }}"
+                        class="w-full h-auto object-cover rounded-2xl" alt="Imagen no disponible" />
                 @endif
 
                 <div class="absolute top-4 right-4 flex space-x-2">
