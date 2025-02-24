@@ -112,7 +112,7 @@
                                     </span>
                                 </button>
 
-                                <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
+                                <div class="absolute bottom-5 mt-12 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
                                     @foreach ($combos as $index => $combo)
                                         <button @click="goToSlide({{ $index }})"
                                             :class="{ 'bg-white': activeSlide === {{ $index }}, 'bg-white/50': activeSlide !== {{ $index }} }"
