@@ -1,5 +1,10 @@
 /public/hot
 /public/storage
+/public/img/images
+/public/img/comprobante
+/public/img/categories/
+/public/img/Rino.mp4
+/public/img/rino.mp4
 /storage/*.key
 .env
 .env.backup
