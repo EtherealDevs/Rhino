@@ -84,7 +84,7 @@
             const $explainButton = $('<a>Visual Explain</a>')
                 .addClass(csscls('visual-explain'))
                 .on('click', () => {
-                    if (!confirm(statement.explain['visual-confirm'])) return;
+                    if (!confirm(confirmMessage)) return;
                     fetch(statement.explain.url, {
                         method: "POST",
                         body: JSON.stringify({
@@ -111,6 +111,8 @@
         },
 
         identifyDuplicates: function(statements) {
+            if (! Array.isArray(statements)) statements = [];
+
             const makeStatementHash = (statement) => {
                 return [
                     statement.sql,
@@ -229,9 +231,11 @@
                     .attr('data-duplicate', false)
                     .append($('<strong />').addClass(csscls('sql name')).text(statement.sql));
             } else {
-                const $code = $('<code />').html(PhpDebugBar.Widgets.highlight(statement.sql, 'sql')).addClass(csscls('sql'));                
+                const $code = $('<code />').html(PhpDebugBar.Widgets.highlight(statement.sql, 'sql')).addClass(csscls('sql')),
+                    duplicated = this.duplicateQueries.has(statement);
                 $li.attr('data-connection', statement.connection)
-                    .attr('data-duplicate', this.duplicateQueries.has(statement))
+                    .attr('data-duplicate', duplicated)
+                    .toggleClass(csscls('sql-duplicate'), duplicated)
                     .append($code);
 
                 if (statement.show_copy) {
@@ -246,7 +250,7 @@
                                     $(event.target).removeClass(csscls('copy-clipboard-check'));
                                 }, 2000)
                             }
-                        }).appendTo($li);
+                        }).prependTo($li);
                 }
             }
 
@@ -260,16 +264,16 @@
             }
 
             if ('is_success' in statement && !statement.is_success) {
-                $li.addClass(csscls('error')).append($('<span />').addClass(csscls('error')).text(`[${statement.error_code}] ${statement.error_message}`));
+                $li.addClass(csscls('error')).prepend($('<span />').addClass(csscls('error')).text(`[${statement.error_code}] ${statement.error_message}`));
             }
             if (statement.duration_str) {
-                $li.append($('<span title="Duration" />').addClass(csscls('duration')).text(statement.duration_str));
+                $li.prepend($('<span title="Duration" />').addClass(csscls('duration')).text(statement.duration_str));
             }
             if (statement.memory_str) {
-                $li.append($('<span title="Memory usage" />').addClass(csscls('memory')).text(statement.memory_str));
+                $li.prepend($('<span title="Memory usage" />').addClass(csscls('memory')).text(statement.memory_str));
             }
             if (statement.connection) {
-                $li.append($('<span title="Connection" />').addClass(csscls('database')).text(statement.connection));
+                $li.prepend($('<span title="Connection" />').addClass(csscls('database')).text(statement.connection));
             }
             if (statement.xdebug_link) {
                 $('<span title="Filename" />')
@@ -285,7 +289,7 @@
                                 fetch(statement.xdebug_link.url);
                             }
                         })
-                    ).appendTo($li);
+                    ).prependTo($li);
             }
 
             const $details = $('<table></table>').addClass(csscls('params'))
@@ -308,6 +312,10 @@
             if($details.children().length) {
                 $li.addClass(csscls('expandable'))
                     .on('click', (event) => {
+                        if (window.getSelection().type == "Range") {
+                            return;
+                        }
+
                         if ($(event.target).closest(`.${csscls('params')}`).length) {
                             return;
                         }
@@ -335,8 +343,7 @@
             const $li = $('<li />').addClass(csscls('table-list-item'));
             const $muted = $('<span />').addClass(css('text-muted'));
 
-            let i = 0;
-            for (const value of values) {
+            $.each(values, (i, value) => {
                 if (showLineNumbers) {
                     $ul.append($li.clone().append([$muted.clone().text(`${i}:`), '&nbsp;', $('<span/>').text(value)]));
                 } else {
@@ -346,8 +353,7 @@
                         $ul.append($li.clone().text(value));
                     }
                 }
-                i++;
-            }
+            });
 
             return this.renderDetail(caption, icon, $ul);
         },

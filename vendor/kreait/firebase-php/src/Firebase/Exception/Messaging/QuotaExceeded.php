@@ -12,6 +12,7 @@ use Kreait\Firebase\Exception\RuntimeException;
 final class QuotaExceeded extends RuntimeException implements MessagingException
 {
     use HasErrors;
+
     private ?DateTimeImmutable $retryAfter = null;
 
     /**

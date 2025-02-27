@@ -13,6 +13,7 @@ use const PHP_EOL;
 use function assert;
 use function extension_loaded;
 use function sprintf;
+use function xdebug_is_debugger_active;
 use AssertionError;
 use PHPUnit\Event\Facade;
 use PHPUnit\Metadata\Api\CodeCoverage as CodeCoverageMetadataApi;
@@ -180,6 +181,21 @@ final class TestRunner
         }
 
         ErrorHandler::instance()->disable();
+
+        /**
+         * Workaround for tests that fail due to mock object expectations
+         * that are verified while the test is running and not after the
+         * test has finished running.
+         *
+         * @see https://github.com/sebastianbergmann/phpunit/issues/6138
+         */
+        if ($failure &&
+            !$error &&
+            !$incomplete &&
+            !$skipped &&
+            $test->numberOfAssertionsPerformed() === 0) {
+            $test->addToAssertionCount(1);
+        }
 
         if (!$error &&
             !$incomplete &&

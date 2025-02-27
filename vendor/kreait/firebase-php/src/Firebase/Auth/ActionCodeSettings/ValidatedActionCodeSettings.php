@@ -17,7 +17,9 @@ use function mb_strtolower;
 final class ValidatedActionCodeSettings implements ActionCodeSettings
 {
     private ?UriInterface $continueUrl = null;
+
     private ?bool $canHandleCodeInApp = null;
+
     private ?UriInterface $dynamicLinkDomain = null;
 
     /**
@@ -29,6 +31,7 @@ final class ValidatedActionCodeSettings implements ActionCodeSettings
      * @var non-empty-string|null
      */
     private ?string $androidMinimumVersion = null;
+
     private ?bool $androidInstallApp = null;
 
     /**

@@ -20,8 +20,11 @@ final class UpdateUser implements Request
 {
     /** @phpstan-use EditUserTrait<self> */
     use EditUserTrait;
+
     public const DISPLAY_NAME = 'DISPLAY_NAME';
+
     public const PHOTO_URL = 'PHOTO_URL';
+
     public const EMAIL = 'EMAIL';
 
     /**

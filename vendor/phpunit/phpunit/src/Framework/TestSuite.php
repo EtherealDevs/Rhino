@@ -148,29 +148,31 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
 
         $class = new ReflectionClass($test);
 
-        if (!$class->isAbstract()) {
-            $this->tests[] = $test;
+        if ($class->isAbstract()) {
+            return;
+        }
 
-            $this->clearCaches();
+        $this->tests[] = $test;
 
-            if ($this->containsOnlyVirtualGroups($groups)) {
-                $groups[] = 'default';
-            }
+        $this->clearCaches();
 
-            if ($test instanceof TestCase) {
-                $id = $test->valueObjectForEvents()->id();
+        if ($this->containsOnlyVirtualGroups($groups)) {
+            $groups[] = 'default';
+        }
 
-                $test->setGroups($groups);
+        if ($test instanceof TestCase) {
+            $id = $test->valueObjectForEvents()->id();
+
+            $test->setGroups($groups);
+        } else {
+            $id = $test->valueObjectForEvents()->id();
+        }
+
+        foreach ($groups as $group) {
+            if (!isset($this->groups[$group])) {
+                $this->groups[$group] = [$id];
             } else {
-                $id = $test->valueObjectForEvents()->id();
-            }
-
-            foreach ($groups as $group) {
-                if (!isset($this->groups[$group])) {
-                    $this->groups[$group] = [$id];
-                } else {
-                    $this->groups[$group][] = $id;
-                }
+                $this->groups[$group][] = $id;
             }
         }
     }
@@ -221,23 +223,15 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
      */
     public function addTestFile(string $filename, array $groups = []): void
     {
-        if (str_ends_with($filename, '.phpt') && is_file($filename)) {
-            try {
+        try {
+            if (str_ends_with($filename, '.phpt') && is_file($filename)) {
                 $this->addTest(new PhptTestCase($filename));
-            } catch (RunnerException $e) {
-                Event\Facade::emitter()->testRunnerTriggeredWarning(
-                    $e->getMessage(),
+            } else {
+                $this->addTestSuite(
+                    (new TestSuiteLoader)->load($filename),
+                    $groups,
                 );
             }
-
-            return;
-        }
-
-        try {
-            $this->addTestSuite(
-                (new TestSuiteLoader)->load($filename),
-                $groups,
-            );
         } catch (RunnerException $e) {
             Event\Facade::emitter()->testRunnerTriggeredWarning(
                 $e->getMessage(),
@@ -595,7 +589,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             return sprintf(
                 "%s\n%s",
                 $message,
-                Filter::getFilteredStacktrace($t),
+                Filter::stackTraceFromThrowableAsString($t),
             );
         }
 
@@ -603,7 +597,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             "%s: %s\n%s",
             $t::class,
             $message,
-            Filter::getFilteredStacktrace($t),
+            Filter::stackTraceFromThrowableAsString($t),
         );
     }
 
@@ -617,70 +611,75 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             return true;
         }
 
-        $methodsCalledBeforeFirstTest = [];
+        $methods         = (new HookMethods)->hookMethods($this->name)['beforeClass']->methodNamesSortedByPriority();
+        $calledMethods   = [];
+        $emitCalledEvent = true;
+        $result          = true;
 
-        $beforeClassMethods = (new HookMethods)->hookMethods($this->name)['beforeClass'];
+        foreach ($methods as $method) {
+            if ($this->methodDoesNotExistOrIsDeclaredInTestCase($method)) {
+                continue;
+            }
 
-        try {
-            foreach ($beforeClassMethods->methodNamesSortedByPriority() as $beforeClassMethod) {
-                if ($this->methodDoesNotExistOrIsDeclaredInTestCase($beforeClassMethod)) {
-                    continue;
-                }
+            $calledMethod = new Event\Code\ClassMethod(
+                $this->name,
+                $method,
+            );
 
-                $missingRequirements = (new Requirements)->requirementsNotSatisfiedFor($this->name, $beforeClassMethod);
+            try {
+                $missingRequirements = (new Requirements)->requirementsNotSatisfiedFor($this->name, $method);
 
                 if ($missingRequirements !== []) {
+                    $emitCalledEvent = false;
+
                     $this->markTestSuiteSkipped(implode(PHP_EOL, $missingRequirements));
                 }
 
-                $methodCalledBeforeFirstTest = new Event\Code\ClassMethod(
-                    $this->name,
-                    $beforeClassMethod,
-                );
+                call_user_func([$this->name, $method]);
+            } catch (Throwable $t) {
+            }
 
+            if ($emitCalledEvent) {
                 $emitter->testBeforeFirstTestMethodCalled(
                     $this->name,
-                    $methodCalledBeforeFirstTest,
+                    $calledMethod,
                 );
 
-                $methodsCalledBeforeFirstTest[] = $methodCalledBeforeFirstTest;
-
-                call_user_func([$this->name, $beforeClassMethod]);
+                $calledMethods[] = $calledMethod;
             }
-        } catch (SkippedTest|SkippedTestSuiteError $e) {
-            $emitter->testSuiteSkipped(
-                $testSuiteValueObjectForEvents,
-                $e->getMessage(),
-            );
 
-            return false;
-        } catch (Throwable $t) {
-            assert(isset($methodCalledBeforeFirstTest));
+            if (isset($t) && $t instanceof SkippedTest) {
+                $emitter->testSuiteSkipped(
+                    $testSuiteValueObjectForEvents,
+                    $t->getMessage(),
+                );
 
-            $emitter->testBeforeFirstTestMethodErrored(
-                $this->name,
-                $methodCalledBeforeFirstTest,
-                Event\Code\ThrowableBuilder::from($t),
-            );
+                return false;
+            }
 
-            if (!empty($methodsCalledBeforeFirstTest)) {
-                $emitter->testBeforeFirstTestMethodFinished(
+            if (isset($t)) {
+                $emitter->testBeforeFirstTestMethodErrored(
                     $this->name,
-                    ...$methodsCalledBeforeFirstTest,
+                    $calledMethod,
+                    Event\Code\ThrowableBuilder::from($t),
                 );
-            }
 
-            return false;
+                $result = false;
+            }
         }
 
-        if (!empty($methodsCalledBeforeFirstTest)) {
+        if (!empty($calledMethods)) {
             $emitter->testBeforeFirstTestMethodFinished(
                 $this->name,
-                ...$methodsCalledBeforeFirstTest,
+                ...$calledMethods,
             );
         }
 
-        return true;
+        if (!$result) {
+            $emitter->testSuiteFinished($testSuiteValueObjectForEvents);
+        }
+
+        return $result;
     }
 
     private function invokeMethodsAfterLastTest(Event\Emitter $emitter): void
@@ -689,38 +688,44 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             return;
         }
 
-        $methodsCalledAfterLastTest = [];
+        $methods       = (new HookMethods)->hookMethods($this->name)['afterClass']->methodNamesSortedByPriority();
+        $calledMethods = [];
 
-        $afterClassMethods = (new HookMethods)->hookMethods($this->name)['afterClass'];
-
-        foreach ($afterClassMethods->methodNamesSortedByPriority() as $afterClassMethod) {
-            if ($this->methodDoesNotExistOrIsDeclaredInTestCase($afterClassMethod)) {
+        foreach ($methods as $method) {
+            if ($this->methodDoesNotExistOrIsDeclaredInTestCase($method)) {
                 continue;
             }
 
+            $calledMethod = new Event\Code\ClassMethod(
+                $this->name,
+                $method,
+            );
+
             try {
-                call_user_func([$this->name, $afterClassMethod]);
+                call_user_func([$this->name, $method]);
+            } catch (Throwable $t) {
+            }
 
-                $methodCalledAfterLastTest = new Event\Code\ClassMethod(
+            $emitter->testAfterLastTestMethodCalled(
+                $this->name,
+                $calledMethod,
+            );
+
+            $calledMethods[] = $calledMethod;
+
+            if (isset($t)) {
+                $emitter->testAfterLastTestMethodErrored(
                     $this->name,
-                    $afterClassMethod,
+                    $calledMethod,
+                    Event\Code\ThrowableBuilder::from($t),
                 );
-
-                $emitter->testAfterLastTestMethodCalled(
-                    $this->name,
-                    $methodCalledAfterLastTest,
-                );
-
-                $methodsCalledAfterLastTest[] = $methodCalledAfterLastTest;
-            } catch (Throwable) {
-                // @todo
             }
         }
 
-        if (!empty($methodsCalledAfterLastTest)) {
+        if (!empty($calledMethods)) {
             $emitter->testAfterLastTestMethodFinished(
                 $this->name,
-                ...$methodsCalledAfterLastTest,
+                ...$calledMethods,
             );
         }
     }

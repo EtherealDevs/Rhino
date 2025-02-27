@@ -35,7 +35,9 @@ use function time;
 class ApiClient
 {
     private readonly ProjectAwareAuthResourceUrlBuilder|TenantAwareAuthResourceUrlBuilder $awareAuthResourceUrlBuilder;
+
     private readonly AuthResourceUrlBuilder $authResourceUrlBuilder;
+
     private readonly AuthApiExceptionConverter $errorHandler;
 
     /**

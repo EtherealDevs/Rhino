@@ -27,7 +27,9 @@ use Kreait\Firebase\Util\DT;
 class FindVersions
 {
     private ?DateTimeImmutable $since = null;
+
     private ?DateTimeImmutable $until = null;
+
     private ?VersionNumber $upToVersion = null;
 
     /**

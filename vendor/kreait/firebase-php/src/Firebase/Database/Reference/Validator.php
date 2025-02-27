@@ -22,7 +22,9 @@ use function trim;
 class Validator
 {
     final public const MAX_DEPTH = 32;
+
     final public const MAX_KEY_SIZE = 768;
+
     final public const INVALID_KEY_CHARS = '.$#[]';
 
     /**

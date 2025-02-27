@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kreait\Firebase\Exception;
 
 use Beste\Clock\SystemClock;
+use DateInterval;
 use DateTimeImmutable;
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
 use GuzzleHttp\Exception\RequestException;
@@ -30,6 +31,7 @@ use function is_numeric;
 class MessagingApiExceptionConverter
 {
     private readonly ErrorResponseParser $responseParser;
+
     private readonly ClockInterface $clock;
 
     public function __construct(?ClockInterface $clock = null)
@@ -91,6 +93,25 @@ class MessagingApiExceptionConverter
 
             case StatusCode::STATUS_INTERNAL_SERVER_ERROR:
                 $convertedError = new ServerError($message);
+
+                break;
+
+            case StatusCode::STATUS_BAD_GATEWAY:
+                $contentType = mb_strtolower($response->getHeaderLine('Content-Type'));
+                $retryAfter = $this->getRetryAfter($response);
+
+                if (!str_contains($contentType, 'json')) {
+                    // Adding 30 seconds as a fallback retry after because the HTML Response suggests it
+                    // See https://github.com/kreait/firebase-php/issues/988
+                    $retryAfter ??= ($this->clock->now()->add(new DateInterval('PT30S')));
+                    $message = 'The server encountered a temporary error and could not complete your request.';
+                }
+
+                $convertedError = new ServerUnavailable($message);
+
+                if ($retryAfter !== null) {
+                    $convertedError = $convertedError->withRetryAfter($retryAfter);
+                }
 
                 break;
 

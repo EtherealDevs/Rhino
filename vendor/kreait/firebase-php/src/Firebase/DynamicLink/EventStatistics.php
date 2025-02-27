@@ -27,7 +27,9 @@ use function array_filter;
 final class EventStatistics implements Countable, IteratorAggregate
 {
     public const PLATFORM_ANDROID = 'ANDROID';
+
     public const PLATFORM_DESKTOP = 'DESKTOP';
+
     public const PLATFORM_IOS = 'IOS';
 
     // Any click on a Dynamic Link, irrespective to how it is handled and its destinations
@@ -126,6 +128,6 @@ final class EventStatistics implements Countable, IteratorAggregate
 
     public function count(): int
     {
-        return (int) array_sum(array_column($this->events, 'count'));
+        return array_sum(array_column($this->events, 'count'));
     }
 }

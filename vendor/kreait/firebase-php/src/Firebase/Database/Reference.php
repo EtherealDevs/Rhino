@@ -37,7 +37,6 @@ class Reference implements Stringable
     public function __construct(
         UriInterface $uri,
         private readonly ApiClient $apiClient,
-        private readonly UrlBuilder $urlBuilder,
         private readonly Validator $validator = new Validator(),
     ) {
         $this->validator->validateUri($uri);
@@ -93,7 +92,6 @@ class Reference implements Stringable
         return new self(
             $this->uri->withPath('/'.ltrim($parentPath, '/')),
             $this->apiClient,
-            $this->urlBuilder,
             $this->validator,
         );
     }
@@ -103,7 +101,7 @@ class Reference implements Stringable
      */
     public function getRoot(): self
     {
-        return new self($this->uri->withPath('/'), $this->apiClient, $this->urlBuilder, $this->validator);
+        return new self($this->uri->withPath('/'), $this->apiClient, $this->validator);
     }
 
     /**
@@ -122,7 +120,6 @@ class Reference implements Stringable
             return new self(
                 $this->uri->withPath($childPath),
                 $this->apiClient,
-                $this->urlBuilder,
                 $this->validator,
             );
         } catch (\InvalidArgumentException $e) {
@@ -326,7 +323,7 @@ class Reference implements Stringable
         $newKey = $this->apiClient->push($this->uri->getPath(), $value);
         $newPath = sprintf('%s/%s', $this->uri->getPath(), $newKey);
 
-        return new self($this->uri->withPath($newPath), $this->apiClient, $this->urlBuilder, $this->validator);
+        return new self($this->uri->withPath($newPath), $this->apiClient, $this->validator);
     }
 
     /**

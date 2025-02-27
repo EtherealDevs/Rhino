@@ -273,6 +273,8 @@ class InstallCommand extends Command implements PromptsForMissingInput
             $this->runCommands(['pnpm install', 'pnpm run build']);
         } elseif (file_exists(base_path('yarn.lock'))) {
             $this->runCommands(['yarn install', 'yarn run build']);
+        } elseif (file_exists(base_path('bun.lockb'))) {
+            $this->runCommands(['bun install', 'bun run build']);
         } else {
             $this->runCommands(['npm install', 'npm run build']);
         }
@@ -342,7 +344,7 @@ EOF;
     protected function installInertiaStack()
     {
         // Install Inertia...
-        if (! $this->requireComposerPackages('inertiajs/inertia-laravel:^1.0', 'tightenco/ziggy:^2.0')) {
+        if (! $this->requireComposerPackages('inertiajs/inertia-laravel:^2.0', 'tightenco/ziggy:^2.0')) {
             return false;
         }
 
@@ -353,7 +355,7 @@ EOF;
         // Install NPM packages...
         $this->updateNodePackages(function ($packages) {
             return [
-                '@inertiajs/vue3' => '^1.0.14',
+                '@inertiajs/vue3' => '^2.0',
                 '@tailwindcss/forms' => '^0.5.7',
                 '@tailwindcss/typography' => '^0.5.10',
                 '@vitejs/plugin-vue' => '^5.0.0',
@@ -477,6 +479,8 @@ EOF;
             $this->runCommands(['pnpm install', 'pnpm run build']);
         } elseif (file_exists(base_path('yarn.lock'))) {
             $this->runCommands(['yarn install', 'yarn run build']);
+        } elseif (file_exists(base_path('bun.lockb'))) {
+            $this->runCommands(['bun install', 'bun run build']);
         } else {
             $this->runCommands(['npm install', 'npm run build']);
         }

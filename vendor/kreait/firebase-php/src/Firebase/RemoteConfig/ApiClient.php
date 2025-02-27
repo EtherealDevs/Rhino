@@ -19,6 +19,7 @@ use function array_filter;
 class ApiClient
 {
     private readonly RemoteConfigApiExceptionConverter $errorHandler;
+
     private readonly string $baseUri;
 
     public function __construct(string $projectId, private readonly ClientInterface $client)

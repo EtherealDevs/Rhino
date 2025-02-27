@@ -88,15 +88,20 @@ final class Factory
      * @var ServiceAccountShape|null
      */
     private ?array $serviceAccount = null;
+
     private ?FetchAuthTokenInterface $googleAuthTokenCredentials = null;
 
     /**
      * @var non-empty-string|null
      */
     private ?string $projectId = null;
+
     private CacheItemPoolInterface $verifierCache;
+
     private CacheItemPoolInterface $authTokenCache;
+
     private CacheItemPoolInterface $keySetCache;
+
     private ClockInterface $clock;
 
     /**
@@ -118,7 +123,9 @@ final class Factory
      * @var non-empty-string|null
      */
     private ?string $tenantId = null;
+
     private HttpFactory $httpFactory;
+
     private HttpClientOptions $httpClientOptions;
 
     /**
@@ -389,7 +396,6 @@ final class Factory
         return new Database(
             GuzzleUtils::uriFor($databaseUrl),
             new Database\ApiClient($http, $resourceUrlBuilder),
-            $resourceUrlBuilder,
         );
     }
 
@@ -540,7 +546,7 @@ final class Factory
 
         $config = [...$this->httpClientOptions->guzzleConfig(), ...$config];
 
-        $handler = HandlerStack::create();
+        $handler = HandlerStack::create($config['handler'] ?? null);
 
         if ($this->httpLogMiddleware) {
             $handler->push($this->httpLogMiddleware, 'http_logs');
@@ -701,6 +707,7 @@ final class Factory
             $this->serviceAccount = Json::decode($googleApplicationCredentials, true);
         }
 
+        /** @phpstan-ignore return.type */
         return $this->serviceAccount;
     }
 

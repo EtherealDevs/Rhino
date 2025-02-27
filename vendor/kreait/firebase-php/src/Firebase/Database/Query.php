@@ -40,6 +40,7 @@ class Query implements Stringable
      * @var Filter[]
      */
     private array $filters = [];
+
     private ?Sorter $sorter = null;
 
     /**

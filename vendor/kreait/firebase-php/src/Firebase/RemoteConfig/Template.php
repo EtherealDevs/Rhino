@@ -47,6 +47,7 @@ class Template implements JsonSerializable
      * @var list<Condition>
      */
     private array $conditions = [];
+
     private ?Version $version = null;
 
     private function __construct()

@@ -21,8 +21,8 @@
     ],
     "homepage": "https://carbon.nesbot.com",
     "support": {
-        "issues": "https://github.com/briannesbitt/Carbon/issues",
-        "source": "https://github.com/briannesbitt/Carbon",
+        "issues": "https://github.com/CarbonPHP/carbon/issues",
+        "source": "https://github.com/CarbonPHP/carbon",
         "docs": "https://carbon.nesbot.com/docs"
     },
     "funding": [
@@ -42,7 +42,7 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
-        "carbonphp/carbon-doctrine-types": "*",
+        "carbonphp/carbon-doctrine-types": "<100.0",
         "psr/clock": "^1.0",
         "symfony/clock": "^6.3 || ^7.0",
         "symfony/polyfill-mbstring": "^1.0",

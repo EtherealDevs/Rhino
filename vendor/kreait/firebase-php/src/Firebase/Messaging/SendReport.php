@@ -16,7 +16,9 @@ final class SendReport
      * @var array<array-key, scalar>|null
      */
     private ?array $result = null;
+
     private ?Message $message = null;
+
     private ?Throwable $error = null;
 
     private function __construct(private readonly MessageTarget $target)

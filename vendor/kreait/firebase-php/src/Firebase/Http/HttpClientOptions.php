@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Kreait\Firebase\Http;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\RequestOptions;
 use Kreait\Firebase\Exception\InvalidArgumentException;
+use Psr\Http\Message\RequestInterface;
 
 use function is_callable;
 
@@ -189,5 +191,13 @@ final class HttpClientOptions
         }
 
         return new self($this->guzzleConfig, $newMiddlewares);
+    }
+
+    /**
+     * @param callable(RequestInterface, array<mixed>): PromiseInterface $handler
+     */
+    public function withGuzzleHandler(callable $handler): self
+    {
+        return $this->withGuzzleConfigOption('handler', $handler);
     }
 }

@@ -67,9 +67,13 @@ use function sprintf;
 final class WebPushConfig implements JsonSerializable
 {
     private const URGENCY_VERY_LOW = 'very-low';
+
     private const URGENCY_LOW = 'low';
+
     private const URGENCY_NORMAL = 'normal';
+
     private const URGENCY_HIGH = 'high';
+
     private const VALID_URGENCIES = [
         self::URGENCY_VERY_LOW,
         self::URGENCY_LOW,
