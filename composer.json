@@ -5,7 +5,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "anayarojo/shoppingcart": "^4.2",
         "kreait/firebase-php": "^7.12",
         "kreait/laravel-firebase": "^5.8",
