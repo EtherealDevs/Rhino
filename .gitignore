@@ -5,6 +5,7 @@
 /public/img/categories/
 /public/img/Rino.mp4
 /public/img/rino.mp4
+/.htaccess
 /storage/*.key
 .env
 .env.backup
