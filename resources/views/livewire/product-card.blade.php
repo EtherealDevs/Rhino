@@ -39,11 +39,20 @@
             </button>
 
             @if ($item->getTotalStock() > 0)
+            @php
+                $itemSize = null;
+                foreach ($item->sizes as $size) {
+                    if ($size->pivot->deletedAt == null) {
+                        $itemSize = $size;
+                        break;
+                    }
+                }
+            @endphp
                 <form method="POST" action="{{ route('cart.addItem') }}">
                     @csrf
                     <input type="hidden" name="item" value="{{ $item->id }}">
                     <input type="hidden" name="size"
-                        value="{{ $item->sizes()->wherePivot('deleted_at', '=', null)->wherePivot('stock', '>', 0)->first()->name }}">
+                        value="{{ $itemSize }}">
 
                     <input type="hidden" name="quantity" value="1">
                     <button aria-label="" type="submit"
