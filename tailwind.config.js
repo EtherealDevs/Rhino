@@ -24,6 +24,7 @@ export default {
                 ],
                 josefin: ["'Josefin Sans'", ...defaultTheme.fontFamily.sans],
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                calsans: ['"Cal Sans"', ...defaultTheme.fontFamily.sans],
             },
             screens: {
                 sm: "640px",

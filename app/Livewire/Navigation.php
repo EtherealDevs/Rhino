@@ -92,8 +92,11 @@ class Navigation extends Component
 
     public function render()
     {
+        $categories = \App\Models\Category::all(); // Carga todas las colecciones (categorías)
+
         return view('livewire.navigation', [
             'cartContents' => $this->cartContents,
+            'categories' => $categories, // ahora disponibles en la vista
         ]);
     }
 }

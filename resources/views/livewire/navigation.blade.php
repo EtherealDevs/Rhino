@@ -9,14 +9,39 @@
                 <div class="flex items-center">
                     <div class="hidden md:block">
                         <div class="flex items-baseline space-x-4">
-                            <a href="/" class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2"
+                            <a href="/" class="nav-item text-gray-800 font-bold font-calsans text-[17px] px-3 py-2"
                                 aria-current="page">Inicio</a>
-                            <a href="/products"
-                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Productos</a>
+                            {{-- Botón Colecciones con dropdown --}}
+                            <div x-data="{ open: false }" class="nav-item relative">
+                                <button x-on:click="open = !open"
+                                    class="nav-item text-gray-800 font-bold nav-item font-calsans text-[17px] px-3 py-2 flex items-center space-x-1">
+                                    <span>Colecciones</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                <div x-show="open" x-transition x-on:click.away="open = false"
+                                    class="absolute z-40 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                                    @foreach ($categories as $category)
+                                        @if (is_null($category->parent_id))
+                                            <a href="{{ route('collection.index', ['category' => $category->id]) }}"
+                                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-800 transition font-calsans text-sm">
+                                                {{ $category->name }}
+                                            </a>
+                                        @endif
+                                    @endforeach
+
+                                    <a href="/products"
+                                        class="nav-item text-gray-800 font-bold font-calsans text-[17px] px-3 py-2">Ver Productos</a>
+                                </div>
+                            </div>
                             <a href="/about"
-                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Nosotros</a>
+                                class="nav-item text-gray-800 font-bold font-calsans text-[17px] px-3 py-2">Nosotros</a>
                             <a href="/contact"
-                                class="nav-item text-gray-800 font-bold font-josefin text-[17px] px-3 py-2">Contacto</a>
+                                class="nav-item text-gray-800 font-bold font-calsans text-[17px] px-3 py-2">Contacto</a>
                         </div>
                     </div>
                     <div class="flex-shrink-0 flex bg-white lg:py-6 lg:rounded-full lg:ml-36">
@@ -268,6 +293,31 @@
                             <a href="/"
                                 class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
                                 x-on:click="open = !open">Inicio</a>
+
+                            {{-- Botón Colecciones con dropdown --}}
+                            <div x-data="{ open: false }" class="relative">
+                                <button x-on:click="open = !open"
+                                    class="nav-item text-gray-800 font-bold font-calsans text-[17px] px-3 py-2 flex items-center space-x-1">
+                                    <span>Colecciones</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                <div x-show="open" x-transition x-on:click.away="open = false"
+                                    class="absolute z-40 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                                    @foreach ($categories as $category)
+                                        @if (is_null($category->parent_id))
+                                            <a href="{{ route('collection.index', ['category' => $category->id]) }}"
+                                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-800 transition font-calsans text-sm">
+                                                {{ $category->name }}
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                             <a href="/about"
                                 class="text-gray-800 font-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base"
                                 x-on:click="open = !open">Nosotros</a>

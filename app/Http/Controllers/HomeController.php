@@ -13,7 +13,13 @@ class HomeController extends Controller
     {
         // Obtener los tres últimos ProductItem
         // $latestProductItems = ProductItem::orderBy('created_at', 'desc')->get();
-        $latestProductItems = ProductItem::getAvailable()->orderBy('created_at', 'desc')->get()->unique('product_id')->take(3);
+        $latestProductItems = ProductItem::getAvailable()
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->unique('product_id');
+
+        $latestProductItemsDesktop = $latestProductItems->take(3); // para desktop
+        $latestProductItemsMobile = $latestProductItems->take(4); // para mobile
         $sales = Sale::all();
 
         // Configurar la zona horaria
@@ -27,6 +33,6 @@ class HomeController extends Controller
             }
         }
         // Pasar los datos a la vista
-        return view('home.index', compact('latestProductItems', 'sales'));
+        return view('home.index', compact('latestProductItems', 'latestProductItemsMobile', 'latestProductItemsDesktop',  'sales'));
     }
 }

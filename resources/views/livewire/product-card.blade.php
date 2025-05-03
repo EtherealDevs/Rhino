@@ -23,7 +23,7 @@
             </div>
         @else
             <div
-                class="absolute top-2 left-2 bg-[#26ca60] text-white text-sm font-bold font-josefin rounded-xl px-2 py-1">
+                class="absolute top-2 left-2 bg-[#1437ff] text-white text-sm font-bold font-calsans rounded-xl px-2 py-1">
                 ${{ number_format($item->price() / 100, 2, ',', '.') }}
             </div>
         @endif
@@ -72,7 +72,7 @@
         <a href="{{ route('products.show', ['product' => $product, 'productItem' => $item]) }}" class="h-fulll">
             <div class="grid grid-cols-1 content-around h-full">
                 <p
-                    class="block font-sans font-bold truncate text-sm lg:text-base leading-5 uppercase text-white antialiased text-center">
+                    class="block font-calsans font-bold truncate text-sm lg:text-base leading-5 uppercase text-white antialiased text-center">
                     {{ $product->name }}
                 </p>
                 <p class="block font-sans text-sm font-light leading-relaxed text-white antialiased text-center">

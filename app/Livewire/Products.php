@@ -16,14 +16,17 @@ class Products extends Component
         $categories = Category::all();
         $combos = Combo::all();
         $products = Product::whereHas('items.sizes', function ($query) {
-            $query->where('products_sizes.stock', '>', 0) // Filter stock > 0 on the pivot table
-                ->whereNull('products_sizes.deleted_at'); // Ensure products_sizes is not soft deleted
-        })->with([
-            'items.sizes' => function ($query) {
-                $query->whereNull('products_sizes.deleted_at') // Filtrar por tamaños válidos
-                    ->where('products_sizes.stock', '>', 0);
-            }
-        ])->paginate(16);
+            $query->where('products_sizes.stock', '>', 0)
+                ->whereNull('products_sizes.deleted_at');
+        })
+            ->with([
+                'items.sizes' => function ($query) {
+                    $query->whereNull('products_sizes.deleted_at')
+                        ->where('products_sizes.stock', '>', 0);
+                }
+            ])
+            ->inRandomOrder()
+            ->paginate(26);
 
         // Pasar $this->products a la vista correctamente
         return view('livewire.products', [
