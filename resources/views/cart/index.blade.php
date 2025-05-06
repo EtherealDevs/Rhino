@@ -8,7 +8,7 @@
                         <h3 class="font-bold font-josefin text-4xl sm:text-xl lg:text-5xl">Mi Carrito</h3>
                     </div>
 
-                   {{--  <div class="">
+                    <div class="">
                         @if ($combos !== null && $items !== null)
                             @if ($combos->isNotEmpty() || $items->isNotEmpty())
                                 <form method="POST" action="{{ route('cart.dropCart') }}">
@@ -20,7 +20,7 @@
                                 </form>
                             @endif
                         @endif
-                    </div> --}}
+                    </div>
                 </div>
                 <div class="flow-root">
                     @session('failure')
@@ -31,11 +31,11 @@
                     @endsession
                     @if ($combos !== null && $items !== null)
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
-                            @if ($combos->isNotEmpty())
+                           {{--  @if ($combos->isNotEmpty())
                                 @foreach ($combos as $comboKey => $comboValue)
                                     @livewire('cart-combo', ['cartComboId' => $comboKey, 'cartCombo' => $comboValue])
                                 @endforeach
-                            @endif
+                            @endif --}}
                             @if ($items->isNotEmpty())
                                 @foreach ($items as $itemKey => $itemValue)
                                     @livewire('cart-item', ['cartItemId' => $itemKey, 'cartItem' => $itemValue])
