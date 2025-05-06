@@ -27,11 +27,15 @@ class CartItem
     {
         Log::info("Cart Item", ['productItem' => $productItem, 'size' => $size, 'quantity' => $quantity]);
         if ($size instanceof \stdClass) {
-            // It's a stdClass object
-            $size_id = Size::where('name', '=', $size->stdClass->name)->first()->id;
+            // Get the size ID directly
+            $size_id = $size->id ?? null;
+        } else {
+            // Assume it's a string like "46" and look up the ID
+            $size_id = Size::where('name', $size)->value('id');
         }
-        else {
-            $size_id = Size::where('name', '=', $size)->first()->id;
+        
+        if (!$size_id) {
+            throw new \Exception("Invalid size value: could not resolve size ID.");
         }
         $this->pivotModel = ProductSize::where('product_item_id', $productItem->id)->where('size_id', $size_id)->first();
         $this->productItemModel = $productItem;
