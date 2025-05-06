@@ -286,8 +286,8 @@
                     </div>
 
                     <!-- Desktop (oculto en mobile) -->
-                    <div class="w-full flex justify-center hidden lg:flex">
-                        <div class="grid grid-cols-3 xl:gap-8 gap-4">
+                    <div class="w-full justify-center hidden lg:flex">
+                        <div class="w-full max-w-5xl grid grid-cols-3 xl:gap-8 gap-4">
                             @foreach ($latestProductItemsDesktop as $productItem)
                                 @php
                                     $item = $productItem;

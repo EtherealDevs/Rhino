@@ -8,7 +8,7 @@
                         <h3 class="font-bold font-josefin text-4xl sm:text-xl lg:text-5xl">Mi Carrito</h3>
                     </div>
 
-                    <div class="">
+                   {{--  <div class="">
                         @if ($combos !== null && $items !== null)
                             @if ($combos->isNotEmpty() || $items->isNotEmpty())
                                 <form method="POST" action="{{ route('cart.dropCart') }}">
@@ -20,7 +20,7 @@
                                 </form>
                             @endif
                         @endif
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="flow-root">
                     @session('failure')
