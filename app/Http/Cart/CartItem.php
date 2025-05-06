@@ -6,6 +6,7 @@ use App\Models\ProductItem;
 use App\Models\ProductSize;
 use App\Models\Size;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 
 class CartItem
 {
@@ -25,7 +26,13 @@ class CartItem
     public function __construct(ProductItem $productItem, $size, $quantity = 1)
     {
         Log::info("Cart Item", ['productItem' => $productItem, 'size' => $size, 'quantity' => $quantity]);
-        $size_id = Size::where('name', '=', $size)->first()->id;
+        if ($size instanceof \stdClass) {
+            // It's a stdClass object
+            $size_id = Size::where('name', '=', $size->stdClass->name)->first()->id;
+        }
+        else {
+            $size_id = Size::where('name', '=', $size)->first()->id;
+        }
         $this->pivotModel = ProductSize::where('product_item_id', $productItem->id)->where('size_id', $size_id)->first();
         $this->productItemModel = $productItem;
         $this->sizeModel = $productItem->sizes()->find($size_id);
