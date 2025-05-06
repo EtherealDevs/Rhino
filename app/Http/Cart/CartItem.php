@@ -5,6 +5,7 @@ use App\Models\Combo;
 use App\Models\ProductItem;
 use App\Models\ProductSize;
 use App\Models\Size;
+use Illuminate\Support\Facades\Log;
 
 class CartItem
 {
@@ -23,6 +24,7 @@ class CartItem
     public $pivotModel;
     public function __construct(ProductItem $productItem, $size, $quantity = 1)
     {
+        Log::info("Cart Item", ['productItem' => $productItem, 'size' => $size, 'quantity' => $quantity]);
         $size_id = Size::where('name', '=', $size)->first()->id;
         $this->pivotModel = ProductSize::where('product_item_id', $productItem->id)->where('size_id', $size_id)->first();
         $this->productItemModel = $productItem;
