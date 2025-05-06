@@ -31,11 +31,11 @@
                     @endsession
                     @if ($combos !== null && $items !== null)
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-200">
-                           {{--  @if ($combos->isNotEmpty())
+                            @if ($combos->isNotEmpty())
                                 @foreach ($combos as $comboKey => $comboValue)
                                     @livewire('cart-combo', ['cartComboId' => $comboKey, 'cartCombo' => $comboValue])
                                 @endforeach
-                            @endif --}}
+                            @endif
                             @if ($items->isNotEmpty())
                                 @foreach ($items as $itemKey => $itemValue)
                                     @livewire('cart-item', ['cartItemId' => $itemKey, 'cartItem' => $itemValue])
