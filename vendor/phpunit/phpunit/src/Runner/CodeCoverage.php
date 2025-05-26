@@ -47,10 +47,14 @@ final class CodeCoverage
 {
     private static ?self $instance                                      = null;
     private ?\SebastianBergmann\CodeCoverage\CodeCoverage $codeCoverage = null;
-    private ?Driver $driver                                             = null;
-    private bool $collecting                                            = false;
-    private ?TestCase $test                                             = null;
-    private ?Timer $timer                                               = null;
+
+    /**
+     * @phpstan-ignore property.internalClass
+     */
+    private ?Driver $driver  = null;
+    private bool $collecting = false;
+    private ?TestCase $test  = null;
+    private ?Timer $timer    = null;
 
     public static function instance(): self
     {
@@ -105,11 +109,11 @@ final class CodeCoverage
 
         if ($codeCoverageFilterRegistry->get()->isEmpty()) {
             if (!$codeCoverageFilterRegistry->configured()) {
-                EventFacade::emitter()->testRunnerTriggeredWarning(
+                EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                     'No filter is configured, code coverage will not be processed',
                 );
             } else {
-                EventFacade::emitter()->testRunnerTriggeredWarning(
+                EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                     'Incorrect filter configuration, code coverage will not be processed',
                 );
             }
@@ -131,9 +135,12 @@ final class CodeCoverage
         return $this->codeCoverage;
     }
 
-    public function driver(): Driver
+    /**
+     * @return non-empty-string
+     */
+    public function driverNameAndVersion(): string
     {
-        return $this->driver;
+        return $this->driver->nameAndVersion();
     }
 
     public function start(TestCase $test): void
@@ -222,7 +229,7 @@ final class CodeCoverage
 
             try {
                 $writer = new CloverReport;
-                $writer->process($this->codeCoverage(), $configuration->coverageClover());
+                $writer->process($this->codeCoverage(), $configuration->coverageClover(), 'Clover Coverage');
 
                 $this->codeCoverageGenerationSucceeded($printer);
 
@@ -349,7 +356,7 @@ final class CodeCoverage
                 $filter,
             );
         } catch (CodeCoverageException $e) {
-            EventFacade::emitter()->testRunnerTriggeredWarning(
+            EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 $e->getMessage(),
             );
         }

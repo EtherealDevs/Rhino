@@ -7,6 +7,12 @@ Please read about the future of the Firebase Admin PHP SDK on the
 
 ## [Unreleased]
 
+## [7.18.0] - 2025-03-08
+
+### Added
+
+* It is now possible to configure multi factor authentication for a user.
+
 ## [7.17.0] - 2025-02-22
 
 ### Added
@@ -305,7 +311,8 @@ See **[UPGRADE-7.0](UPGRADE-7.0.md) for more details on the changes between 6.x 
 
 https://github.com/kreait/firebase-php/blob/6.9.6/CHANGELOG.md
 
-[Unreleased]: https://github.com/kreait/firebase-php/compare/7.17.0...7.x
+[Unreleased]: https://github.com/kreait/firebase-php/compare/7.18.0...7.x
+[7.18.0]: https://github.com/kreait/firebase-php/compare/7.17.0...7.18.0
 [7.17.0]: https://github.com/kreait/firebase-php/compare/7.16.1...7.17.0
 [7.16.1]: https://github.com/kreait/firebase-php/compare/7.16.0...7.16.1
 [7.16.0]: https://github.com/kreait/firebase-php/compare/7.15.0...7.16.0

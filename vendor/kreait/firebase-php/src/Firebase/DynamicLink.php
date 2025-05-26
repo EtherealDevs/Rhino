@@ -14,6 +14,10 @@ use Stringable;
 use function trim;
 
 /**
+ * @deprecated 7.14.0 Firebase Dynamic Links is deprecated and should not be used in new projects. The service will
+ *                     shut down on August 25, 2025. The component will remain in the SDK until then, but as the
+ *                     Firebase service is deprecated, this component is also deprecated
+ *
  * @see https://github.com/googleapis/google-api-nodejs-client/blob/main/src/apis/firebasedynamiclinks/v1.ts
  *
  * @phpstan-type DynamicLinkWarningShape array{
