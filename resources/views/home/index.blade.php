@@ -42,7 +42,7 @@
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="Banner de tienda física" loading="lazy">
                                     </div>
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    {{-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="/img/banners/5.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="Banner principal" loading="lazy">
@@ -61,7 +61,7 @@
                                         <img src="/img/banners/8.webp"
                                             class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="..." loading="lazy">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
                                 <!-- Slider controls -->
